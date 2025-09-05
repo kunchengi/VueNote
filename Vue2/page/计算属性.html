@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+</head>
+<body>
+    <div id="root">
+        <input type="number" v-model.number="firstNumber">
+        <input type="number" v-model.number="secondNumber">
+        <span>{{sum}}</span>
+        <button @click="sum++">点我sum加1</button>
+        <span>{{sum1}}</span>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el:"#root",
+            data:{
+                firstNumber:0,
+                secondNumber:0
+            },
+            // 计算属性
+            computed:{
+                // 定义sum计算属性
+                sum:{
+                    // 定义sum的get方法，初次读取时会执行一次，当依赖的数据发生改变时会被再次调用
+                    get(){
+                        return this.firstNumber + this.secondNumber;
+                    },
+                    // 定义sum的set方法，当sum被修改时会执行
+                    set(value){
+                        this.firstNumber = value - this.secondNumber;
+                    }
+                },
+                // 计算属性简写，相当于get方法
+                sum1(){
+                    return this.firstNumber + this.secondNumber;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -122,6 +122,9 @@
     - 语法：v-model:xxx = 'xxxx' ，xxxx 是data中的属性，xxx 是元素中的属性
     - v-model只能用在表单类元素上（如：input、select等）
     - v-model:value 可以简写为 v-model，因为v-model默认收集的就是value值
+    - 在 Vue 2 中，使用 v-model 绑定 input 元素时，默认情况下 input 的值会被当作字符串（string）处理。
+    - 即使在 input 上设置了 type="number"，v-model 依然会把输入的内容当作字符串来存储到 data 里的 firstNumber 和 secondNumber。
+    - 解决办法：使用v-model.number
 ```html
   <div id="root">
       <!-- 普通写法 -->
@@ -403,3 +406,62 @@
 ```
 
 [键盘事件](./page/键盘事件.html)
+
+# 计算属性
+
+- 求和案例
+  - 当输入框的值发生改变，实时显示求和的结果
+
+- 通过已有的属性，计算出一个新的属性
+- 原理
+  - 借助了Objcet.defineproperty方法提供的getter和setter，当数据发生改变时，会自动调用getter和setter，重新计算出一个新的属性
+- 计算属性的函数执行时机
+  - 初次读取时会执行一次
+  - 当依赖的数据发生改变时会被再次调用
+- 优势
+  - 与其它实现方式相比，内部有缓存机制（复用），效率更高，调试方便
+- 计算属性最终会出现在vm上，直接读取使用即可
+- 如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变
+- 使用
+  - 通过computed配置项给vm添加计算属性
+  - computed是对象，对象中配置的属性称为计算属性
+  - 计算属性需要配置get方法，get方法需要返回计算后的结果
+  - 计算属性可以被修改，必须写set方法，set方法需要传入修改后的值。且要在set中更新依赖的数据
+  - 当计算属性不需要set方法时，可以简写成一个函数，返回计算后的结果，相当于get方法
+```html
+  <div id="root">
+      <input type="number" v-model.number="firstNumber">
+      <input type="number" v-model.number="secondNumber">
+      <span>{{sum}}</span>
+      <button @click="sum++">点我sum加1</button>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+  <script type="text/javascript">
+      Vue.config.productionTip = false;
+      new Vue({
+          el:"#root",
+          data:{
+              firstNumber:0,
+              secondNumber:0
+          },
+          // 计算属性
+          computed:{
+              // 定义sum计算属性
+              sum:{
+                  // 定义sum的get方法，初次读取时会执行一次，当依赖的数据发生改变时会被再次调用
+                  get(){
+                      return this.firstNumber + this.secondNumber;
+                  },
+                  // 定义sum的set方法，当sum被修改时会执行
+                  set(value){
+                      this.firstNumber = value - this.secondNumber;
+                  }
+              }
+          }
+      });
+  </script>
+```
+
+[计算属性](./page/计算属性.html)
+
+![计算属性实现求和](./imgs/计算属性实现求和.png)
