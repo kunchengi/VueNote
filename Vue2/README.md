@@ -201,3 +201,16 @@
 
 - data中所有的属性，最后都出现在了vm身上
 - vm身上所有的属性 及 Vue原型上所有属性，在Vue模板中都可以直接使用
+
+# Vue2中的数据代理
+
+- 通过vm对象来代理data对象中属性的操作（读/写）
+- Vue2中的数据代理是通过Object.defineProperty()方法来实现的
+- Vue中数据代理的好处
+  - 更方便的操作data中的数据
+- 基本原理
+  - 通过Object.defineProperty()把data对象中所有属性添加到vm上
+  - 为每一个添加到vm上的属性，都指定一个getter/setter
+  - 在getter/setter内部去操作data中对应的属性
+
+![Vue2数据代理](./imgs/Vue2数据代理.png)
