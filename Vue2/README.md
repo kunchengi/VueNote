@@ -107,3 +107,48 @@
 [模板语法](./page/模板语法.html)
 
 ![模板语法](./imgs/模板语法.png)
+
+# 数据绑定
+
+- Vue中有2种数据绑定的方式
+  - 单向绑定(v-bind)
+    - 数据只能从data流向页面
+    - 数据更新会驱动UI更新，但是UI更新不会驱动数据更新
+    - 语法：v-bind:xxx = 'xxxx' ，xxxx 是data中的属性，xxx 是元素中的属性
+    - 简写：:xxx = 'xxxx'
+  - 双向绑定(v-model)
+    - 数据既能从data流向页面，又能从页面流向data
+    - UI更新会驱动数据更新，数据更新也会驱动UI更新
+    - 语法：v-model:xxx = 'xxxx' ，xxxx 是data中的属性，xxx 是元素中的属性
+    - v-model只能用在表单类元素上（如：input、select等）
+    - v-model:value 可以简写为 v-model，因为v-model默认收集的就是value值
+```html
+  <div id="root">
+      <!-- 普通写法 -->
+      <input type="text" v-bind:value="name"><br/>
+      <input type="text" v-model:value="name"><br/>
+
+      <!-- 简写 -->
+      <input type="text" :value="name"><br/>
+      <input type="text" v-model="name"><br/>
+      <button v-on:click="name = '张三'">点击修改name值</button>
+
+      <!-- 以下代码是错误的，因为v-model只能应用在表单类元素（输入类元素）上 -->
+      <!-- <h2 v-model:x="name">你好啊</h2> -->
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+  <script type="text/javascript">
+      //全局配置，阻止 vue 在启动时生成生产提示
+      Vue.config.productionTip = false;
+      new Vue({
+          el:"#root",
+          data:{
+              name:"KenSen"
+          }
+      });
+  </script>
+```
+
+[数据绑定](./page/数据绑定.html)
+
+![数据绑定](./imgs/数据绑定.png)
