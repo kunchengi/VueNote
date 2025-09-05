@@ -12,6 +12,8 @@
         <h1>{{name}}</h1>
         <!-- 指令语法 -->
         <input type="text" v-model:value="name">
+        <!-- 可以直接访问Vue实例中的数据 -->
+        <h1>{{$options.data.name}}</h1>
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
     <script type="text/javascript">

@@ -184,3 +184,20 @@
   }).$mount('#root');
 ```
 [el与data的两种写法](./page/el与data的两种写法.html)
+
+## MVVM模型
+
+- M：模型(Model)
+  - 数据层
+  - 对应Vue中的data数据
+- V：视图(View)
+  - 视图层
+  - 对应Vue中的模板
+- VM：视图模型(ViewModel)
+  - 连接M和V的桥梁
+  - 对应Vue中的Vue实例
+
+![MVVM模型](./imgs/MVVM模型.png)
+
+- data中所有的属性，最后都出现在了vm身上
+- vm身上所有的属性 及 Vue原型上所有属性，在Vue模板中都可以直接使用
