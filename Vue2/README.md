@@ -352,3 +352,54 @@
 ```
 
 [事件修饰符](./page/事件修饰符.html)
+
+## 键盘事件
+
+- Vue中常用的按键别名
+  - 回车 => enter
+  - 删除 => delete (捕获“删除”和“退格”键)
+  - 退出 => esc
+  - 空格 => space
+  - 换行 => tab (特殊，必须配合keydown去使用)
+  - 上 => up
+  - 下 => down
+  - 左 => left
+  - 右 => right
+
+- 系统修饰键（用法特殊）：ctrl、alt、shift、meta
+  - 配合keyup使用时
+    - 按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发
+  - 配合keydown使用
+    - 正常触发事件
+- 也可以使用keyCode去指定具体的按键（不推荐）
+- 自定义按键别名
+  - 在Vue.config.keyCodes中自定义按键别名
+  - 自定义别名建议使用全小写，否则可能不生效
+```html
+  <div id="root">
+      <input type="text" placeholder="按下键盘就会触发事件" @keydown="showInfo">
+      <input type="text" placeholder="按下回车键就会触发事件" @keydown.enter="showInfo">
+      <input type="text" placeholder="按下F9键就会触发事件" @keydown.fnine="showInfo">
+      <input type="text" placeholder="按下Ctrl+Y键就会触发事件" @keyup.ctrl.y="showInfo">
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+  <script type="text/javascript">
+      Vue.config.productionTip = false;
+      // 自定义F9按键别名
+      Vue.config.keyCodes.fnine = 120;
+      console.log(Vue.config.keyCodes);
+      new Vue({
+          el:"#root",
+          data:{
+              name:"KenSen"
+          },
+          methods:{
+              showInfo(e){
+                  console.log(e.key,e.keyCode);
+              }
+          }
+      });
+  </script>
+```
+
+[键盘事件](./page/键盘事件.html)

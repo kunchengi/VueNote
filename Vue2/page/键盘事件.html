@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘事件</title>
+</head>
+<body>
+    <div id="root">
+        <input type="text" placeholder="按下键盘就会触发事件" @keydown="showInfo">
+        <input type="text" placeholder="按下回车键就会触发事件" @keydown.enter="showInfo">
+        <input type="text" placeholder="按下F9键就会触发事件" @keydown.fnine="showInfo">
+        <input type="text" placeholder="按下Ctrl+Y键就会触发事件" @keyup.ctrl.y="showInfo">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        // 自定义F9按键别名
+        Vue.config.keyCodes.fnine = 120;
+        console.log(Vue.config.keyCodes);
+        new Vue({
+            el:"#root",
+            data:{
+                name:"KenSen"
+            },
+            methods:{
+                showInfo(e){
+                    console.log(e.key,e.keyCode);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
