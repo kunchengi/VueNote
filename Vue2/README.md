@@ -214,3 +214,50 @@
   - 在getter/setter内部去操作data中对应的属性
 
 ![Vue2数据代理](./imgs/Vue2数据代理.png)
+
+# 事件处理
+
+## 事件的基本使用
+
+- 使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名
+- @click="demo" 和 @click="demo()" 效果一致
+- @click="demo($event, 666)" 中如果同时传入了$event，则会被解析为原生事件对象
+- methods对象
+  - 是一个Vue实例对象，用于给Vue实例对象添加方法，但不会做数据代理
+  - 事件的回调需要配置在methods对象中，最终会在vm上
+  - methods中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象，不要用箭头函数！否则this就不是vm了
+  - 如果将方法写到data里，也能使用，但是会做数据代理，可能会降低性能
+
+```html
+  <div id="root">
+      <button v-on:click="showInfo">v-on点我提示信息,不传参</button>
+      <button @click="showInfo">@click点我提示信息1不传参,简写形式</button>
+      <button @click="showInfo1(66)">点我提示信息2,传参，但不传事件对象</button>
+      <button @click="showInfo2($event,66)">点我提示信息2,传参，传事件对象</button>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+  <script type="text/javascript">
+      Vue.config.productionTip = false;
+      new Vue({
+          el:"#root",
+          data:{
+              name:"KenSen"
+          },
+          methods:{
+              showInfo(){
+                  console.log('this',this);//此处的this是Vue实例
+                  console.log('showInfo');// showInfo
+              },
+              showInfo1(number){
+                  console.log('number',number);// 66
+              },
+              showInfo2(event,number){
+                  console.log('event',event);// 事件对象
+                  console.log('number',number);// 66
+              }
+          }
+      });
+  </script>
+```
+
+[事件的基本使用](./page/事件的基本使用.html)
