@@ -261,3 +261,94 @@
 ```
 
 [事件的基本使用](./page/事件的基本使用.html)
+
+## 事件修饰符
+
+- prevent
+  - 阻止事件的默认行为
+  - 相当于event.preventDefault()
+
+- stop
+  - 阻止事件冒泡
+  - 相当于event.stopPropagation()
+
+- once
+  - 事件只触发一次
+
+- 修饰符可以连着写，有先后顺序
+  - @click.prevent.stop.once = "demo"
+
+- capture
+  - 事件捕获阶段触发
+
+- self
+  - 事件只触发自身
+
+- passive
+  - 事件的默认行为立即执行，无需等待事件回调执行完毕
+
+```html
+    <div id="root">
+        <!-- 原生js阻止默认事件 -->
+        <a href="http://www.atguigu.com" @click="showInfo($event)">原生js阻止默认事件</a>
+        <!-- prevent修饰符阻止默认事件 -->
+        <a href="http://www.atguigu.com" @click.prevent="showMsg(66)">prevent修饰符阻止默认事件</a>
+        <!-- 原生js阻止事件冒泡 -->
+        <div class="demo1" @click="showInfo($event)">
+            <button @click="showInfo($event)">原生js阻止事件冒泡</button>
+        </div>  
+        <!-- stop修饰符阻止事件冒泡 -->
+        <div class="demo1" @click="showInfo">
+            <button @click.stop="showInfo">stop修饰符阻止事件冒泡</button>
+            <!-- 修饰符可以连续写 -->
+            <!-- <a href="http://www.atguigu.com" @click.prevent.stop="showInfo">点我提示信息</a> -->
+        </div>
+        <!-- once事件只触发一次 -->
+        <button @click.once="showInfo">once事件只触发一次</button>
+        <!-- capture使用事件的捕获模式，捕获阶段开始处理事件 -->
+        <div class="box1" @click.capture="showMsg(1)">
+            capture使用事件的捕获模式，捕获阶段开始处理事件
+            <div class="box2" @click="showMsg(2)">
+                div2
+            </div>
+        </div>
+        <!-- self只有event.target是当前操作的元素时才触发事件 -->
+        <div class="demo1" @click.self="showInfo">
+            <button @click="showInfo">self只有event.target是当前操作的元素时才触发事件</button>
+        </div>
+        <!-- @wheel是鼠标滚轮滚动事件，事件的默认行为立即执行，无需等待事件回调执行完毕； -->
+        <ul @wheel.passive="demo" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el:"#root",
+            data:{
+                name:"KenSen"
+            },
+            methods:{
+                showInfo(e){
+                    //原生js阻止浏览器默认行为
+                    e.preventDefault();
+                    //原生js阻止事件冒泡
+                    e.stopPropagation();
+                    console.log('showInfo');
+                },
+                showMsg(msg){
+                    console.log(msg);
+                },
+                demo(){
+                    console.log('demo');
+                }
+            }
+        });
+    </script>
+```
+
+[事件修饰符](./page/事件修饰符.html)
