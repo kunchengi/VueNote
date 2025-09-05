@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>el与data的两种写法</title>
+</head>
+<body>
+    <div id="root">
+        <h1>el与data的两种写法</h1>
+        <!-- 插值语法 -->
+        <h1>{{name}}</h1>
+        <!-- 指令语法 -->
+        <input type="text" v-model:value="name">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        //全局配置，阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false;
+        // new Vue({
+        //     // 方式一：new Vue时候配置el属性
+        //     el:"#root",
+        //     // 对象式
+        //     data:{
+        //         name:"KenSen"
+        //     }
+        // });
+        // 方式二：先创建Vue实例，随后再通过$mount('#root')指定el
+        new Vue({
+            // 函数式
+            data(){
+                console.log(this);// 此处的this是Vue实例
+                return {
+                    name:"KenSen"
+                }
+            }
+        }).$mount('#root');
+    </script>
+</body>
+</html>

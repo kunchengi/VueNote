@@ -152,3 +152,35 @@
 [数据绑定](./page/数据绑定.html)
 
 ![数据绑定](./imgs/数据绑定.png)
+
+# el与data的两种写法
+
+- el的两种写法
+  - 方式一：new Vue时候配置el属性
+  - 方式二：先创建Vue实例，随后再通过$mount('#root')指定el
+- data的两种写法
+  - 对象式
+  - 函数式
+  - 目前哪种写法都可以，以后学习到组件时，data必须使用函数式，否则会报错
+- 由Vue管理的函数，一定不要写箭头函数，一旦写了箭头函数，this就不再是Vue实例了
+```js
+  new Vue({
+      // 方式一：new Vue时候配置el属性
+      el:"#root",
+      // 对象式
+      data:{
+          name:"KenSen"
+      }
+  });
+  // 方式二：先创建Vue实例，随后再通过$mount('#root')指定el
+  new Vue({
+      // 函数式
+      data(){
+          console.log(this);// 此处的this是Vue实例
+          return {
+              name:"KenSen"
+          }
+      }
+  }).$mount('#root');
+```
+[el与data的两种写法](./page/el与data的两种写法.html)
