@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板语法</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 插值语法 -->
+        <h1>{{userInfo.name}}</h1>
+        <!-- 指令语法 -->
+        <a v-bind:href="userInfo.github">github</a>
+        <!-- v-bind的简写 -->
+        <a :href="userInfo.github">github简写</a>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        //全局配置，阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false;
+        new Vue({
+            el:"#root",
+            data:{
+                userInfo: {
+                    name:"KenSen",
+                    age:18,
+                    github:"https://github.com/kunchengi"
+                }
+            }
+        });
+    </script>
+</body>
+</html>

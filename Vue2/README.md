@@ -67,3 +67,43 @@
 
 [创建Vue实例并绑定UI](./page/创建Vue实例并绑定UI.html)
 ![创建Vue实例并绑定UI](./imgs/创建Vue实例并绑定UI.png)
+
+# 模板语法
+
+- Vue模板语法有2大类：
+  - 插值语法
+    - （双大括号表达式）
+    - 用于解析标签体内容
+    - {{xxx}} ，xxx 会作为js 表达式解析
+  - 指令语法
+    - （v-xxx）
+    - 解析标签属性、解析标签体内容、绑定事件
+    - v-bind:href = 'xxx' ，xxx 会作为js 表达式被解析
+```html
+  <div id="root">
+      <!-- 插值语法 -->
+      <h1>{{userInfo.name}}</h1>
+      <!-- 指令语法 -->
+      <a v-bind:href="userInfo.github">github</a>
+      <!-- v-bind的简写 -->
+      <a :href="userInfo.github">github简写</a>
+  </div>
+  <script type="text/javascript">
+      //全局配置，阻止 vue 在启动时生成生产提示
+      Vue.config.productionTip = false;
+      new Vue({
+          el:"#root",
+          data:{
+              userInfo: {
+                  name:"KenSen",
+                  age:18,
+                  github:"https://github.com/kunchengi"
+              }
+          }
+      });
+  </script>
+```
+
+[模板语法](./page/模板语法.html)
+
+![模板语法](./imgs/模板语法.png)
