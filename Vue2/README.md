@@ -18,3 +18,14 @@
 - 借鉴 Angular 的模板和数据绑定技术
 - 借鉴 React 的组件化和虚拟 DOM 技术
 
+# 搭建Vue学习环境
+
+- vue.js引入
+  - [vue.js](https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js)
+- 谷歌安装devtools插件
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?utm_source=ext_app_menu)
+- vscode插件
+  - live server
+  - Vue 3 Snippets
+
+[学习环境搭建](./page/学习环境搭建.html)
