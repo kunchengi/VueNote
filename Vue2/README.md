@@ -465,3 +465,86 @@
 [计算属性](./page/计算属性.html)
 
 ![计算属性实现求和](./imgs/计算属性实现求和.png)
+
+# 监视属性
+
+- 作用
+  - 当被监视的属性变化时，会自动执行监视属性中的函数
+  - 与计算属性不同，当数据发生变化时,watch可以执行异步操作,处理复杂的逻辑
+
+## 浅监视
+
+- 可以监视data/computed中的属性
+- 监视的两种写法
+  - new Vue时传入watch配置
+  - 通过vm.$watch(属性名，回调)
+- 浅监视只会监视data/computed属性的属性值，如果属性值是一个对象，那么只会监视对象最外层属性的变化，属性的属性值变化时，不会触发监视属性中的handler函数。类似浅拷贝
+- immediate为true时，初始化时会调用handler函数
+```js
+  const vm = new Vue({
+      el: "#root",
+      data: {
+          isHot: true,
+          user: {
+              name: '张三',
+              age: 18
+          }
+      },
+      computed: {
+          weather() {
+              return this.isHot ? '炎热' : '凉爽';
+          }
+      },
+      methods: {
+          changeWeather() {
+              this.isHot = !this.isHot;
+          },
+          changeUser() {
+              this.user = {
+                  name: '王五',
+                  age: 20
+              }
+          },
+          addAge() {
+              this.user.age++;
+          }
+      },
+      // 监视属性写法1
+      watch: {
+          // 监视isHot数据的变化
+          isHot: {
+              immediate: true, // 初始化时让handler调用一下
+              // handler函数：当isHot发生改变时被调用
+              handler(newValue, oldValue) {
+                  console.log('isHot被修改了', newValue, oldValue);
+              }
+          },
+          // 监视计算属性weather的变化
+          weather: {
+              handler(newValue, oldValue) {
+                  console.log('天气变化了', newValue, oldValue);
+              }
+          },
+          // 监视对象属性的变化
+          user: {
+              handler(newValue, oldValue) {
+                  console.log('用户数据被修改了', newValue, oldValue);
+              }
+          }
+      }
+  });
+  // 监视属性写法2
+  // vm.$watch('isHot',{
+  //     handler(newValue, oldValue) {
+  //         console.log('isHot被修改了', newValue, oldValue);
+  //     }
+  // })
+  // vm.$watch('weather',{
+  //     handler(newValue, oldValue) {
+  //         console.log('天气变化了', newValue, oldValue);
+  //     }
+  // })
+```
+
+[浅监视](./page/浅监视.html)
+![浅监视](./imgs/浅监视.png)

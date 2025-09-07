@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浅监视</title>
+</head>
+<body>
+    <div id="root">
+        <h2>当前天气很{{weather}}</h2>
+        <button @click="changeWeather">切换天气，会触发浅监视</button>
+        <h2>我叫{{user.name}}，今年{{user.age}}岁</h2>
+        <button @click="changeUser">切换用户，会触发浅监视</button>
+        <button @click="addAge">年龄+1，不会触发浅监视</button>
+    </div>
+    
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                isHot: true,
+                user: {
+                    name: '张三',
+                    age: 18
+                }
+            },
+            computed: {
+                weather() {
+                    return this.isHot ? '炎热' : '凉爽';
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot;
+                },
+                changeUser() {
+                    this.user = {
+                        name: '王五',
+                        age: 20
+                    }
+                },
+                addAge() {
+                    this.user.age++;
+                }
+            },
+            // 监视属性写法1
+            watch: {
+                // 监视isHot数据的变化
+                isHot: {
+                    immediate: true, // 初始化时让handler调用一下
+                    // handler函数：当isHot发生改变时被调用
+                    handler(newValue, oldValue) {
+                        console.log('isHot被修改了', newValue, oldValue);
+                    }
+                },
+                // 监视计算属性weather的变化
+                weather: {
+                    handler(newValue, oldValue) {
+                        console.log('天气变化了', newValue, oldValue);
+                    }
+                },
+                // 监视对象属性的变化
+                user: {
+                    handler(newValue, oldValue) {
+                        console.log('用户数据被修改了', newValue, oldValue);
+                    }
+                }
+            }
+        });
+        // 监视属性写法2
+        // vm.$watch('isHot',{
+        //     handler(newValue, oldValue) {
+        //         console.log('isHot被修改了', newValue, oldValue);
+        //     }
+        // })
+        // vm.$watch('weather',{
+        //     handler(newValue, oldValue) {
+        //         console.log('天气变化了', newValue, oldValue);
+        //     }
+        // })
+    </script>
+</body>
+</html>
