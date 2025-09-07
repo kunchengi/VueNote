@@ -570,3 +570,39 @@
 
 [深度监视](./page/深度监视.html)
 ![深度监视](./imgs/深度监视.png)
+
+## 监视属性的简写
+
+- 如果不需要深度监视，可以不写配置，简写为函数形式
+- 监视属性写法1和写法2的写法可以进行简写
+```js
+  const vm = new Vue({
+      el: "#root",
+      data: {
+          isHot: true,
+      },
+      computed: {
+          weather() {
+              return this.isHot ? '炎热' : '凉爽';
+          }
+      },
+      methods: {
+          changeWeather() {
+              this.isHot = !this.isHot;
+          }
+      },
+      // 监视属性简写1
+      watch: {
+          // 监视isHot数据的变化
+          isHot(newValue, oldValue){
+              console.log('isHot被修改了', newValue, oldValue);
+          }
+      }
+  });
+  // 监视属性简写2
+  // vm.$watch('isHot', function(newValue, oldValue) {
+  //     console.log('isHot被修改了', newValue, oldValue);
+  // });
+```
+
+[监视属性的简写](./page/监视属性的简写.html)
