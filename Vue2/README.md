@@ -606,3 +606,19 @@
 ```
 
 [监视属性的简写](./page/监视属性的简写.html)
+
+## watch与computed对比
+
+- computed能完成的功能，watch都可以完成
+- computed有缓存，watch没有缓存
+- watch能完成的功能，computed不一定能完成，比如异步逻辑
+```js
+  watch: {
+      // 监视属性完成异步操作，1秒后再更新天气
+      isHot(newValue, oldValue){
+          setTimeout(() => {
+            this.weather = newValue ? '炎热' : '凉爽';
+          },1000)
+      }
+  }
+```
