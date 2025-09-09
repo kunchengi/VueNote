@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+    <style type="text/css">
+        .box{
+            margin-top: 10px;
+            width: 200px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- 当isShow1为true时，显示box1，v-if为flase时会移除box1元素 -->
+        <div class="box" v-if="isShow1">box1</div>
+        <button @click="isShow1=!isShow1">切换box1显隐</button>
+
+        <div class="box" v-if="score>=90">A</div>
+        <div class="box" v-else-if="score>=80">B</div>
+        <div class="box" v-else>C</div>
+        <button @click="changeScore">切换分数</button>
+
+        <!-- 当isShow2为true时，显示box2，v-show为false时会添加display:none属性 -->
+        <div class="box" v-show="isShow2">box2</div>
+        <button @click="isShow2=!isShow2">切换box2显隐</button>
+
+        <!-- v-if可以在template中使用，template是vue的模板标签，用于定义组件的模板结构。它本身不会被渲染到最终的 DOM 中 -->
+        <template v-if="isShow1">
+            <div class="box">box3</div>
+        </template>
+
+        <!-- v-show在template中使用无效 -->
+        <template v-show="isShow1">
+            <div class="box">box3</div>
+        </template>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el:"#root",
+            data:{
+                isShow1:true,
+                score: 90,
+                isShow2:true
+            },
+            methods:{
+                changeScore(){
+                    switch(this.score){
+                        case 90: this.score = 80; break;
+                        case 80: this.score = 70; break;
+                        default: this.score = 90; break;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

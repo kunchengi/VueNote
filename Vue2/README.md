@@ -708,3 +708,35 @@
 [样式绑定](./page/样式绑定.html)
 
 ![样式绑定](./imgs/样式绑定.png)
+
+# 条件渲染
+
+## 条件渲染语法
+
+- v-if
+  - 适用于切换频率较低的场景
+  - 不展示的DOM元素直接被移除
+  - v-if可以和:v-else-if、v-else一起使用，但要求结构不能被“打断”
+  ```html
+    <div v-if="isShow">条件渲染</div>
+    <div v-else-if="isShow2">条件渲染2</div>
+    <div v-else>条件渲染3</div>
+  ```
+
+- v-show
+  - 切换频率较高的场景
+  - 不展示的DOM元素，不会被移除，只会隐藏。即：display: none
+  ```html
+    <div v-show="isShow">条件渲染</div>
+  ```
+
+## v-if和v-show
+
+- v-if和v-show都是用于条件渲染的，但两者之间有区别
+  - v-if的元素，在为flase时，DOM元素会被直接移除，所有子节点不会解析
+  - v-show的元素，在为flase时，DOM元素不会被移除，只是将元素隐藏，即：display: none
+  - 如果需要频繁切换应使用v-show
+
+[条件渲染](./page/条件渲染.html)
+
+![条件渲染](./imgs/条件渲染.png)
