@@ -740,3 +740,33 @@
 [条件渲染](./page/条件渲染.html)
 
 ![条件渲染](./imgs/条件渲染.png)
+
+# 列表渲染
+
+## 基本列表渲染
+
+- v-for
+  - 可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少）
+  - key：用于虚拟DOM的优化，作用：当数据更新时，Vue会根据新的数据生成新的虚拟DOM，并比较新旧虚拟DOM的差异，最后将差异同步到真实DOM中
+  - key必须在列表中唯一，不要使用索引作为key
+```html
+  <!-- 渲染数组 -->
+  <!--第一个参数p是数组值，第二个参数index是数组索引-->
+  <!-- <div class="item item1" v-for="item in userList" :key="item.id">{{item.name}}</div> -->
+  <div class="item item1" v-for="(item,index) in userList" :key="item.id">{{item.name}}-{{index}}</div>
+
+  <!-- 渲染对象 -->
+  <!--第一个参数value是属性值，第二个参数k是属性名-->
+  <div class="item item2" v-for="(value, k) in car" :key="k">{{value}}-{{k}}</div>
+
+  <!-- 渲染字符串 -->
+  <!--第一个参数char是字符值，第二个参数index是字符串索引-->
+  <div class="item item3" v-for="(item, index) in message" :key="index">{{item}}-{{index}}</div>
+
+  <!-- 渲染数值 -->
+  <!--第一个参数number是数值，第二个参数index是数值索引，3是遍历次数-->
+  <div class="item item4" v-for="(item, index) in 3" :key="index">{{item}}-{{index}}</div>
+```
+
+[基本列表渲染](./page//列表渲染/基本列表渲染.html)
+![基本列表渲染](./imgs/基本列表渲染.png)

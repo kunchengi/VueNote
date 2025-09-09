@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本列表渲染</title>
+    <style type="text/css">
+        .list{
+            width: 500px;
+        }
+        .item{
+            width: 100%;
+            margin-top: 5px;
+        }
+        .item1{
+            background-color: aqua;
+        }
+        .item2{
+            background-color: pink;
+        }
+        .item3{
+            background-color: yellow;
+        }
+        .item4{
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- 渲染数组 -->
+        <div class="list">
+            <!--第一个参数p是数组值，第二个参数index是数组索引-->
+            <!-- <div class="item item1" v-for="item in userList" :key="item.id">{{item.name}}</div> -->
+            <div class="item item1" v-for="(item,index) in userList" :key="item.id">{{item.name}}-{{index}}</div>
+        </div>
+        <!-- 渲染对象 -->
+         <div class="list">
+            <!--第一个参数value是属性值，第二个参数k是属性名-->
+            <div class="item item2" v-for="(value, k) in car" :key="k">{{value}}-{{k}}</div>
+        </div>
+        <!-- 渲染字符串 -->
+         <div class="list">
+            <!--第一个参数char是字符值，第二个参数index是字符串索引-->
+            <div class="item item3" v-for="(item, index) in message" :key="index">{{item}}-{{index}}</div>
+        </div>
+        <!-- 渲染数值 -->
+         <div class="list">
+            <!--第一个参数number是数值，第二个参数index是数值索引，3是遍历次数-->
+            <div class="item item4" v-for="(item, index) in 3" :key="index">{{item}}-{{index}}</div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el:"#root",
+            data:{
+                userList: [
+                    {id:1, name:"张三"},
+                    {id:2, name:"李四"},
+                    {id:3, name:"王五"}
+                ],
+                car: {
+                    name: "小鹏M03",
+                    price: 130000,
+                    color: "蓝色"
+                },
+                message: "你好"
+            }
+        })
+    </script>
+</body>
+</html>
