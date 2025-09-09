@@ -627,3 +627,84 @@
 
 - 所被Vue管理的函数，要写成普通函数，这样this的指向才是vm 或 组件实例对象。
 - 所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），最好写成箭头函数，这样this的指向才是vm 或 组件实例对象
+
+# 样式绑定
+
+- 用于绑定和修改元素的class和style属性，实现动态切换样式
+
+## class 绑定
+
+- 语法1：`:class="className"`
+  - className为样式类名
+- 语法2：`:class="{className:isA,className2:isB,className3:isC,...}"`
+  - className、className2、className3...为样式类名
+  - isA、isB、isC...为布尔值，为元素的class是否生效
+- 语法3：`:class="[className,className2,className3]"`
+  - className、className2、className3...为样式类名
+
+## style 绑定
+
+- 语法1：`:style="{fontSize: xxx}"`
+  - xxx为vue中的变量
+- 语法2：`:style="[obj1,obj2]"`
+  - obj1、obj2为对象，为元素的style属性
+
+```html
+  <div id="root">
+      <button @click="changeMood">切换box1样式</button><br/>
+      <div class="basic" :class="mood" @click="changeMood">box1</div> <br/>
+      <div class="basic" :class="classArr">box2</div> <br/>
+      <button @click="changeShadow">切换box3的字体阴影</button><br/>
+      <div class="basic" :class="classObj">box3</div> <br/>
+      <button @click="changeFontSize">切换box4、box5的字体大小</button><br/>
+      <div class="basic" :style="styleObj">box4</div> <br/>
+      <div class="basic" :style="styleArr">box5</div>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+  <script type="text/javascript">
+      Vue.config.productionTip = false;
+      new Vue({
+          el:"#root",
+          data:{
+              mood: 'normal',
+              isShadow: false,
+              styleSize: 30,
+              classArr: ['bgColor', 'textShadow', 'borderRadius'],
+          },computed: {
+              classObj() {
+                  return {
+                      bgColor: true,
+                      textShadow: this.isShadow,
+                      borderRadius: true
+                  }
+              },
+              styleObj() {
+                  return {
+                      color: 'red',
+                      fontSize: `${this.styleSize}px`
+                  }
+              },
+              styleArr() {
+                  return [{color: 'red'}, {fontSize: `${this.styleSize}px`}]
+              }
+          },
+          methods: {
+              changeMood() {
+                  const arr = ['happy', 'sad', 'normal'];
+                  const index = arr.findIndex(item => item === this.mood);
+                  this.mood = arr[(index + 1) % 3];
+              },
+              changeShadow() {
+                  this.isShadow = !this.isShadow;
+              },
+              changeFontSize() {
+                  this.styleSize += 2;
+              }
+          }
+      });
+  </script>
+```
+
+[样式绑定](./page/样式绑定.html)
+
+![样式绑定](./imgs/样式绑定.png)

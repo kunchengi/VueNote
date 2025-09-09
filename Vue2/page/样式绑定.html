@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>样式绑定</title>
+    <style type="text/css">
+        .basic{
+            width: 400px;
+            height: 100px;
+            border: 1px solid black;
+        }
+        .happy{
+            border: 4px solid red;;
+            background-color: rgba(255, 255, 0, 0.644);
+            background: linear-gradient(30deg,yellow,pink,orange,yellow);
+        }
+        .sad{
+            border: 4px dashed rgb(2, 197, 2);
+            background-color: gray;
+        }
+        .normal{
+            background-color: skyblue;
+        }
+        .bgColor{
+            background-color: yellowgreen;
+        }
+        .textShadow{
+            text-shadow:2px 2px 10px red;
+        }
+        .borderRadius{
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <button @click="changeMood">切换box1样式</button><br/>
+        <div class="basic" :class="mood" @click="changeMood">box1</div> <br/>
+        <div class="basic" :class="classArr">box2</div> <br/>
+        <button @click="changeShadow">切换box3的字体阴影</button><br/>
+        <div class="basic" :class="classObj">box3</div> <br/>
+        <button @click="changeFontSize">切换box4、box5的字体大小</button><br/>
+        <div class="basic" :style="styleObj">box4</div> <br/>
+        <div class="basic" :style="styleArr">box5</div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el:"#root",
+            data:{
+                mood: 'normal',
+                isShadow: false,
+                styleSize: 30,
+                classArr: ['bgColor', 'textShadow', 'borderRadius'],
+            },computed: {
+                classObj() {
+                    return {
+                        bgColor: true,
+                        textShadow: this.isShadow,
+                        borderRadius: true
+                    }
+                },
+                styleObj() {
+                    return {
+                        color: 'red',
+                        fontSize: `${this.styleSize}px`
+                    }
+                },
+                styleArr() {
+                    return [{color: 'red'}, {fontSize: `${this.styleSize}px`}]
+                }
+            },
+            methods: {
+                changeMood() {
+                    const arr = ['happy', 'sad', 'normal'];
+                    const index = arr.findIndex(item => item === this.mood);
+                    this.mood = arr[(index + 1) % 3];
+                },
+                changeShadow() {
+                    this.isShadow = !this.isShadow;
+                },
+                changeFontSize() {
+                    this.styleSize += 2;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
