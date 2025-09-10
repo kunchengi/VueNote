@@ -24,6 +24,9 @@
         .item4{
             background-color: orange;
         }
+        .item5{
+            background-color: rgb(27, 94, 249);
+        }
     </style>
 </head>
 <body>
@@ -49,6 +52,14 @@
             <!--第一个参数number是数值，第二个参数index是数值索引，3是遍历次数-->
             <div class="item item4" v-for="(item, index) in 3" :key="index">{{item}}-{{index}}</div>
         </div>
+        <!-- 使用index作为key，当有输入框时，会导致界面更新错误 -->
+         <div class="list">
+            <button v-on:click="addUser">点击插入</button>
+            <div class="item item4" v-for="(item, index) in userList" :key="index">
+                <input type="text">
+                <span>{{item.name}}</span>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
     <script type="text/javascript">
@@ -67,8 +78,14 @@
                     color: "蓝色"
                 },
                 message: "你好"
+            },
+            methods:{
+                addUser(){
+                    this.userList.unshift({id:4, name:"老刘"})
+                }
             }
         })
+        a = [].unshift
     </script>
 </body>
 </html>
