@@ -770,3 +770,59 @@
 
 [基本列表渲染](./page//列表渲染/基本列表渲染.html)
 ![基本列表渲染](./imgs/基本列表渲染.png)
+
+## 列表过滤案例
+
+- 在搜索框按名字模糊查询，并显示查询结果
+```html
+  <div id="root">
+      <div>
+          <input type="text" placeholder="请输入名字" v-model="keyword">
+          <h1>监视属性实现</h1>
+          <div v-for="item in filterList">
+              {{item.name}}-{{item.age}}-{{item.sex}}
+          </div>
+          <h1>计算属性实现</h1>
+          <div v-for="item in filterList1">
+              {{item.name}}-{{item.age}}-{{item.sex}}
+          </div>
+      </div>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+  <script type="text/javascript">
+      new Vue({
+          el:"#root",
+          data:{
+              keyword:"",
+              list:[
+                  {id:'001',name:'马冬梅',age:19,sex:'女'},
+                  {id:'002',name:'周冬雨',age:20,sex:'女'},
+                  {id:'003',name:'周杰伦',age:21,sex:'男'},
+                  {id:'004',name:'温兆伦',age:22,sex:'男'}
+              ],
+              // 监视属性实现，保存过滤结果的数组
+              filterList:[]
+          },
+          watch:{
+              // 监视属性实现，监听keyword属性。有值变化时，更新filterList属性
+              keyword: {
+                  immediate:true,
+                  handler(newValue,oldValue){
+                      // 获取过滤结果
+                      this.filterList = this.list.filter(item => item.name.indexOf(newValue) !== -1)
+                  }
+              }
+          },
+          computed:{
+              // 计算属性实现，监听keyword属性。有值变化时，更新filterList属性
+              filterList1(){
+                  return this.list.filter(item => item.name.indexOf(this.keyword) !== -1)
+              }
+          }
+      })
+  </script>
+```
+
+[列表过滤案例](./page/列表渲染/列表过滤案例.html)
+
+![列表过滤案例](./imgs/列表过滤案例.png)
