@@ -826,3 +826,81 @@
 [列表过滤案例](./page/列表渲染/列表过滤案例.html)
 
 ![列表过滤案例](./imgs/列表过滤案例.png)
+
+# Vue2 属性监视机制解析
+
+## 核心原理
+
+- Vue 在初始化时`递归遍历` data 对象的所有属性（包括嵌套对象中的属性）
+- 使用 Object.defineProperty() 将每个属性转换为 getter/setter
+- 每个组件实例都有对应的 watcher 实例，在属性被访问时收集依赖
+- 当属性值变化时，setter 会通知 watcher，从而触发重新渲染
+- Vue没有对数组的索引进行getter/setter转换（出于性能考虑），而是通过重写数组的7个方法（push、pop、shift、unshift、splice、sort、reverse）来实现响应式。
+
+[简化版属性监视机制实现](./page/属性监视机制/简化版属性监视机制实现.html)
+
+## 无法检测属性添加
+
+- 直接新增属性，不会驱动UI更新
+- 解决方式：使用vm.$set()方法新增属性，会驱动UI更新
+```js
+  // 直接新增属性，不会驱动UI更新
+  this.user.email = 'example@mail.com';
+  // 正确做法：使用 Vue.set 或 this.$set
+  this.$set(this.user, 'email', 'example@mail.com');
+```
+
+## 无法检测属性删除
+
+- 直接删除属性，不会驱动UI更新
+- 解决方式：使用vm.$delete()方法删除属性，会驱动UI更新
+```js
+  // 直接删除属性，不会驱动UI更新
+  delete this.user.name;
+  // 正确做法：使用 Vue.delete 或 this.$delete
+  this.$delete(this.user, 'name');
+```
+
+## 数组的限制
+
+- 通过索引替换数组中的元素，不会驱动UI更新
+- 直接修改数组的length属性，不会驱动UI更新
+- 解决方式1：使用数组的方法修改数组
+- 解决方式2：使用vm.$set()方法修改数组
+```js
+  // 通过索引替换数组中的元素，不会驱动UI更新
+  // this.userList[0] = {id:1, name:"老刘", age:18};
+  // 直接修改数组的length属性，不会驱动UI更新
+  // this.userList.length = 0;
+  // 通过数组的方法替换数组中的元素，会驱动UI更新
+  // this.userList.splice(0,1,{id:1, name:"老刘", age:18});
+  // 通过vm.$set()方法替换数组中的元素，会驱动UI更新
+  this.$set(this.userList,0,{id:'1',name:'老刘',age:18});
+```
+
+## Vue.set的使用
+
+- Vue.set()方法的使用
+  - Vue.set(target, key, value)
+  - target: 目标对象
+  - key: 要添加的属性名(数组索引或对象属性名)
+  - value: 要添加的属性值
+```js
+  this.$set(this.user, 'email', 'example@mail.com');
+  this.$set(this.userList,0,{id:'1',name:'老刘',age:18});
+```
+
+## Vue.delete的使用
+
+- Vue.delete()方法的使用
+  - Vue.delete(target, key)
+  - target: 目标对象
+  - key: 要删除的属性名(数组索引或对象属性名)
+```js
+  this.$delete(this.user, 'email');
+  this.$delete(this.userList,0);
+```
+
+[vue监视属性机制的问题](./page/属性监视机制/vue监视属性机制的问题.html)
+
+![vue监视属性机制的问题](./imgs/vue监视属性机制的问题.png)

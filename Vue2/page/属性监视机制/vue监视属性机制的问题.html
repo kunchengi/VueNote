@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue监视属性机制的问题</title>
+    <style type="text/css">
+        .list{
+            width: 500px;
+        }
+        .item{
+            width: 100%;
+            margin-top: 5px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <button @click="changeZhangsan">将张三替换为老刘</button>
+        <div class="list">
+            <div class="item item1" v-for="(item,index) in userList" :key="item.id">{{item.name}}-{{index}}-{{item.age}}</div>
+        </div>
+        <hr>
+        <button @click="setEmail">设置邮箱</button>
+        <button @click="deleteAge">删除年龄</button>
+        <div>{{user.name}}-{{user.age}}-{{user.email}}</div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el:"#root",
+            data:{
+                userList: [
+                    {id:1, name:"张三", age:18},
+                    {id:2, name:"李四", age:19},
+                    {id:3, name:"王五", age:20}
+                ],
+                user:{
+                    name:"张三",
+                    age:18,
+                }
+            },
+            methods:{
+                changeZhangsan(){
+                    // 通过索引替换数组中的元素，不会驱动UI更新
+                    // this.userList[0] = {id:1, name:"老刘", age:18};
+                    // 直接修改数组的length属性，不会驱动UI更新
+                    // this.userList.length = 0;
+                    // 通过数组的方法替换数组中的元素，会驱动UI更新
+                    // this.userList.splice(0,1,{id:1, name:"老刘", age:18});
+                    // 通过vm.$set()方法替换数组中的元素，会驱动UI更新
+                    this.$set(this.userList,0,{id:'1',name:'老刘',age:18});
+                },
+                setEmail(){
+                    // 直接新增属性，不会驱动UI更新
+                    // this.user.email = "city252@qq.com";
+                    // 通过this.$set方法新增属性，会驱动UI更新
+                    this.$set(this.user,'email',"city252@qq.com");
+                },
+                deleteAge(){
+                    // 直接删除属性，不会驱动UI更新
+                    // delete this.user.age;
+                    // 通过this.$delete()方法删除属性，会驱动UI更新
+                    this.$delete(this.user,'age');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

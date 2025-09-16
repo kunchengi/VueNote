@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue2 简化版属性监视机制实现</title>
+</head>
+<body>
+    <script type="text/javascript">
+        // 当前活动的effect
+        let activeEffect = null;
+        // 依赖收集器
+        class Dep {
+            constructor() {
+                this.subscribers = new Set();
+            }
+            // 当访问属性时会触发该函数，将依赖函数添加到subscribers中
+            depend() {
+                if (activeEffect) {
+                    this.subscribers.add(activeEffect);
+                }
+            }
+            // 当属性值发生变化时，会触发该函数，通知所有依赖函数执行
+            notify() {
+                this.subscribers.forEach(effect => effect());
+            }
+        }
+
+        // 核心函数
+        function observe(data) {
+            // 检查是否为对象，数组的typeof也是object，为了减少性能开销，不监听数组
+            if (!data || typeof data !== 'object' || Array.isArray(data)) {
+                return;
+            }
+            // 遍历对象的所有属性
+            Object.keys(data).forEach(key => {
+                defineReactive(data, key, data[key]);
+            });
+            return data;
+        }
+        
+        // 核心函数：将对象的属性转换为响应式
+        function defineReactive(obj, key, value) {
+            // 递归监听嵌套对象
+            observe(value);
+            // 为每个属性创建一个依赖收集器
+            const dep = new Dep();
+            // 使用Object.defineProperty定义属性
+            Object.defineProperty(obj, key, {
+                enumerable: true,
+                configurable: true,
+                // 当有地方访问属性时，会触发get将依赖函数收集到dep中
+                get() {
+                    dep.depend(); // 收集依赖
+                    return value;
+                },
+                set(newValue) {
+                    // 如果值没有变化，不触发回调
+                    if (newValue === value) {
+                        return;
+                    }
+                    const oldValue = value;
+                    value = newValue;
+                    // 对新设置的值也进行响应式处理
+                    observe(newValue);
+                    // 通知更新，触发之前收集的依赖函数
+                    dep.notify();
+                }
+            });
+        }
+        // 创建一个测试对象
+        const user = {
+            name: '张三',
+            age: 30,
+            address: {
+                city: '北京',
+                street: '朝阳区'
+            },
+            hobbies: ['读书', '跑步']
+        };
+
+        // 监视这个对象
+        observe(user);
+
+        console.log('初始状态:', user);
+
+        // 执行effect函数，并收集依赖
+        function watchEffect(effect) {
+            activeEffect = effect;
+            effect();
+            activeEffect = null;
+        }
+
+        // 更新基本数据的函数
+        function updateBaseData() {
+            console.log('------------------------------------');
+            console.log('姓名', user.name);
+            console.log('年龄', user.age);
+            console.log('------------------------------------');
+        }
+        // 监视基本数据变化并更新
+        watchEffect(updateBaseData);
+
+        // 更新地址的函数
+        function updateAddress() {
+            console.log('------------------------------------');
+            console.log('地址', `${user.address.city}-${user.address.street}`);
+            console.log('------------------------------------');
+        }
+        // 监视地址变化并更新
+        watchEffect(updateAddress);
+
+        // 更新爱好的函数
+        function updateHobbies() {
+            console.log('------------------------------------');
+            console.log('爱好', user.hobbies.join('、'));
+            console.log('------------------------------------');
+        }
+        // 监视爱好变化并更新
+        watchEffect(updateHobbies);
+
+        // 修改基本数据
+        user.name = '李四';
+        user.age = 18;
+
+        // 修改地址
+        user.address.city = '上海';
+        user.address.street = '浦东新区';
+
+        // 修改爱好，未监听数组变化，修改时不会触发更新
+        user.hobbies[0] = '足球';
+        user.hobbies.push('篮球');
+    </script>
+</body>
+</html>
