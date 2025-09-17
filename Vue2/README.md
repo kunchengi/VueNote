@@ -904,3 +904,54 @@
 [vue监视属性机制的问题](./page/属性监视机制/vue监视属性机制的问题.html)
 
 ![vue监视属性机制的问题](./imgs/vue监视属性机制的问题.png)
+
+# v-model详解
+
+## 绑定输入框
+
+- 若绑定在输入框上，v-model收集的值和用户输入的值为输入框中的value值
+```html
+  <input type="text" v-model="name">
+```
+
+## 绑定单选框
+
+- 若绑定在单选框上，v-model收集的值和用户选择的值为单选框的value值
+```html
+  <input type="radio" v-model="sex" value="男">男
+  <input type="radio" v-model="sex" value="女">女
+```
+
+## 绑定复选框
+
+- 如果绑定的数据为非数组，则v-model将会把绑定数据转换成boolean值，然后绑定给复选框的checked属性
+```html
+  <input type="checkbox" v-model="isSure">是否同意协议
+```
+- 如果绑定的数据为数组，则v-model会把复选框选中的value值收集到数组中
+```html
+  <input type="checkbox" v-model="hobby" value="篮球">篮球
+  <input type="checkbox" v-model="hobby" value="足球">足球
+```
+
+## v-model的三个修饰符
+
+- .lazy
+  - 失去焦点时才会更新数据
+```html
+  <input type="text" v-model.lazy="name">
+```
+- .number
+  - 自动将用户输入的值转换为数字类型
+```html
+  <input type="text" v-model.number="age">
+```
+- .trim
+  - 自动过滤用户输入的首尾空格
+```html
+  <input type="text" v-model.trim="name">
+```
+
+[v-model详解](./page/v-model详解.html)
+
+![v-model详解](./imgs/v-model详解.png)
