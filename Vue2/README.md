@@ -1019,3 +1019,22 @@
   <p v-text="msg">这是一个段落</p>
 ```
 [v-text](./page/内置指令与自定义指令/v-text.html)
+
+## v-html
+- 作用：向指定节点中渲染包含html结构的内容
+- 语法：v-html="表达式"
+- 与插值表达式的区别
+  - v-html会替换掉元素中的内容，{{}}则不会
+  - 可以解析html标签
+```html
+  <!-- htmlContent的内容会被解析为html标签 -->
+  <p v-html="htmlContent">这是一个段落</p>
+```
+- 注意
+  - v-html有安全性问题
+  - 不能使用v-html指令拼接html字符串，会导致XSS攻击
+  - 一定要在可信的内容上使用v-html，千万不要用在用户提交的内容上
+
+[v-html](./page/内置指令与自定义指令/v-html.html)
+
+![v-html](./imgs/v-html.png)

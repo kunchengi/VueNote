@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- htmlContent的内容会被解析为html标签 -->
+        <p v-html="htmlContent">这是一个段落</p>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                htmlContent: `
+                    <h1>这是一个h1标题</h1>
+                    <p>这是一个段落</p>
+                `
+            }
+        })
+    </script>
+</body>
+</html>
