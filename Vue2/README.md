@@ -1057,3 +1057,13 @@
   </div>
 ```
 [v-cloak](./page/内置指令与自定义指令/v-cloak.html)
+
+## v-once
+- 作用：只渲染元素和组件一次，后续数据的改变不会触发元素的更新
+- 语法：v-once
+- 注意：
+  - v-once指令后面不能跟任何表达式
+```html
+  <p v-once>{{msg}}</p>
+```
+[v-once](./page/内置指令与自定义指令/v-once.html)

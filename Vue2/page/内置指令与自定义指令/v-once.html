@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-once</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="changeImg">切换图片</button>
+        <!-- 未添加v-once指令：切换图片后，图片会更新 -->
+        <img v-bind:src="imgUrl" alt="iu">
+        <!-- 添加v-once指令：切换图片后，图片不会更新 -->
+        <img v-once v-bind:src="imgUrl" alt="iu">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                imgUrl: 'https://tse2.mm.bing.net/th/id/OIP.MW7BuPx5ZAIfGU4Aoav60AHaJQ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+            },
+            methods: {
+                changeImg() {
+                    this.imgUrl = 'https://toplist.vn/images/800px/iu-585523.jpg'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
