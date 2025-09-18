@@ -1038,3 +1038,22 @@
 [v-html](./page/内置指令与自定义指令/v-html.html)
 
 ![v-html](./imgs/v-html.png)
+
+## v-cloak
+- 作用：解决插值表达式闪烁问题
+- 语法：v-cloak
+- 原理：
+  - 先隐藏元素，等数据加载完成后再显示元素
+- 注意：
+  - 必须和css样式一起使用
+```html
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+  <div v-cloak>
+    {{msg}}
+  </div>
+```
+[v-cloak](./page/内置指令与自定义指令/v-cloak.html)
