@@ -955,3 +955,54 @@
 [v-model详解](./page/v-model详解.html)
 
 ![v-model详解](./imgs/v-model详解.png)
+
+# 过滤器
+
+- 过滤器的作用
+  - 对要显示的数据进行特定格式化后再显示
+  - 过滤器可以用在两个地方：{{}}插值表达式和v-bind表达式
+  - 并没有改变原本的数据, 是产生新的对应的数据
+- 过滤器的定义
+  - 全局过滤器：Vue.filter(name, callback)
+  ```js
+  Vue.filter('mySlice', function (value, length = 4) {
+    return value.slice(0, length)
+  })
+  ```
+  - 局部过滤器：new Vue({filters:{name:callback}})
+  ```js
+  new Vue({
+    el: '#root',
+    data: {
+      msg: 'hello vue',
+      time: new Date()
+    },
+    filters: {
+      mySlice: function (value, length = 4) {
+        return value.slice(0, length)
+      }
+    }
+  })
+  ```
+- 过滤器的使用
+  - 表达式得到的结果会作为参数传递给过滤器函数，然后返回处理后的结果
+  - 插值表达式：{{ 表达式 | 过滤器名 }}
+  ```html
+    <h3>{{msg | mySlice}}</h3>
+  ```
+  - v-bind:属性 = "表达式 | 过滤器名"
+  ```html
+    <h3 v-bind:title="msg | mySlice">鼠标悬停查看title</h3>
+  ```
+  - 可传递其他参数
+  ```html
+    <h3>{{msg | mySlice(5)}}</h3>
+  ```
+  - 可以串联：{{ 表达式 | 过滤器名1 | 过滤器名2 }}
+  ```html
+    <h3>{{msg | mySlice | myUpper}}</h3>
+  ```
+
+[过滤器](./page/过滤器.html)
+
+![过滤器](./imgs/过滤器.png)
