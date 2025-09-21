@@ -106,3 +106,26 @@ flowchart TB
 ```
 - 结果,理应显示在第三个输入框中的李四,却显示在第二个输入框中
 ![index为key输入框2](./imgs/index为key输入框2.png)
+
+## cookie入狱教程
+
+![cookie入狱教程](./imgs/cookie入狱教程.png)
+
+- 安装cookie-editor浏览器插件
+- 登录某个网站
+- 打开cookie-editor插件
+- 点击export按钮导出
+
+![cookie-editor插件导出](./imgs/cookie-editor插件导出.png)
+
+- 打开其他浏览器，进入某个网站
+- 打开cookie-editor插件
+- 点击import按钮导入之前导出的cookie
+
+![cookie-editor插件导入](./imgs/cookie-editor插件导入.png)
+
+- 将内容粘贴到输入框导入
+
+![cookie-editor插件粘贴](./imgs/cookie-editor插件粘贴.png)
+
+- 刷新即可登录成功
