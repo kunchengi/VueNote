@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命周期</title>
+</head>
+<body>
+    <div id="root" :x="n">
+        <h2 v-text="n"></h2>
+        <h2>当前的n值是：{{n}}</h2>
+        <button @click="n++">点我n+1</button>
+        <button @click="distroyVm">点我销毁vm</button>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            },
+            methods: {
+                distroyVm() {
+                    this.$destroy();
+                }
+            },
+            watch: {
+                n(newVal, oldVal) {
+                    console.log('n变化了', newVal, oldVal);
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate，在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用');
+            },
+            created() {
+                console.log('created，实例创建完成后被立即调用');
+            },
+            beforeMount() {
+                console.log('beforeMount，在挂载开始之前被调用，相关的 render 函数首次被调用');
+            },
+            mounted() {
+                console.log('mounted，实例被挂载后调用，el 被新创建的 vm.$el 替换');
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate，数据更新后，但页面更新前调用');
+            },
+            updated() {
+                console.log('updated，数据和页面都已更新后调用');
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy，vue组件实例销毁前调用');
+            },
+            destroyed() {
+                console.log('destroyed，vue组件实例销毁后调用');
+            }
+        })
+    </script>
+</body>
+</html>
