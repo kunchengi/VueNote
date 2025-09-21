@@ -1097,3 +1097,94 @@
   - 作用：绑定属性
 - v-model
   - 作用：双向数据绑定
+
+# 自定义指令
+
+- 除了 Vue 内置的指令（如 v-model、v-show），Vue 还允许我们注册自定义指令，用于对普通 DOM 元素进行底层操作
+
+## 自定义指令的使用场景
+
+- 操作 DOM 元素（聚焦、样式修改等）
+- 集成第三方 DOM 库
+- 创建可复用的 DOM 行为
+- 处理一些底层 DOM 操作逻辑
+
+## 注册自定义指令
+
+- 全局注册
+```js
+  Vue.directive('focus', {
+    bind: function (el, binding, vnode, oldVnode) {
+      console.log('只调用一次，指令第一次绑定到元素时调用')
+    },
+    inserted: function (el, binding, vnode, oldVnode) {
+      console.log('被绑定元素插入父节点时调用')
+    },
+    updated: function (el, binding, vnode, oldVnode) {
+      console.log('所在组件的 VNode 更新时调用')
+    },
+    componentUpdated: function (el, binding, vnode, oldVnode) {
+      console.log('指令所在组件的 VNode 及其子 VNode 全部更新后调用')
+    },
+    unbind: function (el, binding, vnode, oldVnode) {
+      console.log('只调用一次，指令与元素解绑时调用')
+    }
+  })
+```
+
+- 局部注册
+```js
+  new Vue({
+    el: '#root',
+    data: {
+      msg: 'hello vue',
+      time: new Date()
+    },
+    // 局部注册自定义指令
+    directives: {
+      focus: {
+        inserted: function (el) {
+          el.focus()
+        }
+      }
+    }
+  })
+```
+
+## 指令的钩子函数
+
+- 一个指令定义对象可以提供以下几个钩子函数（均为可选）
+  - `bind`
+    - 只调用一次，指令第一次绑定到元素时调用。可以进行一次性的初始化设置。
+    - 适合执行一次性的初始化设置
+  - `inserted`
+    - 被绑定元素插入父节点时调用
+    - 适合需要访问父元素的场景
+  - `update`
+    - 所在组件的 VNode 更新时调用
+    - 适合响应绑定值的变化
+  - `componentUpdated`
+    - 指令所在组件的 VNode 及其子 VNode 全部更新后调用
+  - `unbind`
+    - 只调用一次，指令与元素解绑时调用
+    - 适合清理工作，如移除事件监听器
+
+## 钩子函数参数
+
+- 每个钩子函数都接收以下参数
+  - `el`：指令所绑定的元素，可以用来直接操作 DOM
+  - `binding`：一个对象，包含指令相关的信息
+    - `name`：指令名，不包括 `v-` 前缀
+    - `value`：指令绑定的值，例如：v-my-directive="1 + 1" 中，值为 2，当需要多个值时，可以传递对象：v-dir="{arg1: val1, arg2: val2}"
+    - `oldValue`：指令绑定的前一个值，仅在 `update` 和 `componentUpdated` 钩子中可用
+    - `expression`：指令的表达式，例如：v-my-directive="1 + 1" 中，表达式为 "1 + 1"
+    - `arg`：指令的参数，例如：v-my-directive:foo 中，参数为 "foo"，也可以接受动态参数，例如：v-my-directive:[dynamicArg]="value"
+    - `modifiers`：一个对象，包含指令的修饰符，例如：v-my-directive.foo.bar 中，修饰符对象为 { foo: true, bar: true }
+  - `vnode`：指令所在的虚拟节点
+    - `tag`：元素的标签名
+    - `context`：指令所在的Vue组件实例
+  - `oldVnode`：上一个虚拟节点，仅在 `update` 和 `componentUpdated` 钩子中可用
+
+[自定义指令](./page/内置指令与自定义指令/自定义指令.html)
+
+![自定义指令](./imgs/自定义指令.png)

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令</title>
+</head>
+<body>
+    <div id="root">
+        <h2>当前的n值是：<span v-text="n"></span></h2>
+        <h2>根号n的值是：<span v-sqrt="n"></span></h2>
+        <h2>n的m次方的值是：<span v-power:[m]="n"></span></h2>
+        <input type="text" v-fbind="n">
+        <input type="text" v-fmodel="n">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        // 自定义全局指令，实现单向绑定并聚焦
+        Vue.directive('fbind', {
+            // 指令与元素成功绑定时调用
+            bind(el, binding) {
+                // 将指令绑定的元素的value属性值设置为指令绑定的表达式的值
+                el.value = binding.value
+            },
+            // 指令绑定的元素插入到DOM中时调用
+            inserted(el, binding) {
+                // 获取焦点
+                el.focus()
+            },
+            // 指令绑定的元素更新时调用
+            update(el, binding) {
+                // 将指令绑定的元素的value属性值设置为指令绑定的表达式的值
+                el.value = binding.value
+            }
+        })
+        new Vue({
+            el: '#root',
+            data: {
+                n: 100,
+                m: 2
+            },
+            // 自定义局部指令
+            directives: {
+                'power': function (el, binding) {
+                    console.log('power', binding);
+                    el.innerHTML = Math.pow(binding.value, binding.arg)
+                },
+                'sqrt': function (el, binding) {
+                    el.innerHTML = Math.sqrt(binding.value)
+                },
+                // 实现双向绑定
+                'fmodel': {
+                    // 指令与元素成功绑定时调用
+                    bind(el, binding, vnode) {
+                        // 将指令绑定的元素的value属性值设置为指令绑定的表达式的值
+                        el.value = binding.value;
+                        // 保存vnode上下文，用于后续访问Vue实例
+                        el._vnode = vnode;
+                        // 绑定input事件
+                        el.addEventListener('input', function() {
+                            // 获取指令绑定的表达式名
+                            const expr = binding.expression;
+                            // 更新Vue实例中对应的数据
+                            vnode.context[expr] = el.value;
+                        });
+                    },
+                    // 指令绑定的元素更新时调用
+                    update(el, binding) {
+                        // 将指令绑定的元素的value属性值设置为指令绑定的表达式的最新值
+                        el.value = binding.value;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
