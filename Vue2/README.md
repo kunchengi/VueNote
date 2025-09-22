@@ -1405,3 +1405,98 @@
 [非单文件组件](./page/组件/非单文件组件.html)
 
 ![非单文件组件](./imgs/非单文件组件.png)
+
+# 单文件组件
+
+- 一个文件中只包含有1个组件
+- 在vscode中安装Vetur扩展
+- 需要脚手架环境运行，先不用管
+![单文件组件文件结构](./imgs/单文件组件文件结构.png)
+
+## 创建组件
+
+```vue
+  <!--快速创建vue模板的快捷键，<v回车-->
+  <!-- 定义html模板结构 -->
+  <template>
+      <div class="demo">
+          <h1>学校名称：{{ name }}</h1>
+          <h1>学校地址：{{ address }}</h1>
+      </div>
+  </template>
+
+  <!--定义组件交互相关的代码-->
+  <script>
+  // 默认暴露组件
+  export default {
+      name: 'School',//设置组件名，最好与文件名保持一致
+      data() {
+          return {
+              name: '学校名称',
+              address: '学校地址'
+          }
+      }
+  }
+  </script>
+  <!--定义组件的css样式-->
+  <style scoped>
+      .demo {
+          color: red;
+      }
+  </style>
+```
+
+## 创建根组件
+
+```vue
+  <template>
+      <div>
+          <School />
+          <SchoolClass />
+      </div>
+  </template>
+
+  <script>
+  import School from './School.vue'
+  import SchoolClass from './SchoolClass.vue'
+  export default {
+      name: 'App',
+      components: {
+          School,
+          SchoolClass
+      }
+  }
+  </script>
+
+  <style></style>
+```
+
+## 创建入口文件
+```js
+  import App from './App.vue'
+
+  const app = new Vue({
+      el: '#app',
+      render: h => h(App)
+  })
+```
+
+## 创建html文件
+
+```html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>单文件组件</title>
+  </head>
+  <body>
+      <div id="app">
+          <App />
+      </div>
+      <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+      <script type="text/javascript" src="./main.js"></script>
+  </body>
+  </html>
+```
