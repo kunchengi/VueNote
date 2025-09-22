@@ -1311,3 +1311,97 @@
 
 - 组件化
   - 当应用中的功能都是多组件的方式来编写的, 那这个应用就是一个组件化的应用
+
+## 非单文件组件
+
+- 一个文件中包含有n个组件
+- css样式与组件脱离
+
+### 定义组件(创建组件)
+
+- 使用Vue.extend(options)创建，其中options和new Vue(options)时传入的那个options几乎一样，但也有点区别
+- 区别：
+  - el不要写，最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器
+  - data必须写成函数，避免组件被复用时，数据存在引用关系
+  - 最好写上name属性
+- 需要使用template配置组件结构
+- 组件名
+  - 首字母大写
+  - 驼峰命名：SchoolClass (需要Vue脚手架支持)
+  - 短横线命名：school-class
+  - 组件名尽可能回避HTML中已有的元素名称，例如：h2、H2都不行
+- const school = Vue.extend(options) 可简写为：const school = options
+
+```js
+  const SchoolClass = Vue.extend({
+      // 不需要配置el选项，最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器
+      // 配置组件名
+      name: 'SchoolClass',
+      // 配置组件模板
+      template: `
+          <div>
+              <h1>班级名称：{{name}}</h1>
+              <button @click="addStudent">添加学生</button>
+              <div v-for="item in students" :key="item.name">
+                  <h1>{{item.name}} {{item.age}}</h1>
+              </div>
+          </div>
+      `,
+      // 组件的data选项必须是一个函数
+      data() {
+          return {
+              name: '终极一班',
+              students: [
+                  {name: '张三', age: 18},
+                  {name: '李四', age: 19},
+                  {name: '王五', age: 20}
+              ]
+          }
+      },
+      methods: {
+          addStudent() {
+              this.students.push({name: '赵六', age: 21})
+          }
+      }
+  })
+```
+
+### 注册组件
+
+- 全局组件注册
+```js
+  // 全局注册组件
+  Vue.component('Hello', Hello)
+```
+
+- 局部组件注册
+```js
+  new Vue({
+      el: '#app',
+      // 局部组件注册
+      components: {
+          School,
+          SchoolClass
+      }
+  })
+```
+
+### 组件的使用
+
+- 直接把组件名当成标签名使用
+- 如果组件名为驼峰命名，非vue脚手架项目在使用时必须使用短横线分割，因为HTML 不区分大小写，都会把组件名转换为小写，使用短横线分割才能正确识别组件
+- 组件可简写，在非vue脚手架简写会导致后续组件不能渲染
+```html
+  <div id="app">
+      <!-- 使用全局组件 -->
+      <Hello></Hello>
+      <!-- 使用局部组件，简写，后续组件无法渲染 -->
+      <School/>
+      <!-- 如果组件名为驼峰命名，在使用时必须使用短横线分割 -->
+      <school-class></school-class>
+  </div>
+```
+
+[非单文件组件](./page/组件/非单文件组件.html)
+
+![非单文件组件](./imgs/非单文件组件.png)
