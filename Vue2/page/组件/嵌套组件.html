@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嵌套组件</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.9/vue.common.dev.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        // 班级组件，简写形式
+        const SchoolClass = {
+            // 不需要配置el选项，最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器
+            // 配置组件名
+            name: 'SchoolClass',
+            // 配置组件模板
+            template: `
+                <div>
+                    <h1>班级名称：{{name}}</h1>
+                    <button @click="addStudent">添加学生</button>
+                    <div v-for="item in students" :key="item.name">
+                        <h1>{{item.name}} {{item.age}}</h1>
+                    </div>
+                </div>
+            `,
+            // 组件的data选项必须是一个函数
+            data() {
+                return {
+                    name: '终极一班',
+                    students: [
+                        {name: '张三', age: 18},
+                        {name: '李四', age: 19},
+                        {name: '王五', age: 20}
+                    ]
+                }
+            },
+            methods: {
+                addStudent() {
+                    this.students.push({name: '赵六', age: 21})
+                }
+            }
+        }
+        // 学校组件
+        const School = Vue.extend({
+            name: 'School',
+            // 配置组件模板，在模板中使用子组件
+            template: `
+                <div>
+                    <h1>学校名称：{{name}}</h1>
+                    <h1>学校地址：{{address}}</h1>
+                    <SchoolClass />
+                </div>
+            `,
+            // 组件的data选项必须是一个函数
+            data() {
+                return {
+                    name: '清华大学',
+                    address: '北京'
+                }
+            },
+            // 在组件中注册组件（局部）,要在组件定义之后注册
+            components: {
+                // 局部注册组件
+                SchoolClass
+            }
+        })
+        // 根组件
+        const App = Vue.extend({
+            name: 'App',
+            // 配置组件模板，在模板中使用子组件
+            template: `
+                <div>
+                    <School />
+                </div>
+            `,
+            // 在组件中注册组件（局部）,要在组件定义之后注册
+            components: {
+                School
+            }
+        })
+        // 创建vm
+        new Vue({
+            el: '#app',
+            template: `
+                <App />
+            `,
+            // 局部组件注册
+            components: {
+                App
+            }
+        })
+    </script>
+</body>
+</html>

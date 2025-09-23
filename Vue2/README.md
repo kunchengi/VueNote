@@ -1500,3 +1500,65 @@
   </body>
   </html>
 ```
+
+# 嵌套组件
+
+- 组件可以嵌套使用，复杂的组件可以由多个简单的组件组成
+
+- 在组件中注册并使用子组件
+```js
+  const School = Vue.extend({
+      name: 'School',
+      // 配置组件模板，在模板中使用子组件
+      template: `
+          <div>
+              <h1>学校名称：{{name}}</h1>
+              <h1>学校地址：{{address}}</h1>
+              <SchoolClass />
+          </div>
+      `,
+      // 组件的data选项必须是一个函数
+      data() {
+          return {
+              name: '清华大学',
+              address: '北京'
+          }
+      },
+      // 在组件中注册组件（局部）,要在组件定义之后注册
+      components: {
+          SchoolClass
+      }
+  })
+```
+
+- 创建根组件
+```js
+  const App = Vue.extend({
+      name: 'App',
+      // 配置组件模板，在模板中使用子组件
+      template: `
+          <div>
+              <School />
+          </div>
+      `,
+      // 在组件中注册组件（局部）,要在组件定义之后注册
+      components: {
+          School
+      }
+  })
+```
+
+- 将根组件渲染到页面
+```js
+  // 创建vm
+  new Vue({
+      el: '#app',
+      template: `
+          <App />
+      `,
+      // 局部组件注册
+      components: {
+          App
+      }
+  })
+```
