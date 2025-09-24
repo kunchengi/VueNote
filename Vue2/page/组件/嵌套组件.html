@@ -64,6 +64,12 @@
             components: {
                 // 局部注册组件
                 SchoolClass
+            },
+            created() {
+                console.log('this指向的是组件实例对象VueComponent',this);
+                console.log('组件的原型是Vue的空实例对象',this.__proto__,);
+                console.log('组件实例的原型的原型是Vue的原型',this.__proto__.__proto__===Vue.prototype);// true
+                console.log('也就是说，VueComponent继承自Vue',this instanceof Vue);
             }
         })
         // 根组件
@@ -89,6 +95,10 @@
             // 局部组件注册
             components: {
                 App
+            },
+            created() {
+                console.log('this指向的是Vue实例对象Vue',this);
+                console.log('vue的原型；',this.__proto__,Vue.prototype);
             }
         })
     </script>

@@ -1562,3 +1562,34 @@
       }
   })
 ```
+
+# 组件和Vue的关系
+
+- 执行Vue.extend会返回一个新的VueComponent(options)构造函数
+- 在vue解析模板时会创建对应的VueComponent实例对象，即组件实例对象
+- 组件配置中的this指向的是组件实例对象VueComponent，简称vc
+- VueComponent继承自Vue，所以组件实例对象（vc）可以访问到 Vue原型上的属性、方法
+- Vue与组件的区别
+  - 组件不需要配置el
+  - 组件的data 必须是一个函数
+```js
+        const School = Vue.extend({
+            name: 'School',
+            template: `
+                <div>
+                </div>
+            `,
+            data() {
+                return {
+                }
+            }
+            created() {
+                console.log('this指向的是组件实例对象VueComponent',this);
+                console.log('组件的原型是Vue的空实例对象',this.__proto__,);
+                console.log('组件实例的原型的原型是Vue的原型',this.__proto__.__proto__===Vue.prototype);// true
+                console.log('也就是说，VueComponent继承自Vue',this instanceof Vue);
+            }
+        })
+```
+
+![Vue的原型链](./imgs/Vue的原型链.png)
