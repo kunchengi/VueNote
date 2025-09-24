@@ -129,3 +129,186 @@ flowchart TB
 ![cookie-editor插件粘贴](./imgs/cookie-editor插件粘贴.png)
 
 - 刷新即可登录成功
+
+# Vue脚手架
+
+- Vue 脚手架是Vue 官方提供的标准化开发工具（开发平台）
+- [Vue CLI文档](https://cli.vuejs.org/zh/)
+
+## 脚手架安装
+
+- 全局安装Vue CLI
+```bash
+    npm install -g @vue/cli
+```
+
+## 脚手架创建项目
+
+### 使用命令行创建项目
+
+- 创建项目
+```bash
+    vue create 项目名
+```
+- 选择配置
+  - Vue3默认配置（Vue3 + Babel + ESLint）
+  - Vue2默认配置（Vue2 + Babel + ESLint）
+  - 手动配置（一般选这个）
+- 手动配置按需选择配置，按空格切换选中状态
+  - Babel
+  - TypeScript
+  - Progressive Web App (PWA) Support
+  - Router
+  - Vuex
+  - CSS Pre-processors
+  - Linter / Formatter
+  - Unit Testing
+  - E2E Testing
+- 选择版本
+  - 3.x
+  - 2.x
+- 选择CSS预处理器
+  - Sass/SCSS (with node-sass)
+  - Less
+  - Stylus
+- 选择ESLint配置
+  - ESLint with error prevention only（仅检查错误）
+  - Airbnb（Airbnb代码规范）
+  - Standard（Standard代码规范）
+  - None（不使用ESLint）
+- 选择Lint的特征
+  - Lint on save（保存时检查）
+  - Lint and fix on commit（提交时检查并修复）
+- 选择配置文件
+  - In dedicated config files（独立配置文件）
+  - In package.json（package.json文件）
+
+- 初始化依赖
+  - 进入项目目录
+  - 安装依赖
+```bash
+    npm i
+```
+
+- 安装依赖
+```bash
+    npm install xxx
+```
+
+### 使用vue可视化面板创建项目
+
+- 打开vue可视化面板
+```bash
+    vue ui
+```
+- 点击创建
+- 输入创建的目录：D:\文档\project\VueNote\Vue2
+- 输入项目名（不能包含大小字母）：vue2clinote
+- 选择手动配置项目
+- 按需勾选第三方依赖（如：bable、router、linter/formatte、使用配置文件）
+- 选择版本：2.x
+- 选择ESLint配置：如Standard
+- 选择Lint的特征：如Lint on save
+- 创建项目
+- 填写预设名：vue2clinote_preset
+
+- 安装element/vant
+  - 点击插件
+  - 点击添加插件
+  - 搜索element/vant
+  - 选择vue-cli-plugin-element/vue-cli-plugin-vant
+  - 点击安装
+
+- 安装axios
+  - 点击依赖
+  - 点击安装依赖
+  - 搜索axios
+  - 选择axios
+  - 点击安装
+
+- 安装less-loader和less
+  - 点击依赖
+  - 点击安装依赖
+  - 搜索less-loader和less
+  - 选择less-loader和less
+  - 点击安装
+  - less-loader版本过高可能会报错，建议安装6.0版本（npm install less-loader@6.0.0）
+
+### 修改配置
+
+- 修改vue.config.js，打包用
+```js
+  const { defineConfig } = require('@vue/cli-service')
+  module.exports = defineConfig({
+    transpileDependencies: true,// Babel转译，将所有代码（包括依赖）转译为兼容的JavaScript代码
+    // lintOnSave: false,// 关闭eslint校验
+    publicPath: './',// 打包后的静态资源路径
+  })
+```
+
+### 删除不必要的文件和代码
+
+- 修改App.vue
+```vue
+    <template>
+    <div id="app">
+        app根组件
+    </div>
+    </template>
+
+    <script>
+
+    export default {
+    name: 'App',
+    }
+    </script>
+
+    <style>
+
+    </style>
+```
+
+- 清空assets目录
+- 清空components目录
+- 修改router/index.js（如果有）
+```js
+  import Vue from 'vue'
+  import Router from 'vue-router'
+
+  Vue.use(Router)
+
+  export default new Router({
+    routes: [
+
+    ]
+  })
+```
+
+### 项目运行
+
+- 阅读README.md文件，里面有些各种命令
+- 运行项目
+```bash
+    npm run serve
+```
+
+### vue脚手架项目的目录结构说明
+
+- node_modules：项目依赖的模块
+- public：静态资源目录
+  - favicon.ico: 页签图标
+  - index.html：主页面
+- src：项目的源代码目录
+  - assets：静态资源目录
+  - components：组件目录
+  - router：路由目录
+  - store：状态管理目录
+  - utils：工具函数目录
+  - views：视图组件目录
+  - App.vue：根组件
+  - main.js：入口文件
+- .gitignore：git忽略文件
+- babel.config.js：babel配置文件
+- package-lock.json：依赖锁定文件
+- package.json：项目依赖配置文件
+- README.md：项目说明文件
