@@ -1593,3 +1593,46 @@
 ```
 
 ![Vue的原型链](./imgs/Vue的原型链.png)
+
+# main.js文件解析
+
+- main.js是项目的入口文件，Vue实例化的代码都写在main.js文件中
+- main.js文件中引入Vue和App组件，创建Vue实例对象，将App组件渲染到页面中
+- 还可以在main.js文件中进行项目初始化操作，如：
+  - 引入全局样式
+  - 引入全局组件
+  - 引入全局指令
+  - 引入全局过滤器
+  - 引入全局混入
+  - 引入全局插件
+
+- vue.js与vue.runtime.xxx.js的区别
+  - vue.js是完整版的Vue，包含：核心功能 + 模板解析器
+  - vue.runtime.xxx.js是运行版的Vue，只包含：核心功能；没有模板解析器
+  - 因为vue.runtime.xxx.js没有模板解析器，所以不能使用template配置项，需要使用render函数去定义模板
+```js
+  // 引入精简版的vue，必须使用render函数
+  import Vue from 'vue'
+  // 引入完整版的vue，可以不使用render函数
+  // import Vue from 'vue/dist/vue'
+  import App from './App.vue'
+```
+
+- render函数
+  - render函数是Vue组件的渲染函数，用于将组件的模板渲染为真实的DOM节点
+  - render函数的返回值是一个VNode节点对象，Vue会根据这个节点对象来渲染组件的DOM结构
+  - render函数的参数是一个createElement函数，用于创建VNode节点对象
+```js
+  // 创建vue实例对象--vm
+  new Vue({
+    // 完整版render写法
+    // 传入的参数可创建具体元素
+    // render(createElement){
+    //   return createElement('h1','你好啊');
+    // }
+    // 精简版render写法
+    // render:q => q('h1','你好啊')
+    // 渲染App组件
+    render: h => h(App)
+  }).$mount('#app')// 挂载到app元素上
+```
