@@ -1636,3 +1636,43 @@
     render: h => h(App)
   }).$mount('#app')// 挂载到app元素上
 ```
+
+# 修改默认配置
+
+- Vue 脚手架隐藏了所有webpack相关的配置，可以执行以下命令查看具体的webpakc配置
+```bash
+    vue inspect > output.js
+```
+
+- 可以在vue.config.js文件中修改默认配置
+```js
+  const { defineConfig } = require('@vue/cli-service')
+  module.exports = defineConfig({
+    pages: {
+      index: {
+        // 入口文件
+        entry: 'src/index/main.js',
+        // 模板来源
+        template: 'public/index.html',
+        // 在 dist/index.html 的输出
+        filename: 'index.html',
+        // 当使用 title 选项时，
+        // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
+        title: 'Index Page',
+        // 在这个页面中包含的块，默认情况下会包含
+        // 提取出来的通用 chunk 和 vendor chunk。
+        chunks: ['chunk-vendors', 'chunk-common', 'index']
+      },
+      // 当使用只有入口的字符串格式时，
+      // 模板会被推导为 `public/subpage.html`
+      // 并且如果找不到的话，就回退到 `public/index.html`。
+      // 输出文件名会被推导为 `subpage.html`。
+      subpage: 'src/subpage/main.js'
+    },
+    transpileDependencies: true,// Babel转译，将所有代码（包括依赖）转译为兼容的JavaScript代码
+    lintOnSave: process.env.NODE_ENV !== 'production',// 生产环境时关闭eslint校验
+    publicPath: './',// 打包后的静态资源路径
+  })
+```
+
+- [详情请查看配置文档](https://cli.vuejs.org/zh/config/#vue-config-js)
