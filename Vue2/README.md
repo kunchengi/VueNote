@@ -166,7 +166,7 @@
 - data的两种写法
   - 对象式
   - 函数式
-  - 目前哪种写法都可以，以后学习到组件时，data必须使用函数式，否则会报错
+  - 目前哪种写法都可以，以后学习到组件时，data必须使用函数式，否则会报Vue警告
 - 由Vue管理的函数，一定不要写箭头函数，一旦写了箭头函数，this就不再是Vue实例了
 ```js
   new Vue({
@@ -1791,3 +1791,261 @@
 ```
 
 ![ref属性](./imgs/ref属性.png)
+
+# props传递参数
+
+- 作用：父组件向子组件传递参数
+- 定义：在子组件中通过 props 选项定义接收的参数
+- 传递：在父组件中使用子组件标签时，通过属性绑定的方式传递参数
+
+## Props 的基本用法
+
+- data中不允许声明props中的同名属性，否则会报Vue警告
+
+### 简单声明（数组形式）
+```js
+  export default {
+      props: ['title']
+  }
+```
+
+### 详细配置（对象形式）
+```js
+  export default {
+      props: {
+          name: {
+              type: String,
+              default: '张三',
+          },
+          age: {
+              type: Number,
+              default: 0,
+          }
+      },
+  }
+```
+
+#### Props 的配置选项
+- type：类型验证，可选值有：String、Number、Boolean、Array、Object、Function、Symbol、自定义构造函数
+- 如果传递与type不匹配的参数，会报Vue警告
+```js
+  props: {
+    name: [String],
+    age: {
+      type: Number,
+      default: 0,
+    }
+    // 多个可能的类型
+    value: [String, Number],
+    // 自定义类型，在TypeScript中使用
+    person: Person
+  }
+```
+- default：默认值，当父组件未传递该参数时使用
+  - 基本类型的默认值可以直接赋值
+  - 引用类型的默认值必须从工厂函数返回
+```js
+  props: {
+    // 基本类型默认值
+    age: {
+      type: Number,
+      default: 0
+    },
+    // 对象/数组默认值必须从工厂函数返回
+    phones: {
+      type: Array,
+      default: () => []
+    },
+    carInfo: {
+      type: Object,
+      default: () => ({})
+    }
+  }
+```
+- required：是否必填，默认为 false
+```js
+  props: {
+    age: {
+      type: Number,
+      required: true
+    }
+  }
+```
+- validator：自定义验证函数，返回 true 表示验证通过，否则表示验证失败
+```js
+  props: {
+    age: {
+      type: Number,
+      validator: (value) => value >= 0
+    }
+  }
+```
+
+### Props 的传递方式
+
+- 直接在父组件标签中传递参数值
+```html
+  <Title title="用户信息" />
+```
+- 使用 v-bind 或 : 语法传递参数值
+```html
+  <BaseInfo :name="username" v-bind:age="age" />
+  <CarInfo :car-info="car" />
+  <PhoneInfo v-bind:phones="phones" />
+```
+- 使用 v-bind:[] 或 :[] 语法动态绑定 Prop 名
+```html
+  :[key]="id" />
+```
+- 当一个 props 包含该属性，直接传该属性不赋值时，传递的值为true
+```html
+  <BaseInfo isVip />
+```
+
+### 访问Props
+
+- 在组件的模板中直接使用 props 中的参数
+```html
+  <div>
+    <h2>基本信息</h2>
+    <p>姓名：{{ name }}</p>
+    <p>年龄：{{ age }}</p>
+  </div>
+```
+
+- 通过this直接使用props中的属性
+```js
+  export default {
+    props: ['name', 'age'],
+    created() {
+        // 通过this.$props访问所有传递的props
+        console.log(this.name);
+    }
+  }
+```
+
+- 在组件中可以通过 this.$props 访问所有传递的 props
+```js
+  export default {
+    props: ['name', 'age'],
+    created() {
+        // 通过this.$props访问所有传递的props
+        console.log(this.$props);
+        console.log(this.$props.name);
+    }
+  }
+```
+
+## Props 的命名规范
+
+- HTML 中的命名
+  - 由于 HTML 是不区分大小写的，所以在 HTML 中传递参数时，建议使用短横线分隔命名法（kebab-case）
+```html
+  <CarInfo :car-info="car" />
+```
+
+- JavaScript 中的命名
+  - 在组件中定义 props 时，建议使用驼峰命名法（camelCase）
+```js
+    props: {
+        carInfo: {
+            type: Object,
+        }
+    },
+```
+
+## 单向数据流
+
+- Props 遵循单向数据流：父组件 → 子组件。子组件不应该直接修改 props。
+- props是只读的
+ - 如果是基本类型，不能修改数据的值，会报Vue警告
+ ```js
+  props: {
+    name: [String],
+  },
+  created() {
+    // props是只读的，不能直接修改props中的值，会报Vue警告
+    // this.name = "kk";
+  }
+ ```
+ - 如果是引用类型，不能修改数据的地址值，可以修改数据的属性值，但不建议这么做，因为会改变父组件中的数据
+ ```js
+  props: {
+    carInfo: [Object],
+  },
+  created() {
+    // props是只读的，不能直接修改props中的值，会报Vue警告
+    // this.carInfo = {
+    //     brand: "宝马",
+    //     color: "白色",
+    // }
+    // 可以修改对象的属性，但不建议这么改
+    this.carInfo.brand = "宝马";
+  }
+ ```
+- 应按以下方式处理数据
+  - 使用本地数据副本：子组件可以将 props 作为初始值，然后在组件内部使用 data 进行修改
+  ```js
+    props: ['name'],
+    data() {
+      return {
+        localName: this.name
+      }
+    }
+  ```
+  - 使用计算属性：子组件可以通过计算属性或方法基于 props 计算新值
+  ```js
+    props: ['size'],
+    computed: {
+      normalizedSize() {
+        return this.size.trim().toLowerCase()
+      }
+    }
+  ```
+  - 通过事件通知父组件修改
+  ```js
+    // 子组件发送事件更新父组件的 name 属性
+    this.$emit('update:name', newName);
+    // 父组件监听事件，更新 name 属性
+    <ChildComponent :name="name" @update:name="name = $event" />
+  ```
+  - 使用.sync 修饰符可以简化事件通知父组件修改的过程
+    - .sync修饰符其实是上述行为的语法糖
+    - 在v-bind 中使用.sync 修饰符可以为对象的每个属性都添加 .sync 功能
+  ```js
+    // 子组件发送事件更新父组件的 name 属性
+    this.$emit('update:name', newName);
+    // 父组件监听事件，更新 name 属性
+    <ChildComponent :name.sync="name" :age.sync="age" />
+    <ChildComponent v-bind.sync="sonData" />
+  ```
+
+## 未在组件 props 选项中声明的属性
+
+- 默认情况下，这些属性会自动添加到组件的根元素上。
+```js
+  mounted() {
+    console.log(this.$refs.baseInfo);// <div email="123@qq.com"><h2>基本信息</h2><p>姓名：Kensen</p><p>本地姓名：张三</p><p>年龄：20</p></div>
+  }
+```
+- 可以通过设置 inheritAttrs: false 来禁用此行为。
+```js
+    inheritAttrs: false,
+    mounted() {
+        // 未在组件 props 选项中声明的属性，如果设置了inheritAttrs: false，这些属性就不会自动添加到组件的根元素上。
+        console.log(this.$refs.title);// <div><h1>用户信息</h1></div>
+    }
+```
+- 可以通过this.$attrs访问未在组件 props 选项中声明的属性
+```html
+  <div>
+    <p>非props属性：{{ $attrs }}</p>
+  </div>
+```
+```js
+    created() {
+        console.log('非props属性：', this.$attrs);// 非props属性： {remark: '备注'}
+    }
+```
+
+![props传递参数](./imgs/props传递参数.png)
