@@ -1676,3 +1676,118 @@
 ```
 
 - [详情请查看配置文档](https://cli.vuejs.org/zh/config/#vue-config-js)
+
+# ref属性
+
+- 作用：用于注册一个组件实例或DOM元素的引用
+  - 应用在html标签上获取的是真实DOM元素
+  - 应用在组件标签上是组件实例对象（vc）
+
+## 在普通 DOM 元素上使用 ref
+
+- ref获取的是真实DOM元素
+- 可以实现一些DOM操作，如：焦点管理、文本选择、媒体播放控制、动画触发
+
+```html
+  <h1 ref="schoolName">学校名称：{{ name }}</h1>
+```
+```js
+  export default {
+      name: 'School',
+      data() {
+          return {
+              name: '清华大学',
+          }
+      },
+      methods: {
+          changeSchoolNameColor() {
+              console.log(this.$refs.schoolName);// <h1 style="color: red;">学校名称：学校名称</h1>
+              this.$refs.schoolName.style.color = 'red';
+          }
+      }
+  }
+```
+
+## 在组件上使用 ref
+
+- ref获取的是组件实例对象（vc）
+- 可以实现组件通信，如：修改子组件的属性、调用子组件的方法
+
+```html
+  <School ref="schoolCom"></School>
+  <button @click="changeSchoolName">修改学校名称</button>
+  <button @click="changeSchoolAddress">修改学校地址</button>
+```
+```js
+  // 引入School组件
+  import School from './components/School.vue'
+  export default {
+    name: 'App',
+    components: {
+      School
+    },
+    methods: {
+      changeSchoolName() {
+        console.log(this.$refs.schoolCom);// VueComponent {_uid: 2, _isVue: true, __v_skip: true, _scope: EffectScope, $options: {…}, …}
+        // 修改子组件的name属性
+        this.$refs.schoolCom.name = '复旦大学';
+      },
+      changeSchoolAddress() {
+        // 调用子组件的changeSchoolAddress方法
+        this.$refs.schoolCom.changeSchoolAddress();
+      }
+    }
+  }
+```
+
+## ref 的生命周期
+
+- 创建阶段
+  - 在模板编译时注册 ref，但此时 $refs 对象中还没有对应的引用
+- 挂载阶段
+  - 在 mounted 钩子中，ref 被填充到 $refs 对象
+  - 此时可以安全地访问 ref
+- 更新阶段
+  - 如果 ref 对应的元素被替换，ref 会相应更新
+  - 可以在 updated 钩子中访问到最新的 ref
+- 销毁阶段
+  - 组件销毁时，对应的 ref 也会被移除
+
+## 注意事项
+
+- ref 不是响应式的，不能在模板中直接绑定使用，它只是一个直接访问元素或组件的"逃生舱"
+- ref 只在组件渲染完成后才赋值，初始渲染时 $refs 是空的
+- 不应该在模板或计算属性中依赖/使用 $refs
+- 如果ref重名，后面的会覆盖前面的
+- ref 破坏了 Vue 的声明式范式，应该优先使用 props 和 events 进行组件通信,避免过渡使用ref。
+- 由于 Vue 的更新是异步的，修改data的属性驱动元素更新时，ref中的数据可能还未更新，需要 $nextTick 来确保 ref 已更新
+```js
+  // 修改颜色体现异步更新问题
+  this.color = 'blue';
+  // 由于 Vue 的更新是异步的，此时ref中的数据还未更新
+  console.log(this.$refs.schoolName.style.color); // red
+  // 需要 $nextTick 来确保 ref 已更新
+  this.$nextTick(() => {
+      console.log(this.$refs.schoolName.style.color); // blue
+  })
+```
+- 使用 v-if 时，当条件为 false，对应的 ref 会是 undefined，需要做好空值检查
+```js
+  if (this.$refs.schoolName) {
+    this.$refs.schoolName.style.color = 'red';
+  }
+```
+- 在 v-for 中使用 ref 时，$refs 会是一个数组
+```html
+  <div v-for="item in list" :key="item.id" ref="itemRefs">
+    {{ item }}
+  </div>
+```
+```js
+  // 访问 v-for 中 ref 对应的元素
+  this.$refs.itemRefs.forEach((ref) => {
+    console.log(ref); // 输出每个 div 元素
+  })
+```
+
+![ref属性](./imgs/ref属性.png)
