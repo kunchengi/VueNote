@@ -2049,3 +2049,237 @@
 ```
 
 ![props传递参数](./imgs/props传递参数.png)
+
+# Mixin（混入）
+
+- Mixin（混入）是 Vue 2 中一种分发可复用功能的灵活方式。
+- 它允许将组件的可复用功能提取到单独的对象中，然后在多个组件中混入这些功能
+
+## 基本使用
+
+- 定义Mixin
+```js
+  // 定义mixin 对象
+  export const mathMixin = {
+    methods: {
+      add(a, b) {
+        return a + b
+      }
+    }
+  }
+
+  // apiMixin.js
+  export const apiMixin = {
+    data() {
+      return {
+        loading: false,
+        error: null
+      }
+    },
+    methods: {
+      async callApi(url) {
+        this.loading = true
+        this.error = null
+        try {
+          const response = await fetch(url)
+          return await response.json()
+        } catch (error) {
+          this.error = error
+        } finally {
+          this.loading = false
+        }
+      }
+    }
+  }
+```
+
+- 使用Mixin
+```js
+  // 引入自定义的mixin
+  import { mathMixin } from './mixins/userMixin'
+
+  export default {
+    name: 'App',
+    mixins: [mathMixin],
+    data() {
+      return {
+        leftNum: 10,
+        rightNum: 20,
+        result: 0,
+      }
+    },
+    mounted() {
+      // 调用自定义的mixin方法
+      this.result = this.add(this.leftNum, this.rightNum)
+    }
+  }
+```
+
+## Mixin 的合并策略
+
+### 数据对象 (data)
+
+- 同名属性以组件数据优先
+```js
+  export const mathMixin = {
+    data() {
+      return {
+        leftNum: 100,// 如果组件有leftNum属性，就用组件的属性，否则用mixin的属性
+      }
+    },
+    methods: {
+      add(a, b) {
+        return a + b
+      }
+    }
+  }
+```
+
+- 数据对象会进行递归合并
+```js
+  export const userMixin = {
+    data() {
+      return {
+        userInfo: {
+          name: '默认用户',
+          email: 'default@example.com'// 数据对象会进行递归合并，如果组件的userInfo属性有email属性，就用组件的属性，否则用mixin的属性
+        }
+      }
+    }
+  }
+```
+
+### 钩子函数 (生命周期钩子)
+
+- 和组件同名钩子函数会合并为数组，mixin 的钩子先调用，组件钩子后调用
+  - mixin
+    ```js
+      export const mathMixin = {
+        created() {
+          console.log('mathMixin created')
+        }
+      }
+    ```
+  - 组件
+    ```js
+      export default {
+        name: 'App',
+        mixins: [mathMixin],
+        created() {
+          console.log('App created')
+        }
+      }
+    ```
+  - 先输出 mathMixin created，再输出 App created
+
+### 方法、计算属性、指令等
+
+- 同名方法、计算属性、指令，以组件的优先
+```js
+  export const userMixin = {
+    data() {
+      return {
+        userInfo: {
+          name: '默认用户',
+          email: 'default@example.com'
+        }
+      }
+    },
+    methods: {
+      // 同名方法、计算属性、指令，以组件的优先
+      getUserInfo() {
+        return this.userInfo.name + ' (' + this.userInfo.email + ')'
+      }
+    }
+  }
+```
+
+### 自定义选项合并
+
+- 自定义选项使用默认策略：简单覆盖
+```js
+  // 可以自定义合并策略
+  Vue.config.optionMergeStrategies.myOption = function (parent, child, vm) {
+    return child || parent
+  }
+```
+
+## Mixin 的类型
+
+- 局部Mixin，只在特定组件中生效
+```js
+  export default {
+    mixins: [mathMixin]
+  }
+```
+
+- 全局Mixin，在所有组件中都生效（慎用！）
+```js
+  Vue.mixin({
+    created() {
+      console.log('全局Mixin created')
+    }
+  })
+```
+
+## Mixin 的优缺点
+
+- 优点
+  - 代码复用：避免重复代码
+  - 逻辑分离：将通用逻辑与业务逻辑分离
+  - 维护性：统一修改，一处修改多处生效
+  - 灵活性：可以组合多个 mixin
+- 缺点
+  - 命名冲突：可能发生属性名冲突
+  - 依赖隐式：难以追踪 mixin 的来源
+  - 复杂性：多个 mixin 可能导致组件难以理解
+  - 关系模糊：mixin 与组件的关系不明确
+
+## 使用规范
+
+- 命名规范：使用前缀避免命名冲突
+```js
+  export const mathMixin = {
+    methods: {
+      // 使用前缀避免命名冲突
+      $add(a, b) {
+        return a + b
+      }
+    }
+  }
+```
+
+- 单一职责：每个 mixin 只负责一个功能，避免功能过于复杂
+```js
+// 好的例子：职责单一
+  const loggerMixin = { /* 日志相关 */ }
+  const apiMixin = { /* API 相关 */ }
+  const authMixin = { /* 权限相关 */ }
+
+  // 不好的例子：职责过多
+  const utilsMixin = { 
+    /* 日志、API、权限、格式化等都放在一起 */
+  }
+```
+
+- 文档化，提供详细的注释
+```js
+  /**
+   * 数学计算 mixin
+   * 提供统一的数学计算方法
+   * @mixin mathMixin
+   */
+  export const mathMixin = {
+
+  }
+```
+
+- 避免全局 Mixin：除非确实需要影响所有组件，否则避免使用全局 mixin。
+
+## 替代方案
+
+- 组合式函数 (Vue 3)：Vue 3 的 Composition API 提供了更好的代码复用方案。
+- 高阶组件：通过组件包装实现功能复用。
+- Renderless 组件：使用作用域插槽提供逻辑复用。
+
+![Mixin](./imgs/Mixin.png)
