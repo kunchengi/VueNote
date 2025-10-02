@@ -2283,3 +2283,125 @@
 - Renderless 组件：使用作用域插槽提供逻辑复用。
 
 ![Mixin](./imgs/Mixin.png)
+
+# 插件
+
+- 插件是 Vue 2 中用于添加全局级功能的机制。
+- 插件通常用来为 Vue 添加全局方法、指令、过滤器、混入，或者添加实例方法。
+- Vue Router、Vuex、ElementUI 等都是 Vue 插件的例子。
+
+## 插件的基本结构
+
+### 对象形式插件
+
+- 插件必须暴露一个 install 方法，该方法接收两个参数
+  - Vue 构造函数
+  - 可选的插件选项
+```js
+  // 对象形式插件
+  import Hello from '../components/Hello.vue'
+  export default {
+    install(Vue, options) {
+      // 1. 添加全局方法或属性
+      // 添加全局方法，使插件的方法在Vue直接使用
+      Vue.dataUtils = {
+        formatDate(date) {
+          return new Date(date).toLocaleDateString()
+        }
+      }
+
+      // 2. 添加全局指令
+      Vue.directive('focus', {
+        inserted(el) {
+          el.focus()
+        }
+      })
+
+      // 读取配置选项
+      if(options && options.useMixin)
+      {
+        // 3. 添加全局mixin
+        Vue.mixin({
+          created() {
+            console.log('全局Mixin created')
+          }
+        })
+      }
+
+      // 4. 添加实例方法，使插件的方法在Vue的实例中可用
+      Vue.prototype.$dataUtils = Vue.dataUtils
+
+      // 5. 添加全局组件
+      Vue.component('Hello', Hello)
+    }
+  }
+```
+
+### 函数形式插件
+
+- 插件也可以是一个函数，它会被当作 install 方法
+```js
+  export default function mathPlugin(Vue, options) {
+    // 添加全局方法，使插件的方法在Vue直接使用
+    Vue.mathUtils = {
+        add(a, b) {
+            return a + b
+        }
+    }
+    // 添加实例方法，使插件的方法在Vue的实例中可用
+    Vue.prototype.$mathUtils = Vue.mathUtils
+  }
+```
+
+## 插件的安装与使用
+
+- 使用 Vue.use() 安装插件
+- 多次安装只会注册一次该插件
+```js
+  // 安装插件，传入配置选项
+  Vue.use(basePlugin, {useMixin: true})
+  Vue.use(mathPlugin)
+  // 多次安装只会注册一次该插件
+  Vue.use(mathPlugin)
+```
+
+- 在组件中使用插件的方法
+```js
+  <template>
+    <div id="app">
+      <h1>当前日期：{{ currentDate }}</h1>
+      <h1>{{ leftNum }} + {{ rightNum }} = {{ result }}</h1>
+      <!-- 使用全局指令v-focus -->
+      <input v-focus type="text">
+      <!-- 使用全局组件Hello -->
+      <Hello></Hello>
+    </div>
+  </template>
+  <script>
+  import Vue from 'vue'
+  export default {
+    name: 'App',
+    data() {
+      return {
+        leftNum: 10,
+        rightNum: 20,
+        result: 0
+      }
+    },
+    computed: {
+      currentDate() {
+        // 使用this调用插件的方法
+        // return this.$dataUtils.formatDate(new Date())
+        // 使用Vue调用插件的方法
+        return Vue.dataUtils.formatDate(new Date())
+      }
+    },
+    mounted() {
+      // 使用this调用插件的方法
+      this.result = this.$mathUtils.add(this.leftNum, this.rightNum)
+    }
+  }
+  </script>
+```
+
+![插件](./imgs/插件.png)
