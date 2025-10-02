@@ -2405,3 +2405,151 @@
 ```
 
 ![插件](./imgs/插件.png)
+
+# Scoped 样式
+
+- Scoped 样式是 Vue 单文件组件中的一种 CSS 作用域机制
+- 它通过添加特殊的属性选择器来确保样式只作用于当前组件，不会影响到其他组件。
+
+## 作用
+
+- 组件隔离
+  - 确保组件的样式只对当前组件生效，不会影响到其他组件。
+- 避免样式命名冲突
+  - 不同组件的样式可以使用相同的类名，而不会相互干扰。
+
+## 基本使用
+
+- 设置组件模板中元素的样式
+
+```html
+  <template>
+    <div id="app">
+      <div class="example">
+        <h1>标题</h1>
+        <p>内容</p>
+      </div>
+    </div>
+  </template>
+
+  <script>
+  import Hello from './components/Hello.vue'
+
+  export default {
+    name: 'App'
+  }
+  </script>
+
+  <style scoped>
+  .example {
+    color: aqua;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+  </style>
+```
+
+## 工作原理
+
+### 编译前
+
+```css
+  .example { color: red; }
+  h1 { font-size: 20px; }
+```
+
+### 编译后
+
+```css
+  .example[data-v-f3f3eg9] { color: red; }
+  h1[data-v-f3f3eg9] { font-size: 20px; }
+```
+
+- 对应的 HTML 也会添加相同的属性
+
+```html
+  <div class="example" data-v-f3f3eg9>
+    <h1 data-v-f3f3eg9>标题</h1>
+    <p data-v-f3f3eg9>内容</p>
+  </div>
+```
+
+## 深度选择器
+
+- 正常情况下，Scoped 样式不能对嵌套较深（子孙元素、第三方组件、动态渲染的html内容）的元素生效
+```html
+  <template>
+    <div id="app">
+      <div class="example">
+        <Hello />
+        <!-- style中的样式正常情况下不会对动态渲染html内容生效 -->
+        <div v-html="htmlContent"  ></div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+  import Hello from './components/Hello.vue'
+
+  export default {
+    name: 'App',
+    components: {
+      Hello
+    },
+    data() {
+      return {
+        htmlContent: `
+          <div class="dynamic-content">
+            动态渲染的内容
+          </div>
+        `
+      }
+    }
+  }
+  </script>
+
+  <style scoped>
+  /* 选择子组件的根元素，样式会生效 */
+  .hello {
+    color: blue;
+  }
+
+  /* 直接选择子组件内部的元素，样式不会生效 */
+  .hello .inner-text {
+    color: red;
+  }
+
+  /* 直接选择动态渲染的html内容中的元素，样式不生效 */
+  .dynamic-content {
+    color: pink;
+  }
+  .example .dynamic-content {
+    color: pink;
+  }
+
+  </style>
+```
+
+- 需要使用深度选择器来选择这些元素（>>> 或 ::v-deep 或 /deep/）
+```html
+  <style scoped>
+
+  /* 使用深度选择语法，选择子组件内部的元素，样式会生效 */
+  .hello /deep/ .inner-text {
+    color: green;
+  }
+
+  /* 需要使用深度选择语法（>>> 或 ::v-deep 或 /deep/），样式会生效， */
+  /* .example >>> .dynamic-content {
+    color: pink;
+  } */
+  .example ::v-deep .dynamic-content {
+    color: pink;
+  }
+  </style>
+```
+- 常用于选择第三方组件的元素
+
+![Scoped样式](./imgs/Scoped样式.png)
