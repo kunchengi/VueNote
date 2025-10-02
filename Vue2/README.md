@@ -2553,3 +2553,13 @@
 - 常用于选择第三方组件的元素
 
 ![Scoped样式](./imgs/Scoped样式.png)
+
+# TodoList案例
+
+- 数据存储在App.vue中
+- 所有修改数据的方法都在App.vue中定义
+- 使用prop传递数据和方法给子孙组件
+- 子孙组件通过prop接收数据和方法，调用方法修改数据
+
+[TodoList案例](./vue2clinote/6_TodoList/App.vue)
+![todolist](./imgs/todolist.png)

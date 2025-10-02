@@ -1,0 +1,82 @@
+<template>
+    <li>
+        <label>
+            <!-- 写法1，使用点击事件 -->
+            <!-- <input type="checkbox" :checked="todo.done" @click="handleChange(todo.id)"> -->
+            <!-- 写法2，使用change事件 -->
+            <input type="checkbox" :checked="todo.done" @change="handleChange(todo.id)">
+            <!-- 写法3，使用v-model指令，但不建议这么写，因为不要修改props中的数据 -->
+            <!-- <input type="checkbox" v-model="todo.done"> -->
+            <span>{{ todo.todoName }}</span>
+        </label>
+        <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+    </li>
+</template>
+
+<script>
+export default {
+    name: 'Item',
+    // 接收父组件传递过来的属性
+    props: {
+        todo: Object,
+        changeDone: Function,
+        deleteTodo: Function
+    },
+    methods: {
+        // 处理复选框的change事件
+        handleChange(id) {
+            this.changeDone(id);
+        },
+        // 处理删除按钮的点击事件
+        handleDelete(id) {
+            if (confirm('确定删除吗？')) {
+                this.deleteTodo(id);
+            }
+        }
+    }
+}
+</script>
+
+<style scoped>
+li {
+    list-style: none;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+li label {
+    float: left;
+    cursor: pointer;
+}
+
+li label input {
+    vertical-align: middle;
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
+}
+
+li .btn {
+    float: right;
+    display: none;
+    margin-top: 3px;
+}
+
+li:before {
+    contain: initial;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li:hover {
+    background-color: #e9e9e9;
+}
+
+li:hover .btn {
+    display: block;
+}
+</style>
