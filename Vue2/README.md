@@ -2564,3 +2564,68 @@
 
 [TodoList案例](./vue2clinote/6_TodoList/App.vue)
 ![todolist](./imgs/todolist.png)
+
+# 组件自定义事件
+
+- 自定义事件是 Vue 组件间通信的重要机制，允许子组件向父组件传递数据和触发行为。
+- 它是 Vue 事件系统的扩展，不同于原生 DOM 事件
+
+## 基本使用
+
+- 事件监听（父组件）
+```html
+  <!-- 在父组件模板中监听notify事件 -->
+  <Hello @notify="handleNotify"/>
+```
+
+- 事件触发（子组件）
+```js
+  // 在子组件中触发事件
+  this.$emit('notify', {
+      id: 1,
+      name: '张三'
+  });
+```
+
+## 表单组件双向通信
+
+- 父组件传递数据和监听事件
+```html
+    <!-- 父子组件双向通信：监听input-change事件，当子组件输入框的值发生改变时，更新父组件的userEmail -->
+    <InputCom :email="userEmail" @input-change="userEmail = $event"/>
+```
+
+- 子组件触发事件
+```html
+  // 在子组件中的表单中关联数据和触发事件
+  <input :value="email" @input="$emit('input-change', $event.target.value)">
+```
+
+## .sync 修饰符（双向绑定语法糖）
+
+- 父组件传递数据和监听事件（使用 .sync 修饰符）
+```html
+  <!-- 传统方式 -->
+  <input :value="email" @input="$emit('input-change', $event.target.value)">
+  <!-- 使用 .sync -->
+  <InputCom :email.sync="userEmail" :isSync="true" />
+```
+
+- 子组件触发事件（使用 .sync 修饰符）
+  - 事件名为 update:属性名
+```html
+  <!-- 在子组件中的表单中关联数据和触发事件（使用 .sync 修饰符） -->
+  <input :value="email" @input="$emit('update:email', $event.target.value)">
+```
+
+## .native 修饰符
+
+- .native 修饰符用于监听子组件根元素的原生 DOM 事件，而不是组件自定义事件。
+- 例如，监听子组件的 click 事件：
+```html
+  <!-- 点击子组件时,会执行handleComponentClick方法 -->
+  <Hello @click.native="handleComponentClick" />
+```
+- Vue 3 中移除了 .native 修饰符
+
+![组件自定义事件](./imgs/组件自定义事件.png)
