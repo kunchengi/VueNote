@@ -2556,10 +2556,11 @@
 
 # TodoList案例
 
-- 数据存储在App.vue中
+- 数据存储在localStorage中，App.vue只负责读取和写入数据
 - 所有修改数据的方法都在App.vue中定义
 - 使用prop传递数据和方法给子孙组件
 - 子孙组件通过prop接收数据和方法，调用方法修改数据
+- 通过深度监视属性同步更新localStorage
 
 [TodoList案例](./vue2clinote/6_TodoList/App.vue)
 ![todolist](./imgs/todolist.png)

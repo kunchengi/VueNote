@@ -28,16 +28,9 @@ export default {
   },
   data() {
     return {
-      todos: []
+      // 读取localStorage中的todos数据
+      todos: JSON.parse(localStorage.getItem('todos')) || []
     }
-  },
-  created() {
-    const todos = [
-      { id: nanoid(), todoName: '学习Vue', done: true },
-      { id: nanoid(), todoName: '学习React', done: false },
-      { id: nanoid(), todoName: '学习Angular', done: true },
-    ]
-    this.todos = todos;
   },
   methods: {
     // 添加任务
@@ -68,6 +61,16 @@ export default {
     clearAllTodo() {
       this.todos = this.todos.filter(item => !item.done)
     },
+  },
+  // 监听todos变化，同步更新localStorage
+  watch: {
+    todos: {
+      deep: true,// 深度监听，当todos数组中的元素发生变化时也会触发监听
+      handler(newVal) {
+        localStorage.setItem('todos', JSON.stringify(newVal))
+      },
+      deep: true
+    }
   }
 }
 </script>
