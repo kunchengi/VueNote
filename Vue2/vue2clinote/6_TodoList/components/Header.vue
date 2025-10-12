@@ -10,10 +10,6 @@
 
 export default {
     name: 'Header',
-    // 接收父组件传递过来的添加任务方法
-    props: {
-        addTodo: Function
-    },
     data() {
         return {
             todoName: ''
@@ -27,8 +23,8 @@ export default {
             if (!todoName) {
                 return;
             }
-            // 调用父组件的添加任务方法，将新任务添加到todos数组中
-            this.addTodo(todoName);
+            // 派发事件通知App组件添加任务
+            this.$emit('addTodo',todoName)
             // 清空输入框
             this.todoName = ''
         }

@@ -20,9 +20,7 @@ export default {
     name: 'Footer',
     // 接收父组件传递过来的属性
     props: {
-        todos: Array,
-        changeAllTodo: Function,
-        clearAllTodo: Function
+        todos: Array
     },
     computed: {
         // 总数
@@ -46,7 +44,8 @@ export default {
             },
             // 当全选复选框改变时，调用changeAllTodo方法，修改所有任务的done属性
             set(val) {
-                this.changeAllTodo(val);
+                // 通知App组件修改所有任务的done属性
+                this.$emit('changeAllTodo',val)
             }
         }
     },
@@ -59,7 +58,8 @@ export default {
         // 清除已完成任务
         clearAll() {
             if (confirm('确定清除已完成任务吗？')) {
-                this.clearAllTodo();
+                // 通知App组件清除已完成任务
+                this.$emit('clearAllTodo')
             }
         }
     }

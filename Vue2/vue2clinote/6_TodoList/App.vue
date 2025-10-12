@@ -2,12 +2,12 @@
   <div id="app">
     <div class="todo-container">
       <div class="todo-wrap">
-        <!-- 头部 -->
-        <Header :addTodo="addTodo" />
+        <!-- 给MyHeader绑定addTodo自定义事件 -->
+        <Header @addTodo="addTodo" />
         <!-- 列表 -->
         <List :todos="todos" :changeDone="changeDone" :deleteTodo="deleteTodo" />
         <!-- 底部 -->
-        <Footer :todos="todos" :changeAllTodo="changeAllTodo" :clearAllTodo="clearAllTodo" />
+        <Footer :todos="todos" @changeAllTodo="changeAllTodo" @clearAllTodo="clearAllTodo" />
       </div>
     </div>
   </div>
