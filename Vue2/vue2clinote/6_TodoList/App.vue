@@ -37,12 +37,16 @@ export default {
     this.$bus.$on('changeDone', this.changeDone);
     // 监听deleteTodo事件
     this.$bus.$on('deleteTodo', this.deleteTodo);
+    // 监听updateTodo事件
+    this.$bus.$on('updateTodo', this.updateTodo);
   },
   beforeDestroy() {
     // 取消监听changeDone事件
     this.$bus.$off('changeDone', this.changeDone);
     // 取消监听deleteTodo事件
     this.$bus.$off('deleteTodo', this.deleteTodo);
+    // 取消监听updateTodo事件
+    this.$bus.$off('updateTodo', this.updateTodo);
   },
   methods: {
     // 添加任务
@@ -72,6 +76,11 @@ export default {
     // 清除已完成任务
     clearAllTodo() {
       this.todos = this.todos.filter(item => !item.done)
+    },
+    // 更新任务名
+    updateTodo(id, todoName) {
+      const todo = this.todos.find(item => item.id === id);
+      todo.todoName = todoName;
     },
   },
   // 监听todos变化，同步更新localStorage
@@ -111,6 +120,13 @@ body {
   color: #fff;
   background-color: #da4f49;
   border: 1px solid #bd362f;
+}
+
+.btn-edit {
+  color: #fff;
+  background-color: skyblue;
+  border: 1px solid rgb(103, 159, 180);
+  margin-right: 5px;
 }
 
 .btn:focus {
