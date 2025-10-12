@@ -2775,3 +2775,89 @@
 ```js
   pubsub.publish('eventName', data);
 ```
+
+# NextTick钩子
+
+- NextTick 是 Vue 2 中处理异步 DOM 更新的关键工具，用于在修改数据后立即操作更新后的 DOM。
+
+## Vue 的异步更新机制
+
+- Vue 不会在数据变化时立即更新 DOM，而是将更新操作推入一个队列，在下一个事件循环中批量执行
+
+## NextTick 的作用时机
+
+- 在DOM更新完成后，立即执行回调函数
+- 用于确保在数据变化后，DOM 已经更新到最新状态
+```js
+  // 修改颜色体现异步更新问题
+  this.color = 'blue';
+  // 由于 Vue 的更新是异步的，此时ref中的数据还未更新
+  console.log(this.$refs.schoolName.style.color); // red
+  // 需要 $nextTick 来确保 ref 已更新
+  this.$nextTick(() => {
+      console.log(this.$refs.schoolName.style.color); // blue
+  })
+```
+
+## Vue 的更新队列
+
+1. 数据变化 → 触发 watcher
+2. 加入队列 → 将更新操作加入异步队列
+3. 事件循环 → 在当前任务完成后执行队列
+4. DOM 更新 → 执行所有更新操作
+5. NextTick 回调 → 在 DOM 更新后执行
+```js
+  // 同步代码
+  this.message = '新消息'
+  console.log('同步代码执行')
+
+  // 微任务（NextTick 使用）
+  this.$nextTick(() => {
+    console.log('NextTick 回调执行')
+  })
+
+  // 宏任务
+  setTimeout(() => {
+    console.log('setTimeout 执行')
+  }, 0)
+
+  // 输出顺序：
+  // 1. 同步代码执行
+  // 2. NextTick 回调执行  
+  // 3. setTimeout 执行
+```
+
+## 使用方法
+
+- 回调函数方式
+```js
+  this.$nextTick(() => {
+    // 操作更新后的 DOM
+  })
+```
+
+- Promise 方式（推荐使用）
+```js
+  this.$nextTick().then(() => {
+    // 操作更新后的 DOM
+  })
+
+  await this.$nextTick()
+  // 操作更新后的 DOM
+```
+
+- 全局使用
+```js
+  Vue.nextTick(() => {
+    // 操作更新后的 DOM
+  })
+```
+
+## 注意事项
+
+- 避免在 NextTick 回调中修改数据，可能导致无限循环更新
+- 避免过度使用，只在必要时调用
+- 避免深层嵌套
+- 避免在循环中调用 NextTick，可能导致性能问题
+
+![NextTick](./imgs/NextTick.png)
