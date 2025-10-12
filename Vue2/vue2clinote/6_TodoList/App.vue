@@ -5,7 +5,7 @@
         <!-- 给MyHeader绑定addTodo自定义事件 -->
         <Header @addTodo="addTodo" />
         <!-- 列表 -->
-        <List :todos="todos" :changeDone="changeDone" :deleteTodo="deleteTodo" />
+        <List :todos="todos" />
         <!-- 底部 -->
         <Footer :todos="todos" @changeAllTodo="changeAllTodo" @clearAllTodo="clearAllTodo" />
       </div>
@@ -31,6 +31,18 @@ export default {
       // 读取localStorage中的todos数据
       todos: JSON.parse(localStorage.getItem('todos')) || []
     }
+  },
+  mounted() {
+    // 监听changeDone事件
+    this.$bus.$on('changeDone', this.changeDone);
+    // 监听deleteTodo事件
+    this.$bus.$on('deleteTodo', this.deleteTodo);
+  },
+  beforeDestroy() {
+    // 取消监听changeDone事件
+    this.$bus.$off('changeDone', this.changeDone);
+    // 取消监听deleteTodo事件
+    this.$bus.$off('deleteTodo', this.deleteTodo);
   },
   methods: {
     // 添加任务

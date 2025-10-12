@@ -18,19 +18,17 @@ export default {
     name: 'Item',
     // 接收父组件传递过来的属性
     props: {
-        todo: Object,
-        changeDone: Function,
-        deleteTodo: Function
+        todo: Object
     },
     methods: {
         // 处理复选框的change事件
         handleChange(id) {
-            this.changeDone(id);
+            this.$bus.$emit('changeDone', id);
         },
         // 处理删除按钮的点击事件
         handleDelete(id) {
             if (confirm('确定删除吗？')) {
-                this.deleteTodo(id);
+                this.$bus.$emit('deleteTodo', id);
             }
         }
     }

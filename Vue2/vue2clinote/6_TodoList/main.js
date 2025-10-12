@@ -15,5 +15,9 @@ new Vue({
   // 精简版render写法
   // render:q => q('h1','你好啊')
   // 渲染App组件
-  render: h => h(App)
+  render: h => h(App),
+  // 创建全局事件总线
+  beforeCreate() {
+    Vue.prototype.$bus = this
+  }
 }).$mount('#app')// 挂载到app元素上
