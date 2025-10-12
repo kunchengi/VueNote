@@ -2629,3 +2629,105 @@
 - Vue 3 中移除了 .native 修饰符
 
 ![组件自定义事件](./imgs/组件自定义事件.png)
+
+# 全局事件总线（GlobalEventBus）
+
+- 用于任意组件间的通信
+
+## 基本使用
+
+### 创建事件总线
+```js
+  new Vue({
+    render: h => h(App),
+    // 创建全局事件总线
+    beforeCreate() {
+      Vue.prototype.$bus = this
+    }
+  }).$mount('#app')// 挂载到app元素上
+```
+
+### 事件监听
+
+- 在mounted钩子函数中监听事件
+- 在beforeDestroy钩子函数中取消监听事件
+- $on函数参数说明
+  - 第一个参数：事件名
+  - 第二个参数：事件处理函数
+```js
+  export default {
+    name: 'App',
+    mounted() {
+      // 组件挂载完成后，订阅全局事件总线的事件
+      // 监听 buyPhone 事件
+      this.$bus.$on('buyPhone', this.onBuyPhone)
+    },
+    beforeDestroy() {
+      // 组件销毁前，取消订阅全局事件总线的事件
+      // 取消监听 buyPhone 事件
+      this.$bus.$off('buyPhone', this.onBuyPhone)
+    },
+    methods: {
+      onBuyPhone(phone) {
+        console.log('购买了', phone.name);
+      }
+    }
+  }
+```
+
+### 事件触发
+
+- $emit函数参数说明
+  - 第一个参数：事件名
+  - 第二个参数及以后：需要传递的数据
+```js
+  export default {
+      name: 'PhoneItem'
+      methods: {
+          handleClick() {
+              // 触发 buyPhone 事件
+              this.$bus.$emit('buyPhone', this.phone);
+          }
+      }
+  }
+```
+
+## 一次性监听
+
+- $once函数可以只监听一次事件
+  - 第一个参数：事件名
+  - 第二个参数：事件处理函数
+```js
+  export default {
+    name: 'App',
+    mounted() {
+      // 组件挂载完成后，订阅全局事件总线的事件
+      // 只监听一次 buyPhone 事件
+      this.$bus.$once('buyPhone', this.onBuyPhone)
+    },
+    beforeDestroy() {
+      // 组件销毁前，取消订阅全局事件总线的事件
+      // 取消监听 buyPhone 事件
+      this.$bus.$off('buyPhone', this.onBuyPhone)
+    },
+    methods: {
+      onBuyPhone(phone) {
+        console.log('购买了', phone.name);
+      }
+    }
+  }
+```
+
+## 全局事件总线 vs Props/自定义事件
+
+- 全局事件总线：适用于任意组件间的通信，灵活但关系隐式，需要注意避免滥用，导致代码难以维护。
+- Props/自定义事件：适用于父子组件间的通信，更加清晰和直接。
+
+## 缺点
+
+- 忘记取消监听事件，会导致内存泄漏
+- 事件名容易冲突，导致意外触发
+  - 使用命名空间，例如：'namespace:eventName'
+  - 创建一个专门定义事件名的文件，集中管理所有事件名
+
+![全局事件总线](./imgs/全局事件总线.png)
