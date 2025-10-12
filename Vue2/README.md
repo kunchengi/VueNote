@@ -2731,3 +2731,47 @@
   - 创建一个专门定义事件名的文件，集中管理所有事件名
 
 ![全局事件总线](./imgs/全局事件总线.png)
+
+# 消息订阅与发布（pubsub）
+
+- 第三方库，适用于任意项目的事件通信
+
+## 基本使用
+
+- 安装pubsub库
+```bash
+  npm install pubsub-js
+```
+
+- 引入pubsub库
+```js
+  import pubsub from 'pubsub-js'
+```
+
+- 订阅事件（事件监听）
+  - 第一个参数：事件名
+  - 第二个参数：事件处理函数，参数1为事件名，参数2为发布时传递的数据
+```js
+  mounted() {
+    // 订阅 buyPhone 事件，并将事件对象保存起来
+    this.$buyPhone = pubsub.subscribe('buyPhone', (eventName, data) => {
+      console.log('事件名为', eventName);
+      console.log('数据为', data);
+    });
+  },
+```
+
+- 取消订阅（取消事件监听）
+```js
+  beforeDestroy() {
+    // 取消订阅 buyPhone 事件
+    pubsub.unsubscribe(this.$buyPhone);
+  },
+```
+
+- 发布事件（事件触发）
+  - 第一个参数：事件名
+  - 第二个参数及以后：需要传递的数据
+```js
+  pubsub.publish('eventName', data);
+```
