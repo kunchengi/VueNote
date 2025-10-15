@@ -2861,3 +2861,226 @@
 - 避免在循环中调用 NextTick，可能导致性能问题
 
 ![NextTick](./imgs/NextTick.png)
+
+# 过渡与动画
+
+- Vue 提供了内置的过渡系统，可以在元素/组件插入、更新或移除时自动应用过渡效果。
+- 主要通过 `<transition>` 和 `<transition-group>` 组件实现。
+
+## 基本使用
+
+### 单个元素/组件的过渡
+
+- 单个元素/组件的过渡，通过 `<transition>` 组件实现
+- 使用 `<transition>` 组件包裹需要添加动画的元素/组件
+  - name 属性指定动画名称（过渡类名前缀）
+  - 如果无 name 属性，默认使用 'v' 作为动画名称
+```html
+  <!-- 将需要添加动画的元素包裹在 transition 组件中，并添加 name 属性指定动画名称（过渡类名前缀） -->
+  <transition name="fade">
+      <div v-if="showMessage" class="message">
+          这是一条重要消息！
+      </div>
+  </transition>
+```
+- 定义过渡类名，设置css动画
+  - 进入动画的初始状态：{name}-enter
+  - 进入过程的动画效果：{name}-enter-active
+  - 离开过程的动画效果：{name}-leave-active
+  - 离开的结束状态：{name}-leave-to
+```css
+  /* 定义进入的初始状态和离开的结束状态 */
+  .fade-enter, .fade-leave-to {
+      opacity: 0;
+  }
+  
+  /* 定义过渡样式，name-enter-active 和 name-leave-active 分别指定进入和离开过程的动画 */
+  .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.5s;
+  }
+```
+
+### 列表的过渡
+
+- 列表的过渡，通过 `<transition-group>` 组件实现
+- 使用 `<transition-group>` 组件包裹需要添加动画的列表元素/组件
+- 用法与 `<transition>` 组件相同
+```html
+  <!-- 将需要添加动画的多个元素包裹在 transition-group 组件中，并添加 name 属性指定动画名称（过渡类名前缀） -->
+  <transition-group name="list" tag="ul">
+    <li v-for="(item, index) in items" :key="item.id" class="list-item">
+      {{ item.text }}
+      <button @click="removeItem(index)">删除</button>
+    </li>
+  </transition-group>
+```
+
+## 过渡类名
+
+- 进入过渡 (Enter)
+  - 进入的初始状态：{name}-enter
+  - 进入过程的动画效果：{name}-enter-active
+  - 进入的结束状态：{name}-enter-to
+- 离开过渡 (Leave)
+  - 离开的初始状态：{name}-leave
+  - 离开过程的动画效果：{name}-leave-active
+  - 离开的结束状态：{name}-leave-to
+
+
+## 过渡模式
+
+- 过渡模式指定了多个元素/组件过渡时的行为方式
+- 可选值：
+  - in-out：默认模式，新元素先进入，旧元素再离开
+  - out-in：常用，旧元素先离开，完成后新元素再进入
+- 路由切换案例（暂未学到，只需要知道路由可以用来实现页面切换）
+```html
+  <template>
+    <div id="app">
+      <nav>
+        <router-link to="/">首页</router-link>
+        <router-link to="/about">关于</router-link>
+      </nav>
+      
+      <transition name="page" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
+  </template>
+
+  <style>
+  .page-enter-active, .page-leave-active {
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .page-enter {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  .page-leave-to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  </style>
+```
+
+## 动画钩子
+
+- 可以通过js代码实现更复杂的动画效果
+- 在动画组件中绑定动画事件
+```html
+  <!-- 将需要添加动画的元素包裹在 transition 组件中 -->
+  <!-- 绑定before-enter、enter、leave 事件 -->
+  <transition
+    @before-enter="beforeEnter"
+    @enter="enter"
+    @leave="leave"
+  >
+    <div v-if="showCustom" class="custom-animation">
+      自定义动画效果
+    </div>
+  </transition>
+```
+- 定义动画事件处理函数
+```js
+  methods: {
+    beforeEnter(el) {
+      // 动画开始前的操作
+    },
+    enter(el, done) {
+      // 动画进入过程的操作
+      // 调用 done 函数表示动画完成
+      done()
+    },
+    leave(el, done) {
+      // 动画离开过程的操作
+      // 调用 done 函数表示动画完成
+      done()
+    }
+  }
+```
+- 动画事件名
+  - before-enter：动画开始前调用
+  - enter：动画进入过程调用
+  - after-enter：动画进入完成后调用
+  - enter-cancelled：动画进入过程中被取消调用
+  - before-leave：动画离开前调用
+  - leave：动画离开过程调用
+  - after-leave：动画离开完成后调用
+  - leave-cancelled：动画离开过程中被取消调用
+
+## 其它用法
+
+### 初始渲染过渡
+
+- 初始渲染过渡指的是组件首次渲染时添加的过渡效果
+- 可以通过添加 `appear` 属性来开启初始渲染过渡
+```html
+  <!-- 将需要添加动画的元素包裹在 transition 组件中，并添加 appear 属性开启初始渲染过渡 -->
+  <transition name="fade" appear>
+    <div v-if="showMessage" class="message">
+        这是一条重要消息！
+    </div>
+  </transition>
+```
+
+### 动态过渡名
+
+- 可以根据组件的状态动态切换过渡名
+- 可以通过绑定 `name` 属性实现
+```html
+  <!-- 根据 showCustom 状态动态切换过渡名 -->
+  <transition :name="transitionName">
+    <div v-if="showCustom" class="custom-animation">
+      自定义动画效果
+    </div>
+  </transition>
+```
+
+### 过渡持续时间
+
+- 可以通过添加 `duration` 属性来指定过渡持续时间（单位：毫秒）
+- 默认值为 300ms
+```html
+  <transition :duration="1000">
+    <!-- 1秒过渡 -->
+  </transition>
+
+  <transition :duration="{ enter: 500, leave: 800 }">
+    <!-- 进入500ms，离开800ms -->
+  </transition>
+```
+
+## 结合第三方动画库
+
+- 使用第三方动画库（如 Animate.css）可以实现更丰富的动画效果
+- 安装 animate.css 库
+```bash
+  npm install animate.css
+```
+
+- 引入 animate.css 库
+  - 可以在组件中直接引入 animate.css 库，也可以在 main.js 中全局引入
+```js
+  import 'animate.css'
+```
+
+- 使用 animate.css 库中的动画类名
+  - 在组件中添加 animate.css 类名即可触发动画效果
+```html
+  <transition
+    enter-active-class="animate__animated animate__bounceIn"
+    leave-active-class="animate__animated animate__bounceOut"
+  >
+    <div v-if="showBox" class="animated-box">
+      动画效果！
+    </div>
+  </transition>
+```
+
+- 动画类名请参考 animate.css 文档
+  - [animate.css 文档](https://animate.style/)
+
+- 大坑，windows 下使用 animate.css 库时，需要开启动画控件和元素。否则动画效果不会生效。
+![开启动画控件和元素](./imgs/开启动画控件和元素.png)
