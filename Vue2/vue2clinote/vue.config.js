@@ -21,6 +21,9 @@ module.exports = defineConfig({
     // 输出文件名会被推导为 `subpage.html`。
     // subpage: 'src/subpage/main.js'
   },
+  devServer: {
+    proxy: "http://localhost:5000"
+  },
   transpileDependencies: true,// Babel转译，将所有代码（包括依赖）转译为兼容的JavaScript代码
   lintOnSave: process.env.NODE_ENV !== 'production',// 生产环境时关闭eslint校验
   publicPath: './',// 打包后的静态资源路径

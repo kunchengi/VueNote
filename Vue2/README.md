@@ -3099,3 +3099,37 @@
 ```bash
   npm install axios
 ```
+
+## 配置代理解决跨域问题
+
+### 简单配置
+
+- 当请求了前端不存在的资源时，该请求会转发给服务器 （优先匹配前端资源）
+- 在vue.config.js中添加如下配置
+```js
+  module.exports = {
+    devServer: {
+      proxy: "http://localhost:5000"
+    }
+  }
+```
+- 在代码中发送请求
+  - 发送GET请求当前页面端口的/students资源，如果前端不存在/students资源时，该请求会转发给代理服务（http://localhost:5000）
+  - 8080为当前页面的端口
+  - 由于默认情况下，axios会将请求发送到与当前页面相同的域名下，所以可以把http://localhost:8080省略，直接请求'/students'即可
+```js
+  axios.get('http://localhost:8080/students').then(res => {
+    console.log('请求成功');
+    console.log(res.data)
+  }).catch(err => {
+    console.log('请求失败');
+    console.log(err)
+  })
+```
+- 优点
+ - 配置简单，请求资源时直接发给前端（8080）即可
+- 缺点
+  - 不能配置多个代理
+  - 不能灵活的控制请求是否走代理
+
+![代理的简单配置](./imgs/代理的简单配置.png)
