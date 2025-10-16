@@ -3084,3 +3084,18 @@
 
 - 大坑，windows 下使用 animate.css 库时，需要开启动画控件和元素。否则动画效果不会生效。
 ![开启动画控件和元素](./imgs/开启动画控件和元素.png)
+
+# vue中使用 ajax 
+
+## 准备
+
+- 启动`test_proxy_server`目录的测试代理服务器
+```bash
+  node server1.js
+  node server1.js
+```
+
+- 安装 axios 库
+```bash
+  npm install axios
+```
