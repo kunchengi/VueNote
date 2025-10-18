@@ -3133,3 +3133,57 @@
   - 不能灵活的控制请求是否走代理
 
 ![代理的简单配置](./imgs/代理的简单配置.png)
+
+### 详细配置
+
+- 可以配置多个代理
+- 在vue.config.js中添加如下配置
+- 说明
+  - proxy中的每个键值对都是一个代理配置项
+    - 键名表示匹配的请求路径前缀
+    - 值表示目标服务器地址和相关配置
+  - target：目标服务器地址
+  - changeOrigin：是否改变源地址为目标服务器地址
+    - 当设置为 true 时，请求的源地址为target
+    - 当设置为 false 时，请求的源地址为当前页面的域名
+  - pathRewrite：路径重写规则
+```js
+  module.exports = {
+    devServer: {
+      proxy: {
+        "/api1": {// 匹配所有以 /api1 开头的请求路径
+          target: "http://localhost:5000",// 目标服务器地址
+          changeOrigin: true,// 改变源地址为目标服务器地址
+          // 重写路径，将 /api1 替换为空字符串
+          pathRewrite: {
+            "^/api1": ""
+          }
+        },
+        "/api2": {
+          target: "http://localhost:5001",
+          changeOrigin: true,
+          pathRewrite: {
+            "^/api2": ""
+          }
+        },
+      }
+    }
+  }
+```
+
+- 在代码中发送请求
+```js
+  // 由于请求的是api1前缀的资源，所以会被代理到http://localhost:5000/students
+  axios.get('/api1/students').then(res => {
+    console.log('请求成功');
+    console.log(res.data)
+  }).catch(err => {
+    console.log('请求失败');
+    console.log(err)
+  })
+```
+
+- 优点
+  - 可以配置多个代理，且可以灵活的控制请求是否走代理
+- 缺点
+  - 配置复杂，请求资源时必须加前缀（如：/api1/students）

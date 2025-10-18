@@ -22,7 +22,23 @@ module.exports = defineConfig({
     // subpage: 'src/subpage/main.js'
   },
   devServer: {
-    proxy: "http://localhost:5000"
+    proxy: {
+      "/api1": {// 匹配所有以 /api1 开头的请求路径
+        target: "http://localhost:5000",// 目标服务器地址
+        changeOrigin: true,// 改变源地址为目标服务器地址
+        // 重写路径，将 /api1 替换为空字符串
+        pathRewrite: {
+          "^/api1": ""
+        }
+      },
+      "/api2": {
+        target: "http://localhost:5001",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api2": ""
+        }
+      },
+    }
   },
   transpileDependencies: true,// Babel转译，将所有代码（包括依赖）转译为兼容的JavaScript代码
   lintOnSave: process.env.NODE_ENV !== 'production',// 生产环境时关闭eslint校验
