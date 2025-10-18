@@ -3187,3 +3187,157 @@
   - 可以配置多个代理，且可以灵活的控制请求是否走代理
 - 缺点
   - 配置复杂，请求资源时必须加前缀（如：/api1/students）
+
+# 插槽 (Slot) 
+
+- 在使用组件时，在组件内部可以添加 HTML 内容或组件，这些内容会被渲染到组件的插槽位置
+- 也是一种组件间的通信的方式
+
+## 默认插槽
+
+- 子组件中未配置名字的插槽，称为默认插槽
+- 一个组件只能定义一个默认插槽
+
+- 子组件中可以使用 `<slot></slot>` 标签来定义插槽的位置
+- 父组件传递的内容会替换子组件中插槽位置的默认内容
+```html
+  <template>
+      <div>
+          <!-- 子组件定义了一个插槽，用于接收父组件传递的自定义内容。 -->
+          <slot>
+              <p>默认内容：父组件没传递插槽内容，则显示这段文字</p>
+          </slot>
+      </div>
+  </template>
+```
+
+- 父组件在使用子组件时，通过在子组件标签内部添加 HTML 内容或组件，来填充该插槽
+```html
+  <template>
+      <div>
+          <h2>父组件</h2>
+          <!-- 使用默认内容 -->
+          <child-component />
+          <!-- 提供自定义内容 -->
+          <child-component>
+              <!-- 父组件传递了插槽内容，子组件会显示该内容 -->
+              <p>张三，18岁</p>
+          </child-component>
+      </div>
+  </template>
+```
+
+## 具名插槽
+
+- 子组件中配置了名字的插槽，称为具名插槽
+- 默认插槽和具名插槽可以同时存在
+- 其实默认插槽也是有名字的，叫做`default`
+
+- 子组件中可以定义多个插槽，每个插槽都有一个唯一的名字
+```html
+  <template>
+      <div>
+          <!-- 子组件定义了一个插槽，用于接收父组件传递的自定义内容。 -->
+          <slot name="car">
+              <p>具名插槽car的默认内容</p>
+          </slot>
+          <slot name="phone">
+              <p>具名插槽phone的默认内容</p>
+          </slot>
+      </div>
+  </template>
+```
+- 父组件在使用子组件时，可以通过指定插槽的名字，来将内容填充到对应的插槽位置
+```html
+  <!-- 提供自定义内容 -->
+  <child-component>
+      <!-- Vue 2.6.0+ 使用 v-slot 语法 -->
+      <template v-slot:car>
+          <p>具名插槽car的内容：</p>
+          <p>特斯拉</p>
+      </template>
+      <!-- 具名插槽另一种语法：使用 slot 属性 (Vue 2.6.0之前) -->
+      <template slot="phone">
+          <p>具名插槽phone的内容：</p>
+          <p>iphone 17</p>
+      </template>
+  </child-component>
+```
+
+## 作用域插槽
+
+- 子组件可以将数据传递给插槽，父组件可以在插槽中使用这些数据
+
+- 子组件中可以使用 `<slot :属性名="数据"></slot>` 标签来定义插槽，并将数据传递给插槽
+```html
+  <template>
+      <div>
+          <!-- 默认插槽：将user传递给插槽 -->
+          <slot :user="user">
+              <p>{{ user.name }}-{{ user.age }}</p>
+          </slot>
+          <!-- 具名插槽：将user传递给插槽 -->
+          <slot name="son" :user="user">
+              <p>{{ user.name }}-{{ user.age }}</p>
+          </slot>
+      </div>
+  </template>
+```
+- 父组件在使用子组件时，可以通过在插槽标签上添加 `v-slot:插槽名="slotProps"` 来接收子组件传递的数据
+  - 如果是默认插槽，插槽名可以省略，或者将插槽名写成`default`，使用 `v-slot:default="slotProps"` 来接收数据
+```html
+  <template>
+      <div>
+          <!-- 默认插槽：接收子组件传递的user数据 -->
+          <template v-slot:default="slotProps">
+              <p>子组件传递的userName：{{ slotProps.user.name }}</p>
+              <p>子组件传递的age：{{ slotProps.user.age }}</p>
+          </template>
+          <!-- 具名插槽：接收子组件传递的user数据 -->
+          <template v-slot:son="slotProps">
+              <p>子组件传递的userName：{{ slotProps.user.name }}</p>
+              <p>子组件传递的age：{{ slotProps.user.age }}</p>
+          </template>
+      </div>
+  </template>
+```
+
+## 插槽的缩写语法
+
+- 可以将 `v-slot:插槽名` 语法缩写为 `#插槽名"`
+- 在具名插槽和作用域插槽中都可以使用缩写语法
+```html
+  <template>
+      <div>
+          <template #car>
+              <p>具名插槽car的内容：</p>
+              <p>特斯拉</p>
+          </template>
+          <!-- 接收子组件传递的user数据 -->
+          <template #son="slotProps">
+              <p>子组件传递的userName：{{ slotProps.user.name }}</p>
+              <p>子组件传递的age：{{ slotProps.user.age }}</p>
+          </template>
+      </div>
+  </template>
+```
+
+## 获取插槽内容
+- 子组件中可以获取插槽的内容，内容为插槽所包含的 HTML 虚拟DOM元素或组件
+- 非作用域插槽可以使用 `this.$slots.插槽名` 来获取插槽的内容
+- 作用域插槽可以使用 `this.$scopedSlots.插槽名({ 插槽属性名: 插槽属性值 })` 来获取插槽的内容
+```js
+  mounted() {
+      console.log('插槽内容：');
+      console.log(this.$slots)
+      console.log(this.$slots.default)
+      console.log(this.$slots.car)
+      console.log(this.$slots.phone)
+      if(this.$scopedSlots.son)
+      {
+          console.log(this.$scopedSlots.son({ user: this.user }))
+      }
+  }
+```
+
+![插槽](./imgs/插槽.png)
