@@ -3377,3 +3377,140 @@
 ```bash
   npm install vuex@3.6.2
 ```
+
+## Vuex的基本使用
+
+### 导出常量模块
+
+- 在store中定义store所需的常量并导出
+```js
+  // 该模块用于定义store常量值
+  export const AWAIT1S = 'await1s'// 异步等待1秒
+  export const INCREMENT_ASYNC = 'incrementAsync'// 异步加法
+  export const INCREMENT = 'INCREMENT'// 加法
+  export const DECREMENT = 'DECREMENT'// 减法
+```
+
+### 创建并导出store实例
+
+- 一般在store/index.js文件中创建
+- state
+  - 存放所有组件共享的状态数据
+- actions
+  - 所有可触发操作的方法
+  - actions中的方法名用小写
+  - 一般用于处理异步操作
+  - 每个方法都有两个参数
+    - 第一个参数context：上下文对象，包含store实例中的commit、dispatch方法和getters、state等属性，用于操作store
+    - value：触发操作时传递的参数
+  - actions中的方法还可以通过dispatch方法触发actions中的其他方法
+- mutations
+  - 所有可触发状态修改的方法
+  - mutations中的方法名用大写
+  - 每个方法都有两个参数
+    - 第一个参数state：当前store实例中的state对象，用于修改状态
+    - value：触发操作时传递的参数
+- getters
+  - 有些属性是可以根据当前状态计算出来的，写在getters中
+```js
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  import * as constant from './constant'
+  Vue.use(Vuex)
+  const state = {
+      sum: 0
+  }
+  const actions = {
+      // 异步等待1秒动作（为了演示在actions中触发actions中的其他方法，所以加了这个方法）
+      async await1s(context, value) {
+          return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                  resolve()
+              }, 1000)
+          })
+      },
+      // 异步加法动作
+      async incrementAsync(context, value) {
+          // // 模拟异步操作
+          // const await1sPromise = new Promise((resolve, reject) => {
+          //     setTimeout(() => {
+          //         resolve()
+          //     }, 1000)
+          // })
+          // // 等待1秒后触发mutations中的INCREMENT方法
+          // await await1sPromise
+          // // 触发mutations中的INCREMENT方法
+          // context.commit(constant.INCREMENT, value)
+
+          // 这里还可以通过dispatch触发actions中的其他方法
+          await context.dispatch(constant.AWAIT1S)
+          // 触发mutations中的INCREMENT方法
+          context.commit(constant.INCREMENT, value)
+      }
+  }
+  const mutations = {
+      // 加法
+      INCREMENT(state, value) {
+          state.sum += value
+      }
+  }
+  // 计算属性，有些属性是可以根据当前状态计算出来的，写在getters中
+  const getters = {
+      // 计算当前状态的平方
+      square(state) {
+          return state.sum * state.sum
+      }
+  }
+  // 创建并导出store实例
+  export default new Vuex.Store({
+      actions,
+      mutations,
+      state,
+      getters
+  })
+```
+
+### 在 Vue 中配置 Vuex 插件
+
+- 在 main.js 文件中引入 Vuex 插件
+- 创建 Vue 实例时，将 store 实例传递给 Vue 实例的 store 选项
+```js
+  import Vue from 'vue'
+  import App from './App.vue'
+  import store from './store'
+  Vue.config.productionTip = false
+  new Vue({
+      render: h => h(App),
+      store
+  }).$mount('#app')
+```
+
+### 在组件中使用 Vuex
+
+- 组件中可通过this.$store访问store实例
+- 通过this.$store.state访问state中的数据
+```html
+  <!-- 使用$store.state获取sum -->
+  <h1>当前求和为：{{ $store.state.sum }}</h1>
+```
+- 通过this.$store.getters访问getters中的数据
+```html
+  <!-- 使用$store.getters获取square计算属性 -->
+  <h1>当前求和的平方为：{{ $store.getters.square }}</h1>
+```
+- 通过this.$store.commit触发mutations中的方法
+  - 第一个参数为mutations中的方法名
+  - 第二个参数为触发操作时传递的参数
+```js
+  // 调用commit方法触发mutations中的INCREMENT方法
+  this.$store.commit(constant.INCREMENT, this.n)
+```
+- 通过this.$store.dispatch触发actions中的方法
+  - 第一个参数为actions中的方法名
+  - 第二个参数为触发操作时传递的参数
+```js
+  // 调用dispatch方法触发actions中的incrementAsync方法
+  await this.$store.dispatch(constant.INCREMENT_ASYNC, this.n);
+```
+
+![Vuex的基本使用](./imgs/Vuex的基本使用.png)

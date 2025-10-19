@@ -1,6 +1,9 @@
 <template>
     <div>
-        <h1>当前求和为：{{ sum }}</h1>
+        <!-- 使用$store.state获取状态 -->
+        <h1>当前求和为：{{ $store.state.sum }}</h1>
+        <!-- 使用$store.getters获取计算属性 -->
+        <h1>当前求和的平方为：{{ $store.getters.square }}</h1>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -14,6 +17,8 @@
 </template>
 
 <script>
+import * as constant from '@/store/constant'
+
 export default {
     name: 'Count',
     data() {
@@ -23,21 +28,26 @@ export default {
         }
     },
     methods: {
+        // 加法
         increment() {
-            this.sum += this.n
+            // 调用commit方法触发mutations中的INCREMENT方法
+            this.$store.commit(constant.INCREMENT, this.n)
         },
+        // 减法
         decrement() {
-            this.sum -= this.n
+            this.$store.commit(constant.DECREMENT, this.n)
         },
+        // 当前求和为奇数再加
         incrementIfOdd() {
-            if (this.sum % 2 !== 0) {
-                this.sum += this.n
+            if (this.$store.state.sum % 2 !== 0) {
+                this.$store.commit(constant.INCREMENT, this.n)
             }
         },
-        incrementAsync() {
-            setTimeout(() => {
-                this.sum += this.n
-            }, 1000)
+        // 异步加法
+        async incrementAsync() {
+            // 调用dispatch方法触发actions中的incrementAsync方法
+            await this.$store.dispatch(constant.INCREMENT_ASYNC, this.n);
+            console.log(this.$store.state.sum);// 最新的求和
         }
     }
 }
