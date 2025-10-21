@@ -3514,3 +3514,150 @@
 ```
 
 ![Vuex的基本使用](./imgs/Vuex的基本使用.png)
+
+## Vuex的模块化
+
+- 通过modules将store拆分成多个模块，每个模块都有自己的state、actions、mutations、getters
+- 可以更好的管理不同模块之间的状态和操作
+
+- 定义calculate模块
+```js
+  // 引入常量模块
+  import * as constant from '../constant'
+  // 计算模块
+  const calculateModule = {
+    namespaced: true, // 开启命名空间，模块中的mutations和getters会自动添加模块名前缀，可以在组件中通过模块名/方法名调用
+    state: () => ({
+      sum: 0
+    }),
+    getters: {
+      // 计算当前状态的平方
+      square(state) {
+        return state.sum * state.sum
+      }
+    },
+    mutations: {
+      // 加法
+      INCREMENT(state, value) {
+        // 更新状态
+        state.sum += value
+      },
+      // 减法
+      DECREMENT(state, value) {
+        // 更新状态
+        state.sum -= value
+      }
+    },
+    // 异步动作，方法中的第一个参数为当前模块的上下文对象，包含commit、dispatch、state、getters等属性
+    actions: {
+      // 异步等待1秒动作
+      async await1s(context, value) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve()
+          }, 1000)
+        })
+      },
+      // 异步加法动作
+      async incrementAsync(context, value) {
+        await context.dispatch(constant.AWAIT1S)
+        // 触发mutations中的INCREMENT方法
+        context.commit(constant.INCREMENT, value)
+      }
+    }
+  }
+  export default calculateModule
+```
+- 定义user模块
+```js
+// 引入常量模块
+  import * as constant from '../constant'
+  const userModule = {
+    namespaced: true, // 开启命名空间，模块中的mutations和getters会自动添加模块名前缀，可以在组件中通过模块名/方法名调用
+    state: () => ({
+      firstname: '张',// 姓
+      lastname: '三',// 名
+    }),
+    getters: {
+      // 姓名
+      fullName: state => `${state.firstname}${state.lastname}`,
+    },
+    mutations: {
+      SET_FIRSTNAME(state, firstname) {
+        state.firstname = firstname
+      },
+      SET_LASTNAME(state, lastname) {
+        state.lastname = lastname
+      }
+    },
+    // 方法中的第一个参数为当前模块的上下文对象，包含commit、dispatch、state、getters等属性
+    actions: {
+      // 异步等待1秒动作（为了演示在actions中触发actions中的其他方法，所以加了这个方法）
+      async await1s(context, value) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve()
+          }, 1000)
+        })
+      },
+      async setName(context, { firstname, lastname }) {
+        // 等待1秒
+        await context.dispatch(constant.AWAIT1S)
+        context.commit(constant.SET_FIRSTNAME, firstname)
+        context.commit(constant.SET_LASTNAME, lastname)
+      }
+    }
+  }
+  export default userModule
+```
+- 定义根state
+```js
+  // 该文件用于创建Vuex最为核心的store
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  // 应用Vuex插件
+  Vue.use(Vuex)
+  // 引入模块
+  import userModule from './modules/user'
+  import calculateModule from './modules/calculate'
+  Vue.use(Vuex)
+  export default new Vuex.Store({
+    // 导入模块
+    modules: {
+      user: userModule,
+      calculate: calculateModule
+    },
+    // 根state
+    state: {
+      appName: 'Vuex Demo App'
+    },
+    // 根getters
+    getters: {
+      appInfo: state => `应用: ${state.appName}`
+    }
+  })
+```
+- 开启命名空间后，可以在组件中通过this.$store.state.模块名访问模块中的state数据
+```html
+  <h1>当前求和为：{{ $store.state.calculate.sum }}</h1>
+```
+- 开启命名空间后，可以在组件中通过this.$store.getters['模块名/方法名']访问模块中的getters数据
+```html
+  <h1>当前求和的平方为：{{ $store.getters['calculate/square'] }}</h1>
+```
+- 开启命名空间后，可以在组件中通过this.$store.dispatch('模块名/方法名')触发模块中的actions方法
+  - 第一个参数模块名/方法名
+  - 第二个参数为触发操作时传递的参数
+```js
+  // 调用dispatch方法触发calculate模块中的incrementAsync方法
+  await this.$store.dispatch(`${constant.CALCULATE}/${constant.INCREMENT_ASYNC}`, this.n);
+```
+- 开启命名空间后，可以在组件中通过this.$store.commit('模块名/方法名')触发模块中的mutations方法
+  - 第一个参数模块名/方法名
+  - 第二个参数为触发操作时传递的参数
+```js
+  // 调用commit方法触发calculate模块中的INCREMENT方法
+  this.$store.commit(`${constant.CALCULATE}/${constant.INCREMENT}`, this.n)
+```
+
+![Vuex的模块化](./imgs/Vuex的模块化.png)
