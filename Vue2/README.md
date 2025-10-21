@@ -3753,3 +3753,27 @@
   <!-- 映射后可以直接调用模块中的mutations方法 -->
   <button @click="increment(n)">同步增加</button>
 ```
+
+## vuex插件使用
+
+- 插件可以在Vuex的创建过程中进行配置，用于添加额外的功能
+- 创建插件函数
+```js
+  // 日志插件
+  const loggerPlugin = store => {
+    // 监听所有mutations，每次mutation触发时都会调用
+    store.subscribe((mutation, state) => {
+      console.log('模块/mutations中的方法名', mutation.type);// mutation.type为修改的模块和方法，如：calculate/INCREMENT
+      console.log('payload:', mutation.payload);// payload为mutations方法的参数
+      console.log('state:', state);// state为store的状态树，包含所有模块的state
+    })
+  }
+```
+- 应用插件
+```js
+  export default new Vuex.Store({
+    // 应用插件
+    plugins: [loggerPlugin],
+    // ...其他配置
+  })
+```
