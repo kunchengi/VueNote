@@ -1,5 +1,5 @@
 // 引入常量模块
-import * as constant from '../constant'
+import { INCREMENT, DECREMENT, AWAIT1S, INCREMENT_ASYNC } from '../constant'
 // 计算模块
 const calculateModule = {
   namespaced: true, // 开启命名空间，模块中的mutations和getters会自动添加模块名前缀，可以在组件中通过模块名/方法名调用
@@ -14,12 +14,12 @@ const calculateModule = {
   },
   mutations: {
     // 加法
-    INCREMENT(state, value) {
+    [INCREMENT](state, value) {
       // 更新状态
       state.sum += value
     },
     // 减法
-    DECREMENT(state, value) {
+    [DECREMENT](state, value) {
       // 更新状态
       state.sum -= value
     }
@@ -27,7 +27,7 @@ const calculateModule = {
   // 异步动作，方法中的第一个参数为当前模块的上下文对象，包含commit、dispatch、state、getters等属性
   actions: {
     // 异步等待1秒动作
-    async await1s(context, value) {
+    async [AWAIT1S](context, value) {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve()
@@ -35,10 +35,10 @@ const calculateModule = {
       })
     },
     // 异步加法动作
-    async incrementAsync(context, value) {
-      await context.dispatch(constant.AWAIT1S)
+    async [INCREMENT_ASYNC](context, value) {
+      await context.dispatch(AWAIT1S)
       // 触发mutations中的INCREMENT方法
-      context.commit(constant.INCREMENT, value)
+      context.commit(INCREMENT, value)
     }
   }
 }

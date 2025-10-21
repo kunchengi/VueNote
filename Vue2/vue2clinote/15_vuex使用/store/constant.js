@@ -14,9 +14,6 @@ export const SET_NAME = 'setName'// 设置用户姓名
 export const INCREMENT = 'INCREMENT'// 加法
 export const DECREMENT = 'DECREMENT'// 减法
 
-// calculate模块的getter名
-export const SQUARE = 'square'// 计算当前状态的平方
-
 // user模块的mutation名
 export const SET_FIRSTNAME = 'SET_FIRSTNAME'// 设置firstname
 export const SET_LASTNAME = 'SET_LASTNAME'// 设置lastname

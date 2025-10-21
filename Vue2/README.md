@@ -3661,3 +3661,95 @@
 ```
 
 ![Vuex的模块化](./imgs/Vuex的模块化.png)
+
+## map辅助函数
+
+- map辅助函数可以将模块中的state、getters、mutations、actions映射到组件的中
+- 可以更方便的在组件中访问和操作模块中的数据
+
+### mapState
+
+- mapState可以将模块中的state映射到组件的computed属性中
+- 第一个参数为模块名
+- 第二个参数为要映射的state属性名数组
+```js
+  // 引入map辅助函数
+  import { mapState } from 'vuex'
+  export default {
+    computed: {
+        // 映射 calculate 模块的 state
+        ...mapState("calculate", ["sum"]),
+    }
+  }
+```
+
+- 读取state数据
+```html
+  <!-- 映射后可以直接读取模块中的state -->
+  <h1>当前求和为：{{ sum }}</h1>
+```
+
+### mapGetters
+
+- mapGetters可以将模块中的getters映射到组件的computed属性中
+- 第一个参数为模块名
+- 第二个参数为要映射的getters属性名数组
+```js
+  // 引入map辅助函数
+  import { mapGetters } from 'vuex'
+  export default {
+    computed: {
+        // 映射 calculate 模块的 getters
+        ...mapGetters("calculate", ["square"]),
+    }
+  }
+```
+
+- 读取getters数据
+```html
+  <!-- 映射后可以直接读取模块中的getters -->
+  <h1>当前求和的平方为：{{ square }}</h1>
+```
+
+### mapActions
+
+- mapActions可以将模块中的actions映射到组件的methods属性中
+- 第一个参数为模块名
+- 第二个参数为要映射的actions属性名数组
+```js
+  // 引入map辅助函数
+  import { mapActions } from 'vuex'
+  export default {
+    methods: {
+        // 映射 calculate 模块的 actions
+        ...mapActions("calculate", ["incrementAsync"]),
+    }
+  }
+```
+
+- 调用actions方法
+```html
+  <!-- 映射后可以直接调用模块中的actions方法 -->
+  <button @click="incrementAsync(n)">异步增加</button>
+```
+
+### mapMutations
+- mapMutations可以将模块中的mutations映射到组件的methods属性中
+- 第一个参数为模块名
+- 第二个参数为要映射的mutations属性名数组
+```js
+  // 引入map辅助函数
+  import { mapMutations } from 'vuex'
+  export default {
+    methods: {
+        // 映射 calculate 模块的 mutations
+        ...mapMutations("calculate", ["increment"]),
+    }
+  }
+```
+
+- 调用mutations方法
+```html
+  <!-- 映射后可以直接调用模块中的mutations方法 -->
+  <button @click="increment(n)">同步增加</button>
+```
