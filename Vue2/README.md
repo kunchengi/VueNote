@@ -3777,3 +3777,47 @@
     // ...其他配置
   })
 ```
+
+# element-ui 使用
+
+## 安装依赖
+```bash
+  npm install element-ui
+  npm install babel-plugin-component -D
+```
+
+## 在babel.config.js中配置插件
+```js
+  module.exports = {
+    presets: [
+      '@vue/cli-plugin-babel/preset'
+    ],
+    plugins: [
+      [
+        "component",
+        {
+          "libraryName": "element-ui",
+          "styleLibraryName": "theme-chalk"
+        }
+      ]
+    ]
+  }
+```
+
+## 在main.js中按需引入
+```js
+  import { Button, Select } from 'element-ui'
+  // 按需注册组件
+  Vue.use(Button)
+  Vue.use(Select)
+```
+
+## 在组件中使用
+```html
+  <template>
+    <div id="app">
+      <!-- 使用element-ui的按钮组件 -->
+      <el-button type="primary">主要按钮</el-button>
+    </div>
+  </template>
+```
