@@ -325,3 +325,22 @@ flowchart TB
 - [vant](https://vant-ui.github.io/vant/#/zh-CN)
 - [mint-ui](https://mint-ui.github.io/docs/#/zh-cn2)
 - [cube-ui](https://didi.github.io/cube-ui/#/zh-CN)
+
+# 路由
+
+## 路由简介
+
+### 作用
+
+- 将url映射到UI组件，用于构建单页面应用（SPA）
+- 实现页面间的无刷新跳转
+- 管理浏览器历史记录
+- 实现嵌套路由和路由参数传递
+- 提供导航守卫等功能
+
+### SPA 应用
+
+- 单页Web 应用（single page web application，SPA）
+- 整个应用只有一个完整的html页面
+- 点击页面中的导航链接不会刷新页面，只会做页面的局部更新
+- 数据需要通过ajax 请求获取
