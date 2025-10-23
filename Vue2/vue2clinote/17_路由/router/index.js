@@ -8,6 +8,8 @@ Vue.use(VueRouter)
 // 引入组件
 import About from '../pages/About.vue'
 import Home from '../pages/Home.vue'
+import JavaScriptCom from '../pages/Home/JavaScriptCom.vue'
+import VueCom from '../pages/Home/VueCom.vue'
 
 // 创建并暴露一个路由器实例
 export default new VueRouter({
@@ -15,7 +17,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home' // 默认重定向到home路由
+      redirect: '/home/vue' // 默认重定向到home/vue路由
     },
     {
       path: '/about',
@@ -23,7 +25,18 @@ export default new VueRouter({
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      // 配置Home组件的子路由规则
+      children: [
+        {
+          path: 'javascript',
+          component: JavaScriptCom
+        },
+        {
+          path: 'vue',
+          component: VueCom
+        }
+      ]
     }
   ]
 })

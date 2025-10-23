@@ -3891,3 +3891,54 @@
 ```
 
 ![vue2路由基本使用](./imgs/vue2路由基本使用.png)
+
+## 嵌套（多级）路由
+
+- 配置路由规则
+```js
+  // 创建并暴露一个路由器实例
+  export default new VueRouter({
+    // 配置路由规则
+    routes: [
+      {
+        path: '/',
+        redirect: '/home/vue' // 默认重定向到home/vue路由
+      },
+      {
+        path: '/about',
+        component: About
+      },
+      {
+        path: '/home',
+        component: Home,
+        // 配置Home组件的子路由规则
+        children: [
+          {
+            path: '/home/vue',
+            component: VueComponent
+          },
+          {
+            path: '/home/javascript',
+            component: JavaScriptComponent
+          }
+        ]
+      }
+    ]
+  })
+```
+
+- 配置路由链接
+  - 要写完整路径，包括父路由路径
+```html
+  <!-- 路由链接，用于切换路由。active-class为激活时的类名，to为目标路由路径 -->
+  <router-link active-class="active" to="/home/vue">Vue路由</router-link>
+  <router-link active-class="active" to="/home/javascript">JavaScript路由</router-link>
+```
+
+- 在Home组件中配置路由出口
+```html
+  <!-- 路由出口，用于渲染匹配到的组件 -->
+  <router-view></router-view>
+```
+
+![嵌套路由](./imgs/嵌套路由.png)
