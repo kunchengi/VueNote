@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <Sidebar />
+    <Sidebar :courseList="courseList" />
     <div class="content">
         <!-- 显示Home的子路由组件 -->
         <router-view></router-view>
@@ -14,6 +14,14 @@ export default {
     name: 'Home',
     components: {
         Sidebar,
+    },
+    data() {
+        return {
+            courseList: [
+                { id: "2", name: 'Vue', path: '/home/vue', content: '路由的使用' },
+                { id: "1", name: 'JavaScript', path: '/home/javascript', content: '数组的方法' }
+            ]
+        }
     }
 }
 </script>

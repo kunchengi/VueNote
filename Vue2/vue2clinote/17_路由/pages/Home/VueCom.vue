@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>学习Vue</h2>
+    <h2>{{ $route.query.content }}</h2>
   </div>
 </template>
 

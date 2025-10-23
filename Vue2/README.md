@@ -3942,3 +3942,42 @@
 ```
 
 ![嵌套路由](./imgs/嵌套路由.png)
+
+## 路由传递query参数
+
+- 会跳转带有query参数的路由链接，如`/home/javascript?id=1&content=数组的方法`
+- 跳转路由并携带query参数，to的字符串写法
+```html
+  <router-link active-class="active" :to="`/home/javascript?id=1&content=数组的方法`">JavaScript路由</router-link>
+```
+
+- 跳转路由并携带query参数，to的对象写法
+```html
+  <router-link active-class="active" :to="{
+    path: "/home/javascript",
+    query: {
+      id: "1",
+      content: "数组的方法"
+    }
+  }">{{ course.name }}</router-link>
+```
+
+- 在跳转的路由组件中获取query参数
+  - 可以通过$route.query获取query参数
+```js
+  <template>
+    <div>
+      <h2>{{ $route.query.content }}</h2>
+    </div>
+  </template>
+  <script>
+  export default {
+      name: 'JavaScriptCom',
+      mounted() {
+          console.log(this.$route.query);// {id: '1', content: '数组的方法'}
+      }
+  }
+  </script>
+```
+
+![路由传递query参数](./imgs/路由传递query参数.png)

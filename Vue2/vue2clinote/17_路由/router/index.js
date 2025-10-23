@@ -17,7 +17,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home/vue' // 默认重定向到home/vue路由
+      redirect: '/home' // 默认重定向到home路由
     },
     {
       path: '/about',

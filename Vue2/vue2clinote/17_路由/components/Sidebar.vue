@@ -1,17 +1,31 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebar-item">
-        <router-link active-class="active" to="/home/vue">Vue</router-link>
+    <div class="sidebar">
+        <div v-for="course in courseList" :key="course.id">
+            <!-- 跳转路由并携带query参数，to的字符串写法 -->
+            <!-- <router-link active-class="active" :to="`${course.path}?id=${course.id}&content=${course.content}`">{{ course.name }}</router-link> -->
+            <!-- 跳转路由并携带query参数，to的对象写法 -->
+            <router-link active-class="active" :to="{
+                path: `${course.path}`,
+                query: {
+                    id: course.id,
+                    content: course.content
+                }
+            }">
+                {{ course.name }}
+            </router-link>
+        </div>
     </div>
-    <div class="sidebar-item">
-        <router-link active-class="active" to="/home/javascript">JavaScript</router-link>
-    </div>
-  </div>
 </template>
 
 <script>
 export default {
-
+    name: 'Sidebar',
+    props: {
+        courseList: {
+            type: Array,
+            default: () => []
+        }
+    }
 }
 </script>
 
