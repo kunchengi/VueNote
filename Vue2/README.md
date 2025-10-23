@@ -3821,3 +3821,73 @@
     </div>
   </template>
 ```
+
+# vue-router 路由
+
+## 基本使用
+
+- 安装vue-router模块（Vue2 需要使用 vue-router 3.x 版本，Vue3 使用 vue-router 4.x 版本。）
+```bash
+  npm install vue-router@3
+```
+
+- 编写路由模块router/index.js
+```js
+  // 该文件专门用于创建整个应用的路由器
+  // 引入Vue
+  import Vue from 'vue'
+  // 引入路由模块
+  import VueRouter from 'vue-router'
+  // 安装Vue Router插件
+  Vue.use(VueRouter)
+  // 引入组件
+  import About from '../pages/About.vue'
+  import Home from '../pages/Home.vue'
+
+  // 创建并暴露一个路由器实例
+  export default new VueRouter({
+    // 配置路由规则
+    routes: [
+      {
+        path: '/',
+        redirect: '/home' // 默认重定向到home路由
+      },
+      {
+        path: '/about',
+        component: About
+      },
+      {
+        path: '/home',
+        component: Home
+      }
+    ]
+  })
+```
+
+- 引入路由模块到main.js
+```js
+  import Vue from 'vue'
+  import App from './App.vue'
+  // 引入路由模块
+  import router from './router'
+  new Vue({
+    el: '#app',
+    render: h => h(App),
+    router // 挂载路由模块
+  })
+```
+
+- 配置路由链接
+```html
+  <!-- 路由链接，用于切换路由。active-class为激活时的类名，to为目标路由路径 -->
+  <router-link active-class="active" to="/home">首页</router-link>
+  <router-link active-class="active" to="/about">关于</router-link>
+```
+
+- 配置路由出口
+```html
+  <!-- 路由出口，用于渲染匹配到的组件 -->
+  <router-view></router-view>
+```
+
+![vue2路由基本使用](./imgs/vue2路由基本使用.png)
