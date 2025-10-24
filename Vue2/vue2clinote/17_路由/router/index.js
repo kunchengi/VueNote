@@ -30,12 +30,14 @@ export default new VueRouter({
       children: [
         {
           name: 'JavaScript',// 给路由命名
-          path: 'javascript',
+          // path: 'javascript',
+          path: 'javascript/:id/:content',// 占位用于接收路由的params参数
           component: JavaScriptCom
         },
         {
           name: 'Vue',// 给路由命名
-          path: 'vue',
+          // path: 'vue',
+          path: 'vue/:id/:content',// 占位用于接收路由的params参数
           component: VueCom
         }
       ]

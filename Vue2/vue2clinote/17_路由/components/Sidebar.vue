@@ -14,9 +14,22 @@
                 {{ course.name }}
             </router-link> -->
             <!-- 跳转路由并携带query参数，使用命名路由 -->
-            <router-link active-class="active" :to="{
+            <!-- <router-link active-class="active" :to="{
                 name: `${course.name}`,// 跳转到对应名称的路由
                 query: {
+                    id: course.id,
+                    content: course.content
+                }
+            }">
+                {{ course.name }}
+            </router-link> -->
+
+            <!-- 跳转路由并携带params参数，to的字符串写法 -->
+            <!-- <router-link active-class="active" :to="`${course.path}/${course.id}/${course.content}`">{{ course.name }}</router-link> -->
+            <!-- 跳转路由并携带params参数，to的对象写法 -->
+            <router-link active-class="active" :to="{
+                name: `${course.name}`,// 跳转到对应名称的路由,必须使用name配置项
+                params: {
                     id: course.id,
                     content: course.content
                 }

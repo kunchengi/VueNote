@@ -4014,3 +4014,67 @@
     }
   }">{{ course.name }}</router-link>
 ```
+
+## 路由传递params参数
+
+- 会跳转带有params参数的路由链接，如`/home/javascript/1/数组的方法`
+- 配置路由规则
+```js
+  export default new VueRouter({
+    routes: [
+      {
+        path: '/home',
+        component: Home,
+        children: [
+          {
+            name: 'JavaScript',
+            path: 'javascript/:id/:content',// 占位用于接收路由的params参数
+            component: JavaScriptCom
+          },
+          {
+            name: 'Vue',
+            path: 'vue/:id/:content',// 占位用于接收路由的params参数
+            component: VueCom
+          }
+        ]
+      }
+    ]
+  })
+```
+
+- 跳转路由并携带params参数，to的字符串写法
+```html
+  <router-link active-class="active" :to="`/home/javascript/1/数组的方法`">JavaScript路由</router-link>
+```
+
+- 跳转路由并携带params参数，to的对象写法
+  - 注意：不能使用path配置项，必须使用name配置项
+```html
+  <router-link active-class="active" :to="{
+    name: 'JavaScript',// 跳转到对应名称的路由,必须使用name配置项
+    params: {
+      id: "1",
+      content: "数组的方法"
+    }
+  }">{{ course.name }}</router-link>
+```
+
+- 在跳转的路由组件中获取params参数
+  - 可以通过$route.params获取params参数
+```js
+  <template>
+    <div>
+      <h2>{{ $route.params.content }}</h2>
+    </div>
+  </template>
+  <script>
+  export default {
+      name: 'JavaScriptCom',
+      mounted() {
+          console.log(this.$route.params);// {id: '1', content: '数组的方法'}
+      }
+  }
+  </script>
+```
+
+![路由传递params参数](./imgs/路由传递params参数.png)
