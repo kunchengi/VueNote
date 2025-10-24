@@ -29,10 +29,12 @@ export default new VueRouter({
       // 配置Home组件的子路由规则
       children: [
         {
+          name: 'JavaScript',// 给路由命名
           path: 'javascript',
           component: JavaScriptCom
         },
         {
+          name: 'Vue',// 给路由命名
           path: 'vue',
           component: VueCom
         }

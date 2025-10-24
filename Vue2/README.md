@@ -3981,3 +3981,36 @@
 ```
 
 ![路由传递query参数](./imgs/路由传递query参数.png)
+
+## 命名路由
+
+- 简化路由的写法
+- 给路由命名，在跳转路由时可以使用命名路由
+```js
+  export default new VueRouter({
+    routes: [
+      {
+        path: '/home',
+        component: Home,
+        children: [
+          {
+            name: 'Vue',// 给路由命名
+            path: '/home/vue',
+            component: VueComponent
+          }
+        ]
+      }
+    ]
+  })
+```
+
+- 跳转路由时使用命名路由
+```html
+  <router-link active-class="active" :to="{
+    name: 'Vue',// 使用命名路由
+    query: {
+      id: "1",
+      content: "数组的方法"
+    }
+  }">{{ course.name }}</router-link>
+```
