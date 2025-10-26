@@ -4203,3 +4203,28 @@
       <router-view></router-view>
   </keep-alive>
 ```
+
+## 路由组件独有的生命周期钩子函数
+
+- 路由组件独有的两个生命周期钩子函数，用于捕获路由组件的激活状态
+- 用于在缓存模式下,替代`created()`和`destroyed()`生命周期钩子函数
+- activated()
+  - 路由组件被激活时触发
+```js
+  activated() {
+    console.log('VueCom组件被激活了,开启定时器')
+    // 开启定时器
+    this.timer = setInterval(() => {
+        console.log('定时器在运行')
+    }, 1000)
+  }
+```
+- deactivated()
+  - 路由组件被失活时触发
+```js
+  deactivated() {
+    console.log('VueCom组件被失活了,清除定时器')
+    // 清除定时器
+    clearInterval(this.timer)
+  }
+```
