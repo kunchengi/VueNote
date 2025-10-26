@@ -27,7 +27,7 @@
             <!-- 跳转路由并携带params参数，to的字符串写法 -->
             <!-- <router-link active-class="active" :to="`${course.path}/${course.id}/${course.content}`">{{ course.name }}</router-link> -->
             <!-- 跳转路由并携带params参数，to的对象写法 -->
-            <router-link replace active-class="active" :to="{
+            <!-- <router-link replace active-class="active" :to="{
                 name: `${course.name}`,// 跳转到对应名称的路由,必须使用name配置项
                 params: {
                     id: course.id,
@@ -35,7 +35,11 @@
                 }
             }">
                 {{ course.name }}
-            </router-link>
+            </router-link> -->
+            <!-- 点击时触发路由跳转 -->
+            <a @click="handleClick(course)">
+                {{ course.name }}
+            </a>
         </div>
     </div>
 </template>
@@ -47,6 +51,19 @@ export default {
         courseList: {
             type: Array,
             default: () => []
+        }
+    },
+    methods: {
+        handleClick(course) {
+            // 编程式路由导航,也可以使用this.$router.replace()
+            // 区别: push是添加新的路由记录,replace是替换当前路由记录
+            this.$router.push({
+                name: `${course.name}`,
+                params: {
+                    id: course.id,
+                    content: course.content
+                }
+            })
         }
     }
 }

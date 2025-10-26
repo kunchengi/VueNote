@@ -4152,3 +4152,34 @@
 ```html
   <router-link active-class="active" to="/home" replace>首页</router-link>
 ```
+
+## 编程式路由导航
+
+- 不借助`<router-link>`标签，通过js代码实现路由跳转
+- 跳转路由的方法
+  - this.$router.push()
+  - this.$router.replace()
+```js
+  // 编程式路由导航,也可以使用this.$router.replace()
+  // 区别: push是添加新的路由记录,replace是替换当前路由记录
+  this.$router.push({
+      name: `${course.name}`,
+      params: {
+          id: course.id,
+          content: course.content
+      }
+  })
+```
+- 前进一步
+```js
+  this.$router.forward()// 前进一步
+```
+- 后退一步
+```js
+  this.$router.back()// 后退一步
+```
+- 跳转到指定路由
+```js
+  this.$router.go(1)// 前进一步,参数为1
+  this.$router.go(-1)// 后退一步,参数为-1
+```
