@@ -3,7 +3,16 @@
     <Sidebar :courseList="courseList" />
     <div class="content">
         <!-- 显示Home的子路由组件 -->
-        <router-view></router-view>
+        <!-- <router-view></router-view> -->
+        <!-- 开启缓存模式 -->
+        <!-- 缓存单个路由组件,include指定缓存的组件名称 -->
+        <!-- <keep-alive include="VueCom">
+            <router-view></router-view>
+        </keep-alive> -->
+        <!-- 缓存多个路由组件,include指定多个缓存的组件名称,用逗号分隔 -->
+        <keep-alive include="VueCom,JavaScriptCom">
+            <router-view></router-view>
+        </keep-alive>
     </div>
   </div>
 </template>

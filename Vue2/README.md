@@ -4183,3 +4183,23 @@
   this.$router.go(1)// 前进一步,参数为1
   this.$router.go(-1)// 后退一步,参数为-1
 ```
+
+## 缓存路由组件
+
+- 正常模式下,不显示的路由组件,会被销毁,组件里的数据也会被销毁
+- 缓存模式下,可以让不显示的路由组件保持挂载，不被销毁,下次显示时,还会显示之前的状态
+- 应用场景: 当路由组件再次显示时,还原回之前的状态
+- 缓存路由组件
+  - 使用`keep-alive`标签包裹`<router-view>`标签
+  - 可以在`keep-alive`标签中添加include属性,指定缓存的组件名称
+  - 可以缓存多个路由组件,include指定多个缓存的组件名称,用逗号分隔
+```html
+  <!-- 缓存单个路由组件,include指定缓存的组件名称 -->
+  <!-- <keep-alive include="VueCom">
+      <router-view></router-view>
+  </keep-alive> -->
+  <!-- 缓存多个路由组件,include指定多个缓存的组件名称,用逗号分隔 -->
+  <keep-alive include="VueCom,JavaScriptCom">
+      <router-view></router-view>
+  </keep-alive>
+```

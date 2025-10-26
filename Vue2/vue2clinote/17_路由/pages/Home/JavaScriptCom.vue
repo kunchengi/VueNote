@@ -6,6 +6,8 @@
     <!-- <h2>{{ $route.params.content }}</h2> -->
      <!-- 使用props参数 -->
     <h2>{{ content }}</h2>
+    <input type="text" v-model="name">
+    <h2>{{ name }}</h2>
   </div>
 </template>
 
@@ -13,9 +15,10 @@
 export default {
     name: 'JavaScriptCom',
     props: ['id', 'content'],// 接收路由的props参数
-    mounted() {
-        // console.log(this.$route.query);// {id: '1', content: '数组的方法'}
-        // console.log(this.$route.params);// {id: '1', content: '数组的方法'}
+    data() {
+        return {
+            name: 'JavaScript组件'
+        }
     }
 }
 </script>
