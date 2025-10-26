@@ -4141,3 +4141,14 @@
   }
   </script>
 ```
+
+## `<router-link>`的replace属性
+
+- 浏览器的历史记录有两种写入方式：分别为push和replace，push是追加历史记录，replace是替换当前记录。路由跳转时候默认为push
+- 作用：控制路由跳转时操作浏览器历史记录的模式，替换当前路由，不会留下历史记录
+- 应用场景：避免用户点击返回按钮后，返回之前的路由页面
+- 开启replace模式
+  - 在`<router-link>`标签中添加replace属性
+```html
+  <router-link active-class="active" to="/home" replace>首页</router-link>
+```
