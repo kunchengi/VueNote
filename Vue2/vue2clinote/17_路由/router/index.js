@@ -101,6 +101,16 @@ const router = new VueRouter({
             title: 'Vue',
             isAuth: true
           },
+          // 独享路由守卫
+          beforeEnter: (to, from, next) => {
+            console.log('独享路由守卫',to,from);
+            if(to.params.id && to.params.content){
+              next()
+            }else{
+              alert('请输入id和content参数')
+              next(false)
+            }
+          },
           props: (route) => ({
             id: route.params.id,
             content: route.params.content

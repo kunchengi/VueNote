@@ -4377,3 +4377,48 @@ router.afterEach((to, from) => {
   document.title = to.meta.title || '默认标题'
 })
 ```
+
+### 独享路由守卫
+
+- 作用：对单个路由进行权限控制
+- 在路由切换到该路由时调用
+- 执行顺序
+  - 全局前置守卫 -> 独享前置守卫 -> 全局后置守卫
+```js
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/home',
+      component: Home,
+      meta: {
+        title: '首页'
+      },
+      children: [
+        {
+          name: 'Vue',
+          path: 'vue/:id/:content',
+          component: VueCom,
+          meta: {
+            title: 'Vue',
+            isAuth: true
+          },
+          // 独享路由守卫
+          beforeEnter: (to, from, next) => {
+            console.log('独享路由守卫',to,from);
+            if(to.params.id && to.params.content){
+              next()
+            }else{
+              alert('请输入id和content参数')
+              next(false)
+            }
+          },
+          props: (route) => ({
+            id: route.params.id,
+            content: route.params.content
+          })
+        }
+      ]
+    }
+  ]
+})
+```
