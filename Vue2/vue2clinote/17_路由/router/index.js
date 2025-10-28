@@ -39,8 +39,8 @@ VueRouter.prototype.replace = function replace(location) {
   })
 }
 
-// 创建并暴露一个路由器实例
-export default new VueRouter({
+// 创建一个路由器实例
+const router = new VueRouter({
   // 配置路由规则
   routes: [
     {
@@ -49,11 +49,19 @@ export default new VueRouter({
     },
     {
       path: '/about',
-      component: About
+      component: About,
+      // 配置路由元信息
+      meta: {
+        // 页面标题
+        title: '关于'
+      }
     },
     {
       path: '/home',
       component: Home,
+      meta: {
+        title: '首页'
+      },
       // 配置Home组件的子路由规则
       children: [
         {
@@ -61,6 +69,11 @@ export default new VueRouter({
           // path: 'javascript',
           path: 'javascript/:id/:content',// 占位用于接收路由的params参数
           component: JavaScriptCom,
+          meta: {
+            title: 'JavaScript',
+            // 是否需要校验
+            isAuth: true
+          },
           // props参数配置,将路由的query/params参数作为props参数传递给组件
           // 1. 对象形式，跳转到JavaScriptCom组件时，会将该对象的属性传递给组件。一般不会这么写，因为把数据写死了
           // props: {
@@ -84,6 +97,10 @@ export default new VueRouter({
           // path: 'vue',
           path: 'vue/:id/:content',// 占位用于接收路由的params参数
           component: VueCom,
+          meta: {
+            title: 'Vue',
+            isAuth: true
+          },
           props: (route) => ({
             id: route.params.id,
             content: route.params.content
@@ -93,3 +110,43 @@ export default new VueRouter({
     }
   ]
 })
+
+// 全局前置路由守卫---初始化的时候被调用、每次路由切换之前被调用
+// to是即将要进入的目标路由对象，有path、name、meta等属性
+// from是当前导航正要离开的路由对象
+// next是一个函数
+router.beforeEach((to, from, next) => {
+  console.log('前置路由守卫',to,from);
+  // 如果目标路由需要校验
+  if (to.meta.isAuth) {
+    // 进行token校验
+    const token = localStorage.getItem('token')
+    if (token) {
+      console.log('有token,校验通过');
+      // 校验通过,继续路由切换
+      next()
+    } else {
+      alert('请先登录');
+      // 校验不通过,不继续路由切换
+      next(false)
+      // 或者跳转到登录页
+      // next({name: 'Login'})
+    }
+  } else {
+    // 无需校验,继续路由切换
+    next()
+  }
+})
+
+// 全局后置路由守卫---初始化的时候被调用、每次路由切换之后被调用
+// to是即将要进入的目标路由对象
+// from是当前导航正要离开的路由对象
+// 不需要next()函数
+router.afterEach((to, from) => {
+  console.log('后置路由守卫',to,from);
+  // 设置页面标题
+  document.title = to.meta.title || '默认标题'
+})
+
+// 导出路由器实例
+export default router

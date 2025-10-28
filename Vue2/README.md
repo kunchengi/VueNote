@@ -4285,3 +4285,95 @@
   }
 ```
 
+## 路由守卫
+
+- 作用
+  - 对路由进行权限控制
+- 分类
+  - 全局守卫
+  - 路由独享守卫
+  - 组件内守卫
+
+### 全局守卫
+
+- 作用：对所有路由进行权限控制
+
+- 配置元信息
+  - 可以在路由配置中添加meta属性,用于存储路由的元信息
+  - 元信息可以在任意路由守卫中使用
+```js
+  const router = new VueRouter({
+    routes: [
+      {
+        path: '/home',
+        component: Home,
+        // 配置路由元信息
+        meta: {
+          title: '首页'
+        },
+        children: [
+          {
+            name: 'Vue',
+            path: 'vue/:id/:content',
+            component: VueCom,
+            // 配置路由元信息
+            meta: {
+              title: 'Vue',
+              isAuth: true
+            },
+            props: (route) => ({
+              id: route.params.id,
+              content: route.params.content
+            })
+          }
+        ]
+      }
+    ]
+  })
+```
+
+- 配置全局前置守卫
+  - 初始化的时候被调用、每次路由切换之前被调用
+  - 可以进行路由拦截、权限校验、登录校验、路由跳转控制等操作
+  - to是即将要进入的目标路由对象，有path、name、meta等属性
+  - from是当前导航正要离开的路由对象
+  - next是一个函数
+    - 调用next()进入下一个钩子函数，继续路由切换
+    - 调用next(false)中断路由切换
+    - 调用next({name: 'Login'})跳转到对应路由名称的路由
+```js
+router.beforeEach((to, from, next) => {
+  // 如果目标路由需要校验
+  if (to.meta.isAuth) {
+    // 进行token校验
+    const token = localStorage.getItem('token')
+    if (token) {
+      console.log('有token,校验通过');
+      // 校验通过,继续路由切换
+      next()
+    } else {
+      alert('请先登录');
+      // 校验不通过,不继续路由切换
+      next(false)
+      // 或者跳转到登录页
+      // next({name: 'Login'})
+    }
+  } else {
+    // 无需校验,继续路由切换
+    next()
+  }
+})
+```
+
+- 配置全局后置守卫
+  - 初始化的时候被调用、每次路由切换之后被调用
+  - 可以进行路由跳转控制、页面标题设置等操作
+  - to是即将要进入的目标路由对象
+  - from是当前导航正要离开的路由对象
+  - 不需要next()函数
+```js
+router.afterEach((to, from) => {
+  // 设置页面标题
+  document.title = to.meta.title || '默认标题'
+})
+```
