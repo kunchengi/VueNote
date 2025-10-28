@@ -64,6 +64,10 @@ export default {
                     content: course.content
                 }
             })
+            // .catch((error) => {// 捕获路由切换过程中发生的错误
+            //     console.log('路由切换过程中发生了错误', error)
+            //     // 可以进行错误日志的记录、错误提示的展示等操作
+            // })
         }
     }
 }

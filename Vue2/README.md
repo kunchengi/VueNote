@@ -4228,3 +4228,60 @@
     clearInterval(this.timer)
   }
 ```
+
+## 路由跳转错误处理
+
+- 场景：当重复切换到当前路由时，会报错，可以通过全局错误处理函数解决
+![重复切换路由报错](./imgs/重复切换路由报错.png)
+
+### 编程式路由导航错误处理
+
+- 当使用编程式路由导航方法时,如果发生了错误,可以通过catch方法捕获到错误信息
+- push和replace方法都可以使用catch方法捕获错误
+```js
+  // 编程式路由导航,也可以使用this.$router.replace()
+  // 区别: push是添加新的路由记录,replace是替换当前路由记录
+  this.$router.push({
+      name: `${course.name}`,
+      params: {
+          id: course.id,
+          content: course.content
+      }
+  }).catch((error) => {
+      console.log('路由切换过程中发生了错误', error)
+      // 可以进行错误日志的记录、错误提示的展示等操作
+  })
+```
+
+### 全局错误处理
+  - 当路由切换过程中,如果发生了错误,可以通过全局错误处理函数,捕获到错误信息
+  - 通过重写push和replace方法，在新方法中捕获错误信息实现
+```js
+// 重写push和replace方法,捕获路由切换过程中发生的错误
+  const originalPush = VueRouter.prototype.push;
+  VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => {
+      if (err.name === 'NavigationDuplicated') {
+        console.log('重复导航错误:', err);
+        // 忽略重复导航错误
+        return Promise.resolve(err)
+      }
+      // 其他错误继续抛出
+      return Promise.reject(err)
+    })
+  }
+
+  const originalReplace = VueRouter.prototype.replace;
+  VueRouter.prototype.replace = function replace(location) {
+    return originalReplace.call(this, location).catch(err => {
+      if (err.name === 'NavigationDuplicated') {
+        console.log('重复导航错误:', err);
+        // 忽略重复导航错误
+        return Promise.resolve(err)
+      }
+      // 其他错误继续抛出
+      return Promise.reject(err)
+    })
+  }
+```
+

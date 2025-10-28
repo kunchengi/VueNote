@@ -11,6 +11,34 @@ import Home from '../pages/Home.vue'
 import JavaScriptCom from '../pages/Home/JavaScriptCom.vue'
 import VueCom from '../pages/Home/VueCom.vue'
 
+// 全局错误处理
+// 重写push和replace方法,捕获路由切换过程中发生的错误
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => {
+    if (err.name === 'NavigationDuplicated') {
+      console.log('重复导航错误:', err);
+      // 忽略重复导航错误
+      return Promise.resolve(err)
+    }
+    // 其他错误继续抛出
+    return Promise.reject(err)
+  })
+}
+
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => {
+    if (err.name === 'NavigationDuplicated') {
+      console.log('重复导航错误:', err);
+      // 忽略重复导航错误
+      return Promise.resolve(err)
+    }
+    // 其他错误继续抛出
+    return Promise.reject(err)
+  })
+}
+
 // 创建并暴露一个路由器实例
 export default new VueRouter({
   // 配置路由规则
