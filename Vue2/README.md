@@ -4422,3 +4422,48 @@ const router = new VueRouter({
   ]
 })
 ```
+
+### 组件内路由守卫
+
+- 作用：对单个组件进行权限控制
+- 在组件实例化时调用
+- 进入路由组件执行顺序
+  - 全局前置守卫 -> 独享路由守卫 -> 组件内路由守卫(beforeRouteEnter) -> 全局后置守卫
+- 离开路由组件执行顺序
+  - 组件内路由守卫(beforeRouteLeave) -> 其他守卫
+- beforeRouteEnter
+  - 进入路由组件时调用
+  - 不能使用this,因为组件实例还没有创建
+  - 可以通过next回调函数获取组件实例
+```js
+  export default {
+      name: 'VueCom',
+      // 组件内路由守卫-进入组件时调用
+      beforeRouteEnter(to, from, next) {
+          console.log('组件内路由守卫-进入组件时调用',to,from);
+          // 不能使用this,因为组件实例还没有创建
+          console.log(this);// undefined
+          if(to.params.id && to.params.content){
+              // 可以通过next回调函数获取组件实例
+              next((vm) => {
+                  console.log(vm);// VueCom组件实例
+              })
+          }else{
+            alert('请输入id和content参数')
+            next(false)
+          }
+      }
+  }
+```
+- beforeRouteLeave
+  - 离开路由组件时会先执行该守卫，再执行其它守卫
+```js
+  export default {
+      name: 'VueCom',
+      // 组件内路由守卫-离开组件时调用
+      beforeRouteLeave(to, from, next) {
+          console.log('组件内路由守卫-离开组件时调用',to,from);
+          next()
+      }
+  }
+```
