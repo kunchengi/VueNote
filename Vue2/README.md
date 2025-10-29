@@ -4467,3 +4467,39 @@ const router = new VueRouter({
       }
   }
 ```
+
+## 路由模式
+
+- 在创建路由器实例时可以配置路由模式
+```js
+const router = new VueRouter({
+  // 配置路由模式
+  mode: 'history',
+  // 配置路由规则
+  routes: [
+    {
+      path: '/',
+      redirect: '/home' // 默认重定向到home路由
+    }
+  ]
+})
+```
+
+## 基础路径
+
+- 在创建路由器实例时可以配置路由基础路径
+- 配置基础路径后，所有路由路径都需要以该路径开头
+- 配置基础路径后，需要在服务器端进行配置，否则会导致404错误
+```js
+const router = new VueRouter({
+  // 配置路由基础路径
+  base: '/vue2clinote/',
+  // 配置路由规则
+  routes: [
+    {
+      path: '/',
+      redirect: '/home' // 默认重定向到home路由
+    }
+  ]
+})
+```

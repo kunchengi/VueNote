@@ -41,6 +41,10 @@ VueRouter.prototype.replace = function replace(location) {
 
 // 创建一个路由器实例
 const router = new VueRouter({
+  // 配置路由模式
+  mode: 'history',
+  // 配置路由基础路径
+  // base: '/vue2clinote/',
   // 配置路由规则
   routes: [
     {
