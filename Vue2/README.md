@@ -4503,3 +4503,41 @@ const router = new VueRouter({
   ]
 })
 ```
+
+# process对象
+
+- 作用：提供了与当前运行环境相关的信息
+- 可以在代码中使用process对象来获取环境变量、命令行参数等信息
+
+## 获取当前环境
+
+- 可以通过process.env.NODE_ENV来获取当前环境
+- 常用环境
+  - development：开发环境
+  - production：生产环境
+```js
+  process.env.NODE_ENV;
+```
+
+## 获取基础路径
+
+- 可以通过process.env.BASE_URL来获取vue.config.js中的publicPath配置
+- 常用场景
+  - 动态加载资源（图片、字体等）
+  - 动态设置路由基础路径
+```js
+  process.env.BASE_URL;
+```
+
+## 环境文件配置
+
+- Vue CLI 支持在项目根目录创建环境文件
+- 可以用来自定义不同环境的配置
+- 只有以 VUE_APP_ 开头的变量才会被静态嵌入到客户端包中
+- 其他变量只能在构建过程中使用
+项目根目录/
+├── .env                 # 所有环境加载
+├── .env.local          # 所有环境加载，git 忽略
+├── .env.development    # 开发环境
+├── .env.production     # 生产环境
+└── .env.staging        # 预发布环境
