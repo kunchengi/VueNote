@@ -419,3 +419,46 @@ flowchart TB
 - 刷新后对路由state参数的影响：
   - HashRouter 在刷新页面后，路由state参数会丢失。
   - BrowserRouter 在刷新页面后，路由state参数不会丢失，因为路由组件的state参数是保存在浏览器的history对象中的。
+
+# vite简介
+
+- 前端构建工具
+- [vite官网](https://vitejs.cn/)
+- 优点
+  - 轻量快速的热重载（HMR），能实现极速的服务启动
+  - 对TypeScript、JSX、CSS支持开箱即用
+  - 真正的按需编译，不再等待整个应用编译完成
+
+## webpack构建流程
+
+![webpack构建流程图](./imgs/webpack构建流程图.png)
+- 在服务启动前分析处理所有文件
+- 如果路由多，构建时间会变长
+
+## vite构建流程
+
+![vite构建流程图](./imgs/vite构建流程图.png)
+- 先启动服务，然后按需处理文件
+
+# vite创建Vue项目
+
+- 创建vue项目
+```bash
+  npm create vite@latest
+```
+- 输入y
+- 配置项目名称
+  - 输入项目名称，例如：vite-project
+- 选择开发框架
+  - Vue
+- 选择语言
+  - TypeScript
+- 是否使用rolldown-vite
+  - No
+- 是否使用npm安装并立即开始
+  - Yes
+
+# Vue插件
+
+- Vue Language Features (Volar)
+- TypeScript Vue Plugin (Volar)
