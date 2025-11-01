@@ -180,3 +180,68 @@
 ```
 
 ![setup基本使用](./imgs/setup基本使用.png)
+
+## setup语法糖（简写）
+
+- 安装vite-plugin-vue-setup-extend插件
+```bash
+  npm install vite-plugin-vue-setup-extend -D
+```
+
+- 在vite.config.ts中配置插件
+```ts
+  import { defineConfig } from 'vite'
+  import vue from '@vitejs/plugin-vue'
+  // 引入vite-plugin-vue-setup-extend插件
+  import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+
+  export default defineConfig({
+    plugins: [vue(), vueSetupExtend()],// 使用vue和vueSetupExtend插件
+  })
+```
+
+- 在组件中使用setup语法糖
+  - 可以直接在script标签中添加setup属性，代表该标签内写的是setup函数，且会将内部声明的变量、函数等自动返回，不需要return
+  - 使用vueSetupExtend插件，可以在script标签中添加name属性，代表组件的名称，在模板中可以直接使用组件名称
+```ts
+  <script setup lang="ts" name="User">
+  let name = '张三';
+  let age = 18;
+  let tel = '12345678901';
+  function changeName() {
+      name = '李四';
+  }
+  function changeAge() {
+      age++;
+  }
+  function showTel() {
+      alert(tel);
+  }
+  </script>
+```
+
+- 在模板中使用组件名称
+```html
+  <div>
+    <h1>User组件</h1>
+    <h2>name：{{ name }}</h2>
+    <h2>age：{{ age }}</h2>
+    <button @click="changeName">修改姓名</button>
+    <button @click="changeAge">修改年龄</button>
+    <button @click="showTel">显示电话</button>
+  </div>
+```
+
+- 在data配置项中不能通过this访问setup简写中的数据
+```ts
+  export default {
+    name: 'User',
+    data() {
+      return {
+        userName: this.name,// 在data中不能通过this访问setup简写中的数据,userName为undefined
+      }
+    },
+  }
+```
+
+![setup语法糖](./imgs/setup语法糖.png)
