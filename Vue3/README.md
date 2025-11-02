@@ -533,3 +533,60 @@
 ```
 
 ![toRefs函数与toRef函数](./imgs/toRefs函数与toRef函数.png)
+
+# 计算属性
+
+- 通过已有响应式数据计算出新的响应式数据
+- 计算属性会缓存计算结果，只有依赖值变化时才会重新计算
+
+- 引入计算属性函数computed
+```ts
+  import { reactive, computed } from 'vue'
+```
+
+- 使用computed创建`只读`的计算属性
+  - computed函数的参数可以是一个函数，函数返回值是ref响应式数据ComputedRefImpl
+  - 该方式创建的计算属性是只读的，不能直接修改计算属性的值，只能通过修改依赖值来触发计算属性的重新计算
+```ts
+  // 使用computed创建只读的计算属性，计算全名，会在依赖值变化时自动更新
+  const fullName = computed(() => {
+    return person.firstName + person.lastName;
+  })
+  console.log(fullName);// ComputedRefImpl
+  // 该方式创建的计算属性是只读的，不能直接修改计算属性的值
+  fullName.value = '李四'
+```
+
+- 使用computed创建`可读可写`的计算属性
+  - computed函数的参数可以是一个对象，对象有get和set方法
+  - get方法返回计算属性的值，set方法用于修改计算属性的值
+```ts
+  // 创建可读可写的计算属性
+  const fullName = computed({
+    get: () => {
+      return person.firstName + person.lastName;
+    },
+    // 当fullName.value被赋值时，会调用set函数
+    set: (newValue) => {
+      // 更新 firstName 和 lastName
+      person.firstName = newValue.slice(0, 1);
+      person.lastName = newValue.slice(1);
+    }
+  })
+  // 直接修改计算属性的值，会触发set函数
+  function changeFullName() {
+    fullName.value = '李四';
+  }
+```
+
+- 在模板中使用计算属性
+```html
+  <div>
+    姓：<input type="text" v-model="person.firstName">
+    名：<input type="text" v-model="person.lastName">
+    全名：<span>{{ fullName }}</span>
+    <button @click="changeFullName">修改全名</button>
+  </div>
+```
+
+![计算属性](./imgs/计算属性.png)
