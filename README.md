@@ -462,3 +462,8 @@ flowchart TB
 
 - Vue Language Features (Volar)
 - TypeScript Vue Plugin (Volar)
+
+- 以上两个插件已被弃用，请安装Vue (Official)插件
+  - Vue (Official)
+
+- 在代码中无需添加.value，直接使用响应式数据

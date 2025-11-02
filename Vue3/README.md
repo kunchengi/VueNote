@@ -245,3 +245,89 @@
 ```
 
 ![setup语法糖](./imgs/setup语法糖.png)
+
+# ref函数
+
+- ref函数用于创建响应式数据
+
+## ref函数的使用
+
+- 引入ref函数，用于创建响应式数据
+```ts
+  import { ref } from 'vue'
+```
+
+- 使用ref创建响应式数据
+- ref函数返回的是一个RefImpl对象（ref对象）
+  - ref对象中包含value等属性，值为ref函数的参数
+  - ref对象不是响应式的，value属性是响应式的
+  - 如果传入的参数为引用类型，ref函数会通过reactive函数将引用类型数据转换为响应式对象，则value属性值为Proxy对象(reactive函数会基于Proxy实现响应式，后面再讲)
+```ts
+  // 使用ref创建基本类型的响应式数据
+  let name = ref('张三');
+  // 使用ref创建对象类型的响应式数据
+  const car = ref({
+    brand: '奔驰',
+    price: 1000000,
+  })
+  console.log(car.value);// Proxy(Object)
+  // 使用ref创建数组类型的响应式数据
+  const phones = ref([
+    {
+      id: 1,
+      brand: '小米',
+      price: 3000,
+    },
+    {
+      id: 2,
+      brand: '华为',
+      price: 4000,
+    },
+  ])
+  console.log(phones.value);// Proxy(Array) 
+```
+
+- 在js中可以查看和修改.value，修改后页面会自动更新
+```ts
+  function changeName() {
+    // 直接修改name.value，页面会自动更新
+    name.value = '李四';
+    console.log(name.value);// 李四
+  }
+  function changeCarPrice() {
+    // 直接修改car.value.price，页面会自动更新
+    car.value.price = 800000;
+  }
+  function deletePhone(id: number) {
+    phones.value = phones.value.filter((phone) => phone.id !== id);
+  }
+```
+
+- 可以在模板中直接使用ref数据，不需要.value
+```html
+  <!-- 模板中直接使用name，不需要name.value -->
+  <h2>姓名：{{ name }}</h2>
+  <button @click="changeName">修改姓名</button>
+  <h2>车信息：</h2>
+  <!-- 模板中直接使用car.brand -->
+  <p>车品牌：{{ car.brand }}</p>
+  <!-- 模板中直接使用car.price -->
+  <span>车价：{{ car.price }}</span>
+  <button @click="changeCarPrice">修改车价</button>
+  <h2>手机信息：</h2>
+  <div v-for="phone in phones" :key="phone.id">
+    <span>{{ phone.brand }}：{{ phone.price }}</span>
+    <button @click="deletePhone(phone.id)">删除</button>
+  </div>
+```
+
+![ref函数](./imgs/ref函数.png)
+
+## 使用Vue扩展插件自动补全.value
+
+- vs code安装volar扩展插件
+  - Vue (Official)
+
+- 设置 -> 扩展 -> Vue -> Auto Insert Dot Value -> 开启
+
+- 当使用ref数据时，编辑器会自动补全.value
