@@ -442,3 +442,16 @@
     Object.assign(user, newUser);
   }
 ```
+
+# ref对比reactive
+
+## 区别
+
+- ref既可以创建基本类型的响应式数据，也可以创建对象类型的响应式数据。而reactive只能创建对象类型的响应式数据
+- ref创建的变量必须使用.value访问和修改（可以通过volar插件自动添加.value），而reactive创建的变量可以直接访问和修改
+- reactive重新赋值会丢失响应式，而ref可以给value赋值，不会丢失响应式
+
+## 使用原则
+
+- 基本类型的响应式数据建议使用ref创建
+- 对象类型的响应式数据建议使用reactive创建
