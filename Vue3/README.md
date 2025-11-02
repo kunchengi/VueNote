@@ -331,3 +331,114 @@
 - 设置 -> 扩展 -> Vue -> Auto Insert Dot Value -> 开启
 
 - 当使用ref数据时，编辑器会自动补全.value
+
+# reactive函数
+
+- reactive函数用于创建`响应式对象`
+  - reactive函数返回的是一个Proxy对象
+  - reactive函数只能创建对象类型的响应式数据，不能创建基本类型的响应式数据
+  - reactive函数创建的响应式对象是深度响应式的，属性值如果是引用类型，会递归转换为响应式对象。（ref函数创建的响应式对象是通过reactive函数实现的，所以也是深度响应式的）
+- 实现原理
+  - reactive函数基于Proxy实现响应式，当访问或修改对象的属性时，会触发Proxy的get和set拦截器，从而实现响应式更新
+
+## reactive函数的使用
+
+- 引入reactive函数，用于创建响应式对象
+```ts
+  import { reactive } from 'vue'
+```
+
+- 使用reactive创建响应式对象，该对象是深度响应式的
+  - reactive函数返回的是一个Proxy对象，该对象的属性值如果是引用类型，会递归转换为Proxy响应式对象。
+```ts
+  // 使用reactive创建对象类型的响应式数据，该对象是深度响应式的
+  const user = reactive({
+    name: '张三',
+    age: 18,
+    car: {
+      brand: '奔驰',
+      price: 1000000,
+    },
+    phones: [
+      {
+        id: 1,
+        brand: '小米',
+        price: 3000,
+      },
+      {
+        id: 2,
+        brand: '华为',
+        price: 4000,
+      },
+    ]
+  })
+```
+
+- 可以在js中查看和修改reactive数据，修改后页面会自动更新
+```ts
+  function changeCarPrice() {
+    // 直接修改user.car.price，页面会自动更新
+    user.car.price = 800000;
+  }
+  console.log(user.car);// Proxy(Object)
+
+  function deletePhone(id: number) {
+    const index = user.phones.findIndex((phone) => phone.id === id);
+    if (index !== -1) {
+      user.phones.splice(index, 1);
+    }
+  }
+  console.log(user.phones);// Proxy(Array)
+```
+
+- 可以在模板中直接使用reactive数据
+```html
+  <h2>车信息：</h2>
+  <!-- 模板中直接使用user.car.brand -->
+  <p>车品牌：{{ user.car.brand }}</p>
+  <!-- 模板中直接使用user.car.price -->
+  <span>车价：{{ user.car.price }}</span>
+  <button @click="changeCarPrice">修改车价</button>
+  <h2>手机信息：</h2>
+  <div v-for="phone in user.phones" :key="phone.id">
+    <span>{{ phone.brand }}：{{ phone.price }}</span>
+    <button @click="deletePhone(phone.id)">删除</button>
+  </div>
+```
+
+![reactive函数](./imgs/reactive函数.png)
+
+## reactive函数的局限性
+
+- reactive重新分配一个新对象，会导致响应式丢失。可以使用Object.assign()等方法修改原有对象，保持响应式。
+```ts
+  function changeUser() {
+    const newUser = {
+      name: '李四',
+      age: 20,
+      car: {
+        brand: '宝马',
+        price: 1200000,
+      },
+      phones: [
+        {
+          id: 3,
+          brand: 'oppo',
+          price: 3500,
+        },
+        {
+          id: 4,
+          brand: '魅族',
+          price: 3200,
+        },
+      ]
+    }
+    // reactive重新分配一个新对象，会导致响应式丢失，页面不会自动更新
+    // 直接将newUser赋值给user，会导致响应式丢失
+    // user = newUser;
+    // 即使使用reactive重新包装newUser，也会导致响应式丢失
+    // user = reactive(newUser);
+    // 解决方法：使用Object.assign()方法，将newUser的属性赋值给user
+    Object.assign(user, newUser);
+  }
+```
