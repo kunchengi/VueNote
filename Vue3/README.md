@@ -455,3 +455,81 @@
 
 - 基本类型的响应式数据建议使用ref创建
 - 对象类型的响应式数据建议使用reactive创建
+
+# toRefs函数与toRef函数
+
+- toRefs函数用于将`ref和reactive`创建的响应式对象转换为普通对象，普通对象的每个属性都是ref响应式数据
+- toRef函数用于将`ref和reactive`创建的响应式对象的属性转换为ref响应式数据
+
+## toRefs函数的使用
+
+- 场景
+  - 当将ref数据{name: '张三', age: 18}通过let {name, age} = user解构基本数据类型时，name和age不是响应式的，修改name或age不会触发响应式更新
+```ts
+  const user = ref({
+    name: '张三',
+    age: 18,
+    car: {
+      brand: '奔驰',
+    }
+  })
+  // 从user.value中解构出name、age和car
+  let { name, age, car } = user.value;
+  function changeName() {
+    // 直接修改name，页面不会自动更新，因为解构出来的基本数据类型不是响应式的
+    name = '李四';
+  }
+  function changeAge() {
+    // 直接修改age，页面不会自动更新
+    age += 1;
+  }
+  function changeCarBrand() {
+    // 直接修改car.brand，页面会自动更新，因为解构出来的引用类型是响应式的
+    car.brand = '宝马';
+  }
+```
+- 解决方法
+  - 使用toRefs函数将user转换为普通对象，普通对象的每个属性都是ref响应式数据
+```ts
+  // 从user.value中解构出name、age和car的ref响应式数据
+  let { name, age, car } = toRefs(user.value);
+  console.log(name);// ObjectRefImpl
+
+  function changeName() {
+    // 正确的修改方式是使用name.value
+    name.value = '李四';
+    // 修改后，user.value.name也会自动更新为李四
+    console.log(user.value.name);// 李四
+  }
+  function changeAge() {
+    // 正确的修改方式是使用toRefs将age转换为ref响应式数据，然后使用age.value修改
+    age.value += 1;
+  }
+  function changeCarBrand() {
+    // 正确的修改方式是使用toRefs将car转换为ref响应式数据，然后使用car.value.brand修改
+    car.value.brand = '宝马';
+  }
+```
+
+## toRef函数的使用
+
+- 场景
+  - 当需要将响应式对象的属性转换为ref响应式数据时，使用toRef函数
+- 解决方法
+  - 使用toRef函数将响应式对象的属性转换为ref响应式数据
+- toRef函数的参数
+  - 第一个参数：响应式对象
+  - 第二个参数：属性名
+- toRef函数的返回值
+  - ref响应式数据
+```ts
+  // 从user.value.car中解构出brand的ref响应式数据
+  let carBrand = toRef(user.value.car, 'brand');
+  console.log(carBrand);// ObjectRefImpl
+  function changeCarBrandByRef() {
+    // 正确的修改方式是使用carBrand.value修改
+    carBrand.value = '奔驰';
+  }
+```
+
+![toRefs函数与toRef函数](./imgs/toRefs函数与toRef函数.png)
