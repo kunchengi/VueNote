@@ -590,3 +590,167 @@
 ```
 
 ![计算属性](./imgs/计算属性.png)
+
+# 监视属性
+
+- 当监视的数据发生变化时，执行某些操作（和vue2的监视属性作用相同）
+- Vue3的监视属性只能监视以下四种数据
+  - ref定义的数据
+  - reactive定义的数据
+  - 函数返回一个值（getter函数）
+  - 一个包含上述内容的数组
+
+## watch函数的使用
+
+- 引入watch函数
+```ts
+  import { watch } from 'vue'
+```
+
+- watch函数的参数
+  - 第一个参数：需要监视的数据
+  - 第二个参数：数据变化时执行的回调函数
+  - 第三个参数：可选参数，配置对象
+    - deep：是否开启深度监视，默认值为false
+    - immediate：是否立即执行回调函数，默认值为false
+  - 返回值：一个函数，用于停止监视
+```ts
+  // 监视name
+  const stopWatch = watch(name, (newValue, oldValue) => {
+    console.log('name变化了', newValue, oldValue)
+    // 当name的值为'李四'时，停止监视
+    if (newValue === '李四') {
+      stopWatch()
+    }
+  })
+```
+
+## 监视ref的基本类型数据
+
+- 当ref定义的基本类型数据发生变化时，会触发watch函数的回调函数
+  - newValue：新值
+  - oldValue：旧值
+```ts
+  const sum = ref(0)
+  watch(sum, (newValue, oldValue) => {
+    console.log('sum变化了', newValue, oldValue)
+  })
+```
+![监视ref的基本类型数据](./imgs/监视ref的基本类型数据.png)
+
+## 监视ref定义的响应式对象
+
+- 浅监视
+  - 当修改响应式对象的value时才会触发回调函数，修改响应式对象的属性时都不会触发回调函数
+```ts
+  const user = ref({
+    name: '张三',
+    age: 18
+  })
+  watch(user, (newValue, oldValue) => {
+    console.log('浅监视，user变化了', newValue, oldValue)
+  })
+```
+- 深监视
+  - 通过第三个参数配置deep为true开启深监视
+  - 当修改响应式对象的value或者修改响应式对象的属性时都会触发回调函数
+  - 当修改的值是对象内的属性时，newValue和oldValue相同，且都是最新的对象
+```ts
+  watch(user, (newValue, oldValue) => {
+    console.log('深监视，user变化了', newValue, oldValue)
+  }, {
+    deep: true,
+    // 初始化时是否触发回调函数，默认false
+    immediate: true
+  })
+```
+![监视ref定义的响应式对象](./imgs/监视ref定义的响应式对象.png)
+
+## 监视reactive定义的响应式对象
+
+- 当修改响应式对象的属性时会触发回调函数
+- 强制开启深度监视，且不可关闭，配置deep为false一样会触发深度监视
+- newValue和oldValue相同，且都是最新的user对象
+```ts
+  const user = reactive({
+    name: '张三',
+    age: 18
+  })
+  watch(user, (newValue, oldValue) => {
+      console.log('reactive监视，user变化了', newValue, oldValue)
+      console.log(newValue === oldValue);// true
+  })
+```
+![监视reactive定义的响应式对象](./imgs/监视reactive定义的响应式对象.png)
+
+## 监视ref&reactive响应式对象中的属性
+
+- getter函数的概念
+  - 无形参，返回一个值
+
+- 先定义一个多层对象
+```ts
+  const user = reactive({
+    name: '张三',
+    car: {
+      brand: '奔驰',
+      price: 1000000
+    }
+  })
+```
+
+### 监视基本数据类型属性
+
+- 如果需要监听ref的对象的基本数据类型属性，需要使用getter函数返回需要监听的属性值
+- 回调函数的参数newValue和oldValue分别是属性的新值和旧值
+```ts
+  watch(() => user.value.name, (newValue, oldValue) => {
+    console.log('name变化了', newValue, oldValue)
+  })
+```
+
+### 监视对象属性
+
+- 直接监视该对象（不推荐）
+  - 强制深度监视，且不能关闭深度监视
+  - 只能监视该对象内的属性变化，不能监视对象自身
+  - 当直接替换响应式对象中的该对象时，不会触发回调函数，且会丢失监视该对象的属性变化
+  - 不建议使用该方式，建议使用getter函数返回需要监视的对象
+```ts
+  // 当直接修改user.value.car时，不会触发回调函数，且会丢失监视car的属性变化
+  watch(user.car, (newValue, oldValue) => {
+    console.log('car的属性变化了', newValue, oldValue)
+  })
+```
+
+- 使用getter函数返回需要监视的对象（推荐）
+  - 可以监视对象自身的变化
+  - 开启深度监视后，可以监视对象内的属性变化
+```ts
+  watch(() => user.car, (newValue, oldValue) => {
+    console.log('car变化了', newValue, oldValue)
+  }, {
+    deep: true
+  })
+```
+
+### 监视ref响应式对象中的属性
+
+- 与reactive响应式对象中的属性监视相同，只是需要.value
+
+![监视ref&reactive响应式对象中的属性](./imgs/监视ref&reactive响应式对象中的属性.png)
+
+## 监视多个响应式对象
+
+- 第一个参数为数组，数组元素为需要监视的数据，按需写数据或者getter函数返回属性值
+- 可以同时监视多个响应式对象
+- 每个响应式对象的变化都会触发回调函数
+-  newValue为新数组，oldValue为旧数组，数组元素为对应属性的新值或旧值
+```ts
+  watch([() => user.name,() => user.car], (newValue, oldValue) => {
+    console.log('name或car变化了', newValue, oldValue)
+  }, {
+    deep: true
+  })
+```
+![监视多个响应式对象](./imgs/监视多个响应式对象.png)
