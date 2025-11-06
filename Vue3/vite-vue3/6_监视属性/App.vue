@@ -5,6 +5,7 @@ import WatchReactive from './components/WatchReactive.vue'
 import WatchRefObjAttr from './components/WatchRefObjAttr.vue'
 import WatchReactiveAttr from './components/WatchReactiveAttr.vue'
 import WatchMultiple from './components/WatchMultiple.vue'
+import WatchEffect from './components/WatchEffect.vue'
 
 export default {
   name: 'App',
@@ -14,7 +15,8 @@ export default {
     WatchReactive,
     WatchRefObjAttr,
     WatchReactiveAttr,
-    WatchMultiple
+    WatchMultiple,
+    WatchEffect
   }
 }
 </script>
@@ -27,6 +29,7 @@ export default {
     <WatchRefObjAttr />
     <WatchReactiveAttr />
     <WatchMultiple />
+    <WatchEffect />
   </div>
 </template>
 

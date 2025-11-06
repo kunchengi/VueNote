@@ -754,3 +754,21 @@
   })
 ```
 ![监视多个响应式对象](./imgs/监视多个响应式对象.png)
+
+# watchEffect
+
+- 自动收集响应式数据的依赖，当依赖发生变化时会触发回调函数
+- 类似watch，但是不需要指定需要监视的数据，而是自动收集函数中的依赖数据
+- 默认开启深度监视(deep:true)和立即执行回调函数(immediate:true)
+```ts
+  // 由于函数内依赖了user.age和user.car.brand，所以当这两个数据变化时，会自动执行函数
+  // 这里有个坑，由于if语句用的是||，所以当user.age >= 21为true时，不会再判断user.car.brand == '奥迪'。
+  // 这时候该函数就不会依赖user.car.brand，当user.car.brand变化时，也不会执行函数。
+  watchEffect(() => {
+    console.log('user.age或user.car.brand变化了');
+    if(user.age >= 21 || (user.car.brand == '奥迪')) {
+      console.log('让李四或者开奥迪的人去买烟')
+    }
+  })
+```
+![watchEffect](./imgs/watchEffect.png)
