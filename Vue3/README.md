@@ -772,3 +772,83 @@
   })
 ```
 ![watchEffect](./imgs/watchEffect.png)
+
+# vue3引入和使用组件
+
+- 引入组件后，会自动注册组件
+```ts
+  // 引入组件，会自动注册组件
+  import Person from './components/Person.vue'
+```
+- 可以在模板中使用组件标签
+```html
+  <template>
+    <div>
+      <Person />
+    </div>
+  </template>
+```
+
+# 标签的ref属性
+
+- 可以给普通标签或vue组件添加ref属性，用于获取标签/组件的内容
+  - 普通标签的ref属性值为HTML元素的引用
+  - vue组件的ref属性值为组件的实例
+
+## 普通标签的ref属性
+
+- 在模板中添加ref属性
+```html
+  <template>
+    <div>
+      <h2 ref="titleRef">这是一个标题</h2>
+    </div>
+  </template>
+```
+
+- 在脚本中使用ref函数关联普通标签
+```ts
+  import { ref } from 'vue'
+  const titleRef = ref<HTMLHeadingElement>()
+```
+
+- 在脚本中使用titleRef.value获取普通标签的引用
+```ts
+  console.log(titleRef.value); // <h2 ref="titleRef">这是一个标题</h2>
+```
+
+## 组件的ref属性
+
+- 在组件中导出需要暴露的数据
+```ts
+  // Person.vue组件
+  <script lang="ts" setup name="Person">
+    import { ref } from 'vue'
+    const title = ref('这是一个标题')
+    // 导出title，用于在外部获取组件的标题
+    export { title }
+  </script>
+```
+
+- 在模板中添加ref属性
+```html
+  <template>
+    <div>
+      <Person ref="personRef" />
+    </div>
+  </template>
+```
+
+- 在脚本中使用ref函数关联vue组件
+```ts
+  import { ref } from 'vue'
+  const personRef = ref<InstanceType<typeof Person>>()
+```
+
+- 在脚本中使用personRef.value获取vue组件的实例和导出的数据
+```ts
+  console.log(personRef.value); // Person组件的实例
+  console.log(personRef.value?.title); // 这是一个标题
+```
+
+![标签的ref属性](./imgs/标签的ref属性.png)
