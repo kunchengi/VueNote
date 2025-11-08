@@ -852,3 +852,165 @@
 ```
 
 ![标签的ref属性](./imgs/标签的ref属性.png)
+
+# Props
+
+- 组件的props用于接收外部传递的数据
+
+## 父组件中定义响应式数据，并传递给子组件
+
+- 父组件中定义响应式数据
+```ts
+  import { type IPerson } from './types/index'
+  import { reactive } from 'vue'
+  const name = 'App'
+  // 定义一个响应式的数组，用于存储人员列表
+  const personList: IPerson[] = reactive([
+      {id: '1', name: '张三', age: 18},
+      {id: '2', name: '李四', age: 20},
+      {id: '3', name: '王五', age: 22},
+  ])
+```
+
+- 父组件中传递props给子组件
+```html
+  <template>
+    <div>
+      <!-- 传递person和sourceName给子组件 -->
+      <Person v-for="person in personList" :key="person.id" :person="person" :sourceName="name" />
+    </div>
+  </template>
+```
+
+## 子组件中接收和使用props
+
+- 通过defineProps函数接收props
+- defineProps函数返回的是一个响应式对象，当父组件传递的数据发生变化时，props也会同步更新
+
+- 使用数组接收props，类似vue2的props选项
+```ts
+  import { defineProps } from 'vue'
+  const props = defineProps(['person', 'sourceName']);
+```
+
+- 使用配置项接收props，类似vue2的props选项
+  - 可以用type属性指定props的类型
+  - 可以用required属性指定props是否必填
+  - 可以用default属性指定props的默认值
+```ts
+  import { defineProps } from 'vue'
+  import { type IPerson } from '../types/index'
+  const props = defineProps({
+    person: {
+      type: Object as () => IPerson,// 类型限制
+      required: true,// 是否必填
+      default: () => ({ id: '', name: '', age: 0 }),// 默认值
+    },
+    sourceName: {
+      type: String as () => string,// 类型限制
+      required: false,// 是否必填
+      default: () => '默认来源',// 默认值
+    },
+  })
+```
+
+- 使用泛型和withDefaults函数接收props
+  - 可以用泛型指定props的类型
+  - 可以用withDefaults函数指定props的默认值
+```ts
+  import { defineProps, withDefaults } from 'vue'
+  import { type IPerson } from '../types/index'
+  type Props = {
+    person: IPerson;
+    sourceName?: string;// 可选值
+  }
+  const props = withDefaults(defineProps<Props>(), {
+    // 对象必须写成函数的形式，否则会报错
+    person: () => ({ id: '', name: '', age: 0 }),
+    // 基本数据类型可以直接赋值,也可以写成函数的形式
+    // sourceName: '默认来源',
+    sourceName: () => '默认来源',
+  })
+```
+
+- 可以在模板中使用props
+```html
+  <template>
+    <div>
+      <span> 来源：{{ props.sourceName }}，姓名：{{ props.person.name }}，年龄：{{ props.person.age }}</span>
+    </div>
+  </template>
+```
+
+## 当父组件传递的props被修改时，子组件会自动更新
+
+- 父组件中修改props会自动更新子组件的props
+```ts
+  // 父组件中修改props
+  const addPerson = () => {
+    const newId = (personList.length + 1).toString()
+    // 当修改personList时,Person组件的props也会自动更新
+    personList.push({ id: newId, name: '工号' + newId, age: 25 })
+  }
+```
+
+![Props](./imgs/Props.png)
+
+# 编译器宏函数
+
+- Vue 3 的某些函数是编译器宏函数，不需要导入也可以在`<script setup>`中直接使用
+- 只能在 `<script setup> `中使用
+- 不需要手动导入
+- 类型安全 (TypeScript)
+
+## 编译器宏的特性
+
+- 这些函数在代码中看起来是函数调用，但在编译过程中会被 Vue 编译器识别并转换为相应的 JavaScript 代码
+```ts
+  // 你写的代码
+  const props = defineProps<{ title: string }>()
+
+  // 编译后的代码
+  const props = __props__ // 或者更具体的运行时代码
+```
+
+## 工作原理
+
+- 当 Vue 编译器处理你的单文件组件时
+  - 解析阶段: 识别这些特殊的宏调用
+  - 转换阶段: 将它们转换为对应的运行时代码
+  - 生成阶段: 输出标准的 JavaScript 代码
+
+## 构建工具支持
+
+- Vite
+  - 通过 @vitejs/plugin-vue 自动处理
+- Vue CLI
+  - 通过 vue-loader 自动处理
+- 其他构建工具
+  - 相应的 Vue 插件来处理这些宏函数
+
+## 主要的编译器宏
+
+### 组合式 API 相关
+
+- defineProps
+  - 用于接收父组件传递过来的数据
+- withDefaults
+  - 用于设置props的默认值
+- defineExpose
+  - 用于暴露组件的数据，使父组件可以访问到组件的部分数据
+- defineEmits
+  - 用于定义组件可以触发的事件
+
+### 选项式 API 相关 (Vue 3.3+)
+
+- defineOptions
+  - 用于定义组件的选项，如name、inheritAttrs、components、props、data、computed、watch等
+- defineSlots
+  - 用于定义组件的插槽
+
+### 渲染函数相关
+
+- defineRender
+  - 用于定义组件的渲染函数
