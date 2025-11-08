@@ -1014,3 +1014,64 @@
 
 - defineRender
   - 用于定义组件的渲染函数
+
+# 生命周期钩子
+
+- onBeforeMount
+  - 组件挂载前调用
+- onMounted
+  - 组件挂载完成后调用
+- onBeforeUpdate
+  - 组件更新前调用
+- onUpdated
+  - 组件更新完成后调用
+- onBeforeUnmount
+  - 组件卸载前调用
+- onUnmounted
+  - 组件卸载完成后调用
+```ts
+  <script lang="ts" setup name="Person">
+  // 引入ref和生命周期函数
+  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue'
+  console.log('组件初始化（setup，替代vue2的beforeCreate和created钩子）');
+  onBeforeMount(() => {
+    console.log('组件挂载前调用')
+  })
+  onMounted(() => {
+    console.log('组件挂载完成后调用')
+  })
+  onBeforeUpdate(() => {
+    console.log('组件更新前调用')
+  })
+  onUpdated(() => {
+    console.log('组件更新完成后调用')
+  })
+  onBeforeUnmount(() => {
+    console.log('组件卸载前调用')
+  })
+  onUnmounted(() => {
+    console.log('组件卸载完成后调用')
+  })
+  </script>
+```
+
+![生命周期钩子](./imgs/生命周期钩子.png)
+
+## vue3生命周期 vs vue2生命周期
+
+- 组件初始化
+  - vue3: setup
+  - vue2: beforeCreate, created
+- 组件挂载
+  - vue3: onMounted
+  - vue2: mounted
+- 组件更新
+  - vue3: onBeforeUpdate, onUpdated
+  - vue2: beforeUpdate, updated
+- 组件卸载
+  - vue3: onBeforeUnmount, onUnmounted
+  - vue2: beforeDestroy, destroyed
+
+- 使用setup函数替代vue2的beforeCreate和created钩子
+- 修改了钩子的名称
+- 其它概念与vue2相同
