@@ -1327,3 +1327,97 @@
 ```
 
 ![自定义hooks](./imgs/自定义hooks.png)
+
+# 路由
+
+- 安装vue-router模块（Vue3 使用 vue-router 4.x 版本。）
+```bash
+  npm install vue-router
+```
+
+## 基本使用
+
+- 编写路由模块router/index.js
+  - 通过createRouter函数创建并配置路由实例
+  - 通过createWebHistory或createWebHashHistory配置路由模式
+  - 通过redirect配置路由重定向
+```js
+  // 该文件专门用于创建整个应用的路由器
+  // 引入创建路由器的函数和创建History路由模式的函数
+  import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+  import About from '@/pages/About.vue'
+  import Home from '@/pages/Home.vue'
+  // 创建一个路由器实例
+  const router = createRouter({
+    // 路由模式，这里使用History路由模式
+    history: createWebHistory(),
+    // 使用Hash路由模式
+    // history: createWebHashHistory(),
+    // 配置路由规则
+    routes: [
+      {
+        path: '/',
+        redirect: '/home' // 默认重定向到home路由
+      },
+      {
+        path: '/about',
+        component: About
+      },
+      {
+        path: '/home',
+        component: Home
+      }
+    ]
+  })
+  // 导出路由实例
+  export default router
+```
+
+- 引入路由模块到main.js
+```js
+  import { createApp } from 'vue'
+  import App from '@/App.vue'
+  // 引入路由模块
+  import router from '@/router'
+  import '@/index.css'
+  // 创建Vue应用实例并使用路由
+  createApp(App).use(router).mount('#app')
+```
+
+- 配置路由链接
+  - RouterLink是宏函数，可以不引入
+  - active-class：路由链接激活时的类名
+  - to：路由链接的目标路径
+```html
+  <template>
+      <div class="top-bar">
+          <nav class="nav-links">
+              <ul>
+                  <li><RouterLink active-class="active" to="/home">首页</RouterLink></li>
+                  <li><RouterLink active-class="active" to="/about">关于</RouterLink></li>
+              </ul>
+          </nav>
+      </div>
+  </template>
+  <script lang="ts" setup name="TopBar">
+  import {RouterLink} from 'vue-router'
+  </script>
+```
+
+- 配置路由出口
+  - RouterView是宏函数，不需要引入
+```html
+  <template>
+    <div>
+      <TopBar />
+      <!-- 路由出口，用于渲染匹配到的路由组件 -->
+      <RouterView />
+    </div>
+  </template>
+
+  <script lang="ts" setup name="App">
+  import TopBar from '@/components/TopBar.vue'
+  </script>
+```
+
+![路由基本使用](./imgs/路由基本使用.png)
