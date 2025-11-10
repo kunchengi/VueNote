@@ -1107,3 +1107,159 @@
   ```ts
     import {Button} from '@/components/Button';
   ```
+
+# 配置代理解决跨域问题
+
+- vue3的代码配置只能详细配置，不能简单配置
+- vue3的代理配置写在vite.config.ts中的server.proxy中
+- 仅在开发环境生效
+
+## 配置选项详解
+
+- target
+  - 代理的目标地址
+  - 必填
+- changeOrigin
+    - 是否改变源地址为目标服务器地址
+    - 默认为false
+    - 当设置为 true 时，请求的源地址为target
+    - 当设置为 false 时，请求的源地址为当前页面的域名
+- rewrite（类似vue2配置中的pathRewrite）
+  - 路径重写规则函数
+  - 接收一个路径字符串作为参数，返回一个字符串
+  - 可以使用正则表达式
+- secure
+  - 是否验证 SSL 证书
+  - 默认为true
+- ws
+  - 是否代理 WebSocket
+  - 默认为false
+- configure
+  - 自定义代理配置函数
+
+## 简单 API 代理
+
+- 在vite.config.ts中添加如下配置
+```ts
+  export default defineConfig({
+    plugins: [vue(), vueSetupExtend()],// 使用vue和vueSetupExtend插件
+    server: {
+      proxy: {
+        '/api1': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+          // 重写路径，将 /api1 替换为空字符串
+          rewrite: (path) => path.replace(/^\/api1/, ''),
+        },
+        '/api2': {
+          target: 'http://localhost:5001',
+          changeOrigin: true,
+          // 重写路径，将 /api2 替换为空字符串
+          rewrite: (path) => path.replace(/^\/api2/, ''),
+        }
+      }
+    }
+  })
+```
+- 前端使用
+```ts
+  import axios from 'axios'
+  import { reactive, onMounted } from 'vue'
+  const state = reactive({
+    students: [],
+    cars: []
+  })
+  onMounted(() => {
+    async function init(): Promise<void> {
+      const students = await getStudents();
+      const cars = await getCars();
+      state.students = students;
+      state.cars = cars;
+    }
+    init()
+  })
+  // 获取学生列表
+  async function getStudents(): Promise<any> {
+    const res = await axios.get('/api1/students')
+    return res.data;
+  }
+  // 获取车列表
+  async function getCars(): Promise<any> {
+    const res = await axios.get('/api2/cars')
+    return res.data;
+  }
+```
+
+##  取消验证https证书
+
+- 有些域名用 HTTPS，可能需要解决https证书问题
+- 可以在vite.config.ts中添加如下配置
+```ts
+  export default defineConfig({
+    plugins: [vue(), vueSetupExtend()],// 使用vue和vueSetupExtend插件
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://api.example.com',
+          changeOrigin: true,
+          // 重写路径，将 /api 替换为空字符串
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          secure: false, // 如果后端使用 HTTPS，可能需要设置为 false
+        }
+      }
+    }
+  })
+```
+
+## 代理websocket连接
+
+- 可以在vite.config.ts中添加如下配置
+```ts
+  export default defineConfig({
+    plugins: [vue(), vueSetupExtend()],// 使用vue和vueSetupExtend插件
+    server: {
+      proxy: {
+        '/socket': {
+          target: 'ws://localhost:8080',
+          ws: true,
+        }
+      }
+    }
+  })
+```
+
+## 自定义代理配置函数
+
+- configure配置可以添加自定义逻辑
+  - 参数
+    - proxy: 代理对象
+    - options: 代理配置选项
+  - 可以给代理对象添加自定义事件监听器
+  - 例如添加error事件监听器
+- 注意：这里的console.log是在服务端打印的，不是在浏览器端打印的
+```ts
+  export default defineConfig({
+    plugins: [vue(), vueSetupExtend()],// 使用vue和vueSetupExtend插件
+    server: {
+      proxy: {
+        '/api1': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+          // 重写路径，将 /api1 替换为空字符串
+          rewrite: (path) => path.replace(/^\/api1/, ''),
+          configure: (proxy, options) => {
+            // 自定义代理配置
+            proxy.on('proxyReq', (proxyReq, req, res) => {
+              console.log('请求路径', req.url)
+            })
+            proxy.on('error', (err, req, res) => {
+              console.log('代理错误', err)
+            })
+          },
+        },
+      }
+    }
+  })
+```
+
+![配置代理解决跨域问题](./imgs/配置代理解决跨域问题.png)
