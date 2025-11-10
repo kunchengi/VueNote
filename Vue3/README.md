@@ -1075,3 +1075,35 @@
 - 使用setup函数替代vue2的beforeCreate和created钩子
 - 修改了钩子的名称
 - 其它概念与vue2相同
+
+# vite配置别名路径
+
+- 配置vite别名路径
+  ```ts
+    // vite.config.ts
+    import { defineConfig } from 'vite'
+    import path from 'path'
+    export default defineConfig({
+      // ...其它配置
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, 'src'),
+        },
+      },
+    })
+  ```
+- 在tsconfig.json中配置路径别名
+  ```json
+    {
+      "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+          "@/*": ["src/*"]
+        }
+      }
+    }
+  ```
+- 通过@符号来导入文件
+  ```ts
+    import {Button} from '@/components/Button';
+  ```
