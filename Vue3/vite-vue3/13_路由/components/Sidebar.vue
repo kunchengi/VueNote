@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
-        <RouterLink active-class="active" to="/home/vue">Vue路由</RouterLink>
-        <RouterLink active-class="active" to="/home/javascript">JavaScript路由</RouterLink>
+        <RouterLink active-class="active" :to="{ name: 'Vue' }">Vue路由</RouterLink>
+        <RouterLink active-class="active" :to="{ name: 'JavaScript' }">JavaScript路由</RouterLink>
     </div>
 </template>
 

@@ -27,10 +27,12 @@ const router = createRouter({
       // 配置Home组件的子路由规则
       children: [
         {
+          name: 'JavaScript',
           path: 'javascript',
           component: JavaScriptCom
         },
         {
+          name: 'Vue',
           path: 'vue',
           component: VueCom
         }
