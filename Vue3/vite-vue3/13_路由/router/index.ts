@@ -3,6 +3,8 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import About from '@/pages/About.vue'
 import Home from '@/pages/Home.vue'
+import JavaScriptCom from '@/pages/home/JavaScriptCom.vue'
+import VueCom from '@/pages/home/VueCom.vue'
 // 创建一个路由器实例
 const router = createRouter({
   // 路由模式，这里使用History路由模式
@@ -21,7 +23,18 @@ const router = createRouter({
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      // 配置Home组件的子路由规则
+      children: [
+        {
+          path: 'javascript',
+          component: JavaScriptCom
+        },
+        {
+          path: 'vue',
+          component: VueCom
+        }
+      ]
     }
   ]
 })

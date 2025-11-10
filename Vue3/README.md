@@ -1421,3 +1421,67 @@
 ```
 
 ![路由基本使用](./imgs/路由基本使用.png)
+
+## 嵌套（多级）路由
+
+- 与vue2的区别
+  - 子路由的path不需要以/开头，也不需要写完整路径
+  - 路由器会自动匹配父级路由
+- 其它用法与vue2相同
+
+- 配置路由规则
+```ts
+  const router = createRouter({
+    // ...其它路由配置,
+    routes: [
+      // ...其它路由配置,
+      {
+        path: '/home',
+        component: Home,
+        // 配置Home组件的子路由规则
+        children: [
+          {
+            path: 'javascript',
+            component: JavaScriptCom
+          },
+          {
+            path: 'vue',
+            component: VueCom
+          }
+        ]
+      }
+    ]
+  })
+```
+
+- 配置路由链接
+  - 要写完整路径，包括父路由路径
+```html
+  <template>
+      <div class="sidebar">
+          <RouterLink active-class="active" to="/home/vue">Vue路由</RouterLink>
+          <RouterLink active-class="active" to="/home/javascript">JavaScript路由</RouterLink>
+      </div>
+  </template>
+  <script lang="ts" setup name="Sidebar">
+  </script>
+```
+
+- 在父级路由组件中配置路由出口
+```html
+  <template>
+    <div class="home-container">
+      <Sidebar />
+      <div class="content">
+        <!-- 子路由出口 -->
+        <RouterView />
+      </div>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="Home">
+  import Sidebar from '@/components/Sidebar.vue'
+  </script>
+```
+
+![嵌套路由](./imgs/嵌套路由.png)
