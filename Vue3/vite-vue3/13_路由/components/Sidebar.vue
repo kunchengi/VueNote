@@ -17,7 +17,7 @@
             <RouterLink active-class="active" :to="{
                 name: item.name,// 必须使用name配置项
                 params: { id: item.id, content: item.content }
-            }">{{ item.name }}</RouterLink>
+            }" replace>{{ item.name }}</RouterLink>
         </div>
     </div>
 </template>
