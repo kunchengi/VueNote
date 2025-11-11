@@ -1531,3 +1531,70 @@
 ```
 
 ![路由传递query参数](./imgs/路由传递query参数.png)
+
+## 路由传递params参数
+
+- 与vue2的区别
+  - 接受参数需要使用`useRoute`钩子
+
+- 会跳转带有params参数的路由链接，如`/home/javascript/1/数组的方法`
+- 配置路由规则
+```ts
+  const router = createRouter({
+    routes: [
+      {
+        path: '/home',
+        component: Home,
+        children: [
+          {
+            name: 'JavaScript',
+            path: 'javascript/:id/:content?',// 占位用于接收路由的params参数，content参数可选
+            component: JavaScriptCom
+          },
+          {
+            name: 'Vue',
+            path: 'vue/:id/:content?',// 占位用于接收路由的params参数，content参数可选
+            component: VueCom
+          }
+        ]
+      }
+    ]
+  })
+```
+
+- 跳转路由并携带params参数，to的字符串写法
+```html
+  <RouterLink active-class="active" :to="`/home/javascript/1/数组的方法`">JavaScript路由</RouterLink>
+```
+
+- 跳转路由并携带params参数，to的对象写法
+  - 注意：不能使用path配置项，必须使用name配置项
+```html
+  <RouterLink active-class="active" :to="{
+    name: 'JavaScript',// 跳转到对应名称的路由,必须使用name配置项
+    params: {
+      id: "1",
+      content: "数组的方法"
+    }
+  }">{{ course.name }}</RouterLink>
+```
+
+- 在跳转的路由组件中获取params参数
+  - 可以通过useRoute获取params参数
+```html
+  <template>
+    <div>
+      <h1>{{ params.content }}</h1>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="JavaScriptCom">
+  import { toRefs } from 'vue';
+  import { useRoute } from 'vue-router';
+  const route = useRoute();
+  // 解构赋值params并转换成响应式数据
+  const { params } = toRefs(route);
+  </script>
+```
+
+![路由传递params参数](./imgs/路由传递params参数.png)

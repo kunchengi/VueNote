@@ -6,9 +6,17 @@
             <!-- 跳转路由并携带query参数，to的字符串写法 -->
             <!-- <RouterLink active-class="active" :to="`${item.path}?id=${item.id}&content=${item.content}`">{{ item.name }}</RouterLink> -->
             <!-- 跳转路由并携带query参数，to的对象写法 -->
-            <RouterLink active-class="active" :to="{
+            <!-- <RouterLink active-class="active" :to="{
                 name: item.name,
                 query: { id: item.id, content: item.content }
+            }">{{ item.name }}</RouterLink> -->
+
+            <!-- 跳转路由并携带params参数，to的字符串写法 -->
+            <!-- <RouterLink active-class="active" :to="`${item.path}/${item.id}/${item.content}`">{{ item.name }}</RouterLink> -->
+            <!-- 跳转路由并携带params参数，to的对象写法 -->
+            <RouterLink active-class="active" :to="{
+                name: item.name,// 必须使用name配置项
+                params: { id: item.id, content: item.content }
             }">{{ item.name }}</RouterLink>
         </div>
     </div>

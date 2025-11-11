@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>{{ query.content }}</h1>
+    <!-- <h1>{{ query.content }}</h1> -->
+    <h1>{{ params.content }}</h1>
   </div>
 </template>
 
@@ -9,7 +10,9 @@ import { toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
 // 解构赋值query并转换成响应式数据
-const { query } = toRefs(route);
+// const { query } = toRefs(route);
+// 解构赋值params并转换成响应式数据
+const { params } = toRefs(route);
 </script>
 
 <style scoped></style>

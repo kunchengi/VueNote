@@ -28,12 +28,12 @@ const router = createRouter({
       children: [
         {
           name: 'JavaScript',
-          path: 'javascript',
+          path: 'javascript/:id/:content?',// 占位用于接收路由的params参数，content参数可选
           component: JavaScriptCom
         },
         {
           name: 'Vue',
-          path: 'vue',
+          path: 'vue/:id/:content?',// 占位用于接收路由的params参数，content参数可选
           component: VueCom
         }
       ]
