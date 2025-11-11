@@ -29,12 +29,33 @@ const router = createRouter({
         {
           name: 'JavaScript',
           path: 'javascript/:id/:content?',// 占位用于接收路由的params参数，content参数可选
-          component: JavaScriptCom
+          component: JavaScriptCom,
+          // props参数配置,将路由的query/params参数作为props参数传递给组件
+          // 1. 对象形式，跳转到JavaScriptCom组件时，会将该对象的属性传递给组件。一般不会这么写，因为把数据写死了
+          // props: {
+          //   id: '1',
+          //   content: 'promise的使用'
+          // }
+          // 2. 布尔值形式，为true时将路由的params参数作为props参数传递给组件，只适用于params参数
+          // props: true
+          // 3. 函数形式，返回一个对象，对象的属性就是props参数.参数route为路由对象,可以获取到路由的query和params参数
+          props: (route) => ({
+            id: route.params.id,
+            content: route.params.content
+          })
+          // props: (route) => ({
+          //   id: route.query.id,
+          //   content: route.query.content
+          // })
         },
         {
           name: 'Vue',
           path: 'vue/:id/:content?',// 占位用于接收路由的params参数，content参数可选
-          component: VueCom
+          component: VueCom,
+          props: (route) => ({
+            id: route.params.id,
+            content: route.params.content
+          })
         }
       ]
     }
