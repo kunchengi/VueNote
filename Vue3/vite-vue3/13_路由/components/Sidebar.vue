@@ -14,10 +14,15 @@
             <!-- 跳转路由并携带params参数，to的字符串写法 -->
             <!-- <RouterLink active-class="active" :to="`${item.path}/${item.id}/${item.content}`">{{ item.name }}</RouterLink> -->
             <!-- 跳转路由并携带params参数，to的对象写法 -->
-            <RouterLink active-class="active" :to="{
+            <!-- <RouterLink active-class="active" :to="{
                 name: item.name,// 必须使用name配置项
                 params: { id: item.id, content: item.content }
-            }" replace>{{ item.name }}</RouterLink>
+            }" replace>{{ item.name }}</RouterLink> -->
+
+            <!-- 点击时触发路由跳转 -->
+            <a @click="handleClick(item)">
+                {{ item.name }}
+            </a>
         </div>
     </div>
 </template>
@@ -33,6 +38,21 @@ type Props = {
     }[]
 }
 const props = defineProps<Props>();
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+const handleClick = (course: any) => {
+    // 编程式路由导航,也可以使用router.replace()
+    // 区别: push是添加新的路由记录,replace是替换当前路由记录
+    // 参数的写法与to的写法相同，可以写字符串也可以写对象
+    router.push({
+        // path: course.path,
+        name: course.name,
+        // query: { id: course.id, content: course.content }
+        params: { id: course.id, content: course.content }
+    })
+}
 </script>
 
 <style>

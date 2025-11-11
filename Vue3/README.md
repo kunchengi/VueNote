@@ -1606,3 +1606,43 @@
 ## replace属性
 
 - 与vue2的写法相同
+
+## 编程式路由导航
+
+- 与vue2的区别
+  - 使用useRouter钩子获取路由实例
+
+- 不借助`<RouterLink>`标签，通过js代码实现路由跳转
+- 跳转路由的方法
+  - router.push()
+  - router.replace()
+  - 参数的写法与to的写法相同，可以写字符串也可以写对象
+```ts
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
+
+  const handleClick = (course: any) => {
+      // 编程式路由导航,也可以使用router.replace()
+      // 区别: push是添加新的路由记录,replace是替换当前路由记录
+      // 参数的写法与to的写法相同，可以写字符串也可以写对象
+      router.push({
+          // path: course.path,
+          name: course.name,
+          // query: { id: course.id, content: course.content }
+          params: { id: course.id, content: course.content }
+      })
+  }
+```
+- 前进一步
+```js
+  router.forward()// 前进一步
+```
+- 后退一步
+```js
+  router.back()// 后退一步
+```
+- 跳转到指定路由
+```js
+  router.go(1)// 前进一步,参数为1
+  router.go(-1)// 后退一步,参数为-1
+```
