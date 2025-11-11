@@ -1489,3 +1489,45 @@
 ## 命名路由
 
 - 与vue2的用法相同
+
+## 路由传递query参数
+
+- 与vue2的区别
+  - 接受参数需要使用`useRoute`钩子
+
+- 会跳转带有query参数的路由链接，如`/home/javascript?id=1&content=数组的方法`
+- 跳转路由并携带query参数，to的字符串写法
+```html
+  <RouterLink active-class="active" :to="`/home/javascript?id=1&content=数组的方法`">JavaScript路由</RouterLink>
+```
+
+- 跳转路由并携带query参数，to的对象写法
+```html
+  <RouterLink active-class="active" :to="{
+    name: 'JavaScript',
+    query: {
+      id: "1",
+      content: "数组的方法"
+    }
+  }">{{ course.name }}</RouterLink>
+```
+
+- 在跳转的路由组件中获取query参数
+  - 可以通过useRoute获取query参数
+```html
+  <template>
+    <div>
+      <h1>{{ query.content }}</h1>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="JavaScriptCom">
+  import { toRefs } from 'vue';
+  import { useRoute } from 'vue-router';
+  const route = useRoute();
+  // 解构赋值query并转换成响应式数据
+  const { query } = toRefs(route);
+  </script>
+```
+
+![路由传递query参数](./imgs/路由传递query参数.png)

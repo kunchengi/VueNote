@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <Sidebar />
+    <Sidebar :courseList="courseList" />
     <div class="content">
       <!-- 子路由出口 -->
       <RouterView />
@@ -9,7 +9,12 @@
 </template>
 
 <script lang="ts" setup name="Home">
+import { reactive } from 'vue';
 import Sidebar from '@/components/Sidebar.vue'
+const courseList = reactive([
+    { id: "1", name: 'Vue', path: '/home/vue', content: '路由的使用' },
+    { id: "2", name: 'JavaScript', path: '/home/javascript', content: '数组的方法' }
+])
 </script>
 
 <style scoped>
