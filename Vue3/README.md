@@ -1752,3 +1752,54 @@
   ```
 
 ![pinia的基本使用](./imgs/pinia的基本使用.png)
+
+## 计算属性getters
+
+- 可以在store模块中定义计算属性getters
+  - 可以通过第一个参数state获取状态
+  - 也可以通过this获取状态
+```ts
+  export const useCalculateStore = defineStore('calculate', {
+    // 定义状态
+    state: () => ({
+      sum: 0
+    }),
+    // 定义action方法
+    actions: {
+      increment(num: number) {
+        this.sum += num
+      }
+    },
+    // 定义getters
+    getters: {
+      // 当前求和的平方
+      // 写法一，使用参数中的state获取状态
+      // square(state): number {
+      //   return state.sum ** 2;
+      // }
+      // square:state => state.sum ** 2,
+      // 写法二：通过this获取状态
+      square(): number {
+        return this.sum ** 2;
+      }
+    }
+  })
+```
+
+- 在组件中获取getters属性
+  - 与访问普通状态相同
+```html
+  <template>
+    <div>
+      <h1>当前求和的平方为：{{ square }}</h1>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="Count">
+    // 获取计算模块的store
+    import { useCalculateStore } from '@/store/calculate'
+    const calculateStore = useCalculateStore();
+    import { storeToRefs } from 'pinia'
+    const { square } = storeToRefs(calculateStore);
+  </script>
+```

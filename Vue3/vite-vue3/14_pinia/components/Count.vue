@@ -25,12 +25,11 @@ console.log('sum', calculateStore.sum);
 console.log('sum', calculateStore.$state.sum);
 // 也可以通过解构赋值的方式获取状态，但需要使用storeToRefs函数，如果不使用会丢失响应式
 import { storeToRefs } from 'pinia'
-const { sum } = storeToRefs(calculateStore);
+const { sum, square } = storeToRefs(calculateStore);
 
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 // const sum = ref(0);
 const n = ref(1);
-const square = computed(() => sum.value ** 2);
 // 加
 function increment(n: number) {
     // 第一种修改方式，直接修改sum状态

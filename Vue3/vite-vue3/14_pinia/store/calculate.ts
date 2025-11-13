@@ -24,6 +24,19 @@ export const useCalculateStore = defineStore('calculate', {
       await new Promise(resolve => setTimeout(resolve, 1000));
       this.sum += n;
     }
+  },
+  // 定义计算属性
+  getters: {
+    // 当前求和的平方
+    // 写法一，使用参数中的state获取状态
+    // square(state): number {
+    //   return state.sum ** 2;
+    // }
+    // square:state => state.sum ** 2,
+    // 写法二：通过this获取状态
+    square(): number {
+      return this.sum ** 2;
+    }
   }
 })
 

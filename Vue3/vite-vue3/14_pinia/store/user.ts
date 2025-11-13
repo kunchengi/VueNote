@@ -19,5 +19,12 @@ export const useUserStore = defineStore('user', {
       this.firstname = firstname;
       this.lastname = lastname;
     }
+  },
+  // 定义计算属性
+  getters: {
+    // 完整的用户姓名
+    fullName(): string {
+      return this.firstname + this.lastname;
+    }
   }
 })

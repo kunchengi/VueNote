@@ -8,18 +8,17 @@
   </div>
 </template>
 <script lang="ts" setup name="User">
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 // 获取用户模块的store
 import { useUserStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
 const userStore = useUserStore();
-const { firstname, lastname } = storeToRefs(userStore);
+const { firstname, lastname, fullName } = storeToRefs(userStore);
 
 const localData = reactive({
     firstname: firstname.value,
     lastname: lastname.value
 })
-const fullName = computed(() => localData.firstname + localData.lastname);
 </script>
 
 <style>
