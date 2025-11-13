@@ -4,7 +4,7 @@
     <p>当前用户姓名：{{ fullName }}</p>
     <input v-model="localData.firstname" placeholder="请输入姓">
     <input v-model="localData.lastname" placeholder="请输入名">
-    <button @click="userStore.setName({ firstname: localData.firstname, lastname: localData.lastname })">提交</button>
+    <button @click="userStore.setName({ firstName: localData.firstname, lastName: localData.lastname })">提交</button>
   </div>
 </template>
 <script lang="ts" setup name="User">

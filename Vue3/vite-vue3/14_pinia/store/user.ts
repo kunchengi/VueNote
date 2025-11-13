@@ -1,30 +1,18 @@
 // 用户模块相关的数据
 // 引入defineStore函数
 import { defineStore } from 'pinia'
-
-// 创建用户模块的store
-// 使用hooks的命名规范
-// 参数1: store的唯一标识
-// 参数2: store的配置对象
-export const useUserStore = defineStore('user', {
+import { ref, computed } from 'vue';
+export const useUserStore = defineStore('user', () => {
   // 定义状态
-  state: () => ({
-    firstname: '张',
-    lastname: '三'
-  }),
-  // 定义方法，方法里的this指向当前的store实例
-  actions: {
-    // 提交用户信息
-    setName({ firstname, lastname }: { firstname: string; lastname: string }) {
-      this.firstname = firstname;
-      this.lastname = lastname;
-    }
-  },
-  // 定义计算属性
-  getters: {
-    // 完整的用户姓名
-    fullName(): string {
-      return this.firstname + this.lastname;
-    }
+  const firstname = ref('张');
+  const lastname = ref('三');
+  // 定义方法
+  const setName = ({ firstName, lastName }: { firstName: string; lastName: string }) => {
+    firstname.value = firstName;
+    lastname.value = lastName;
   }
+  // 定义计算属性
+  const fullName = computed(() => firstname.value + lastname.value);
+  // 返回状态、方法、计算属性
+  return { firstname, lastname, setName, fullName };
 })
