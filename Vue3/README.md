@@ -1650,3 +1650,105 @@
 # pinia状态管理
 
 - pinia是vue的状态管理库,与vuex类似,但是更简单,更轻量
+- 安装pinia
+```bash
+  npm install pinia
+```
+
+## pinia的基本使用
+
+### 引入pinia
+
+- main.ts中引入pinia
+```ts
+  import { createPinia } from 'pinia'
+  const pinia = createPinia()
+  createApp(App).use(pinia).mount('#app')
+```
+
+### 定义状态
+
+- 创建一个store模块，并定义状态
+  - 通过defineStore函数创建一个store模块
+  - defineStore的参数
+    - 第一个参数：store的唯一标识
+    - 第二个参数：store的配置对象
+  - store使用hooks的命名规范useXXXStore
+```ts
+  import { defineStore } from 'pinia'
+  export const useCalculateStore = defineStore('calculate', {
+    // 定义状态
+    state: () => ({
+      sum: 0
+    })
+  })
+```
+
+### 获取状态
+
+- 在组件中获取store模块的状态
+  - 先引入store模块
+  - 调用useXXXStore函数获取store实例
+  - 从store实例获取状态
+    - 直接访问状态属性
+    - 通过$state访问状态属性
+    - 从store实例中解构出状态属性，需要使用storeToRefs函数
+```html
+  <template>
+    <div>
+      <h1>当前求和为：{{ sum }}</h1>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="Count">
+    // 获取计算模块的store
+    import { useCalculateStore } from '@/store/calculate'
+    const calculateStore = useCalculateStore();
+    // 直接获取sum状态
+    console.log('sum', calculateStore.sum);
+    // 也可以通过$state来访问状态，但不推荐
+    console.log('sum', calculateStore.$state.sum);
+    // 也可以通过解构赋值的方式获取状态，但需要使用storeToRefs函数，如果不使用会丢失响应式
+    import { storeToRefs } from 'pinia'
+    const { sum } = storeToRefs(calculateStore);
+    // 在脚本中使用sum状态时，需要通过.value来访问
+    console.log('sum', sum.value);
+  </script>
+```
+
+### 修改状态
+
+- 方式1：在组件中直接修改状态
+```ts
+  calculateStore.sum = 100
+```
+
+- 方式2：在组件中调用$patch方法修改状态（可批量修改）
+```ts
+  calculateStore.$patch({
+    sum: 100
+  })
+``` 
+
+- 方式3：在组件中调用store的action方法修改状态
+  - 先在store模块中定义action方法
+  ```ts
+    export const useCalculateStore = defineStore('calculate', {
+      // 定义状态
+      state: () => ({
+        sum: 0
+      }),
+      // 定义action方法
+      actions: {
+        increment(num: number) {
+          this.sum += num
+        }
+      }
+    })
+  ```
+  - 在组件中调用action方法修改状态
+  ```ts
+    calculateStore.increment(100)
+  ```
+
+![pinia的基本使用](./imgs/pinia的基本使用.png)
