@@ -1,5 +1,8 @@
 <template>
     <div>
+        <button @click="undo">撤销</button>
+        <button @click="redo">恢复</button>
+        <hr>
         <h1>当前求和为：{{ sum }}</h1>
         <h1>当前求和的平方为：{{ square }}</h1>
         <select v-model.number="n">
@@ -27,7 +30,7 @@ console.log('sum', calculateStore.$state.sum);
 import { storeToRefs } from 'pinia'
 const { sum, square } = storeToRefs(calculateStore);
 
-import { ref } from 'vue'
+import { ref,reactive } from 'vue'
 // const sum = ref(0);
 const n = ref(1);
 // 加
@@ -42,6 +45,47 @@ function decrement(n: number) {
     calculateStore.$patch({
         sum: calculateStore.sum - n
     })
+}
+
+const record: any = reactive({
+    list: [{...calculateStore.$state}],// 记录状态变化的数组，初始值为当前状态
+    currentIndex: 0,// 当前记录的索引
+    isApplyRecord: false,// 是否应用记录触发的状态变化
+});
+
+// 订阅状态变化
+calculateStore.$subscribe((mutation, state) => {
+    if (record.isApplyRecord) {
+        record.isApplyRecord = false;
+        return;
+    }
+    if (record.currentIndex === record.list.length - 1) {
+        record.currentIndex++;
+        record.list.push({ ...state });
+    }else{
+        record.list.splice(record.currentIndex + 1);
+        record.currentIndex++;
+        record.list.push({ ...state });
+    }
+})
+
+// 撤销
+const undo = () => {
+    if (record.currentIndex === 0) {
+        return;
+    }
+    record.currentIndex--;
+    record.isApplyRecord = true;
+    calculateStore.$patch(record.list[record.currentIndex]);
+}
+// 恢复
+const redo = () => {
+    if (record.currentIndex === record.list.length - 1) {
+        return;
+    }
+    record.currentIndex++;
+    record.isApplyRecord = true;
+    calculateStore.$patch(record.list[record.currentIndex]);
 }
 
 </script>

@@ -1803,3 +1803,54 @@
     const { square } = storeToRefs(calculateStore);
   </script>
 ```
+
+## $subscribe监听状态变化
+
+- 可以在组件中订阅状态的变化
+  - 参数：回调函数
+  - 回调函数的参数
+    - 第一个参数：mutation对象，记录了状态变化的类型等数据
+    - 第二个参数：状态对象
+- 可以用来实现撤销恢复、历史记录等功能 
+```ts
+  const record: any = reactive({
+      list: [{...calculateStore.$state}],// 记录状态变化的数组，初始值为当前状态
+      currentIndex: 0,// 当前记录的索引
+      isApplyRecord: false,// 是否应用记录触发的状态变化
+  });
+
+  // 订阅状态变化
+  calculateStore.$subscribe((mutation, state) => {
+      if (record.isApplyRecord) {
+          record.isApplyRecord = false;
+          return;
+      }
+      if (record.currentIndex === record.list.length - 1) {
+          record.currentIndex++;
+          record.list.push({ ...state });
+      }else{
+          record.list.splice(record.currentIndex + 1);
+          record.currentIndex++;
+          record.list.push({ ...state });
+      }
+  })
+
+  // 撤销
+  const undo = () => {
+      if (record.currentIndex === 0) {
+          return;
+      }
+      record.currentIndex--;
+      record.isApplyRecord = true;
+      calculateStore.$patch(record.list[record.currentIndex]);
+  }
+  // 恢复
+  const redo = () => {
+      if (record.currentIndex === record.list.length - 1) {
+          return;
+      }
+      record.currentIndex++;
+      record.isApplyRecord = true;
+      calculateStore.$patch(record.list[record.currentIndex]);
+  }
+```
