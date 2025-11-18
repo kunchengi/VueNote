@@ -2068,3 +2068,70 @@
 ```
 
 ![组件自定义事件](./imgs/组件自定义事件.png)
+
+# mitt 事件总线
+
+- 轻量级事件总线库，用于任意组件间的通信
+- 安装 mitt
+```bash
+  npm install mitt
+```
+
+## 基本使用
+
+### 创建事件总线
+
+- emitter实例
+  - all：返回所有事件的处理函数映射表
+  - emit：触发事件
+  - on：监听事件
+  - off：取消监听事件
+```ts
+  // 引入 mitt 库
+  import mitt from 'mitt'
+
+  // 创建 mitt 实例，有all、emit、on、off 方法
+  const emitter = mitt()
+
+  export default emitter
+```
+
+### 事件监听
+
+- 在onMounted钩子函数中监听事件
+- 在onBeforeUnmount钩子函数中取消监听事件
+- on函数参数说明
+  - 第一个参数：事件名
+  - 第二个参数：事件处理函数
+- off函数参数说明
+  - 第一个参数：事件名
+  - 第二个参数：事件处理函数（可选）
+```ts
+  // 挂载完成后，监听 buyPhone 事件
+  onMounted(() => {
+      emitter.on('buyPhone', (phone) => onBuyPhone(phone as IPhone))
+  })
+  // 卸载前，移除 buyPhone 事件监听，防止内存泄漏
+  onBeforeUnmount(() => {
+      emitter.off('buyPhone')
+  })
+  // 处理购买事件
+  function onBuyPhone(phone: IPhone) {
+      console.log(`购买了${phone.name}`)
+  }
+```
+
+### 事件触发
+
+- emit函数参数说明
+  - 第一个参数：事件名
+  - 第二个参数及以后：需要传递的数据
+```ts
+  import emitter from '@/utils/emitter'
+  const handleClick = () => {
+      // 点击购买按钮，触发 buyPhone 事件
+      emitter.emit('buyPhone', props.phone)
+  }
+```
+
+![mitt事件总线](./imgs/mitt事件总线.png)
