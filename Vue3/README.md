@@ -1884,3 +1884,187 @@
     return { sum, incrementIfOdd, incrementAsync, square };
   })
 ```
+# 组件自定义事件
+
+- 自定义事件是 Vue 组件间通信的重要机制，允许子组件向父组件传递数据和触发行为。
+- 它是 Vue 事件系统的扩展，不同于原生 DOM 事件
+
+## 基本使用
+
+- 事件监听（父组件）
+  - 使用`@事件名="处理函数"`监听子组件触发的事件
+  - 处理函数可以接收子组件传递过来的数据作为参数
+```html
+  <template>
+    <div>
+      <!-- 在父组件模板中监听notify事件 -->
+      <Hello @notify="handleNotify"/>
+    </div>
+  </template>
+  <script lang="ts" setup name="App">
+  import Hello from '@/components/Hello.vue'
+  // 定义一个函数，用于处理子组件触发的notify事件，user为子组件传递过来的数据
+  function handleNotify(user: { id: number, name: string }) {
+      console.log(`子组件触发notify事件，传递过来的数据是：${user.id} ${user.name}`);
+  }
+  </script>
+```
+
+- 事件触发（子组件）
+  - 通过`defineEmits`定义父组件声明的事件
+  - 使用`emit('事件名', 数据)`触发事件
+  - 数据可以是任意类型，会被传递给父组件的处理函数
+```html
+  <template>
+      <div>
+          <button @click="handleClick">点一下，给父组件发送数据</button>
+      </div>
+  </template>
+  <script lang="ts" setup name="Hello">
+  // 定义notify事件
+  const emit = defineEmits(['notify'])
+  function handleClick() {
+      // 在子组件中触发事件
+      emit('notify', {
+          id: 1,
+          name: '张三'
+      });
+  }
+  </script>
+```
+
+## 表单组件双向绑定
+
+### 不使用v-model
+
+- 事件监听（父组件）
+  - 监听子组件触发的自定义事件（input-change），当子组件输入框的值发生改变时，更新父组件的userEmail
+```html
+  <template>
+    <div>
+      <h1>用户邮箱：{{ userEmail }}</h1>
+      <div>
+        <span>父组件输入邮箱：</span>
+        <input type="text" v-model="userEmail">
+      </div>
+      <!-- 父子组件双向通信：监听input-change事件，当子组件输入框的值发生改变时，更新父组件的userEmail -->
+      <InputCom :email="userEmail" @input-change="changeEmail"/>
+    </div>
+  </template>
+  <script lang="ts" setup name="App">
+  import InputCom from '@/components/InputCom.vue'
+  import { ref } from 'vue'
+  const userEmail = ref('')
+  // 定义一个函数，用于处理子组件触发的input-change事件，newEmail为子组件传递过来的新邮箱值
+  function changeEmail(newEmail: string) {
+    userEmail.value = newEmail;
+  }
+  </script>
+```
+
+- 子组件触发事件
+  - 当输入框的值发生改变时，通过`emit('input-change', 新值)`触发input-change事件，将新值传递给父组件
+```html
+  <template>
+      <div>
+          <!-- 父子组件双向通信：当输入框的值发生改变时，通知父组件更新userEmail -->
+            <span>子组件输入邮箱（不使用v-model）：</span>
+            <input :value="email" @input="emit('input-change', ($event.target as HTMLInputElement).value)">
+      </div>
+  </template>
+  <script lang="ts" setup name="InputCom">
+  const props = defineProps({
+      email: String,
+  })
+  // 定义input-change事件
+  const emit = defineEmits(['input-change'])
+  </script>
+```
+
+### 使用v-model
+
+- 事件监听（父组件）
+  - 使用`v-model="数据"`双向绑定数据
+```html
+  <template>
+    <div>
+      <h1>用户邮箱：{{ userEmail }}</h1>
+      <div>
+        <span>父组件输入邮箱：</span>
+        <input type="text" v-model="userEmail">
+      </div>
+      <!-- 使用 v-model，本质就是传递了modelValue属性和update:modelValue事件 -->
+      <InputCom v-model="userEmail"/>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="App">
+  import InputCom from '@/components/InputCom.vue'
+  import { ref } from 'vue'
+  const userEmail = ref('')
+  </script>
+```
+
+- 子组件触发事件
+  - 通过props的modelValue获取双向绑定的数据
+  - 当输入框的值发生改变时，通过`emit('update:modelValue', 新值)`更新双向绑定的数据
+```html
+  <template>
+      <div>
+          <!-- 使用 v-model -->
+          <span>子组件输入邮箱（使用v-model）：</span>
+          <input :value="modelValue" @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)">
+      </div>
+  </template>
+  <script lang="ts" setup name="InputCom">
+  const props = defineProps({
+      modelValue: String,
+  })
+  // 定义update:modelValue事件
+  const emit = defineEmits(['update:modelValue'])
+  </script>
+```
+
+### 自定义v-model名称
+- 事件监听（父组件）
+  - 使用`v-model:名称="数据"`双向绑定数据
+```html
+  <template>
+    <div>
+      <h1>用户邮箱：{{ userEmail }}</h1>
+      <div>
+        <span>父组件输入邮箱：</span>
+        <input type="text" v-model="userEmail">
+      </div>
+      <!-- 可以自定义v-model名称，子组件需要接收email属性，监听update:email事件，其实就是把modelValue换成了email -->
+      <InputCom v-model:email="userEmail"/>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="App">
+  import InputCom from '@/components/InputCom.vue'
+  import { ref } from 'vue'
+  const userEmail = ref('')
+  </script>
+```
+
+- 子组件触发事件
+  - 通过props的email获取双向绑定的数据
+  - 当输入框的值发生改变时，通过`emit('update:email', 新值)`更新双向绑定的数据
+```html
+  <template>
+      <div>
+          <span>子组件输入邮箱（使用v-model:email）：</span>
+          <input :value="email" @input="emit('update:email', ($event.target as HTMLInputElement).value)">
+      </div>
+  </template>
+  <script lang="ts" setup name="InputCom">
+  const props = defineProps({
+      email: String,
+  })
+  // 定义update:email事件
+  const emit = defineEmits(['update:email'])
+  </script>
+```
+
+![组件自定义事件](./imgs/组件自定义事件.png)
