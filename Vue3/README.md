@@ -2135,3 +2135,70 @@
 ```
 
 ![mitt事件总线](./imgs/mitt事件总线.png)
+
+# $attrs
+
+- 与vue2的$attrs相同
+- 给子组件传递的属性，如果未在props中定义，就会被收集到$attrs中
+- 子组件可以通过$attrs访问到这些属性
+- `<Hello v-bind="{ name: userName, age: userAge }" />`相当于`<Hello :name="userName" :age="userAge" />`
+- 子组件可以通过v-bind="$attrs"将这些属性传递给孙组件
+
+- 祖先组件
+  - 传递giveSon和giveGrandson给子组件
+```html
+  <template>
+      <div>
+          <h1>我是爷爷组件，我给儿子和孙子一些东西：</h1>
+          <Father :giveSon="giveSon" :giveGrandson="giveGrandson" />
+      </div>
+  </template>
+  <script lang="ts" setup name="GrandFather">
+  import Father from './Father.vue'
+  import { reactive } from 'vue';
+  // 给儿子的东西
+  const giveSon = reactive({
+      car: '奔驰',
+      money: '500万',
+  })
+  // 给孙子的东西
+  const giveGrandson = reactive({
+      car: '法拉利',
+      money: '1000万',
+  })
+  </script>
+  <style></style>
+```
+
+- 子组件
+  - 只接收giveSon属性，其它属性在$attrs中
+  - 通过v-bind="$attrs"将这些属性传递给孙组件
+```html
+  <template>
+      <div>
+          <h1>我是父亲组件，我收到了我爸给我的：{{ giveSon.car }}和{{ giveSon.money }}，我爸让我把{{ $attrs }}给我儿子</h1>
+          <My v-bind="$attrs" />
+      </div>
+  </template>
+  <script lang="ts" setup name="Father">
+  import My from './My.vue'
+  defineProps(['giveSon']);
+  </script>
+  <style></style>
+```
+
+- 孙组件
+  - 接收giveGrandson属性
+```html
+  <template>
+      <div>
+          <h1>我是孙子组件，我收到了我爷爷给我的：{{ giveGrandson.car }}和{{ giveGrandson.money }}</h1>
+      </div>
+  </template>
+  <script lang="ts" setup name="My">
+  defineProps(['giveGrandson']);
+  </script>
+  <style></style>
+```
+
+![$attrs](./imgs/$attrs.png)
