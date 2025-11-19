@@ -2202,3 +2202,117 @@
 ```
 
 ![$attrs](./imgs/$attrs.png)
+
+# $refs和$parent
+
+## $refs
+
+- 访问当前组件绑定的所有ref标签/组件实例（除了v-for循环绑定的ref）
+- 父组件可以在模板中使用$refs访问ref标签/组件实例
+- 通过$refs["refName"]访问ref标签/组件实例
+
+- 父组件
+```html
+  <template>
+    <div>
+      <!-- $refs为一个对象，包含所有的 ref 对象，除了 v-for 中定义的 ref 对象 -->
+      <button @click="addUserAge($refs)">增加用户年龄</button>
+      <User ref="userRef" />
+      <!-- 在 v-for 中使用 ref 时，$refs 会是一个数组 -->
+      <User v-for="index in 2" :key="index" ref="userRefs"></User>
+    </div>
+  </template>
+  <script lang="ts" setup name="App">
+  import User from './components/User.vue';
+  import { ref } from 'vue';
+  const userRef = ref<InstanceType<typeof User>>();
+  const userRefs = ref<InstanceType<typeof User>[]>([]);
+  function addUserAge(refs: any) {
+    const userAge = userRef.value?.userData?.age || 0;
+    if (userAge < 19) {
+      console.log("$refs", refs);// 打印所有的 ref 对象，获取不到v-for 中的 userRefs
+    }
+    // 增加用户年龄
+    // 可以通过 userRef.value 访问到 User 组件实例
+    // userRef.value?.addAge();
+    // 也可以通过 $refs 访问到 User 组件实例，此时不需要 .value
+    refs["userRef"]?.addAge();
+    // 增加 v-for 中用户的年龄
+    userRefs.value.forEach(user => user?.addAge());
+  }
+  </script>
+```
+
+- 子组件
+  - 导出数据给父组件访问
+```html
+  <template>
+      <div>
+          <h3>用户信息</h3>
+          <p>用户名：{{ userData.name }}</p>
+          <p>用户年龄：{{ userData.age }}</p>
+          <!-- $parent为父组件的实例 -->
+          <button @click="changeTitle($parent)">改变父组件标题</button>
+      </div>
+  </template>
+  <script lang="ts" setup name="User">
+  import { reactive, ref } from 'vue';
+  const userData = reactive({
+      name: '张三',
+      age: ref(18)// 可以这么写，也可以写成age: 18。都是响应式的
+  });
+  function addAge() {
+      // 访问reactive里的ref属性时，不需要.value，编译器会自动添加
+      userData.age++;
+  }
+  // 导出userData和addAge，使父组件可以访问到
+  defineExpose({
+      userData,
+      addAge
+  })
+  </script>
+```
+
+## $parent
+
+- 访问父组件实例
+- 子组件可以在模板中使用$parent访问父组件实例
+
+- 父组件
+  - 导出数据给子组件访问
+```html
+  <template>
+    <div>
+      <h1>{{ title }}</h1>
+      <User/>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="App">
+  import User from './components/User.vue';
+  import { ref } from 'vue';
+  const title = ref('App组件');
+  // 导出title，使子组件可以访问到
+  defineExpose({
+    title
+  })
+  </script>
+```
+
+- 子组件
+  - 访问父组件实例
+```html
+  <template>
+    <div>
+      <!-- $parent为父组件的实例 -->
+      <button @click="changeTitle($parent)">改变父组件标题</button>
+    </div>
+  </template>
+  <script lang="ts" setup name="User">
+  function changeTitle(parent: any) {
+    console.log('$parent', parent);// 打印父组件的实例
+    parent.title = '用户组件';
+  }
+``` 
+
+![$refs和$parent](./imgs/$refs和$parent.png)
