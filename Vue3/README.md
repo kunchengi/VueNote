@@ -2316,3 +2316,62 @@
 ``` 
 
 ![$refs和$parent](./imgs/$refs和$parent.png)
+
+# provide和inject
+
+- 父组件可以使用provide提供数据给后代组件，后代组件可以使用inject注入数据
+
+- 父组件通过provide提供数据
+  - provide的参数说明
+    - 第一个参数：提供的数据的key
+    - 第二个参数：提供的数据的值
+```html
+  <template>
+      <div>
+          <h1>我是爷爷组件，我给儿子和孙子一些东西：</h1>
+          <Father/>
+      </div>
+  </template>
+  
+  <script lang="ts" setup name="GrandFather">
+  import Father from './Father.vue'
+  import { reactive, provide } from 'vue';
+  // 给儿子的东西
+  const giveSon = reactive({
+      car: '奔驰',
+      money: '500万',
+  })
+  // 给孙子的东西
+  const giveGrandson = reactive({
+      car: '法拉利',
+      money: '1000万',
+  })
+  // 向后代提供数据
+  provide('giveSon', giveSon);
+  provide('giveGrandson', giveGrandson);
+  </script>
+```
+
+- 后代组件通过inject注入数据
+  - inject的参数说明
+    - 第一个参数：数据的key
+    - 第二个参数：默认值
+```html
+  <template>
+      <div>
+          <h1>我是孙子组件，我收到了我爷爷给我的：{{ giveGrandson.car }}和{{ giveGrandson.money }}</h1>
+      </div>
+  </template>
+  <script lang="ts" setup name="My">
+  import { inject } from 'vue';
+  // 注入祖先组件提供的数据
+  // 第一个参数：数据的key
+  // 第二个参数：默认值
+  const giveGrandson = inject('giveGrandson', {
+      car: '爱玛',
+      money: '1000块',
+  });
+  </script>
+```
+
+![provide和inject](./imgs/provide和inject.png)
