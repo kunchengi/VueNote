@@ -2480,3 +2480,77 @@
 ```
 
 ![shallowRef和shallowReactive](./imgs/shallowRef和shallowReactive.png)
+
+# readOnly和shallowReadonly
+
+- 用于创建响应式对象的只读响应式副本
+- 可以用于保护数据不被意外修改
+
+## readOnly
+
+- 用于创建响应式对象的深只读响应式副本
+- 只读响应式副本（包括对象内的属性）不能被修改
+- 原数据可以被修改，且会更新只读响应式副本，并触发响应式更新
+```ts
+  import { reactive, readonly } from 'vue'
+  let user = reactive({
+    name: '张三',
+    car: {
+      brand: '奔驰',
+    }
+  })
+  // 创建深只读响应式副本
+  let readonlyUser = readonly(user);
+  function changeUserName() {
+    user.name = '李四';
+    // readonlyUser.name = '张三';// 修改只读数据，会报错
+  }
+  function changeCarBrand() {
+    user.car.brand = '宝马';
+    // readonlyUser.car.brand = '宝马';// 修改只读数据，会报错
+  }
+  function replaceUser() {
+    const newUser = {
+      name: '王五',
+      car: {
+        brand: '保时捷',
+      }
+    }
+    Object.assign(readonlyUser, newUser);// 不会报错，但会弹出警告，且不会更新数据
+  }
+```
+
+## shallowReadonly
+
+- 用于创建响应式对象的浅只读响应式副本
+- 转换后的对象的第一层属性不能被修改
+- 转换前的数据可以被修改，且会更新转换后的只读数据，并触发响应式更新
+```ts
+  import { reactive, shallowReadonly } from 'vue'
+  let user = reactive({
+    name: '张三',
+    car: {
+      brand: '奔驰',
+    }
+  })
+  // 创建浅只读响应式副本
+  let readonlyUser = shallowReadonly(user);
+  function changeUserName() {
+    user.name = '李四';
+    // readonlyUser.name = '张三';// 修改只读数据的第一层属性，会报错
+  }
+  function changeCarBrand() {
+    readonlyUser.car.brand = '宝马';// 可修改只读数据的第二层属性
+  }
+  function replaceUser() {
+    const newUser = {
+      name: '王五',
+      car: {
+        brand: '保时捷',
+      }
+    }
+    Object.assign(readonlyUser, newUser);// 不会报错，但会弹出警告，且不会更新数据
+  }
+```
+
+![readOnly和shallowReadonly](./imgs/readOnly和shallowReadonly.png)
