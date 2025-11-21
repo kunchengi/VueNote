@@ -2414,3 +2414,69 @@
 - 插槽
   - 父传子：父组件可以在子组件标签中使用插槽，向子组件传递内容
   - 子传父：子组件使用作用域插槽，将数据传递给父组件
+
+# shallowRef和shallowReactive
+
+- 浅响应式
+- 与ref和reactive不同，shallowRef和shallowReactive不会对对象进行递归响应式处理
+- 当只需要使用对象的数据，而不需要修改对象的属性时，使用shallowRef和shallowReactive可以提高性能
+
+## shallowRef
+
+- 只对对象整体进行响应式处理，也就是只有将整个对象进行替换时，才会触发响应式更新
+```ts
+  import { shallowRef } from 'vue'
+  // shallowRef 会使对象成为响应式，但是对象的属性不会成为响应式
+  let user = shallowRef({
+    name: '张三',
+    car: {
+      brand: '奔驰',
+    }
+  })
+  function changeUserName() {
+    user.value.name = '李四';// 不会触发响应式更新
+  }
+  function changeCarBrand() {
+    user.value.car.brand = '宝马';// 不会触发响应式更新
+  }
+  function replaceUser() {
+    const newUser = {
+      name: '王五',
+      car: {
+        brand: '保时捷',
+      }
+    }
+    user.value = newUser;// 会触发响应式更新
+  }
+```
+
+## shallowReactive
+
+- 只对对象的第一层属性进行响应式处理
+```ts
+  import { shallowReactive } from 'vue'
+  // shallowReactive 会使对象的第一层属性成为响应式，但是第二层属性不会成为响应式
+  let user = shallowReactive({
+    name: '张三',
+    car: {
+      brand: '奔驰',
+    }
+  })
+  function changeUserName() {
+    user.name = '李四';// 会触发响应式更新
+  }
+  function changeCarBrand() {
+    user.car.brand = '宝马';// 不会触发响应式更新
+  }
+  function replaceUser() {
+    const newUser = {
+      name: '王五',
+      car: {
+        brand: '保时捷',
+      }
+    }
+    Object.assign(user, newUser);// 会触发响应式更新
+  }
+```
+
+![shallowRef和shallowReactive](./imgs/shallowRef和shallowReactive.png)
