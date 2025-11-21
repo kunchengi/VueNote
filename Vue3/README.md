@@ -2375,3 +2375,7 @@
 ```
 
 ![provide和inject](./imgs/provide和inject.png)
+
+# 插槽 (Slot) 
+
+- 与vue2中的用法相同
