@@ -2824,3 +2824,48 @@
 ![异步组件加载完成前](./imgs/异步组件加载完成前.png)
 
 ![异步组件加载完成后](./imgs/异步组件加载完成后.png)
+
+# 全局API转移到应用实例
+
+- vue3中的全局API，如Vue.config、Vue.component、Vue.directive等，都转移到了应用实例上
+
+- 全局组件注册app.component
+```js
+  const app = createApp(App);
+  app.component('Hello', Hello);
+```
+
+- 全局配置app.config
+```js
+  const app = createApp(App);
+  // 配置全局属性
+  app.config.globalProperties.msg = 'hello vue3';
+```
+
+- 注册全局指令app.directive
+```js
+  const app = createApp(App);
+  app.directive('focus', {
+      mounted(el) {
+          el.focus();
+      }
+  })
+```
+
+- 挂载应用app.mount
+```js
+  const app = createApp(App);
+  app.mount('#app');
+```
+
+- 卸载应用app.unmount
+```js
+  const app = createApp(App);
+  app.unmount('#app');
+```
+
+- 使用插件app.use
+```js
+  const app = createApp(App);
+  app.use(pinia);
+```
