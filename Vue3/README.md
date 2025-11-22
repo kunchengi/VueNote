@@ -2869,3 +2869,51 @@
   const app = createApp(App);
   app.use(pinia);
 ```
+
+# vue3的其它非兼容性改变
+
+- 官方文档[非兼容性改变](https://v3-migration.vuejs.org/zh/breaking-changes/)
+
+- 过渡类名
+  - v-enter修改为v-enter-from
+  - v-leave修改为v-leave-from
+```css
+  /* 定义进入的初始状态 */
+  .fade-enter-from {
+      opacity: 0;
+  }
+  
+  /* 定义离开的初始状态 */
+  .fade-leave-from {
+      opacity: 1;
+  }
+```
+
+- 移除keyCode 作为 v-on 修饰符的支持
+  - vue3中需要使用按键名称作为事件修饰符
+```html
+  <!-- Vue 3 在 v-on 上使用按键修饰符 -->
+  <input v-on:keyup.page-down="nextPage">
+  <!-- 同时匹配 q 和 Q -->
+  <input v-on:keypress.q="quit">
+```
+
+- v-model 指令在组件上的使用已经被重新设计，替换掉了 v-bind.sync
+
+- v-if 和 v-for 在同一个元素身上使用时的优先级发生了变化
+  - vue2中在一个元素上同时使用 v-if 和 v-for 时，v-for 会优先作用，所以v-if和v-for不能同时使用在一个元素身上。
+  - vue3中在一个元素上同时使用 v-if 和 v-for 时，v-if 会优先作用，v-for 会作用在 v-if 为 true 的元素上。
+  - 建议避免在同一元素上同时使用两者
+
+- 移除了$on、$off和$once方法
+  - 这三个方法在vue3中被移除，建议使用Vue 3的新的事件系统来替代
+
+- 移除了过滤器filter
+  - 过滤器在vue3中被移除，建议使用计算属性或方法来替代
+
+- 移除了$children 获取子组件实例的方法
+  - 建议使用 $refs 来替代
+
+# 学会看官方文档
+
+- [vue3官方文档](https://cn.vuejs.org/guide/introduction.html)
