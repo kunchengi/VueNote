@@ -2751,3 +2751,76 @@
 ![未使用Teleport](./imgs/未使用Teleport.png)
 
 ![使用Teleport](./imgs/使用Teleport.png)
+
+# Suspense异步组件处理
+
+- 用于处理异步组件的加载状态
+- 可以在组件加载完成前，显示一个加载中的状态，在组件加载完成后，显示组件的内容
+- Suspense还处于实验阶段，其API可能会改变，不建议在生产环境中使用
+
+## 异步组件
+
+- 异步组件是指在组件的setup函数中返回一个Promise对象的组件
+- setup里可以直接使用await，此时该组件为异步组件
+```html
+  <template>
+    <div>
+      <h2>用户信息：</h2>
+      <div>
+        <span>用户名：{{ user.name }}</span>
+      </div>
+      <div>
+        <span>车品牌：{{ user.car.brand }}</span>
+      </div>
+    </div>
+  </template>
+  <script setup lang="ts" name="User">
+  // 模拟异步请求用户信息
+  const requestUser = (): Promise<any> =>{
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+              resolve({
+                  name: '张三',
+                  car: {
+                      brand: '奔驰',
+                  }
+              })
+          }, 3000)
+      })
+  }
+  // 异步获取用户信息，setup里可以直接使用await，此时该组件为异步组件
+  const user = await requestUser();
+  </script>
+```
+
+## 使用异步组件
+
+- 异步组件需要被<Suspense>包裹起来，才能正常使用
+- <Suspense>包裹的组件，会在异步组件加载完成前，显示备用插槽（#fallback）的内容
+- 异步组件加载完成后，会使用默认插槽（#default）的内容
+```html
+  <template>
+    <div>
+      <!-- 如果直接使用异步组件，会提示：setup函数返回了一个promise，但在父组件树中找不到<Suspense>边界。具有异步setup（）的组件必须嵌套在<Suspense>中才能呈现。 -->
+      <!-- <User /> -->
+      <Suspense>
+        <!-- 默认插槽，异步组件加载完成后显示 -->
+        <template #default>
+          <User />
+        </template>
+        <!-- 备用插槽，异步组件加载完成前显示 -->
+        <template #fallback>
+          <div>加载中...</div>
+        </template>
+      </Suspense>
+    </div>
+  </template>
+
+  <script lang="ts" setup name="App">
+  import User from './components/User.vue'
+  </script>
+```
+
+![异步组件加载完成前](./imgs/异步组件加载完成前.png)
+
+![异步组件加载完成后](./imgs/异步组件加载完成后.png)
