@@ -2588,3 +2588,118 @@
   const carProxy = reactive(car)
   console.log('carProxy', carProxy);// {name: '奔驰', price: 1000000, __v_skip: true}
 ```
+
+# 自定义Ref
+
+- customRef可以创建一个自定义的ref对象，并对其依赖项跟踪和更新触发进行逻辑控制
+
+## 基本使用
+```html
+  <template>
+    <div>
+      <h2>{{ userNameRef }}</h2>
+      <input type="text" v-model="userNameRef">
+    </div>
+  </template>
+  <script lang="ts" setup name="App">
+  import { customRef,reactive } from 'vue'
+  // 使用自定义ref实现响应式
+  const user = reactive({
+    name: '张三',
+    age: 18
+  })
+  // 创建一个自定义的ref对象，跟踪name属性的变化，当name属性变化时，触发更新
+  // track为依赖收集函数，trigger为触发更新函数
+  const userNameRef = customRef((track, trigger) => {
+    return {
+      // 获取自定义ref的值
+      get() {
+        track()// 调用track函数，告诉Vue依赖收集（跟踪）user.name
+        return user.name
+      },
+      // 当修改自定义ref的值时，会触发set函数，newValue为新的值
+      set(newValue) {
+        user.name = newValue;// 当name属性变化时，更新user.name
+        trigger()// 调用trigger函数，告诉Vue触发更新
+      }
+    }
+  })
+  </script>
+```
+
+## 实现输入框防抖的hooks
+
+- 实现效果
+  - 当用户输入时，不会立即触发更新，而是等待用户停止输入后，才触发更新
+
+- useDebounceRef
+```ts
+  import { customRef } from 'vue'
+  /**
+   * @description 函数防抖
+   * @param {Function} fn 需要防抖的函数
+   * @param {Number} wait 延迟时间
+   * @return void
+   * @status public
+   */
+  function debounce<T extends (...args: any[]) => any>(fn: T, delay: number = 500) {
+    let timer: number | null = null
+    return function(this: any, ...args: Parameters<T>) {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(() => {
+        fn.apply(this, args)
+        timer = null
+      }, delay)
+    }
+  }
+
+  /**
+   * @description 自定义ref实现输入框防抖
+   * @param {String} value 输入框的值
+   * @return {Ref} 防抖后的ref对象
+   * @status public
+   */
+  export default function(value: string, delay: number = 500) {
+    const debounceRef = customRef((track, trigger) => {
+      // 获取防抖函数
+      const debounceFn = debounce((newValue: string) => {
+          value = newValue
+          trigger()
+      }, delay)
+      return {
+        get() {
+          track()
+          return value
+        },
+        set(newValue) {
+          debounceFn(newValue)
+        }
+      }
+    })
+    return debounceRef
+  }
+```
+
+- 在组件中使用
+```html
+  <template>
+    <div>
+      <h2>{{ debounceUserNameRef }}</h2>
+      <input type="text" v-model="debounceUserNameRef">
+    </div>
+  </template>
+
+  <script lang="ts" setup name="App">
+  import { customRef,reactive } from 'vue'
+  import useDebounceRef from './hooks/useDebounceRef'
+  // 使用自定义ref实现响应式
+  const user = reactive({
+    name: '张三',
+    age: 18
+  })
+  // 使用自定义ref实现输入框防抖
+  const debounceUserNameRef = useDebounceRef(user.name, 1000)
+  </script>
+```
