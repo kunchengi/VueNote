@@ -89,10 +89,10 @@ textarea {
   font-size: inherit;
 }
 
-button,
-html [type="button"],
-[type="reset"],
-[type="submit"] {
+button:not([class^="el-"], [class*=" el-"]),
+html [type="button"]:not([class^="el-"], [class*=" el-"]),
+[type="reset"]:not([class^="el-"], [class*=" el-"]),
+[type="submit"]:not([class^="el-"], [class*=" el-"]) {
   padding: 0;
   border: 0;
   color: inherit;
@@ -107,7 +107,7 @@ input::-moz-focus-inner {
   padding: 0;
 }
 
-input {
+input:not([class^="el-"], [class*=" el-"]) {
   padding: 0;
   line-height: normal;
 
@@ -124,7 +124,7 @@ input {
   }
 }
 
-[type="number"] {
+[type="number"]:not([class^="el-"], [class*=" el-"]) {
   -moz-appearance: textfield;
 
   &::-webkit-inner-spin-button,
@@ -135,7 +135,7 @@ input {
   }
 }
 
-[type="search"] {
+[type="search"]:not([class^="el-"], [class*=" el-"]) {
   -webkit-appearance: textfield;
 
   &::-webkit-search-cancel-button,
@@ -150,7 +150,7 @@ textarea {
   -webkit-appearance: none;
 }
 
-select {
+select:not([class^="el-"], [class*=" el-"]) {
   -webkit-appearance: none;
   background-color: #fff;
 }

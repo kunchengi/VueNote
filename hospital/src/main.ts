@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
+// 引入element-plus
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import App from '@/App.vue'
 import '@/style/reset.scss'
 import HospitalTop from '@/components/hospital_top/index.vue'
@@ -11,4 +14,6 @@ app.component('HospitalTop', HospitalTop);
 app.component('HospitalButtom', HospitalButtom);
 // 挂载路由
 app.use(router)
+// 挂载element-plus
+app.use(ElementPlus)
 app.mount('#app')

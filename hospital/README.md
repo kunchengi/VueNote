@@ -80,3 +80,35 @@
 - 挂载路由
 - 配置滚动行为
   - 控制跳转路由时，滚动条的位置
+
+### 首页静态页面搭建
+
+#### 使用element-plus
+
+- 安装element-plus
+```bash
+  pnpm add element-plus
+```
+
+- main.ts引入和挂载element-plus即可在组件中使用
+```typescript
+  // 引入element-plus
+  import ElementPlus from 'element-plus'
+  import 'element-plus/dist/index.css'
+  // 挂载element-plus
+  app.use(ElementPlus)
+```
+
+- Volar 支持
+  - 如果您使用 Volar，请在 tsconfig.json 中通过 compilerOptions.type 指定全局组件类型。
+```json
+  {
+    "compilerOptions": {
+      "types": ["element-plus/global"]
+    }
+  }
+```
+
+- reset.scss需要排除element-plus的样式
+
+- 首页轮播图组件静态页面搭建
