@@ -6,6 +6,8 @@
      <div class="content">
         路由区
      </div>
+     <!-- 引入底部全局组件 -->
+     <HospitalButtom />
   </div>
 </template>
 
@@ -20,7 +22,6 @@
   .content{
     margin-top: 70px;
     width: 1200px;
-    background-color: #e71515;
     min-height: 700px;
   }
 }
