@@ -2,7 +2,7 @@
     <div class="buttom">
         <div class="content">
             <div class="left">
-                粤ICP备 2023000000号 电话挂号020-88888888
+                京ICP备 2023000000号 电话挂号010-88888888
             </div>
             <div class="right">
                 <span>联系我们</span>

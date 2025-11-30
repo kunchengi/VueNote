@@ -4,7 +4,7 @@
       <!-- 左侧 -->
       <div class="left">
         <img src="@/assets/images/logo.png" alt="中山三院logo">
-        <p>中山三院预约挂号统一平台</p>
+        <p>京医通预约挂号统一平台</p>
       </div>
       <!-- 右侧 -->
       <div class="right">
