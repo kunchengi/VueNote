@@ -31,3 +31,22 @@
     }
   }
 ```
+
+### 创建类型声明文件
+
+- 可以解决TypeScript 无法识别 .vue 文件类型的问题，使得在导入和使用 Vue 组件时能够获得正确的类型检查和代码提示。
+- 在`src`目录下创建`vite-env.d`文件
+- 内容如下
+```typescript
+  // TypeScript 的三斜线指令，用于引入 Vite 官方提供的客户端类型定义，这使得项目能够正确识别 Vite 相关的环境变量、模块和 API 的类型。
+  /// <reference types="vite/client" />
+
+  // 任何以 .vue 结尾的文件都可以作为模块导入
+  // 导入的组件具有 DefineComponent 类型，这是 Vue 3 组件的基础类型
+  // 导出的默认值就是这个组件
+  declare module '*.vue' {
+    import type { DefineComponent } from 'vue'
+    const component: DefineComponent<{}, {}, any>
+    export default component
+  }
+```
