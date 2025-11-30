@@ -50,3 +50,16 @@
     export default component
   }
 ```
+
+## 搭建静态页面
+
+- 准备好静态资源文件
+
+### 使用sass
+
+- 安装sass
+```bash
+  pnpm add sass
+```
+
+- [清除默认样式](https://www.npmjs.com/package/reset-scss?activeTab=code)
