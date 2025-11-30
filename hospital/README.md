@@ -18,3 +18,16 @@
 ```
 
 - 删除无关文件
+
+## 项目配置
+
+### 启动后自动打开浏览器
+
+- 在`package.json`中添加`"scripts": { "dev": "vite --open" }`
+```json
+  {
+    "scripts": {
+      "dev": "vite --open"
+    }
+  }
+```
