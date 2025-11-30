@@ -112,3 +112,19 @@
 - reset.scss需要排除element-plus的样式
 
 - 首页轮播图组件静态页面搭建
+
+- 安装element的icon组件
+```bash
+  pnpm add @element-plus/icons-vue
+```
+
+- 首页医院搜索框组件静态页面搭建
+
+- 深度选择器
+  - 解决element-plus组件样式覆盖问题
+```css
+  :deep(.el-autocomplete){
+      width: 600px;
+      margin-right: 10px;
+  }
+```
