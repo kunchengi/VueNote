@@ -4,7 +4,7 @@
     <HospitalTop />
     <!-- 展示路由组件的区域 -->
      <div class="content">
-        路由区
+        <router-view />
      </div>
      <!-- 引入底部全局组件 -->
      <HospitalButtom />
