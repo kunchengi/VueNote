@@ -1,12 +1,11 @@
-<script setup lang="ts">
-</script>
-
 <template>
-  <div>
-    <h1>中山三院</h1>
+  <div class="container">
+    <!-- 引入顶部全局组件 -->
+    <HospitalTop />
   </div>
 </template>
 
-<style scoped>
+<script setup lang="ts">
+</script>
 
-</style>
+<style scoped></style>
