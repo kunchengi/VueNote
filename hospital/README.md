@@ -65,3 +65,4 @@
 - [清除默认样式](https://www.npmjs.com/package/reset-scss?activeTab=code)
 
 - 顶部组件静态页面搭建
+- 路由区域静态页面搭建
