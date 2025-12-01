@@ -141,3 +141,21 @@
     locale: zhCn,
   })
 ```
+
+### vite 环境变量配置
+
+- 环境变量的配置文件
+  - 通用配置：.env
+  - 开发环境：.env.development
+  - 生产环境：.env.production
+- 环境变量的使用
+  - 开发环境：在开发环境中，Vite 会自动加载 .env.development 文件中的环境变量。
+  - 生产环境：在生产环境中，Vite 会自动加载 .env.production 文件中的环境变量。如未加载，请使用 --mode production 标志来指定加载 .env.production 文件中的环境变量。
+  - 扩展：可以创建任意模式的环境变量配置文件，如：.env.staging 用于 staging 环境。需要在 package.json 中的脚本中添加 --mode staging 标志来指定加载 .env.staging 文件中的环境变量。
+```json
+  {
+    "scripts": {
+      "build": "vite build --mode staging"
+    }
+  }
+```

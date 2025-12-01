@@ -12,6 +12,13 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  console.log(import.meta.env.VITE_APP_TITLE)
+  console.log(import.meta.env.VITE_APP_VERSION)
+  console.log(import.meta.env.VITE_API_BASE_URL)
+})
 </script>
 
 <style scoped lang="scss">
