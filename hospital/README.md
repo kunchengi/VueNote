@@ -131,3 +131,13 @@
 
 - 首页医院等级组件静态页面搭建
 - 首页医院地区组件静态页面搭建
+- 首页医院卡片组件和分页器组件静态页面搭建
+- element-plus引入中文
+```typescript
+  import ElementPlus from 'element-plus'
+  import zhCn from 'element-plus/es/locale/lang/zh-cn'
+
+  app.use(ElementPlus, {
+    locale: zhCn,
+  })
+```
