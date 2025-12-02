@@ -1,110 +1,307 @@
-[
-    {
-        "id": 1,
-        "name": "医院1",
-        "address": "地址1",
-        "phone": "1234567890",
-        "email": "hospital1@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+[{
+        "id": "0001",
+        "createTime": "2022-03-07 10:58:46",
+        "updateTime": "2022-05-25 15:28:46",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级乙等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_10",
+        "hosname": "航天中心医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市市辖区西城区航天中心医院",
+        "logoData": "https://www.asch.net.cn/Content/Areas/Common/images/logo/wxShare.jpg"
     },
     {
-        "id": 2,
-        "name": "医院2",
-        "address": "地址2",
-        "phone": "0987654321",
-        "email": "hospital2@example.com",
-        "type": "专科医院",
-        "description": "这是一个专科医院，专注于特定的医疗领域。"
+        "id": "0002",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_11",
+        "hosname": "北京大学第一医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区西什库大街8号",
+        "logoData": "https://bkimg.cdn.bcebos.com/pic/9a504fc2d5628535e5ddaab0b1b861c6a7efce1bc551?x-bce-process=image/format,f_auto/resize,m_lfit,limit_1,h_160"
     },
     {
-        "id": 3,
-        "name": "医院3",
-        "address": "地址3",
-        "phone": "1231231234",
-        "email": "hospital3@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0003",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_12",
+        "hosname": "北京大学人民医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西直门南大街11号",
+        "logoData": "https://pic.nximg.cn/file/20190314/19149033_141848170284_2.jpg"
     },
     {
-        "id": 4,
-        "name": "医院4",
-        "address": "地址4",
-        "phone": "1231231234",
-        "email": "hospital4@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0004",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区昌平区"
+        },
+        "hoscode": "1000_13",
+        "hosname": "北京清华长庚医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110114",
+        "address": "北京市昌平区立汤路168号",
+        "logoData": "https://magicpic.cdn.bcebos.com/file/hospital-management/f644bb22-91dd-4287-8e7c-05d8a1fc8a64.png?x-bce-process=image/auto-orient,o_1/resize,w_1242,limit_1/quality,q_85/format,f_auto"
     },
     {
-        "id": 5,
-        "name": "医院5",
-        "address": "地址5",
-        "phone": "1231231234",
-        "email": "hospital5@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0005",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区东城区"
+        },
+        "hoscode": "1000_14",
+        "hosname": "北京协和医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110101",
+        "address": "北京市东城区帅府园一号",
+        "logoData": "https://img1.dxycdn.com/2020/0422/999/3409213774673536312-126.png"
     },
     {
-        "id": 6,
-        "name": "医院6",
-        "address": "地址6",
-        "phone": "1231231234",
-        "email": "hospital6@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0006",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_15",
+        "hosname": "首都医科大学宣武医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区长椿街45号",
+        "logoData": "https://ts4.tc.mm.bing.net/th/id/OIP-C.1m47MbLxDd2n4x2fUdaxTQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
     },
     {
-        "id": 7,
-        "name": "医院7",
-        "address": "地址7",
-        "phone": "1231231234",
-        "email": "hospital7@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0007",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区丰台区"
+        },
+        "hoscode": "1000_16",
+        "hosname": "北京天坛医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110106",
+        "address": "北京市丰台区南四环西路119号",
+        "logoData": "https://img1.dxycdn.com/2021/0301/132/7737729338931927643-126.png"
     },
     {
-        "id": 8,
-        "name": "医院8",
-        "address": "地址8",
-        "phone": "1231231234",
-        "email": "hospital8@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0008",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区朝阳区"
+        },
+        "hoscode": "1000_17",
+        "hosname": "北京安贞医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110105",
+        "address": "北京市朝阳区安贞路2号",
+        "logoData": "https://pic.nximg.cn/file/20230515/32647771_161737918107_2.jpg"
     },
     {
-        "id": 9,
-        "name": "医院9",
-        "address": "地址9",
-        "phone": "1231231234",
-        "email": "hospital9@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0009",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区东城区"
+        },
+        "hoscode": "1000_18",
+        "hosname": "北京同仁医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110101",
+        "address": "北京市东城区东交民巷1号",
+        "logoData": "https://www.bjtrhos.cn/Content/Areas/Common/images/logo/wxShare.jpg"
     },
     {
-        "id": 10,
-        "name": "医院10",
-        "address": "地址10",
-        "phone": "1231231234",
-        "email": "hospital10@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0010",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_19",
+        "hosname": "北京积水潭医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区新街口东街31号",
+        "logoData": "https://www.jst-hosp.com.cn/Sites/Uploaded/UserUpLoad/20221027/20221027155133.jpg"
     },
     {
-        "id": 11,
-        "name": "医院11",
-        "address": "地址11",
-        "phone": "1231231234",
-        "email": "hospital11@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0011",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区朝阳区"
+        },
+        "hoscode": "1000_20",
+        "hosname": "中日友好医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110105",
+        "address": "北京市朝阳区樱花园东街2号",
+        "logoData": "https://www.zryhyy.com.cn/zryh/c100004/202105/8bc399ca44f743368c37b95d066e267e/images/yuanhui.png.png"
     },
     {
-        "id": 12,
-        "name": "医院12",
-        "address": "地址12",
-        "phone": "1231231234",
-        "email": "hospital12@example.com",
-        "type": "综合医院",
-        "description": "这是一个综合医院，提供综合医疗服务。"
+        "id": "0013",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级乙等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_22",
+        "hosname": "首都医科大学附属复兴医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区复兴门外大街甲20号",
+        "logoData": "https://www.bj-fxh.com.cn/Site1/3/UploadedImages/News/2011-7-21/20081021155803.jpg"
+    },
+    {
+        "id": "0014",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级乙等",
+            "fullAddress": "北京市市辖区朝阳区"
+        },
+        "hoscode": "1000_23",
+        "hosname": "北京华信医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110105",
+        "address": "北京市朝阳区酒仙桥一街坊6号",
+        "logoData": "https://img1.dxycdn.com/2020/0305/991/3400281784590840146-126.jpg"
+    },
+    {
+        "id": "0015",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "二级甲等",
+            "fullAddress": "北京市市辖区昌平区"
+        },
+        "hoscode": "1000_24",
+        "hosname": "北京市昌平区中医医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110114",
+        "address": "北京市昌平区东环路南段",
+        "logoData": "https://img1.dxycdn.com/2021/0219/129/5610672839282445643-126.png"
+    },
+    {
+        "id": "0017",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "二级乙等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_26",
+        "hosname": "北京市宣武区广外医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区广安门外三义里",
+        "logoData": "https://img1.dxycdn.com/2019/0517/673/3345909467866175093-7.png"
+    },
+    {
+        "id": "0018",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "二级乙等",
+            "fullAddress": "北京市市辖区海淀区"
+        },
+        "hoscode": "1000_27",
+        "hosname": "北京市羊坊店医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110108",
+        "address": "北京市海淀区羊坊店西路",
+        "logoData": "https://img1.dxycdn.com/2020/1020/047/7708190091835572443-7.jpg"
+    },
+    {
+        "id": "0019",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "一级甲等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_28",
+        "hosname": "北京核工业医院",
+        "hostype": "1",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区三里河南四巷",
+        "logoData": "https://ts2.tc.mm.bing.net/th/id/OIP-C.ED-7t56wyW8hZnK6KKPg7gAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
     }
 ]
