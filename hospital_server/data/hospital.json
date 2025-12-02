@@ -1,0 +1,110 @@
+[
+    {
+        "id": 1,
+        "name": "医院1",
+        "address": "地址1",
+        "phone": "1234567890",
+        "email": "hospital1@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 2,
+        "name": "医院2",
+        "address": "地址2",
+        "phone": "0987654321",
+        "email": "hospital2@example.com",
+        "type": "专科医院",
+        "description": "这是一个专科医院，专注于特定的医疗领域。"
+    },
+    {
+        "id": 3,
+        "name": "医院3",
+        "address": "地址3",
+        "phone": "1231231234",
+        "email": "hospital3@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 4,
+        "name": "医院4",
+        "address": "地址4",
+        "phone": "1231231234",
+        "email": "hospital4@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 5,
+        "name": "医院5",
+        "address": "地址5",
+        "phone": "1231231234",
+        "email": "hospital5@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 6,
+        "name": "医院6",
+        "address": "地址6",
+        "phone": "1231231234",
+        "email": "hospital6@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 7,
+        "name": "医院7",
+        "address": "地址7",
+        "phone": "1231231234",
+        "email": "hospital7@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 8,
+        "name": "医院8",
+        "address": "地址8",
+        "phone": "1231231234",
+        "email": "hospital8@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 9,
+        "name": "医院9",
+        "address": "地址9",
+        "phone": "1231231234",
+        "email": "hospital9@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 10,
+        "name": "医院10",
+        "address": "地址10",
+        "phone": "1231231234",
+        "email": "hospital10@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 11,
+        "name": "医院11",
+        "address": "地址11",
+        "phone": "1231231234",
+        "email": "hospital11@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    },
+    {
+        "id": 12,
+        "name": "医院12",
+        "address": "地址12",
+        "phone": "1231231234",
+        "email": "hospital12@example.com",
+        "type": "综合医院",
+        "description": "这是一个综合医院，提供综合医疗服务。"
+    }
+]
