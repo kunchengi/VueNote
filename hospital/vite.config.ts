@@ -10,4 +10,13 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
   },
+  // 配置代理
+  server: {
+    proxy: {
+      '/api': {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
+    },
+  },
 })

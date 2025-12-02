@@ -13,11 +13,13 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import request from '@/utils/request'
 
 onMounted(() => {
-  console.log(import.meta.env.VITE_APP_TITLE)
-  console.log(import.meta.env.VITE_APP_VERSION)
-  console.log(import.meta.env.VITE_API_BASE_URL)
+  // 测试请求
+  request.get('/hosp/hospital/2/10').then((res) => {
+    console.log(res)
+  })
 })
 </script>
 
