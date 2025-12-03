@@ -8,7 +8,18 @@
 hospital_server/
 ├── data/
 │   └── hospital.json        # 医院数据存储
-├── index.js                 # Express 服务器和接口实现
+├── src/
+│   ├── config/
+│   │   └── appConfig.js     # 应用配置
+│   ├── controllers/
+│   │   └── hospitalController.js  # 医院控制器
+│   ├── routes/
+│   │   └── hospitalRoutes.js      # 医院路由
+│   ├── services/
+│   │   └── hospitalService.js     # 医院服务
+│   └── utils/
+│       └── responseUtils.js       # 响应工具
+├── index.js                 # Express 服务器入口
 ├── package.json             # 项目配置和依赖
 ├── pnpm-lock.yaml           # 依赖锁文件
 ├── .gitignore               # Git 忽略文件
@@ -132,6 +143,13 @@ curl http://localhost:3000/api/hosp/hospital/1/10
 5. 支持添加、修改、删除医院数据的接口
 6. 连接数据库，替代 JSON 文件存储
 7. 添加单元测试
+
+## 更改日志
+
+### v1.0.0 (最近更新)
+- 删除了 `/health` 健康检查接口，简化 API 接口结构
+- 更新了项目结构，使用模块化设计（src目录）
+- 优化了启动日志输出
 
 ## 许可证
 
