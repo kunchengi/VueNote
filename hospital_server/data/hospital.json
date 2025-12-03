@@ -14,7 +14,17 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市市辖区西城区航天中心医院",
-        "logoData": "https://www.asch.net.cn/Content/Areas/Common/images/logo/wxShare.jpg"
+        "logoData": "https://www.asch.net.cn/Content/Areas/Common/images/logo/wxShare.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "航天中心医院是北京市市辖区西城区的三级乙等医院，是北京市市辖区西城区唯一的三级乙等医院。",
+        "route": "北京市市辖区西城区航天中心医院",
+        "status": 1
     },
     {
         "id": "0002",
@@ -32,7 +42,17 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市西城区西什库大街8号",
-        "logoData": "https://bkimg.cdn.bcebos.com/pic/9a504fc2d5628535e5ddaab0b1b861c6a7efce1bc551?x-bce-process=image/format,f_auto/resize,m_lfit,limit_1,h_160"
+        "logoData": "https://bkimg.cdn.bcebos.com/pic/9a504fc2d5628535e5ddaab0b1b861c6a7efce1bc551?x-bce-process=image/format,f_auto/resize,m_lfit,limit_1,h_160",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京大学第一医院是北京市西城区的三级甲等医院，是国内知名的综合医院。",
+        "route": "北京市西城区西什库大街8号",
+        "status": 1
     },
     {
         "id": "0003",
@@ -50,7 +70,17 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市西直门南大街11号",
-        "logoData": "https://pic.nximg.cn/file/20190314/19149033_141848170284_2.jpg"
+        "logoData": "https://pic.nximg.cn/file/20190314/19149033_141848170284_2.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京大学人民医院是北京市西城区的三级甲等医院，以骨科闻名全国。",
+        "route": "北京市西直门南大街11号",
+        "status": 1
     },
     {
         "id": "0004",
@@ -68,7 +98,17 @@
         "cityCode": "110100",
         "districtCode": "110114",
         "address": "北京市昌平区立汤路168号",
-        "logoData": "https://magicpic.cdn.bcebos.com/file/hospital-management/f644bb22-91dd-4287-8e7c-05d8a1fc8a64.png?x-bce-process=image/auto-orient,o_1/resize,w_1242,limit_1/quality,q_85/format,f_auto"
+        "logoData": "https://magicpic.cdn.bcebos.com/file/hospital-management/f644bb22-91dd-4287-8e7c-05d8a1fc8a64.png?x-bce-process=image/auto-orient,o_1/resize,w_1242,limit_1/quality,q_85/format,f_auto",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京清华长庚医院是北京市昌平区的三级甲等医院，是清华大学附属医院。",
+        "route": "北京市昌平区立汤路168号",
+        "status": 1
     },
     {
         "id": "0005",
@@ -86,7 +126,17 @@
         "cityCode": "110100",
         "districtCode": "110101",
         "address": "北京市东城区帅府园一号",
-        "logoData": "https://img1.dxycdn.com/2020/0422/999/3409213774673536312-126.png"
+        "logoData": "https://img1.dxycdn.com/2020/0422/999/3409213774673536312-126.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京协和医院是北京市东城区的三级甲等医院，是国内顶尖的综合医院。",
+        "route": "北京市东城区帅府园一号",
+        "status": 1
     },
     {
         "id": "0006",
@@ -104,7 +154,17 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市西城区长椿街45号",
-        "logoData": "https://ts4.tc.mm.bing.net/th/id/OIP-C.1m47MbLxDd2n4x2fUdaxTQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+        "logoData": "https://ts4.tc.mm.bing.net/th/id/OIP-C.1m47MbLxDd2n4x2fUdaxTQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "首都医科大学宣武医院是北京市西城区的三级甲等医院，以神经外科闻名。",
+        "route": "北京市西城区长椿街45号",
+        "status": 1
     },
     {
         "id": "0007",
@@ -122,7 +182,17 @@
         "cityCode": "110100",
         "districtCode": "110106",
         "address": "北京市丰台区南四环西路119号",
-        "logoData": "https://img1.dxycdn.com/2021/0301/132/7737729338931927643-126.png"
+        "logoData": "https://img1.dxycdn.com/2021/0301/132/7737729338931927643-126.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京天坛医院是北京市丰台区的三级甲等医院，以神经外科和神经内科为特色。",
+        "route": "北京市丰台区南四环西路119号",
+        "status": 1
     },
     {
         "id": "0008",
@@ -140,7 +210,17 @@
         "cityCode": "110100",
         "districtCode": "110105",
         "address": "北京市朝阳区安贞路2号",
-        "logoData": "https://pic.nximg.cn/file/20230515/32647771_161737918107_2.jpg"
+        "logoData": "https://pic.nximg.cn/file/20230515/32647771_161737918107_2.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京安贞医院是北京市朝阳区的三级甲等医院，以心血管疾病治疗为特色。",
+        "route": "北京市朝阳区安贞路2号",
+        "status": 1
     },
     {
         "id": "0009",
@@ -158,7 +238,17 @@
         "cityCode": "110100",
         "districtCode": "110101",
         "address": "北京市东城区东交民巷1号",
-        "logoData": "https://www.bjtrhos.cn/Content/Areas/Common/images/logo/wxShare.jpg"
+        "logoData": "https://www.bjtrhos.cn/Content/Areas/Common/images/logo/wxShare.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京同仁医院是北京市东城区的三级甲等医院，以眼科和耳鼻喉科为特色。",
+        "route": "北京市东城区东交民巷1号",
+        "status": 1
     },
     {
         "id": "0010",
@@ -176,7 +266,17 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市西城区新街口东街31号",
-        "logoData": "https://www.jst-hosp.com.cn/Sites/Uploaded/UserUpLoad/20221027/20221027155133.jpg"
+        "logoData": "https://www.jst-hosp.com.cn/Sites/Uploaded/UserUpLoad/20221027/20221027155133.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京积水潭医院是北京市西城区的三级甲等医院，以骨科为特色。",
+        "route": "北京市西城区新街口东街31号",
+        "status": 1
     },
     {
         "id": "0011",
@@ -194,7 +294,17 @@
         "cityCode": "110100",
         "districtCode": "110105",
         "address": "北京市朝阳区樱花园东街2号",
-        "logoData": "https://www.zryhyy.com.cn/zryh/c100004/202105/8bc399ca44f743368c37b95d066e267e/images/yuanhui.png.png"
+        "logoData": "https://www.zryhyy.com.cn/zryh/c100004/202105/8bc399ca44f743368c37b95d066e267e/images/yuanhui.png.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "中日友好医院是北京市朝阳区的三级甲等医院，提供综合医疗服务。",
+        "route": "北京市朝阳区樱花园东街2号",
+        "status": 1
     },
     {
         "id": "0013",
@@ -212,7 +322,17 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市西城区复兴门外大街甲20号",
-        "logoData": "https://www.bj-fxh.com.cn/Site1/3/UploadedImages/News/2011-7-21/20081021155803.jpg"
+        "logoData": "https://www.bj-fxh.com.cn/Site1/3/UploadedImages/News/2011-7-21/20081021155803.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "首都医科大学附属复兴医院是北京市西城区的三级乙等医院，提供综合医疗服务。",
+        "route": "北京市西城区复兴门外大街甲20号",
+        "status": 1
     },
     {
         "id": "0014",
@@ -230,7 +350,17 @@
         "cityCode": "110100",
         "districtCode": "110105",
         "address": "北京市朝阳区酒仙桥一街坊6号",
-        "logoData": "https://img1.dxycdn.com/2020/0305/991/3400281784590840146-126.jpg"
+        "logoData": "https://img1.dxycdn.com/2020/0305/991/3400281784590840146-126.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京华信医院是北京市朝阳区的三级乙等医院，提供综合医疗服务。",
+        "route": "北京市朝阳区酒仙桥一街坊6号",
+        "status": 1
     },
     {
         "id": "0015",
@@ -248,7 +378,17 @@
         "cityCode": "110100",
         "districtCode": "110114",
         "address": "北京市昌平区东环路南段",
-        "logoData": "https://img1.dxycdn.com/2021/0219/129/5610672839282445643-126.png"
+        "logoData": "https://img1.dxycdn.com/2021/0219/129/5610672839282445643-126.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京市昌平区中医医院是北京市昌平区的二级甲等医院，以中医治疗为特色。",
+        "route": "北京市昌平区东环路南段",
+        "status": 1
     },
     {
         "id": "0017",
@@ -266,7 +406,17 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市西城区广安门外三义里",
-        "logoData": "https://img1.dxycdn.com/2019/0517/673/3345909467866175093-7.png"
+        "logoData": "https://img1.dxycdn.com/2019/0517/673/3345909467866175093-7.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京市宣武区广外医院是北京市西城区的二级乙等医院，提供社区医疗服务。",
+        "route": "北京市西城区广安门外三义里",
+        "status": 1
     },
     {
         "id": "0018",
@@ -284,7 +434,17 @@
         "cityCode": "110100",
         "districtCode": "110108",
         "address": "北京市海淀区羊坊店西路",
-        "logoData": "https://img1.dxycdn.com/2020/1020/047/7708190091835572443-7.jpg"
+        "logoData": "https://img1.dxycdn.com/2020/1020/047/7708190091835572443-7.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京市羊坊店医院是北京市海淀区的二级乙等医院，提供社区医疗服务。",
+        "route": "北京市海淀区羊坊店西路",
+        "status": 1
     },
     {
         "id": "0019",
@@ -302,6 +462,16 @@
         "cityCode": "110100",
         "districtCode": "110102",
         "address": "北京市西城区三里河南四巷",
-        "logoData": "https://ts2.tc.mm.bing.net/th/id/OIP-C.ED-7t56wyW8hZnK6KKPg7gAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
+        "logoData": "https://ts2.tc.mm.bing.net/th/id/OIP-C.ED-7t56wyW8hZnK6KKPg7gAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00"
+        },
+        "intro": "北京核工业医院是北京市西城区的一级甲等医院，提供基础医疗服务。",
+        "route": "北京市西城区三里河南四巷",
+        "status": 1
     }
 ]
