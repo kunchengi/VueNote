@@ -1,5 +1,7 @@
 // 首页相关接口
 import request from '@/utils/request'
+import type { HospitalResponseData } from './type'
+
 
 // 首页接口枚举
 const HomeApi = {
@@ -8,5 +10,5 @@ const HomeApi = {
 
 // 获取首页数据
 export const reqHospital = (page: number, limit: number) => {
-  return request.get(`${HomeApi.HOSPITAL_URL}/${page}/${limit}`)
+  return request.get<any, HospitalResponseData>(`${HomeApi.HOSPITAL_URL}/${page}/${limit}`)
 }

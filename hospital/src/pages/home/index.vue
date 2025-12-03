@@ -40,6 +40,7 @@ import Card from './card/index.vue'
 
 import { reactive, onMounted, ref } from 'vue'
 import { reqHospital } from '@/api/home'
+import type { Content, HospitalResponseData } from '@/api/home/type'
 
 // 分页器需要的数据
 const pagination = reactive({
@@ -52,16 +53,15 @@ const pagination = reactive({
 })
 
 // 存储已有的医院列表
-let hasHospitalArr: any = ref([]);
+let hasHospitalArr = ref<Content>([]);
 onMounted(() => {
   getHospitalInfo()
 })
 
 // 获取医院列表
 const getHospitalInfo = async () => {
-  const result: any = await reqHospital(pagination.pageNo,pagination.pageSize);
+  const result: HospitalResponseData = await reqHospital(pagination.pageNo,pagination.pageSize);
   if(result.code === 200){
-    console.log(result.data);
     hasHospitalArr.value = result.data.content;
     pagination.total = result.data.totalElements;
   }
