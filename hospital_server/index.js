@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const config = require('./src/config/appConfig');
 const hospitalRoutes = require('./src/routes/hospitalRoutes');
+const dictRoutes = require('./src/routes/dictRoutes');
 
 const app = express();
 const PORT = config.port;
@@ -15,6 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API 路由配置
 app.use(`${config.baseApiPath}/hosp/hospital`, hospitalRoutes);
+app.use(`${config.baseApiPath}/cmn/dict`, dictRoutes);
 
 
 
@@ -44,5 +46,7 @@ app.listen(PORT, () => {
   console.log(`📝 API 基地址: ${config.baseApiPath}`);
 
   console.log(`📚 医院 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/:page/:limit`);
+  console.log(`📚 目录 API: http://localhost:${PORT}${config.baseApiPath}/cmn/dict/findByDictCode/:dictCode`);
+
   console.log('\nPress Ctrl+C to stop the server\n');
 });

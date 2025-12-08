@@ -1,0 +1,314 @@
+[
+    {
+        "id": 1,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": null,
+        "name": "根目录",
+        "value": "Root",
+        "dictCode": "",
+        "hasChildren": true
+    },
+    {
+        "id": 10000,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "1",
+        "name": "医院类型",
+        "value": "Hostype",
+        "dictCode": "Hostype",
+        "hasChildren": true
+    },
+    {
+        "id": 10001,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "10000",
+        "name": "三级甲等",
+        "value": "1",
+        "dictCode": "",
+        "hasChildren": false
+    },
+    {
+        "id": 10002,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "10000",
+        "name": "三级乙等",
+        "value": "2",
+        "dictCode": "",
+        "hasChildren": false
+    },
+    {
+        "id": 10003,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "10000",
+        "name": "二级甲等",
+        "value": "3",
+        "dictCode": "",
+        "hasChildren": false
+    },
+    {
+        "id": 10004,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "10000",
+        "name": "二级乙等",
+        "value": "4",
+        "dictCode": "",
+        "hasChildren": false
+    },
+    {
+        "id": 10005,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "10000",
+        "name": "一级",
+        "value": "5",
+        "dictCode": "",
+        "hasChildren": false
+    },
+    {
+        "id": 110100,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "1",
+        "name": "北京各区",
+        "value": "Beijing",
+        "dictCode": "Beijing",
+        "hasChildren": true
+    },
+    {
+        "id": 110101,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "东城区",
+        "value": "110101",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110102,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "西城区",
+        "value": "110102",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110105,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "朝阳区",
+        "value": "110105",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110106,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "丰台区",
+        "value": "110106",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110107,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "石景山区",
+        "value": "110107",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110108,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "海淀区",
+        "value": "110108",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110109,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "门头沟区",
+        "value": "110109",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110111,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "房山区",
+        "value": "110111",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110112,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "通州区",
+        "value": "110112",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110113,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "顺义区",
+        "value": "110113",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110114,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "昌平区",
+        "value": "110114",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110115,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "大兴区",
+        "value": "110115",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110116,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "怀柔区",
+        "value": "110116",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110117,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "平谷区",
+        "value": "110117",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110118,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "密云区",
+        "value": "110118",
+        "dictCode": null,
+        "hasChildren": false
+    },
+    {
+        "id": 110119,
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+        },
+        "parentId": "110100",
+        "name": "延庆区",
+        "value": "110119",
+        "dictCode": null,
+        "hasChildren": false
+    }
+]
