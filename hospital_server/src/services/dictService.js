@@ -20,7 +20,7 @@ const findByDictCode = (dictCode) => {
   }
   
   // 然后找到所有子目录
-  const children = dictData.filter(item => item.parentId === String(parentDict.id));
+  const children = dictData.filter(item => item.parentId === parentDict.id);
   
   return children;
 };

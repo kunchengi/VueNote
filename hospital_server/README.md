@@ -169,7 +169,7 @@ node index.js
         "isDeleted": 0,
         "param": {
         },
-        "parentId": "10000",
+        "parentId": 10000,
         "name": "三级甲等",
         "value": "1",
         "dictCode": "",
