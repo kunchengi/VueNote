@@ -72,3 +72,25 @@ export interface HospitalResponseData extends ResponseData {
         empty: boolean
     }
 }
+
+// 目录数据类型
+export interface DictData {
+    id: number,
+    createTime: string,
+    updateTime: string,
+    isDeleted: number,
+    param: {
+    },
+    parentId: number,
+    name: string,
+    value: string,
+    dictCode: string,
+    hasChildren: boolean,
+}
+
+export type DictDataList = DictData[];
+
+// 目录数据响应数据类型
+export interface DictResponseData extends ResponseData {
+    data: DictDataList;
+}
