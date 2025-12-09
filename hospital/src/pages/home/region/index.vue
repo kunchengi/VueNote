@@ -15,6 +15,9 @@ import { reqDict } from '@/api/home'
 import type { DictResponseData, DictDataList } from '@/api/home/type'
 import { onMounted, ref } from 'vue'
 
+// 定义组件触发的事件
+const emit = defineEmits(['changeRegion'])
+
 // 存储北京各区列表
 const regionList = ref<DictDataList>([]);
 // 当前选中的地区
@@ -34,7 +37,9 @@ onMounted(() => {
 
 // 切换等级
 const changeRegion = (region: string) => {
-    selectedRegion.value = region
+    selectedRegion.value = region;
+    // 触发changeRegion事件，将选中的地区传递给父组件
+    emit('changeRegion', region);
 }
 </script>
 

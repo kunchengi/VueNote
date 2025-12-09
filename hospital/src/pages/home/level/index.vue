@@ -16,6 +16,9 @@ import { reqDict } from '@/api/home'
 import type { DictResponseData, DictDataList } from '@/api/home/type'
 import { onMounted, ref } from 'vue'
 
+// 定义组件触发的事件
+const emit = defineEmits(['changeLevel'])
+
 // 存储医院等级列表
 const hospitalLevelList = ref<DictDataList>([]);
 // 当前选中的等级
@@ -35,7 +38,9 @@ onMounted(() => {
 
 // 切换等级
 const changeLevel = (level: string) => {
-    selectedLevel.value = level
+    selectedLevel.value = level;
+    // 触发changeLevel事件，将选中的等级传递给父组件
+    emit('changeLevel', level);
 }
 </script>
 

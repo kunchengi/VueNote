@@ -12,8 +12,8 @@ const HomeApi = {
 }
 
 // 获取首页数据
-export const reqHospital = (page: number, limit: number) => {
-  return request.get<any, HospitalResponseData>(`${HomeApi.HOSPITAL_URL}/${page}/${limit}`)
+export const reqHospital = (page: number, limit: number, hostype: string = '', districtCode: string = '') => {
+  return request.get<any, HospitalResponseData>(`${HomeApi.HOSPITAL_URL}/${page}/${limit}?hostype=${hostype}&districtCode=${districtCode}`)
 }
 
 // 获取医院等级与北京各区列表

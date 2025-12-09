@@ -8,13 +8,15 @@
     <el-row :gutter="20">
       <el-col :span="20">
         <!-- 医院等级组件 -->
-        <Level />
+        <Level @changeLevel="changeLevel" />
         <!-- 医院区域组件 -->
-        <Region />
+        <Region @changeRegion="changeRegion" />
         <!-- 医院卡片列表 -->
-        <div class="card-container">
+        <div class="card-container" v-if="hasHospitalArr.length > 0">
           <Card class="card-item" v-for="item in hasHospitalArr" :key="item.id" :hospitalInfo="item" />
         </div>
+        <!-- 无数据提示 -->
+        <el-empty v-else description="暂无数据" />
         <!-- 分页器 -->
         <el-pagination
           v-model:current-page="pagination.pageNo"
@@ -58,9 +60,14 @@ onMounted(() => {
   getHospitalInfo()
 })
 
+// 当前选择的医院等级，全部为''
+const hostype = ref<string>('')
+// 当前选择的地区，全部为''
+const districtCode = ref<string>('')
+
 // 获取医院列表
 const getHospitalInfo = async () => {
-  const result: HospitalResponseData = await reqHospital(pagination.pageNo,pagination.pageSize);
+  const result: HospitalResponseData = await reqHospital(pagination.pageNo,pagination.pageSize, hostype.value, districtCode.value);
   if(result.code === 200){
     hasHospitalArr.value = result.data.content;
     pagination.total = result.data.totalElements;
@@ -71,6 +78,20 @@ const getHospitalInfo = async () => {
 const sizeChange = () => {
   // 将当前页码设为第一页
   pagination.pageNo = 1;
+  // 重新获取医院列表
+  getHospitalInfo();
+}
+
+// 医院等级组件选择等级时触发
+const changeLevel = (level: string) => {
+  hostype.value = level;
+  // 重新获取医院列表
+  getHospitalInfo();
+}
+
+// 医院区域组件选择地区时触发
+const changeRegion = (region: string) => {
+  districtCode.value = region;
   // 重新获取医院列表
   getHospitalInfo();
 }
