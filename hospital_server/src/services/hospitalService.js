@@ -9,14 +9,24 @@ const readHospitalData = () => {
 };
 
 // 分页获取医院列表
-const getHospitalList = (page, limit) => {
+const getHospitalList = (page, limit, filters = {}) => {
   const hospitalData = readHospitalData();
-  const total = hospitalData.length;
+  
+  // 应用过滤条件
+  let filteredData = hospitalData;
+  if (filters.hostype) {
+    filteredData = filteredData.filter(hospital => hospital.hostype === filters.hostype);
+  }
+  if (filters.districtCode) {
+    filteredData = filteredData.filter(hospital => hospital.districtCode === filters.districtCode);
+  }
+  
+  const total = filteredData.length;
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
   
   // 获取分页数据
-  const paginatedData = hospitalData.slice(startIndex, endIndex);
+  const paginatedData = filteredData.slice(startIndex, endIndex);
   const totalPages = Math.ceil(total / limit);
   
   // 构建响应数据格式

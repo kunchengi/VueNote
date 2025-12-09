@@ -6,6 +6,10 @@ const getHospitalList = async (req, res) => {
     const page = parseInt(req.params.page);
     const limit = parseInt(req.params.limit);
     
+    // 获取查询参数
+    const hostype = req.query.hostype;
+    const districtCode = req.query.districtCode;
+    
     // 验证参数
     if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
       return res.status(400).json({
@@ -15,7 +19,16 @@ const getHospitalList = async (req, res) => {
       });
     }
     
-    const result = await hospitalService.getHospitalList(page, limit);
+    // 构建过滤条件
+    const filters = {};
+    if (hostype) {
+      filters.hostype = hostype;
+    }
+    if (districtCode) {
+      filters.districtCode = districtCode;
+    }
+    
+    const result = await hospitalService.getHospitalList(page, limit, filters);
     
     res.json({
       code: 200,

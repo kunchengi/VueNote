@@ -66,8 +66,10 @@ node index.js
 **接口地址**：`GET /api/hosp/hospital/:page/:limit`
 
 **参数说明**：
-- `page`：当前页码（正整数）
-- `limit`：每页数量（正整数）
+- `page`：当前页码（正整数）- 路径参数
+- `limit`：每页数量（正整数）- 路径参数
+- `hostype`：医院等级编码（可选）- 查询参数
+- `districtCode`：地区编码（可选）- 查询参数
 
 **返回格式**：
 
