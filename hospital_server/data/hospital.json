@@ -5,14 +5,14 @@
         "isDeleted": 0,
         "param": {
             "hostypeString": "三级乙等",
-            "fullAddress": "北京市海淀区玉泉路15号"
+            "fullAddress": "北京市市辖区海淀区"
         },
         "hoscode": "1000_10",
         "hosname": "航天中心医院",
         "hostype": "2",
         "provinceCode": "110000",
         "cityCode": "110100",
-        "districtCode": "110102",
+        "districtCode": "110108",
         "address": "北京市海淀区玉泉路15号",
         "logoData": "https://5b0988e595225.cdn.sohucs.com/a_auto,c_cut,x_0,y_0,w_640,h_640/images/20190718/1d3d72df17b24c4d9008e4450fb3bf3d.jpeg",
         "bookingRule": {
@@ -33,21 +33,54 @@
     },
     {
         "id": "0002",
-        "createTime": "2025-12-02 00:00:00",
-        "updateTime": "2025-12-02 00:00:00",
+        "createTime": "2022-03-07 10:58:46",
+        "updateTime": "2022-05-25 15:28:46",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "二级乙等",
+            "fullAddress": "北京市市辖区昌平区"
+        },
+        "hoscode": "1000_11",
+        "hosname": "北京大学国际医院",
+        "hostype": "4",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110114",
+        "address": "北京市昌平区中关村生命科学园生命园路1号北京大学国际医院",
+        "logoData": "https://nimg.ws.126.net/?url=http://dingyue.nosdn.127.net/laSL2hwumcbKJ6S3eb9bKSxzerwXwPgEw3CzgydVUCjlW1519697110970.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "07:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "北京大学国际医院是一所非营利性（非政府办）三级综合医院，是北京市医保定点医院。",
+        "route": "北京市昌平区中关村生命科学园生命园路1号北京大学国际医院",
+        "status": 1
+    },
+    {
+        "id": "0003",
+        "createTime": "2022-03-07 10:58:46",
+        "updateTime": "2022-05-25 15:28:46",
         "isDeleted": 0,
         "param": {
             "hostypeString": "三级甲等",
-            "fullAddress": "北京市西城区西什库大街8号"
+            "fullAddress": "北京市市辖区东城区"
         },
-        "hoscode": "1000_11",
-        "hosname": "北京大学第一医院",
+        "hoscode": "1000_12",
+        "hosname": "北京市隆福医院",
         "hostype": "1",
         "provinceCode": "110000",
         "cityCode": "110100",
-        "districtCode": "110102",
-        "address": "北京市西城区西什库大街8号",
-        "logoData": "https://ts1.tc.mm.bing.net/th/id/OIP-C.NKKYgzQYIPr4I9QPhldJwwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "districtCode": "110101",
+        "address": "北京市东城区美术馆东街18号",
+        "logoData": "https://file.youlai.cn/cnkfile1/M02/28/29/351FE5B16B8BE15AD6BFEDB6191F2829.png",
         "bookingRule": {
             "cycle": 10,
             "releaseTime": "08:00:00",
@@ -60,20 +93,251 @@
                 "周日：08:00:00-12:30:00"
             ]
         },
-        "intro": "北京大学第一医院是北京市西城区的三级甲等医院，是国内知名的综合医院。",
-        "route": "北京市西城区西什库大街8号",
+        "intro": "北京市隆福医院始建于1931年，前身为中央直属第四医院，1956年更名为现名",
+        "route": "北京市东城区美术馆东街18号",
         "status": 1
     },
     {
-        "id": "0003",
+        "id": "0004",
+        "createTime": "2022-03-07 10:58:46",
+        "updateTime": "2022-05-25 15:28:46",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级乙等",
+            "fullAddress": "北京市市辖区顺义区"
+        },
+        "hoscode": "1000_13",
+        "hosname": "北京市顺义区医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110113",
+        "address": "北京市顺义区光明南街3号",
+        "logoData": "https://img1.dxycdn.com/2020/0529/672/3416042474174141632-126.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "00:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "北京市顺义区医院是位于北京市顺义区光明南街3号的三级综合医院，地处首都机场东侧、潮白河畔。",
+        "route": "北京市顺义区光明南街3号",
+        "status": 1
+    },
+    {
+        "id": "0005",
+        "createTime": "2022-03-07 10:58:46",
+        "updateTime": "2022-05-25 15:28:46",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "二级乙等",
+            "fullAddress": "北京市市辖区房山区"
+        },
+        "hoscode": "1000_14",
+        "hosname": "北京中医药大学房山医院",
+        "hostype": "4",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110111",
+        "address": "北京市房山区城关街道南大街151号",
+        "logoData": "https://ts2.tc.mm.bing.net/th/id/OIP-C.uH70E9wVKK3GF-hMO_adPQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "22:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "北京中医药大学房山医院，北京市房山区三级甲等中医医院",
+        "route": "北京市房山区城关街道南大街151号",
+        "status": 1
+    },
+    {
+        "id": "0006",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
         "param": {
             "hostypeString": "三级甲等",
-            "fullAddress": "北京市西城区西直门南大街11号"
+            "fullAddress": "北京市市辖区丰台区"
         },
-        "hoscode": "1000_12",
+        "hoscode": "1000_15",
+        "hosname": "北京天坛医院",
+        "hostype": "1",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110106",
+        "address": "北京市丰台区南四环西路119号",
+        "logoData": "https://img1.dxycdn.com/2021/0301/132/7737729338931927643-126.png",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "09:30:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "北京天坛医院是北京市丰台区的三级甲等医院，以神经外科和神经内科为特色。",
+        "route": "北京市丰台区南四环西路119号",
+        "status": 1
+    },
+    {
+        "id": "0007",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级乙等",
+            "fullAddress": "北京市市辖区朝阳区"
+        },
+        "hoscode": "1000_16",
+        "hosname": "北京安贞医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110105",
+        "address": "北京市朝阳区安贞路2号",
+        "logoData": "https://pic.nximg.cn/file/20230515/32647771_161737918107_2.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "09:15:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "北京安贞医院是北京市朝阳区的三级甲等医院，以心血管疾病治疗为特色。",
+        "route": "北京市朝阳区安贞路2号",
+        "status": 1
+    },
+    {
+        "id": "0008",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "二级乙等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_17",
+        "hosname": "首都医科大学宣武医院",
+        "hostype": "4",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区长椿街45号",
+        "logoData": "https://ts4.tc.mm.bing.net/th/id/OIP-C.1m47MbLxDd2n4x2fUdaxTQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "14:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "首都医科大学宣武医院是北京市西城区的三级甲等医院，以神经外科闻名。",
+        "route": "北京市西城区长椿街45号",
+        "status": 1
+    },
+    {
+        "id": "0009",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区东城区"
+        },
+        "hoscode": "1000_18",
+        "hosname": "北京同仁医院",
+        "hostype": "1",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110101",
+        "address": "北京市东城区东交民巷1号",
+        "logoData": "https://www.bjtrhos.cn/Content/Areas/Common/images/logo/wxShare.jpg",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:45:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "北京同仁医院是北京市东城区的三级甲等医院，以眼科和耳鼻喉科为特色。",
+        "route": "北京市东城区东交民巷1号",
+        "status": 1
+    },
+    {
+        "id": "0010",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级乙等",
+            "fullAddress": "北京市市辖区朝阳区"
+        },
+        "hoscode": "1000_19",
+        "hosname": "首都医科大学附属北京儿童医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110105",
+        "address": "北京市朝阳区雅宝路2号",
+        "logoData": "https://ts4.tc.mm.bing.net/th/id/OIP-C.djqR9nMta6O-TurQPSO8bAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "14:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "首都医科大学附属北京儿童医院（简称“北京儿童医院”）是集医疗、科研、教学、保健于一体的三级甲等综合性儿科医院。",
+        "route": "北京市朝阳区雅宝路2号",
+        "status": 1
+    },
+    {
+        "id": "0011",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_20",
         "hosname": "北京大学人民医院",
         "hostype": "1",
         "provinceCode": "110000",
@@ -98,15 +362,48 @@
         "status": 1
     },
     {
-        "id": "0004",
+        "id": "0012",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
         "param": {
             "hostypeString": "三级甲等",
-            "fullAddress": "北京市昌平区立汤路168号"
+            "fullAddress": "北京市市辖区西城区"
         },
-        "hoscode": "1000_13",
+        "hoscode": "1000_21",
+        "hosname": "北京大学第一医院",
+        "hostype": "1",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市西城区西什库大街8号",
+        "logoData": "https://ts1.tc.mm.bing.net/th/id/OIP-C.NKKYgzQYIPr4I9QPhldJwwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "bookingRule": {
+            "cycle": 10,
+            "releaseTime": "08:00:00",
+            "stopTime": "12:30:00",
+            "quitDay": -1,
+            "quitTime": "15:30:00",
+            "rule": [
+                "周一至周五：08:00:00-12:30:00",
+                "周六：08:00:00-12:30:00",
+                "周日：08:00:00-12:30:00"
+            ]
+        },
+        "intro": "北京大学第一医院是北京市西城区的三级甲等医院，是国内知名的综合医院。",
+        "route": "北京市西城区西什库大街8号",
+        "status": 1
+    },
+    {
+        "id": "0013",
+        "createTime": "2025-12-02 00:00:00",
+        "updateTime": "2025-12-02 00:00:00",
+        "isDeleted": 0,
+        "param": {
+            "hostypeString": "三级甲等",
+            "fullAddress": "北京市市辖区昌平区"
+        },
+        "hoscode": "1000_22",
         "hosname": "北京清华长庚医院",
         "hostype": "1",
         "provinceCode": "110000",
@@ -131,7 +428,7 @@
         "status": 1
     },
     {
-        "id": "0005",
+        "id": "0014",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -139,7 +436,7 @@
             "hostypeString": "三级甲等",
             "fullAddress": "北京市东城区帅府园1号"
         },
-        "hoscode": "1000_14",
+        "hoscode": "1000_23",
         "hosname": "北京协和医院",
         "hostype": "1",
         "provinceCode": "110000",
@@ -164,139 +461,7 @@
         "status": 1
     },
     {
-        "id": "0006",
-        "createTime": "2025-12-02 00:00:00",
-        "updateTime": "2025-12-02 00:00:00",
-        "isDeleted": 0,
-        "param": {
-            "hostypeString": "三级甲等",
-            "fullAddress": "北京市西城区长椿街45号"
-        },
-        "hoscode": "1000_15",
-        "hosname": "首都医科大学宣武医院",
-        "hostype": "1",
-        "provinceCode": "110000",
-        "cityCode": "110100",
-        "districtCode": "110102",
-        "address": "北京市西城区长椿街45号",
-        "logoData": "https://ts4.tc.mm.bing.net/th/id/OIP-C.1m47MbLxDd2n4x2fUdaxTQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
-        "bookingRule": {
-            "cycle": 10,
-            "releaseTime": "08:00:00",
-            "stopTime": "12:30:00",
-            "quitDay": -1,
-            "quitTime": "15:30:00",
-            "rule": [
-                "周一至周五：08:00:00-12:30:00",
-                "周六：08:00:00-12:30:00",
-                "周日：08:00:00-12:30:00"
-            ]
-        },
-        "intro": "首都医科大学宣武医院是北京市西城区的三级甲等医院，以神经外科闻名。",
-        "route": "北京市西城区长椿街45号",
-        "status": 1
-    },
-    {
-        "id": "0007",
-        "createTime": "2025-12-02 00:00:00",
-        "updateTime": "2025-12-02 00:00:00",
-        "isDeleted": 0,
-        "param": {
-            "hostypeString": "三级甲等",
-            "fullAddress": "北京市丰台区南四环西路119号"
-        },
-        "hoscode": "1000_16",
-        "hosname": "北京天坛医院",
-        "hostype": "1",
-        "provinceCode": "110000",
-        "cityCode": "110100",
-        "districtCode": "110106",
-        "address": "北京市丰台区南四环西路119号",
-        "logoData": "https://img1.dxycdn.com/2021/0301/132/7737729338931927643-126.png",
-        "bookingRule": {
-            "cycle": 10,
-            "releaseTime": "08:00:00",
-            "stopTime": "12:30:00",
-            "quitDay": -1,
-            "quitTime": "15:30:00",
-            "rule": [
-                "周一至周五：08:00:00-12:30:00",
-                "周六：08:00:00-12:30:00",
-                "周日：08:00:00-12:30:00"
-            ]
-        },
-        "intro": "北京天坛医院是北京市丰台区的三级甲等医院，以神经外科和神经内科为特色。",
-        "route": "北京市丰台区南四环西路119号",
-        "status": 1
-    },
-    {
-        "id": "0008",
-        "createTime": "2025-12-02 00:00:00",
-        "updateTime": "2025-12-02 00:00:00",
-        "isDeleted": 0,
-        "param": {
-            "hostypeString": "三级甲等",
-            "fullAddress": "北京市朝阳区安贞路2号"
-        },
-        "hoscode": "1000_17",
-        "hosname": "北京安贞医院",
-        "hostype": "1",
-        "provinceCode": "110000",
-        "cityCode": "110100",
-        "districtCode": "110105",
-        "address": "北京市朝阳区安贞路2号",
-        "logoData": "https://pic.nximg.cn/file/20230515/32647771_161737918107_2.jpg",
-        "bookingRule": {
-            "cycle": 10,
-            "releaseTime": "08:00:00",
-            "stopTime": "12:30:00",
-            "quitDay": -1,
-            "quitTime": "15:30:00",
-            "rule": [
-                "周一至周五：08:00:00-12:30:00",
-                "周六：08:00:00-12:30:00",
-                "周日：08:00:00-12:30:00"
-            ]
-        },
-        "intro": "北京安贞医院是北京市朝阳区的三级甲等医院，以心血管疾病治疗为特色。",
-        "route": "北京市朝阳区安贞路2号",
-        "status": 1
-    },
-    {
-        "id": "0009",
-        "createTime": "2025-12-02 00:00:00",
-        "updateTime": "2025-12-02 00:00:00",
-        "isDeleted": 0,
-        "param": {
-            "hostypeString": "三级甲等",
-            "fullAddress": "北京市市辖区东城区"
-        },
-        "hoscode": "1000_18",
-        "hosname": "北京同仁医院",
-        "hostype": "1",
-        "provinceCode": "110000",
-        "cityCode": "110100",
-        "districtCode": "110101",
-        "address": "北京市东城区东交民巷1号",
-        "logoData": "https://www.bjtrhos.cn/Content/Areas/Common/images/logo/wxShare.jpg",
-        "bookingRule": {
-            "cycle": 10,
-            "releaseTime": "08:00:00",
-            "stopTime": "12:30:00",
-            "quitDay": -1,
-            "quitTime": "15:30:00",
-            "rule": [
-                "周一至周五：08:00:00-12:30:00",
-                "周六：08:00:00-12:30:00",
-                "周日：08:00:00-12:30:00"
-            ]
-        },
-        "intro": "北京同仁医院是北京市东城区的三级甲等医院，以眼科和耳鼻喉科为特色。",
-        "route": "北京市东城区东交民巷1号",
-        "status": 1
-    },
-    {
-        "id": "0010",
+        "id": "0015",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -304,7 +469,7 @@
             "hostypeString": "三级甲等",
             "fullAddress": "北京市市辖区西城区"
         },
-        "hoscode": "1000_19",
+        "hoscode": "1000_24",
         "hosname": "北京积水潭医院",
         "hostype": "1",
         "provinceCode": "110000",
@@ -329,7 +494,7 @@
         "status": 1
     },
     {
-        "id": "0011",
+        "id": "0016",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -337,7 +502,7 @@
             "hostypeString": "三级甲等",
             "fullAddress": "北京市市辖区朝阳区"
         },
-        "hoscode": "1000_20",
+        "hoscode": "1000_25",
         "hosname": "中日友好医院",
         "hostype": "1",
         "provinceCode": "110000",
@@ -362,7 +527,7 @@
         "status": 1
     },
     {
-        "id": "0013",
+        "id": "0017",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -370,7 +535,7 @@
             "hostypeString": "三级乙等",
             "fullAddress": "北京市市辖区西城区"
         },
-        "hoscode": "1000_22",
+        "hoscode": "1000_26",
         "hosname": "首都医科大学附属复兴医院",
         "hostype": "2",
         "provinceCode": "110000",
@@ -395,7 +560,7 @@
         "status": 1
     },
     {
-        "id": "0014",
+        "id": "0018",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -403,7 +568,7 @@
             "hostypeString": "三级乙等",
             "fullAddress": "北京市市辖区朝阳区"
         },
-        "hoscode": "1000_23",
+        "hoscode": "1000_27",
         "hosname": "北京华信医院",
         "hostype": "2",
         "provinceCode": "110000",
@@ -428,7 +593,7 @@
         "status": 1
     },
     {
-        "id": "0015",
+        "id": "0019",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -436,7 +601,7 @@
             "hostypeString": "二级甲等",
             "fullAddress": "北京市市辖区昌平区"
         },
-        "hoscode": "1000_24",
+        "hoscode": "1000_28",
         "hosname": "北京市昌平区中医医院",
         "hostype": "3",
         "provinceCode": "110000",
@@ -461,7 +626,7 @@
         "status": 1
     },
     {
-        "id": "0017",
+        "id": "0020",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -469,7 +634,7 @@
             "hostypeString": "二级乙等",
             "fullAddress": "北京市市辖区西城区"
         },
-        "hoscode": "1000_26",
+        "hoscode": "1000_29",
         "hosname": "北京市宣武区广外医院",
         "hostype": "4",
         "provinceCode": "110000",
@@ -494,7 +659,7 @@
         "status": 1
     },
     {
-        "id": "0018",
+        "id": "0021",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -502,7 +667,7 @@
             "hostypeString": "二级乙等",
             "fullAddress": "北京市市辖区海淀区"
         },
-        "hoscode": "1000_27",
+        "hoscode": "1000_30",
         "hosname": "北京市羊坊店医院",
         "hostype": "4",
         "provinceCode": "110000",
@@ -527,7 +692,7 @@
         "status": 1
     },
     {
-        "id": "0019",
+        "id": "0022",
         "createTime": "2025-12-02 00:00:00",
         "updateTime": "2025-12-02 00:00:00",
         "isDeleted": 0,
@@ -535,7 +700,7 @@
             "hostypeString": "一级",
             "fullAddress": "北京市市辖区西城区"
         },
-        "hoscode": "1000_28",
+        "hoscode": "1000_31",
         "hosname": "北京核工业医院",
         "hostype": "5",
         "provinceCode": "110000",
