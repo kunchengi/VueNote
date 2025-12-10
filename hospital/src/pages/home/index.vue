@@ -28,7 +28,10 @@
           @size-change="sizeChange"
         />
       </el-col>
-      <el-col :span="4">右侧内容</el-col>
+      <el-col :span="4">
+        <!-- 右侧结构 -->
+        <Tip />
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -39,6 +42,7 @@ import Search from './search/index.vue'
 import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
+import Tip from './tip/index.vue'
 
 import { reactive, onMounted, ref } from 'vue'
 import { reqHospital } from '@/api/home'
