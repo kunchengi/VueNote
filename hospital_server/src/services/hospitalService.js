@@ -60,6 +60,19 @@ const getHospitalList = (page, limit, filters = {}) => {
   };
 };
 
+// 根据医院名称模糊查找医院列表
+const findByHosname = (hosname) => {
+  const hospitalData = readHospitalData();
+  
+  // 模糊匹配医院名称，不区分大小写
+  const filteredData = hospitalData.filter(hospital => 
+    hospital.hosname.toLowerCase().includes(hosname.toLowerCase())
+  );
+  
+  return filteredData;
+};
+
 module.exports = {
-  getHospitalList
+  getHospitalList,
+  findByHosname
 };

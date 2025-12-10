@@ -18,9 +18,11 @@ hospital_server/
 │   ├── routes/
 │   │   ├── hospitalRoutes.js      # 医院路由
 │   │   └── dictRoutes.js          # 字典路由
-│   └── services/
-│       ├── hospitalService.js     # 医院服务
-│       └── dictService.js         # 字典服务
+│   ├── services/
+│   │   ├── hospitalService.js     # 医院服务
+│   │   └── dictService.js         # 字典服务
+│   └── utils/
+│       └── responseUtils.js       # 响应工具函数
 ├── index.js                 # Express 服务器入口
 ├── package.json             # 项目配置和依赖
 ├── pnpm-lock.yaml           # 依赖锁文件
@@ -32,10 +34,13 @@ hospital_server/
 
 - ✅ Express 服务器搭建
 - ✅ 医院数据分页查询接口
+- ✅ 支持按医院等级和地区筛选
+- ✅ 根据医院名称模糊查询接口
 - ✅ 字典数据查询接口
 - ✅ 参数验证
 - ✅ 完整的响应格式
 - ✅ 支持动态分页参数
+- ✅ 统一的响应工具函数
 
 ## 安装依赖
 
@@ -192,6 +197,63 @@ node index.js
 }
 ```
 
+### 根据医院名称模糊查找医院列表
+
+**接口地址**：`GET /api/hosp/hospital/findByHosname/:hosname`
+
+**参数说明**：
+- `hosname`：医院名称（字符串）- 路径参数
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": [
+      {
+        "id": "0001",
+        "createTime": "2022-03-07 10:58:46",
+        "updateTime": "2022-05-25 15:28:46",
+        "isDeleted": 0,
+        "param": {
+          "hostypeString": "三级乙等",
+          "fullAddress": "北京市市辖区西城区"
+        },
+        "hoscode": "1000_10",
+        "hosname": "航天中心医院",
+        "hostype": "2",
+        "provinceCode": "110000",
+        "cityCode": "110100",
+        "districtCode": "110102",
+        "address": "北京市市辖区西城区航天中心医院",
+        "logoData": "医院logo图片URL",
+        "bookingRule": {
+          "cycle": 10,
+          "releaseTime": "08:00:00",
+          "stopTime": "12:30:00",
+          "quitDay": -1,
+          "quitTime": "15:30:00"
+        },
+        "intro": "医院介绍信息",
+        "route": "医院地址",
+        "status": 1
+      }
+    ],
+  "message": "获取医院列表成功"
+}
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "医院名称不能为空"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -254,6 +316,9 @@ curl http://localhost:3000/api/cmn/dict/findByDictCode/InvalidCode
 ## 更改日志
 
 ### v1.0.0 (最近更新)
+- 为医院列表接口添加了 `hostype` 和 `districtCode` 查询参数支持
+- 新增根据医院名称模糊查询接口 `/api/hosp/hospital/findByHosname/:hosname`
+- 添加了 `responseUtils.js` 统一响应工具函数
 - 新增字典数据查询接口 `/api/cmn/dict/findByDictCode/:dictCode`
 - 支持获取医院等级列表和北京各区列表
 - 更新了项目结构，添加了字典相关的控制器、路由和服务

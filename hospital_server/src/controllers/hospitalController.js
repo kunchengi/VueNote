@@ -47,6 +47,40 @@ const getHospitalList = async (req, res) => {
   }
 };
 
+// 根据医院名称模糊查找医院列表
+const findByHosname = async (req, res) => {
+  try {
+    const hosname = req.params.hosname;
+    
+    // 验证参数
+    if (!hosname || hosname.trim() === '') {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '医院名称不能为空'
+      });
+    }
+    
+    const result = await hospitalService.findByHosname(hosname);
+    
+    res.json({
+      code: 200,
+      success: true,
+      data: result,
+      message: '获取医院列表成功'
+    });
+  } catch (error) {
+    console.error('Error in findByHosname:', error);
+    res.status(500).json({
+      code: 500,
+      success: false,
+      message: '获取医院列表失败',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
-  getHospitalList
+  getHospitalList,
+  findByHosname
 };
