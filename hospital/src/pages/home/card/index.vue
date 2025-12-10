@@ -1,5 +1,5 @@
 <template>
-    <el-card shadow="hover">
+    <el-card shadow="hover" @click="handleClick">
         <div class="content">
             <div class="left">
                 <div class="hospital-name">
@@ -25,8 +25,23 @@
 
 <script setup lang="ts" name="Card">
 import { Timer } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps(['hospitalInfo'])
+
+// 初始化 Vue Router 实例
+const router = useRouter()
+
+// 处理点击事件，跳转详情页
+const handleClick = () => {
+    // 使用 Vue Router 跳转详情页，传递医院编码作为参数
+    router.push({
+      path: '/hospital',
+      query: {
+        hoscode: props.hospitalInfo.hoscode
+      }
+    })
+}
 </script>
 
 <style lang="scss" scoped>

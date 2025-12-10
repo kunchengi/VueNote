@@ -2,7 +2,7 @@
   <div class="top">
     <div class="content">
       <!-- 左侧 -->
-      <div class="left">
+      <div class="left" @click="handleClick">
         <img src="@/assets/images/logo.png" alt="中山三院logo">
         <p>京医通预约挂号统一平台</p>
       </div>
@@ -17,8 +17,18 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 
-const feature = ref();
+// 初始化 Vue Router 实例
+const router = useRouter()
+
+// 处理点击事件，跳转首页
+const handleClick = () => {
+    // 使用 Vue Router 跳转首页
+    router.push({
+      path: '/home'
+    })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -38,6 +48,7 @@ const feature = ref();
     justify-content: space-between;
 
     .left {
+      cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;

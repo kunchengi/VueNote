@@ -94,3 +94,8 @@ export type DictDataList = DictData[];
 export interface DictResponseData extends ResponseData {
     data: DictDataList;
 }
+
+// 根据医院名称模糊查询医院列表响应数据类型
+export interface FindHospitalResponseData extends ResponseData {
+    data: Content;
+}
