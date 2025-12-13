@@ -33,6 +33,6 @@ export interface Hospital {
         rule: string[]
     },
     intro: string,
-    route: string,
+    route: string[],
     status: number
 }
