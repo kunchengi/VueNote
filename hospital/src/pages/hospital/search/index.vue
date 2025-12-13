@@ -1,6 +1,6 @@
 <template>
     <div>
-        查询/取消
+        <el-empty description="暂无数据" />
     </div>
 </template>
 

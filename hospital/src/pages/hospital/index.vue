@@ -62,7 +62,10 @@ const detailStore = useHospitalDetailStore()
 
 const changeActive = ($event: any) => {
   router.push({
-    path: $event.index
+    path: $event.index,
+    query: {
+      hoscode: $route.query.hoscode
+    }
   })
 }
 

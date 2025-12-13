@@ -1,6 +1,6 @@
 <template>
-    <div>
-        停诊信息
+    <div class="close">
+        <el-empty description="暂无数据" />
     </div>
 </template>
 
