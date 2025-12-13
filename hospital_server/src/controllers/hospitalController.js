@@ -10,13 +10,11 @@ const getHospitalList = async (req, res) => {
     const hostype = req.query.hostype;
     const districtCode = req.query.districtCode;
     
-    // 验证参数
+    // 验证参数 - 如果page不是数字，直接调用医院详情控制器
     if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
-      return res.status(400).json({
-        code: 400,
-        success: false,
-        message: '页码和每页数量必须是正整数'
-      });
+      // 如果不是有效的数字分页参数，将请求视为根据医院编码获取详情
+      const hoscode = req.params.page;
+      return getHospitalByHoscode({ ...req, params: { hoscode } }, res);
     }
     
     // 构建过滤条件
@@ -80,7 +78,49 @@ const findByHosname = async (req, res) => {
   }
 };
 
+// 通过hoscode获取医院详情
+const getHospitalByHoscode = async (req, res) => {
+  try {
+    const hoscode = req.params.hoscode;
+    
+    // 验证参数
+    if (!hoscode || hoscode.trim() === '') {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '医院编码不能为空'
+      });
+    }
+    
+    const result = await hospitalService.getHospitalByHoscode(hoscode);
+    
+    if (!result) {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '医院编码不存在'
+      });
+    }
+    
+    res.json({
+      code: 200,
+      success: true,
+      data: result,
+      message: '获取医院详情成功'
+    });
+  } catch (error) {
+    console.error('Error in getHospitalByHoscode:', error);
+    res.status(500).json({
+      code: 500,
+      success: false,
+      message: '获取医院详情失败',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getHospitalList,
-  findByHosname
+  findByHosname,
+  getHospitalByHoscode
 };

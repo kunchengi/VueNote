@@ -72,7 +72,18 @@ const findByHosname = (hosname) => {
   return filteredData;
 };
 
+// 通过hoscode获取医院详情
+const getHospitalByHoscode = (hoscode) => {
+  const hospitalData = readHospitalData();
+  
+  // 根据hoscode查找医院
+  const hospital = hospitalData.find(hospital => hospital.hoscode === hoscode);
+  
+  return hospital;
+};
+
 module.exports = {
   getHospitalList,
-  findByHosname
+  findByHosname,
+  getHospitalByHoscode
 };
