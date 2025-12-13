@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { reqHospitalDetail } from '@/api/hospital'
+import { reqHospitalDetail, reqArticleByFilename } from '@/api/hospital'
 import { type Hospital } from "@/api/base/type";
 import { type HospitalDetailResponseData } from '@/api/hospital/type'
 import { type HospitalDetailState } from './interface'
@@ -8,6 +8,8 @@ import { type HospitalDetailState } from './interface'
 const useHospitalDetailStore = defineStore('HospitalDetail', {
   state: (): HospitalDetailState => ({
     hospitalDetail: {} as Hospital,
+    // 文章内容
+    article: '<div>测试</div>'
   }),
   actions: {
     // 获取医院详情
@@ -17,7 +19,15 @@ const useHospitalDetailStore = defineStore('HospitalDetail', {
       if (res.code === 200) {
         this.hospitalDetail = res.data
       }
-    }
+    },
+    // 通过文件名获取文件内容
+    async getArticleByFilename(filename: string) {
+      console.log('通过文件名获取文件内容', filename);
+      const res: string = await reqArticleByFilename(filename)
+      if (res) {
+        this.article = res
+      }
+    },
   },
   getters: {
     // 获取医院详情

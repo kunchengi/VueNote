@@ -3,5 +3,7 @@
 import { type Hospital } from "@/api/base/type";
 
 export interface HospitalDetailState {
-  hospitalDetail: Hospital
+  hospitalDetail: Hospital,
+  // 文章内容
+  article: string
 }
