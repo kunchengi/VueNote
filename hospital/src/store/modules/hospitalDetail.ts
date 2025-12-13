@@ -41,6 +41,9 @@ const useHospitalDetailStore = defineStore('HospitalDetail', {
     },
     ruleList(state: HospitalDetailState) {
       return state.hospitalDetail?.bookingRule?.rule || []
+    },
+    intro(state: HospitalDetailState) {
+      return state.hospitalDetail?.intro || ''
     }
   }
 })
