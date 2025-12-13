@@ -59,7 +59,7 @@ const handleSelect = (item: Record<string, any>) => {
   console.log('选择的医院编码:', item.hoscode);
   // 使用 Vue Router 跳转详情页，传递医院编码作为参数
   router.push({
-    path: '/hospital',
+    path: '/hospital/register',
     query: {
       hoscode: item.hoscode
     }
