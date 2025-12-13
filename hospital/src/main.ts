@@ -9,6 +9,8 @@ import '@/style/reset.scss'
 import HospitalTop from '@/components/hospital_top/index.vue'
 import HospitalButtom from '@/components/hospital_buttom/index.vue'
 import router from '@/router'
+// 引入pinia
+import pinia from '@/store'
 
 const app = createApp(App);
 // 全局注册组件
@@ -20,4 +22,6 @@ app.use(router)
 app.use(ElementPlus, {
   locale: zhCn,
 })
+// 挂载pinia
+app.use(pinia)
 app.mount('#app')

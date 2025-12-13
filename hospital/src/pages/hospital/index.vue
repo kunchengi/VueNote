@@ -49,17 +49,30 @@
 </template>
 
 <script setup lang="ts" name="Hospital">
+import { onMounted } from 'vue'
+import useHospitalDetailStore from '@/store/modules/hospitalDetail'
+
 import { CreditCard, Document, Bell, Warning, Search, HomeFilled } from '@element-plus/icons-vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const $route = useRoute()
 
+const detailStore = useHospitalDetailStore()
+
 const changeActive = ($event: any) => {
   router.push({
     path: $event.index
   })
 }
+
+// 组件挂载完毕，通知pinia仓库发请求获取医院详情
+onMounted(() => {
+  const hoscode = $route.query.hoscode as string;
+  if (hoscode) {
+    detailStore.getHospitalDetail(hoscode)
+  }
+})
 </script>
 
 <style lang="scss" scoped>
