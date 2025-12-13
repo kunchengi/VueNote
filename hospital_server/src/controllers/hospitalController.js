@@ -1,4 +1,6 @@
 const hospitalService = require('../services/hospitalService');
+const fs = require('fs');
+const path = require('path');
 
 // 分页获取医院列表
 const getHospitalList = async (req, res) => {
@@ -119,8 +121,52 @@ const getHospitalByHoscode = async (req, res) => {
   }
 };
 
+// 通过文件名获取文件内容
+const getArticleByFilename = (req, res) => {
+  try {
+    const filename = req.params.filename;
+    
+    // 验证参数
+    if (!filename || filename.trim() === '') {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '文件名不能为空'
+      });
+    }
+    
+    // 构建文件路径
+    const filePath = path.join(__dirname, '../../data/article', filename);
+    
+    // 检查文件是否存在
+    if (!fs.existsSync(filePath)) {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '文件不存在'
+      });
+    }
+    
+    // 读取文件内容
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    
+    // 设置响应头为HTML
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(fileContent);
+  } catch (error) {
+    console.error('Error in getArticleByFilename:', error);
+    res.status(500).json({
+      code: 500,
+      success: false,
+      message: '读取文件失败',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getHospitalList,
   findByHosname,
-  getHospitalByHoscode
+  getHospitalByHoscode,
+  getArticleByFilename
 };

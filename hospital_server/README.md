@@ -7,16 +7,16 @@
 ```
 hospital_server/
 ├── data/
-│   ├── hospital.json        # 医院数据存储
-│   └── dictData.json        # 字典数据存储
+│   ├── article/            # 文章/通知等HTML文件存储
+│   ├── hospital.json       # 医院数据存储
+│   └── dictData.json       # 字典数据存储
 ├── src/
 │   ├── config/
-│   │   └── appConfig.js     # 应用配置
+│   │   └── appConfig.js    # 应用配置
 │   ├── controllers/
 │   │   ├── hospitalController.js  # 医院控制器
 │   │   └── dictController.js      # 字典控制器
 │   ├── routes/
-│   │   ├── hospitalRoutes.js      # 医院路由
 │   │   └── dictRoutes.js          # 字典路由
 │   ├── services/
 │   │   ├── hospitalService.js     # 医院服务
@@ -35,11 +35,12 @@ hospital_server/
 - ✅ Express 服务器搭建
 - ✅ 医院数据分页查询接口
 - ✅ 支持按医院等级和地区筛选
-- ✅ 根据医院名称模糊查询接口
+- ✅ 根据医院名称模糊查找医院列表
+- ✅ 根据医院编码获取医院详情
 - ✅ 字典数据查询接口
+- ✅ 通过文件名获取HTML文件内容
 - ✅ 参数验证
 - ✅ 完整的响应格式
-- ✅ 支持动态分页参数
 - ✅ 统一的响应工具函数
 
 ## 安装依赖
@@ -315,6 +316,35 @@ node index.js
 }
 ```
 
+### 通过文件名获取文件内容
+
+**接口地址**：`GET /api/hosp/article/:filename`
+
+**描述**：根据文件名获取文件内容，如`/api/hosp/article/noticeArticle.html`则获取`hospital_server\data\article\noticeArticle.html`的文件内容
+
+**参数说明**：
+- `filename`：文件名（字符串）- 路径参数
+
+
+**返回格式**：
+
+```html
+<div>
+    <h1>这是一个通知标题</h1>
+    <p>这是一个通知内容</p>
+</div>
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "文件不存在"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -323,6 +353,9 @@ node index.js
 - 字典数据存储在 `data/dictData.json` 文件中
   - 包含医院等级、北京各区等字典数据
   - 支持通过字典代码获取对应的数据列表
+- 文章/通知等HTML文件存储在 `data/article/` 目录中
+  - 支持动态添加HTML文件
+  - 通过文件名即可访问对应的HTML内容
 
 ## 技术栈
 
@@ -350,6 +383,21 @@ curl http://localhost:3000/api/hosp/hospital/2/1
 
 # 测试第1页，每页10条数据
 curl http://localhost:3000/api/hosp/hospital/1/10
+
+# 测试按医院等级筛选
+curl http://localhost:3000/api/hosp/hospital/1/10?hostype=1
+
+# 测试按地区筛选
+curl http://localhost:3000/api/hosp/hospital/1/10?districtCode=110102
+```
+
+### 医院详情接口测试
+```bash
+# 测试通过医院编码获取医院详情
+curl http://localhost:3000/api/hosp/hospital/1000_10
+
+# 测试通过医院名称模糊查找
+curl http://localhost:3000/api/hosp/hospital/findByHosname/医院
 ```
 
 ### 字典接口测试
@@ -362,6 +410,15 @@ curl http://localhost:3000/api/cmn/dict/findByDictCode/Beijing
 
 # 测试不存在的字典代码（应返回错误）
 curl http://localhost:3000/api/cmn/dict/findByDictCode/InvalidCode
+```
+
+### 文章/通知接口测试
+```bash
+# 测试获取存在的HTML文件
+curl http://localhost:3000/api/hosp/article/testArticle.html
+
+# 测试获取不存在的HTML文件（应返回错误）
+curl http://localhost:3000/api/hosp/article/notExist.html
 ```
 
 ## 后续扩展建议
@@ -377,6 +434,8 @@ curl http://localhost:3000/api/cmn/dict/findByDictCode/InvalidCode
 ## 更改日志
 
 ### v1.0.0 (最近更新)
+- 新增通过文件名获取文件内容接口 `/api/hosp/article/:filename`
+- 新增 `data/article/` 目录用于存储HTML文件
 - 为医院列表接口添加了 `hostype` 和 `districtCode` 查询参数支持
 - 新增根据医院名称模糊查询接口 `/api/hosp/hospital/findByHosname/:hosname`
 - 添加了 `responseUtils.js` 统一响应工具函数

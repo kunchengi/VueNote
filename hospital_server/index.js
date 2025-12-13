@@ -32,7 +32,8 @@ app.get(`${config.baseApiPath}/hosp/hospital/:page/:limit`, hospitalController.g
 // 字典相关路由
 app.use(`${config.baseApiPath}/cmn/dict`, dictRoutes);
 
-
+// 4. 通过文件名获取文件内容
+app.get(`${config.baseApiPath}/hosp/article/:filename`, hospitalController.getArticleByFilename);
 
 // 404 处理
 app.use((req, res) => {
@@ -63,6 +64,7 @@ app.listen(PORT, () => {
   console.log(`📚 医院详情 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/:hoscode`);
   console.log(`📚 目录 API: http://localhost:${PORT}${config.baseApiPath}/cmn/dict/findByDictCode/:dictCode`);
   console.log(`📚 医院名称模糊查找 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/findByHosname/:hosname`);
+  console.log(`📚 通过文件名获取文件内容 API: http://localhost:${PORT}${config.baseApiPath}/hosp/article/:filename`);
   
   console.log('\nPress Ctrl+C to stop the server\n');
 });
