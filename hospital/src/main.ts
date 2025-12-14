@@ -11,11 +11,15 @@ import HospitalButtom from '@/components/hospital_buttom/index.vue'
 import router from '@/router'
 // 引入pinia
 import pinia from '@/store'
+// 引入登录组件
+import Login from '@/components/login/index.vue'
 
 const app = createApp(App);
 // 全局注册组件
 app.component('HospitalTop', HospitalTop);
 app.component('HospitalButtom', HospitalButtom);
+// 全局注册登录组件
+app.component('Login', Login);
 // 挂载路由
 app.use(router)
 // 挂载element-plus

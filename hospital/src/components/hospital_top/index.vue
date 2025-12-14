@@ -9,7 +9,7 @@
       <!-- 右侧 -->
       <div class="right">
         <p class="help">帮助中心</p>
-        <p class="login">登录/注册</p>
+        <p class="login" @click="handleLoginClick">登录/注册</p>
       </div>
     </div>
   </div>
@@ -18,9 +18,11 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
+import useUiManageStore from '@/store/modules/uiManage'
 
 // 初始化 Vue Router 实例
 const router = useRouter()
+const uiManageStore = useUiManageStore()
 
 // 处理点击事件，跳转首页
 const handleClick = () => {
@@ -28,6 +30,11 @@ const handleClick = () => {
     router.push({
       path: '/home'
     })
+}
+
+// 处理登录点击事件，打开登录弹窗
+const handleLoginClick = () => {
+    uiManageStore.showLogin = true;
 }
 </script>
 
@@ -71,7 +78,18 @@ const handleClick = () => {
       color: #bbb;
 
       .help {
+        cursor: pointer;
         margin-right: 10px;
+        &:hover {
+          color: #55a6fe;
+        }
+      }
+
+      .login {
+        cursor: pointer;
+        &:hover {
+          color: #55a6fe;
+        }
       }
     }
   }

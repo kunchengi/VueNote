@@ -15,3 +15,8 @@ export interface HospitalDetailState {
 export const ArticleType = {
   NOTICE: 'noticeArticle.html'
 }
+
+// 全局UI管理模块状态类型
+export interface UiManageState {
+  showLogin: boolean
+}

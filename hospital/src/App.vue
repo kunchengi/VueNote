@@ -6,6 +6,8 @@
      <div class="content">
         <router-view />
      </div>
+     <!-- 引入登录全局组件 -->
+     <Login />
      <!-- 引入底部全局组件 -->
      <HospitalButtom />
   </div>

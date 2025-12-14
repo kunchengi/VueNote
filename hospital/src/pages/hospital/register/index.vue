@@ -49,7 +49,7 @@
                 <div class="subDepartment" v-for="item in hospitalDetailStore.departmentList" :key="item.depcode" :id="item.depname">
                     <div class="title">{{ item.depname }}</div>
                     <div class="subDepartmentList">
-                        <div class="subDepartmentItem" v-for="(subItem, subIndex) in item.children" :key="subIndex">{{ subItem.depname }}</div>
+                        <div class="subDepartmentItem" v-for="subItem in item.children" :key="subItem.depcode" @click="onClickSubDepartment(subItem.depcode)">{{ subItem.depname }}</div>
                     </div>
                 </div>
             </div>
@@ -60,6 +60,7 @@
 <script setup lang="ts" name="Register">
 // 引入仓库
 import useHospitalDetailStore from '@/store/modules/hospitalDetail'
+import useUiManageStore from '@/store/modules/uiManage'
 import TopTitle from '@/components/hospital_detail/top_title/index.vue'
 import LogoImg from '@/components/hospital_detail/logo_img/index.vue'
 import { ref, watch } from 'vue'
@@ -99,6 +100,15 @@ const handleClick = (e: MouseEvent) => {
 const handleChange = (href: string) => {
     // 改变锚点时，更新当前选中的科室
     activeDepartment.value = href.replace('#', '');
+}
+
+
+// 引入登录弹窗状态管理仓库
+const uiManageStore = useUiManageStore();
+
+// 点击子科室时调用
+const onClickSubDepartment = (depcode: string) => {
+    uiManageStore.showLogin = true;
 }
 </script>
 
