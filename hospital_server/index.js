@@ -23,16 +23,19 @@ const hospitalController = require('./src/controllers/hospitalController');
 // 1. 根据医院名称模糊查找医院列表
 app.get(`${config.baseApiPath}/hosp/hospital/findByHosname/:hosname`, hospitalController.findByHosname);
 
-// 2. 根据医院编码获取医院详情
+// 2. 根据医院编码获取科室信息
+app.get(`${config.baseApiPath}/hosp/hospital/department/:hoscode`, hospitalController.getDepartmentByHoscode);
+
+// 3. 根据医院编码获取医院详情
 app.get(`${config.baseApiPath}/hosp/hospital/:hoscode`, hospitalController.getHospitalByHoscode);
 
-// 3. 旧版分页获取医院列表
+// 4. 旧版分页获取医院列表
 app.get(`${config.baseApiPath}/hosp/hospital/:page/:limit`, hospitalController.getHospitalList);
 
 // 字典相关路由
 app.use(`${config.baseApiPath}/cmn/dict`, dictRoutes);
 
-// 4. 通过文件名获取文件内容
+// 5. 通过文件名获取文件内容
 app.get(`${config.baseApiPath}/hosp/article/:filename`, hospitalController.getArticleByFilename);
 
 // 404 处理
@@ -65,6 +68,7 @@ app.listen(PORT, () => {
   console.log(`📚 目录 API: http://localhost:${PORT}${config.baseApiPath}/cmn/dict/findByDictCode/:dictCode`);
   console.log(`📚 医院名称模糊查找 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/findByHosname/:hosname`);
   console.log(`📚 通过文件名获取文件内容 API: http://localhost:${PORT}${config.baseApiPath}/hosp/article/:filename`);
+  console.log(`📚 医院科室 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/department/:hoscode`);
   
   console.log('\nPress Ctrl+C to stop the server\n');
 });

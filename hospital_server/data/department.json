@@ -1,0 +1,404 @@
+[
+    {
+        "depcode": "1001",
+        "depname": "心脏",
+        "children": [
+            {
+                "depcode": "100101",
+                "depname": "心血管专科",
+                "children": null
+            },
+            {
+                "depcode": "100102",
+                "depname": "冠心病专科",
+                "children": null
+            },
+            {
+                "depcode": "100103",
+                "depname": "高血压专科",
+                "children": null
+            },
+            {
+                "depcode": "100104",
+                "depname": "心衰专科",
+                "children": null
+            },
+            {
+                "depcode": "100105",
+                "depname": "心律失常专科",
+                "children": null
+            },
+            {
+                "depcode": "100106",
+                "depname": "胸痛专科",
+                "children": null
+            },
+            {
+                "depcode": "100107",
+                "depname": "心胸专科",
+                "children": null
+            }
+        ]
+    },
+    {
+        "depcode": "1002",
+        "depname": "内科",
+        "children": [
+            {
+                "depcode": "100201",
+                "depname": "炎症性肠病科",
+                "children": null
+            },
+            {
+                "depcode": "100202",
+                "depname": "脾胃病科",
+                "children": null
+            },
+            {
+                "depcode": "100203",
+                "depname": "结肠炎科",
+                "children": null
+            },
+            {
+                "depcode": "100204",
+                "depname": "胆胰专科",
+                "children": null
+            },
+            {
+                "depcode": "100205",
+                "depname": "脑病专科",
+                "children": null
+            },
+            {
+                "depcode": "100206",
+                "depname": "神经内科",
+                "children": null
+            },
+            {
+                "depcode": "100207",
+                "depname": "肌无力专科",
+                "children": null
+            },
+            {
+                "depcode": "100208",
+                "depname": "呼吸内科",
+                "children": null
+            },
+            {
+                "depcode": "100209",
+                "depname": "脑血管病科",
+                "children": null
+            },
+            {
+                "depcode": "100210",
+                "depname": "头痛科",
+                "children": null
+            },
+            {
+                "depcode": "100211",
+                "depname": "记忆障碍专科",
+                "children": null
+            },
+            {
+                "depcode": "100212",
+                "depname": "眩晕专科",
+                "children": null
+            },
+            {
+                "depcode": "100213",
+                "depname": "癫痫专科",
+                "children": null
+            },
+            {
+                "depcode": "100214",
+                "depname": "心理睡眠专科",
+                "children": null
+            },
+            {
+                "depcode": "100215",
+                "depname": "内分泌专科",
+                "children": null
+            },
+            {
+                "depcode": "100216",
+                "depname": "糖尿病专科",
+                "children": null
+            },
+            {
+                "depcode": "100217",
+                "depname": "咳嗽专科",
+                "children": null
+            },
+            {
+                "depcode": "100218",
+                "depname": "甲状腺专科",
+                "children": null
+            },
+            {
+                "depcode": "100219",
+                "depname": "甲亢专科",
+                "children": null
+            },
+            {
+                "depcode": "100220",
+                "depname": "代谢病专科",
+                "children": null
+            },
+            {
+                "depcode": "100221",
+                "depname": "肾病专科",
+                "children": null
+            },
+            {
+                "depcode": "100222",
+                "depname": "肝炎专科",
+                "children": null
+            },
+            {
+                "depcode": "100223",
+                "depname": "风湿专科",
+                "children": null
+            },
+            {
+                "depcode": "100224",
+                "depname": "类风湿专科",
+                "children": null
+            },
+            {
+                "depcode": "100225",
+                "depname": "哮喘专科",
+                "children": null
+            },
+            {
+                "depcode": "100226",
+                "depname": "血液科",
+                "children": null
+            },
+            {
+                "depcode": "100227",
+                "depname": "消化科",
+                "children": null
+            }
+        ]
+    },
+    {
+        "depcode": "1003",
+        "depname": "外科",
+        "children": [
+            {
+                "depcode": "100301",
+                "depname": "器官移植专科",
+                "children": null
+            },
+            {
+                "depcode": "100302",
+                "depname": "手汗专科",
+                "children": null
+            },
+            {
+                "depcode": "100303",
+                "depname": "肝胆胰外科",
+                "children": null
+            },
+            {
+                "depcode": "100304",
+                "depname": "泌尿外科",
+                "children": null
+            },
+            {
+                "depcode": "100305",
+                "depname": "男科",
+                "children": null
+            },
+            {
+                "depcode": "100306",
+                "depname": "男性不育专科",
+                "children": null
+            },
+            {
+                "depcode": "100307",
+                "depname": "前列腺专科",
+                "children": null
+            },
+            {
+                "depcode": "100308",
+                "depname": "尿石症专科",
+                "children": null
+            },
+            {
+                "depcode": "100309",
+                "depname": "肠胃外科",
+                "children": null
+            },
+            {
+                "depcode": "100310",
+                "depname": "心胸外科",
+                "children": null
+            },
+            {
+                "depcode": "100311",
+                "depname": "肺结节专科",
+                "children": null
+            },
+            {
+                "depcode": "100312",
+                "depname": "神经外科",
+                "children": null
+            },
+            {
+                "depcode": "100313",
+                "depname": "甲状腺专科",
+                "children": null
+            },
+            {
+                "depcode": "100314",
+                "depname": "介入专科",
+                "children": null
+            }
+        ]
+    },
+    {
+        "depcode": "1004",
+        "depname": "肿瘤",
+        "children": [
+            {
+                "depcode": "100401",
+                "depname": "肿瘤内科",
+                "children": null
+            },
+            {
+                "depcode": "100402",
+                "depname": "肿瘤专科",
+                "children": null
+            },
+            {
+                "depcode": "100403",
+                "depname": "结直肠肿瘤专科",
+                "children": null
+            },
+            {
+                "depcode": "100404",
+                "depname": "胃肠肿瘤专科",
+                "children": null
+            }
+        ]
+    },
+    {
+        "depcode": "1005",
+        "depname": "中医流派",
+        "children": [
+            {
+                "depcode": "100501",
+                "depname": "戒烟科",
+                "children": null
+            },
+            {
+                "depcode": "100502",
+                "depname": "岭南岑氏杂病流派",
+                "children": null
+            },
+            {
+                "depcode": "100503",
+                "depname": "岭南甄氏杂病流派",
+                "children": null
+            },
+            {
+                "depcode": "100504",
+                "depname": "岭南扶阳流派",
+                "children": null
+            },
+            {
+                "depcode": "100505",
+                "depname": "岭南补土流派",
+                "children": null
+            },
+            {
+                "depcode": "100506",
+                "depname": "岭南林夏泉流派",
+                "children": null
+            },
+            {
+                "depcode": "100507",
+                "depname": "岭南邓氏内科流派",
+                "children": null
+            },
+            {
+                "depcode": "100508",
+                "depname": "岭南梁氏脾胃病科流派",
+                "children": null
+            }
+        ]
+    },
+    {
+        "depcode": "1006",
+        "depname": "儿科",
+        "children": [
+            {
+                "depcode": "100601",
+                "depname": "体重管理科",
+                "children": null
+            },
+            {
+                "depcode": "100602",
+                "depname": "小儿血液专科",
+                "children": null
+            },
+            {
+                "depcode": "100603",
+                "depname": "生长发育与性早熟科",
+                "children": null
+            },
+            {
+                "depcode": "100604",
+                "depname": "儿童神经及精神行为发育专科",
+                "children": null
+            },
+            {
+                "depcode": "100605",
+                "depname": "儿童肾病专科",
+                "children": null
+            },
+            {
+                "depcode": "100606",
+                "depname": "小儿心血管专科",
+                "children": null
+            },
+            {
+                "depcode": "100607",
+                "depname": "小儿推拿专科",
+                "children": null
+            },
+            {
+                "depcode": "100608",
+                "depname": "小儿斜颈专科",
+                "children": null
+            }
+        ]
+    },
+    {
+        "depcode": "1007",
+        "depname": "生殖医学",
+        "children": [
+            {
+                "depcode": "100701",
+                "depname": "生殖妇科",
+                "children": null
+            },
+            {
+                "depcode": "100702",
+                "depname": "生殖男科",
+                "children": null
+            },
+            {
+                "depcode": "100703",
+                "depname": "不孕症专科",
+                "children": null
+            },
+            {
+                "depcode": "100704",
+                "depname": "流产专科",
+                "children": null
+            }
+        ]
+    }
+]

@@ -82,8 +82,23 @@ const getHospitalByHoscode = (hoscode) => {
   return hospital;
 };
 
+// 读取科室数据
+const readDepartmentData = () => {
+  const filePath = path.join(__dirname, '../../data/department.json');
+  const data = fs.readFileSync(filePath, 'utf8');
+  return JSON.parse(data);
+};
+
+// 根据医院编码获取科室信息
+const getDepartmentByHoscode = (hoscode) => {
+  // 目前不管hoscode是什么，都返回department.json中的所有科室信息
+  const departmentData = readDepartmentData();
+  return departmentData;
+};
+
 module.exports = {
   getHospitalList,
   findByHosname,
-  getHospitalByHoscode
+  getHospitalByHoscode,
+  getDepartmentByHoscode
 };

@@ -164,9 +164,42 @@ const getArticleByFilename = (req, res) => {
   }
 };
 
+// 根据医院编码获取科室信息
+const getDepartmentByHoscode = async (req, res) => {
+  try {
+    const hoscode = req.params.hoscode;
+    
+    // 验证参数
+    if (!hoscode || hoscode.trim() === '') {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '医院编码不能为空'
+      });
+    }
+    
+    const result = await hospitalService.getDepartmentByHoscode(hoscode);
+    
+    res.json({
+      code: 200,
+      success: true,
+      data: result,
+      message: '获取医院科室成功'
+    });
+  } catch (error) {
+    console.error('Error in getDepartmentByHoscode:', error);
+    res.status(400).json({
+      code: 400,
+      success: false,
+      message: '获取医院科室失败'
+    });
+  }
+};
+
 module.exports = {
   getHospitalList,
   findByHosname,
   getHospitalByHoscode,
-  getArticleByFilename
+  getArticleByFilename,
+  getDepartmentByHoscode
 };

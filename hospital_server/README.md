@@ -9,7 +9,8 @@ hospital_server/
 ├── data/
 │   ├── article/            # 文章/通知等HTML文件存储
 │   ├── hospital.json       # 医院数据存储
-│   └── dictData.json       # 字典数据存储
+│   ├── dictData.json       # 字典数据存储
+│   └── department.json     # 科室数据存储
 ├── src/
 │   ├── config/
 │   │   └── appConfig.js    # 应用配置
@@ -37,6 +38,7 @@ hospital_server/
 - ✅ 支持按医院等级和地区筛选
 - ✅ 根据医院名称模糊查找医院列表
 - ✅ 根据医院编码获取医院详情
+- ✅ 根据医院编码获取科室信息接口
 - ✅ 字典数据查询接口
 - ✅ 通过文件名获取HTML文件内容
 - ✅ 参数验证
@@ -345,6 +347,80 @@ node index.js
 }
 ```
 
+### 通过hoscode获取医院科室
+
+**接口地址**：`GET /api/hosp/hospital/department/:hoscode`
+
+**接口说明**：根据医院编码获取医院的所有科室，由于目前department.json文件只有一个医院的数据，所以不管hoscode是什么，都返回该文件中的科室信息就行，后续数据更新再做相应调整。
+
+
+**参数说明**：
+- `hoscode`：医院编码（字符串）- 路径参数
+
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": [
+    {
+        "depcode": "1001",
+        "depname": "心脏",
+        "children": [
+            {
+                "depcode": "100101",
+                "depname": "心血管专科",
+                "children": null
+            },
+            {
+                "depcode": "100102",
+                "depname": "冠心病专科",
+                "children": null
+            },
+            {
+                "depcode": "100103",
+                "depname": "高血压专科",
+                "children": null
+            },
+            {
+                "depcode": "100104",
+                "depname": "心衰专科",
+                "children": null
+            },
+            {
+                "depcode": "100105",
+                "depname": "心律失常专科",
+                "children": null
+            },
+            {
+                "depcode": "100106",
+                "depname": "胸痛专科",
+                "children": null
+            },
+            {
+                "depcode": "100107",
+                "depname": "心胸专科",
+                "children": null
+            }
+        ]
+    }
+  ],
+  "message": "获取医院科室成功"
+}
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "获取医院科室失败"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -356,6 +432,9 @@ node index.js
 - 文章/通知等HTML文件存储在 `data/article/` 目录中
   - 支持动态添加HTML文件
   - 通过文件名即可访问对应的HTML内容
+- 科室数据存储在 `data/department.json` 文件中
+  - 包含科室的层级结构数据
+  - 支持通过医院编码获取科室列表（目前忽略hoscode，返回所有科室）
 
 ## 技术栈
 
@@ -421,6 +500,15 @@ curl http://localhost:3000/api/hosp/article/testArticle.html
 curl http://localhost:3000/api/hosp/article/notExist.html
 ```
 
+### 科室信息接口测试
+```bash
+# 测试获取医院科室信息
+curl http://localhost:3000/api/hosp/hospital/department/1000_10
+
+# 测试获取医院科室信息（使用不同的hoscode，结果相同）
+curl http://localhost:3000/api/hosp/hospital/department/any_hoscode
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -446,6 +534,11 @@ curl http://localhost:3000/api/hosp/article/notExist.html
 - 删除了 `/health` 健康检查接口，简化 API 接口结构
 - 更新了项目结构，使用模块化设计（src目录）
 - 优化了启动日志输出
+- 新增根据医院编码获取科室信息接口 `/api/hosp/hospital/department/:hoscode`
+- 完善了数据存储，添加了 `department.json` 科室数据文件
+- 更新了医院服务，添加了科室信息相关的服务方法
+- 更新了医院控制器，添加了科室信息相关的控制方法
+- 更新了启动日志，添加了科室API的日志输出
 
 ## 许可证
 
