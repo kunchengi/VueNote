@@ -1,7 +1,7 @@
 <template>
   <div class="notice">
     <h1>{{ hospitalDetailStore.hosname }}预约通知</h1>
-    <div v-html="hospitalDetailStore.article"></div>
+    <div v-html="hospitalDetailStore.noticeArticle"></div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import useHospitalDetailStore from '@/store/modules/hospitalDetail'
 const hospitalDetailStore = useHospitalDetailStore()
 
 onMounted(() => {
-  hospitalDetailStore.getArticleByFilename('noticeArticle.html')
+  hospitalDetailStore.loadNoticeArticle()
 })
 </script>
 

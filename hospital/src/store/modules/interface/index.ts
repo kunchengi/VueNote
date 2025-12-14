@@ -4,6 +4,11 @@ import { type Hospital } from "@/api/base/type";
 
 export interface HospitalDetailState {
   hospitalDetail: Hospital,
-  // 文章内容
-  article: string
+  // 通知文章内容
+  noticeArticle: string
+}
+
+// 文章类型
+export const ArticleType = {
+  NOTICE: 'noticeArticle.html'
 }
