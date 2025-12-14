@@ -73,7 +73,8 @@ const changeActive = ($event: any) => {
 onMounted(() => {
   const hoscode = $route.query.hoscode as string;
   if (hoscode) {
-    detailStore.loadHospitalDetail(hoscode)
+    detailStore.loadHospitalDetail(hoscode);
+    detailStore.loadDepartmentList(hoscode);
   }
 })
 </script>

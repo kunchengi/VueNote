@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import { reqHospitalDetail, reqArticleByFilename } from '@/api/hospital'
+import { reqHospitalDetail, reqArticleByFilename, reqDepartmentByHoscode } from '@/api/hospital'
 import { type Hospital } from "@/api/base/type";
-import { type HospitalDetailResponseData } from '@/api/hospital/type'
+import { type HospitalDetailResponseData, type DepartmentResponseData } from '@/api/hospital/type'
 import { type HospitalDetailState } from './interface'
 import { ArticleType } from './interface'
 
@@ -10,7 +10,9 @@ const useHospitalDetailStore = defineStore('HospitalDetail', {
   state: (): HospitalDetailState => ({
     hospitalDetail: {} as Hospital,
     // 通知文章内容
-    noticeArticle: ''
+    noticeArticle: '',
+    // 医院科室数组
+    departmentList: []
   }),
   actions: {
     // 加载医院详情
@@ -29,6 +31,13 @@ const useHospitalDetailStore = defineStore('HospitalDetail', {
       const res: string = await reqArticleByFilename(ArticleType.NOTICE)
       if (res) {
         this.noticeArticle = res
+      }
+    },
+    // 加载医院科室数组
+    async loadDepartmentList(hoscode: string): Promise<void> {
+      const res: DepartmentResponseData = await reqDepartmentByHoscode(hoscode)
+      if (res.code === 200) {
+        this.departmentList = res.data
       }
     },
   },
