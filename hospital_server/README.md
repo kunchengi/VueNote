@@ -16,7 +16,8 @@ hospital_server/
 │   │   └── appConfig.js    # 应用配置
 │   ├── controllers/
 │   │   ├── hospitalController.js  # 医院控制器
-│   │   └── dictController.js      # 字典控制器
+│   │   ├── dictController.js      # 字典控制器
+│   │   └── smsController.js       # 短信验证码控制器
 │   ├── routes/
 │   │   └── dictRoutes.js          # 字典路由
 │   ├── services/
@@ -41,6 +42,7 @@ hospital_server/
 - ✅ 根据医院编码获取科室信息接口
 - ✅ 字典数据查询接口
 - ✅ 通过文件名获取HTML文件内容
+- ✅ 模拟短信验证码发送接口
 - ✅ 参数验证
 - ✅ 完整的响应格式
 - ✅ 统一的响应工具函数
@@ -421,6 +423,36 @@ node index.js
 }
 ```
 
+### 获取验证码（模拟）
+
+**接口地址**：`GET /api/sms/send/:phone`
+
+**接口说明**：理论上是要将验证码推送到用户手机号，但由于当前环境是模拟，所以直接返回一个6位随机数字验证码。
+
+**参数说明**：
+- `phone`：手机号（字符串）- 路径参数
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": "123456",
+  "message": "获取验证码成功"
+}
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "获取验证码失败"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -509,6 +541,12 @@ curl http://localhost:3000/api/hosp/hospital/department/1000_10
 curl http://localhost:3000/api/hosp/hospital/department/any_hoscode
 ```
 
+### 短信验证码接口测试
+```bash
+# 测试获取验证码（使用有效手机号）
+curl http://localhost:3000/api/sms/send/13800138000
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -539,6 +577,9 @@ curl http://localhost:3000/api/hosp/hospital/department/any_hoscode
 - 更新了医院服务，添加了科室信息相关的服务方法
 - 更新了医院控制器，添加了科室信息相关的控制方法
 - 更新了启动日志，添加了科室API的日志输出
+- 新增模拟短信验证码发送接口 `/api/sms/send/:phone`
+- 更新了项目结构，添加了 `smsController.js` 短信控制器
+- 更新了启动日志，添加了短信验证码API的日志输出
 
 ## 许可证
 

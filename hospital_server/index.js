@@ -17,6 +17,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 导入路由和控制器
 const dictRoutes = require('./src/routes/dictRoutes');
 const hospitalController = require('./src/controllers/hospitalController');
+const smsController = require('./src/controllers/smsController');
+
+// 短信相关路由 - 放在医院通配符路由之前，避免冲突
+app.get(`${config.baseApiPath}/sms/send/:phone`, smsController.sendSms);
 
 // 医院相关路由 - 直接在index.js中定义，避免路由冲突
 
@@ -69,6 +73,7 @@ app.listen(PORT, () => {
   console.log(`📚 医院名称模糊查找 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/findByHosname/:hosname`);
   console.log(`📚 通过文件名获取文件内容 API: http://localhost:${PORT}${config.baseApiPath}/hosp/article/:filename`);
   console.log(`📚 医院科室 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/department/:hoscode`);
+  console.log(`📚 发送短信验证码 API: http://localhost:${PORT}${config.baseApiPath}/sms/send/:phone`);
   
   console.log('\nPress Ctrl+C to stop the server\n');
 });
