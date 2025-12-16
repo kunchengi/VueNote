@@ -10,7 +10,10 @@
                         <el-form-item class="code-input" prop="code">
                             <el-input v-model="phoneForm.code" placeholder="请输入验证码" :prefix-icon="Lock">
                                 <template #append>
-                                    <el-button @click="handleGetCode" :disabled="disabledVerifyCode">获取验证码</el-button>
+                                    <el-button :disabled="disabledVerifyCode || showCountdown" @click="handleGetCode">
+                                        <Countdown v-if="showCountdown" :time="60" @finish="handleCountdownFinish"></Countdown>
+                                        <span v-else>获取验证码</span>
+                                    </el-button>
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -41,6 +44,7 @@ import type { FormRules } from 'element-plus'
 import { Iphone, Lock } from "@element-plus/icons-vue";
 import useUiManageStore from "@/store/modules/uiManage";
 import { reqSendSmsCode } from "@/api/login";
+import Countdown from "@/components/countdown/index.vue";
 
 const uiManageStore = useUiManageStore();
 
@@ -67,6 +71,9 @@ const phoneForm = reactive<PhoneRuleForm>({
     phone: "",
     code: ""
 });
+
+// 验证码倒计时是否显示
+const showCountdown = ref(false);
 
 // 手机号是否合法
 const isLegalPhone = (phone: string) => {
@@ -107,6 +114,7 @@ const handleLogin = () => {
 // 获取验证码
 const handleGetCode = async () => {
     try {
+        showCountdown.value = true;
         // 正常开发只需要发送请求，后端会发送验证码到手机号，前端点登录时校验验证码是否正确
         // 这里为了方便演示，直接将验证码返回给前端，前端校验验证码是否正确
         const res = await reqSendSmsCode(phoneForm.phone);
@@ -124,6 +132,10 @@ const changeLoginMode = (mode: LoginModeType) => {
     loginMode.value = mode;
 }
 
+// 验证码倒计时结束
+const handleCountdownFinish = () => {
+    showCountdown.value = false;
+}
 
 
 </script>
