@@ -1884,6 +1884,238 @@
     return { sum, incrementIfOdd, incrementAsync, square };
   })
 ```
+
+## pinia持久化插件
+
+### 安装持久化插件
+
+- 安装 `pinia-plugin-persistedstate`（核心依赖）
+```bash
+  npm install pinia-plugin-persistedstate
+```
+
+### 注册插件到 Pinia
+
+- 在pinia实例中注册插件
+```ts
+  import { createPinia } from 'pinia'
+  import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+  const pinia = createPinia()
+  // 注册持久化插件
+  pinia.use(piniaPluginPersistedstate)
+```
+
+### 基础使用
+
+- 在定义 Pinia Store 时，通过 persist 选项开启持久化
+- 开启持久化后，状态会自动存储在 Storage 中，默认使用 localStorage
+- 当修改状态时，会自动同步到 Storage 中
+```ts
+  import { defineStore } from 'pinia'
+  import { ref } from 'vue'
+
+  export const useUserStore = defineStore('user', () => {
+    const user = ref({
+      name: '张三',
+      age: 18
+    })
+
+    return { user }
+  }, {
+    persist: true // 开启持久化
+  })
+```
+
+- 验证持久化
+  - 刷新页面后，状态应该保持不变
+  - 打开浏览器开发者工具（F12）→ Application → Local Storage → 可看到 key 为 user（Store 的 id）的条目，值为 state 的 JSON 字符串。
+
+### 自定义存储 Key 和存储位置
+
+- 可以自定义存储 Key，默认是 Store 的 id
+- 可以自定义存储位置，默认是 localStorage
+  - 可选值：localStorage（默认）/ sessionStorage / 自定义存储（如cookie）
+```ts
+  export const useUserStore = defineStore('user', () => {
+    const user = ref({
+      name: '张三',
+      age: 18
+    })
+
+    return { user }
+  }, {
+    persist: {
+      key: 'userStore', // 自定义存储 Key
+      storage: window.sessionStorage // 存储位置：sessionStorage（关闭标签页失效）
+    }
+  })
+```
+
+### 仅持久化指定字段
+
+- 可以通过`paths`选项仅持久化状态中的指定字段
+```ts
+  export const useUserStore = defineStore('user', () => {
+    const user = ref({
+      name: '张三',
+      age: 18
+    })
+
+    return { user }
+  }, {
+    persist: {
+      key: 'userStore', // 自定义存储 Key
+      pick: ['firstname'], // 仅持久化 firstname 字段
+    }
+  })
+```
+
+### 处理特殊类型（序列化 / 反序列化）
+
+- 当状态中包含特殊类型（如 Date、RegExp、Map、Set 等）时，需要自定义序列化和反序列化函数
+- 可以通过`serialize`和`deserialize`选项自定义处理函数
+```ts
+  export const useUserStore = defineStore('user', () => {
+    const firstname = ref<string>('张');
+    const lastname = ref<string>('三');
+    const birth = ref<Date>(new Date('2000-01-01'));
+
+    return { firstname, lastname, birth }
+  }, {
+    persist: {
+      key: 'userStore', // 自定义存储 Key
+      serializer: {
+        // 自定义序列化：处理 Date 对象
+        serialize: (state) => {
+          return JSON.stringify({
+            ...state,
+            // Date类型转为时间戳（避免JSON序列化丢失）
+            birth: state.birth.getTime()
+          })
+        },
+        // 自定义反序列化：恢复 Date 对象
+        deserialize: (data) => {
+          const parsed = JSON.parse(data)
+          return {
+            ...parsed,
+            // 时间戳转回Date
+            birth: new Date(parsed.birth)
+          }
+        }
+      }
+    }
+  })
+```
+
+### 多策略持久化（不同字段存不同位置）
+
+- 比如 token 存 localStorage（长期），age 存 sessionStorage（临时）
+```ts
+  export const useUserStore = defineStore('user', () => {
+    const firstname = ref<string>('张');
+    const lastname = ref<string>('三');
+
+    return { firstname, lastname }
+  }, {
+    persist: [
+      {
+        key: 'user-firstname',
+        storage: localStorage,
+        pick: ['firstname'] // firstname存localStorage
+      },
+      {
+        key: 'user-lastname',
+        storage: sessionStorage,
+        pick: ['lastname'] // lastname存sessionStorage
+      }
+    ]
+  })
+```
+
+### 自定义存储（如 Cookie）
+
+- 插件默认支持 localStorage/sessionStorage
+- 若要存 Cookie，需实现符合规范的存储对象（包含 getItem/setItem/removeItem 方法）
+```ts
+  // Cookie 存储对象（显式类型声明，匹配 StorageLike 接口）
+  const cookieStorage: { 
+    getItem: (key: string) => string | null;
+    setItem: (key: string, value: string) => void;
+    removeItem: (key: string) => void;
+  } = {
+    getItem: (key: string): string | null => {
+      // 从 Cookie 中获取指定 key 的值
+      const value = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'))
+      return value && value[2] ? value[2] : null
+    },
+    setItem: (key: string, value: string): void => {
+      // 设置 Cookie，过期时间为 7 天
+      const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+      document.cookie = `${key}=${value};expires=${expires};path=/`
+    },
+    removeItem: (key: string): void => {
+      // 删除 Cookie，设置过期时间为过去时间，使 Cookie 失效
+      document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`
+    }
+  }
+
+  export const useUserStore = defineStore('user', () => {
+    const user = ref({
+      name: '张三',
+      age: 18
+    })
+
+    return { user }
+  }, {
+    persist: {
+      key: 'userStore', // 自定义存储 Key
+      storage: cookieStorage // 存储位置：cookie（7天过期）
+    }
+  })
+```
+
+### 跨标签页同步数据
+
+- 当在一个标签页修改 Store 时，另一个标签页可通过 storage 事件同步
+```ts
+  // main.ts 中添加监听
+  window.addEventListener('storage', (e) => {
+      console.log('eeee',e);
+      if (e.key === 'user') { // 对应persist的key
+          const userStore = useUserStore()
+          const newState = JSON.parse(e.newValue || '{}')
+          userStore.$patch(newState) // 同步最新状态
+      }
+  })
+```
+
+### 注意事项
+
+- 不可序列化数据：避免在 state 中存放函数、Symbol、循环引用对象（JSON 无法序列化，会丢失）。
+- 服务端渲染（SSR）兼容：服务端无 localStorage，需判断环境：
+  - 服务端渲染时，不执行 localStorage 相关操作，避免报错
+  ```ts
+    // main.ts 中添加判断
+    if (import.meta.env.SSR) {
+        // 服务端渲染时，不执行 localStorage 相关操作
+        return
+    }
+  ```
+- 响应式保持：插件会自动将持久化数据合并到响应式 state，无需手动处理。
+- 调试技巧：在浏览器 Application → Local Storage/Session Storage/Cookie 中查看数据是否正确存储。
+
+### 常见问题排查
+
+1. 数据未持久化
+  - 检查插件是否注册（pinia.use (插件)）
+  - 检查 persist 配置是否正确
+  - 确认存储位置（localStorage/sessionStorage）是否选对
+2. 特殊类型（Date）丢失
+  - 需通过 serialize/deserialize 自定义序列化规则
+3. SSR 环境报错
+  - 未判断客户端环境，导致服务端执行 localStorage 代码
+
 # 组件自定义事件
 
 - 自定义事件是 Vue 组件间通信的重要机制，允许子组件向父组件传递数据和触发行为。
