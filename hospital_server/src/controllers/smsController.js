@@ -3,8 +3,10 @@ const generateVerificationCode = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
+const { storeVerificationCode } = require('../utils/verificationCodeStore');
+
 // 模拟获取验证码
-const sendSms = (req, res) => {
+const sendSms = async (req, res) => {
   try {
     const phone = req.params.phone;
     
@@ -19,6 +21,9 @@ const sendSms = (req, res) => {
     
     // 生成6位验证码
     const code = generateVerificationCode();
+    
+    // 存储验证码（异步操作）
+    await storeVerificationCode(phone, code);
     
     // 返回验证码（模拟环境下直接返回）
     res.json({

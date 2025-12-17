@@ -13,18 +13,29 @@ hospital_server/
 │   └── department.json     # 科室数据存储
 ├── src/
 │   ├── config/
-│   │   └── appConfig.js    # 应用配置
+│   │   ├── appConfig.js    # 应用配置
+│   │   ├── dbConfig.js     # MongoDB数据库配置
+│   │   └── redisConfig.js  # Redis配置
 │   ├── controllers/
 │   │   ├── hospitalController.js  # 医院控制器
 │   │   ├── dictController.js      # 字典控制器
-│   │   └── smsController.js       # 短信验证码控制器
+│   │   ├── smsController.js       # 短信验证码控制器
+│   │   └── userController.js      # 用户登录控制器
+│   ├── models/
+│   │   └── userModel.js           # 用户数据模型
 │   ├── routes/
-│   │   └── dictRoutes.js          # 字典路由
+│   │   ├── dictRoutes.js          # 字典路由
+│   │   ├── hospitalRoutes.js      # 医院相关路由
+│   │   ├── smsRoutes.js           # 短信验证码路由
+│   │   └── userRoutes.js          # 用户登录路由
 │   ├── services/
 │   │   ├── hospitalService.js     # 医院服务
-│   │   └── dictService.js         # 字典服务
+│   │   ├── dictService.js         # 字典服务
+│   │   └── userService.js         # 用户服务
 │   └── utils/
-│       └── responseUtils.js       # 响应工具函数
+│       ├── responseUtils.js       # 响应工具函数
+│       ├── verificationCodeStore.js  # 验证码存储和验证工具
+│       └── jwtUtils.js            # JWT token工具
 ├── index.js                 # Express 服务器入口
 ├── package.json             # 项目配置和依赖
 ├── pnpm-lock.yaml           # 依赖锁文件
@@ -46,6 +57,14 @@ hospital_server/
 - ✅ 参数验证
 - ✅ 完整的响应格式
 - ✅ 统一的响应工具函数
+- ✅ 手机号+验证码登录接口
+- ✅ 首次登录自动注册功能
+- ✅ JWT token生成和验证
+- ✅ Redis存储验证码（5分钟过期）
+- ✅ MongoDB用户数据存储
+- ✅ Redis→内存存储降级策略
+- ✅ 全局异常处理
+- ✅ Redis连接错误容错机制
 
 ## 安装依赖
 
@@ -453,6 +472,56 @@ node index.js
 }
 ```
 
+### 登录
+
+**接口地址**：`POST /api/user/login`
+
+**接口说明**：根据手机号和验证码登录。如果是首次登录，会自动执行注册逻辑，将手机号和初始名称（用户+随机编号）写入MongoDB数据库。登录成功后返回用户名称和JWT token。
+
+**参数说明**：
+- `phone`：手机号（字符串）- 请求体参数
+- `code`：验证码（字符串）- 请求体参数
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": {
+    "name": "用户1425",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjEzODAwMTM4MDAwIiwibmFtZSI6Iui/mOWbveS4iSIsImlhdCI6MTczNDQyNjIzNX0.4Z4fKz6X5aZ5bZ5cZ5dZ5eZ5fZ5gZ5hZ5iZ5jZ5k"
+  },
+  "message": "登录成功"
+}
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "验证码错误"
+}
+```
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "验证码已过期"
+}
+```
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "手机号或验证码不能为空"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -467,6 +536,11 @@ node index.js
 - 科室数据存储在 `data/department.json` 文件中
   - 包含科室的层级结构数据
   - 支持通过医院编码获取科室列表（目前忽略hoscode，返回所有科室）
+- 用户数据存储在 MongoDB 数据库中
+  - 数据库名称：`hospital_system`
+  - 集合名称：`users`
+  - 包含用户的基本信息：手机号、用户名、创建时间等
+  - 首次登录时自动注册，初始用户名为：用户+随机编号
 
 ## 技术栈
 
@@ -474,6 +548,11 @@ node index.js
 - **Express**：Web 框架
 - **FS 模块**：文件系统操作
 - **Path 模块**：路径处理
+- **Redis**：分布式验证码存储（支持内存降级）
+- **MongoDB**：用户数据存储
+- **Mongoose**：MongoDB ODM
+- **JWT**：用户认证和授权
+- **jsonwebtoken**：JWT token生成和验证
 
 ## 开发说明
 
@@ -547,6 +626,12 @@ curl http://localhost:3000/api/hosp/hospital/department/any_hoscode
 curl http://localhost:3000/api/sms/send/13800138000
 ```
 
+### 登录接口测试
+```bash
+# 测试登录（使用有效手机号和验证码）
+curl -X POST -H "Content-Type: application/json" -d '{"phone":"13800138000","code":"123456"}' http://localhost:3000/api/user/login
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -580,7 +665,56 @@ curl http://localhost:3000/api/sms/send/13800138000
 - 新增模拟短信验证码发送接口 `/api/sms/send/:phone`
 - 更新了项目结构，添加了 `smsController.js` 短信控制器
 - 更新了启动日志，添加了短信验证码API的日志输出
+- 新增手机号+验证码登录接口 `/api/user/login`
+- 实现首次登录自动注册功能，使用MongoDB存储用户数据
+- 新增JWT token生成和验证功能
+- 实现Redis存储验证码（5分钟过期）
+- 添加Redis→内存存储降级策略，确保系统可用性
+- 新增全局异常处理，提高系统稳定性
+- 更新项目结构，添加用户相关的模型、控制器、路由和服务
+- 新增 `dbConfig.js` MongoDB配置文件
+- 新增 `redisConfig.js` Redis配置文件，支持连接重试和错误处理
+- 新增 `jwtUtils.js` JWT工具函数
+- 新增 `verificationCodeStore.js` 验证码存储和验证工具
+- 优化了项目路由结构，添加了各模块独立路由文件
+- 修复了MongoDB连接配置问题（移除过时选项）
+- 修复了Redis重连策略错误
+- 修复了Redis连接失败导致应用崩溃的问题
+- 完善了错误处理机制，确保系统在服务不可用时仍能正常运行
 
 ## 许可证
 
 ISC
+
+## 安装并启动Redis
+
+1. 下载Redis
+  - 访问 [GitHub下载页面](https://github.com/tporadowski/redis/releases)
+  - 选择最新版本的MSI安装包（适合Windows用户）下载
+2. 安装Redis
+  - 双击下载的MSI文件，按照安装向导进行安装
+  - 勾选「Add Redis to the PATH environment variable」选项，以便在命令行中直接使用Redis命令
+3. 启动Redis服务
+  - 安装完成后，Redis服务会自动启动
+  - 可以通过以下命令验证Redis是否运行
+  ```bash
+  redis-cli ping
+  ```
+  - 如果返回 `PONG`，则表示Redis服务运行正常
+
+## 安装并启动MongoDB
+
+1. 下载MongoDB
+  - 访问 [MongoDB下载页面](https://www.mongodb.com/try/download/community)
+  - 选择Windows版本下载MSI安装包
+2. 安装MongoDB
+  - [安装教程](https://www.runoob.com/mongodb/mongodb-window-install.html)
+3. 配置环境变量
+  - 设置->搜索编辑系统环境变量并打开->环境变量->系统变量->点击Path->编辑->新建->添加MongoDB的安装路径（如：`C:\Program Files\MongoDB\Server\8.2\bin`）->确定
+4. 启动MongoDB服务
+  - 安装完成后，MongoDB服务会自动启动
+  - 可以通过以下命令验证MongoDB是否运行
+  ```bash
+  mongod --version
+  ```
+  - 如果返回版本信息，则表示MongoDB服务运行正常
