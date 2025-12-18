@@ -18,7 +18,7 @@
                             </el-input>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="handleLogin" class="login-btn">登录</el-button>
+                            <el-button type="primary" @click="handleLogin" class="login-btn" :disabled="disabledLogin">登录/注册</el-button>
                         </el-form-item>
                         <div class="change-login-icon" @click="changeLoginMode(LoginMode.WECHAT)">
                             <i class="iconfont icon-weixin"></i>
@@ -43,10 +43,14 @@ import { ElMessage } from 'element-plus'
 import type { FormRules } from 'element-plus'
 import { Iphone, Lock } from "@element-plus/icons-vue";
 import useUiManageStore from "@/store/modules/uiManage";
-import { reqSendSmsCode } from "@/api/login";
+import useUserDataStore from "@/store/modules/userData";
+import { reqSendSmsCode, reqUserLogin } from "@/api/login";
+import type { VerifyCodeResponseData, LoginRequestData, LoginResponseData, UserInfo } from "@/api/login/type";
 import Countdown from "@/components/countdown/index.vue";
 
 const uiManageStore = useUiManageStore();
+const userDataStore = useUserDataStore();
+
 
 // 登录模式
 const LoginMode = {
@@ -60,14 +64,9 @@ type LoginModeType = (typeof LoginMode)[keyof typeof LoginMode];
 // 当前登录模式
 const loginMode = ref(LoginMode.PHONE);
 
-// 手机登录表单数据模型
-interface PhoneRuleForm {
-    phone: string;
-    code: string;
-}
 
 // 手机登录表单数据模型实例
-const phoneForm = reactive<PhoneRuleForm>({
+const phoneForm = reactive<LoginRequestData>({
     phone: "",
     code: ""
 });
@@ -79,6 +78,12 @@ const showCountdown = ref(false);
 const isLegalPhone = (phone: string) => {
     const telStr = /^[1](([3][0-9])|([4][0,1,4-9])|([5][0-3,5-9])|([6][2,5,6,7])|([7][0-8])|([8][0-9])|([9][0-3,5-9]))[0-9]{8}$/;
     return telStr.test(phone);
+}
+
+// 校验验证码是否合法
+const isLegalCode = (code: string) => {
+    const codeStr = /^[0-9]{6}$/;
+    return codeStr.test(code);
 }
 
 // 校验手机号是否合法
@@ -93,11 +98,18 @@ const disabledVerifyCode = computed(() => {
 
 // 校验验证码是否合法
 const checkCode = (rule: any, value: string, callback: any) => {
-    return value.length === 6 ? callback() : callback(new Error("请输入正确的验证码"));
+    return isLegalCode(value) ? callback() : callback(new Error("请输入正确的验证码"));
 }
 
+// 登录按钮是否禁用
+const disabledLogin = computed(() => {
+    return !isLegalPhone(phoneForm.phone) || !isLegalCode(phoneForm.code);
+})
+
+
+
 // 手机登录表单校验规则
-const phoneFromRules = reactive<FormRules<PhoneRuleForm>>({
+const phoneFromRules = reactive<FormRules<LoginRequestData>>({
     phone: [
         { validator: checkPhone, trigger: 'blur' }
     ],
@@ -107,8 +119,20 @@ const phoneFromRules = reactive<FormRules<PhoneRuleForm>>({
 });
 
 // 登录
-const handleLogin = () => {
-    console.log(phoneForm);
+const handleLogin = async () => {
+    try {
+        // 发送登录请求
+        const res: LoginResponseData = await reqUserLogin(phoneForm);
+        if (res.code === 200) {
+            ElMessage.success("登录成功");
+            // 存储用户信息
+            userDataStore.setUserInfo(res.data);
+            // 关闭登录弹窗
+            uiManageStore.showLogin = false;
+        }
+    } catch (error: any) {
+        ElMessage.error(error.response?.data?.message || error.message);
+    }
 }
 
 // 获取验证码
@@ -117,13 +141,13 @@ const handleGetCode = async () => {
         showCountdown.value = true;
         // 正常开发只需要发送请求，后端会发送验证码到手机号，前端点登录时校验验证码是否正确
         // 这里为了方便演示，直接将验证码返回给前端，前端校验验证码是否正确
-        const res = await reqSendSmsCode(phoneForm.phone);
+        const res: VerifyCodeResponseData = await reqSendSmsCode(phoneForm.phone);
         if (res.code === 200) {
             ElMessage.success("验证码发送成功");
             phoneForm.code = res.data;
         }
     } catch (error: any) {
-        ElMessage.error(error.message);
+        ElMessage.error(error.response?.data?.message || error.message);
     }
 }
 

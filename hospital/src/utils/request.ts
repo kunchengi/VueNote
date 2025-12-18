@@ -28,7 +28,7 @@ request.interceptors.response.use(
       ElMessage.error(error.message)
     }else{
       const status: number = error.response.status;
-      console.log('响应错误', status);
+      console.log('响应错误', error);
       if(status === 404){
         ElMessage.error('请求资源不存在')
       }else if(status === 401){

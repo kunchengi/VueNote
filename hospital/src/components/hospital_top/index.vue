@@ -9,7 +9,9 @@
       <!-- 右侧 -->
       <div class="right">
         <p class="help">帮助中心</p>
-        <p class="login" @click="handleLoginClick">登录/注册</p>
+        <p class="login" @click="handleLoginClick" v-if="!userDataStore.userInfo">登录/注册</p>
+        <!-- 如果用户已登录，显示用户信息和下拉菜单 -->
+        <UserDropdown v-else :userName="userDataStore.userInfo.name" />
       </div>
     </div>
   </div>
@@ -19,22 +21,25 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import useUiManageStore from '@/store/modules/uiManage'
+import useUserDataStore from '@/store/modules/userData'
+import UserDropdown from '@/components/user_dropdown/index.vue'
 
 // 初始化 Vue Router 实例
 const router = useRouter()
 const uiManageStore = useUiManageStore()
+const userDataStore = useUserDataStore()
 
 // 处理点击事件，跳转首页
 const handleClick = () => {
-    // 使用 Vue Router 跳转首页
-    router.push({
-      path: '/home'
-    })
+  // 使用 Vue Router 跳转首页
+  router.push({
+    path: '/home'
+  })
 }
 
 // 处理登录点击事件，打开登录弹窗
 const handleLoginClick = () => {
-    uiManageStore.showLogin = true;
+  uiManageStore.showLogin = true;
 }
 </script>
 
@@ -59,11 +64,13 @@ const handleLoginClick = () => {
       display: flex;
       justify-content: center;
       align-items: center;
+
       img {
         width: 50px;
         height: 50px;
         margin-right: 10px;
       }
+
       p {
         font-size: 20px;
         color: #55a6fe;
@@ -80,6 +87,7 @@ const handleLoginClick = () => {
       .help {
         cursor: pointer;
         margin-right: 10px;
+
         &:hover {
           color: #55a6fe;
         }
@@ -87,6 +95,7 @@ const handleLoginClick = () => {
 
       .login {
         cursor: pointer;
+
         &:hover {
           color: #55a6fe;
         }
