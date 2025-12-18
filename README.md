@@ -467,3 +467,43 @@ flowchart TB
   - Vue (Official)
 
 - 在代码中无需添加.value，直接使用响应式数据
+
+# 组件命名规范
+
+## 命名规范
+
+- 必须多单词命名
+  - 组件名不能是单单词（如 `Button.vue` ），避免和 HTML 原生标签（如 `<button>`）冲突
+- 文件命名
+  - 统一用大驼峰（如 UserDropdown.vue、OrderTable.vue）
+  - 当组件以「文件夹 + index.vue」的形式组织时，文件夹名作为组件名，用大驼峰命名
+  - 组件中的name属性也用大驼峰命名，与文件名保持一致
+- 代码层
+  - 导入 / 注册组件用大驼峰（import UserDropdown from '...'）
+  - JS/TS 中不能用短横线作为变量名（如 const user-dropdown = ...  语法报错），所以代码层只能用大驼峰 / 小驼峰，这是核心区别
+- 模板层
+  - 使用组件用短横线（<user-dropdown />），虽然在模板中使用大驼峰也能渲染组件
+  - 为什么在模板中使用大驼峰也能渲染组件
+    - Vue 内部会自动做「大驼峰 ↔ 短横线」的映射
+    - 模板中写 `<UserDropdown>` 也能识别（但 HTML 不区分大小写，实际解析为 userdropdown，易混淆）
+- 团队约定
+  - 禁止混合风格
+  - 组件名必须体现功能（如 UserDropdown 而非 MyComponent），避免模糊命名
+
+## 常见误区纠正
+
+- 误区1：模板里写 <UserDropdown> 更直观
+  - 错误：HTML 不区分大小写，<UserDropdown> 会被解析为 <userdropdown>，如果有个 Userdropdown.vue 组件会冲突，且不符合 HTML 规范；
+- 误区：文件用 userDropdown.vue 没问题
+  - 错误：Windows 系统不区分大小写，userDropdown.vue 和 UserDropdown.vue 会被识别为同一个文件，Linux/Mac 区分，易导致部署时文件丢失
+- 误区：单单词组件（如 Button.vue）能用
+  - 错误：虽然 Vue 不报错，但会和 HTML 原生 <button> 混淆，官方明确禁止，必须用 AppButton/BaseButton 等多单词。
+
+## props/emit 命名规范
+
+- 组件的 Props/Emits 命名遵循「代码层小驼峰，模板层短横线」
+- 代码层定义和使用 Props/Emits 时，用小驼峰命名
+  - triggerType: String
+  - emit('changeMode', newValue)
+  - props.triggerType
+- 模板中静态传递 Props 时，用短横线命名，如：<user-dropdown trigger-type="click" />
