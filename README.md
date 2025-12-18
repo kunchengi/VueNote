@@ -507,3 +507,38 @@ flowchart TB
   - emit('changeMode', newValue)
   - props.triggerType
 - 模板中静态传递 Props 时，用短横线命名，如：<user-dropdown trigger-type="click" />
+
+# class 命名规范
+
+- 短横线命名
+  - 类名用短横线命名，如：.user-dropdown
+
+## 组件内类名命名规范（BEM 规范）
+
+- Block（块）
+  - 组件的类名，用短横线命名，如：.user-dropdown
+- Element（元素）
+  - 组件内的元素类名，用双下划线连接，如：.user-dropdown__item
+- Modifier（修饰符）
+  - 组件的状态类名，用双短横线连接，如：.user-dropdown--active
+- BEM 规范中，无论嵌套多少层，元素名都直接基于 “块（Block）” 命名，而非父元素嵌套（扁平命名），避免出现 hos-bottom__content__link 这种超长、难维护的 class。
+```html
+  <!-- 块（Block）：根节点，组件语义化命名 -->
+  <div class="hos-bottom">
+    <!-- 元素（Element）：内容容器（扁平命名，不嵌套） -->
+    <div class="hos-bottom__content">
+      <!-- 左侧：语义化命名（版权/备案信息），替代 left -->
+      <div class="hos-bottom__copyright">
+        京ICP备 2023000000号 电话挂号010-88888888
+      </div>
+      <!-- 右侧：语义化命名（链接组），替代 right -->
+      <div class="hos-bottom__link-group">
+        <!-- 深层元素：直接挂在块下，扁平命名，替代无class的span -->
+        <span class="hos-bottom__link">联系我们</span>
+        <span class="hos-bottom__link">合作伙伴</span>
+        <span class="hos-bottom__link">用户协议</span>
+        <span class="hos-bottom__link">隐私协议</span>
+      </div>
+    </div>
+  </div>
+```
