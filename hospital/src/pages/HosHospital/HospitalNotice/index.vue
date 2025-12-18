@@ -1,5 +1,5 @@
 <template>
-  <div class="notice">
+  <div class="hospital-notice">
     <h1>{{ hospitalDetailStore.hosname }}预约通知</h1>
     <div v-html="hospitalDetailStore.noticeArticle"></div>
   </div>
@@ -17,7 +17,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.notice {
+.hospital-notice {
   padding: 20px;
 
   h1 {

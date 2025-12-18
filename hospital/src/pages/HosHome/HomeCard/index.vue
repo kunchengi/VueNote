@@ -1,22 +1,22 @@
 <template>
     <el-card shadow="hover" @click="handleClick">
-        <div class="content">
-            <div class="left">
-                <div class="hospital-name">
+        <div class="home-card__content">
+            <div class="home-card__info">
+                <div class="home-card__name">
                     {{hospitalInfo.hosname}}
                 </div>
-                <div class="tip">
-                    <div class="level">
+                <div class="home-card__detail">
+                    <div class="home-card__level">
                         <i class="iconfont icon-dianzan"></i>
                         <span>{{hospitalInfo.param.hostypeString}}</span>
                     </div>
-                    <div class="time">
+                    <div class="home-card__time">
                         <el-icon><Timer /></el-icon>
                         <span>每天{{hospitalInfo.bookingRule.releaseTime}}放号</span>
                     </div>
                 </div>
             </div>
-            <div class="right">
+            <div class="home-card__logo">
                 <img :src="hospitalInfo.logoData" alt="">
             </div>
         </div>
@@ -45,17 +45,17 @@ const handleClick = () => {
 </script>
 
 <style lang="scss" scoped>
-.content{
+.home-card__content{
     display: flex;
     justify-content: space-between;
-    .left{
+    .home-card__info{
         width: 60%;
-        .tip{
+        .home-card__detail{
             color: #7f7f7f;
             margin-top: 20px;
             display: flex;
             justify-content: space-between;
-            .level,.time{
+            .home-card__level,.home-card__time{
                 display: flex;
                 align-items: center;
                 span{
@@ -64,7 +64,7 @@ const handleClick = () => {
             }
         }
     }
-    .right{
+    .home-card__logo{
         img{
             width: 50px;
             height: 50px;

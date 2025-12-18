@@ -1,15 +1,15 @@
 <template>
-  <div class="top">
-    <div class="content">
+  <div class="hos-top">
+    <div class="hos-top__content">
       <!-- 左侧 -->
-      <div class="left" @click="handleClick">
+      <div class="hos-top__logo" @click="handleClick">
         <img src="@/assets/images/logo.png" alt="中山三院logo">
         <p>京医通预约挂号统一平台</p>
       </div>
       <!-- 右侧 -->
-      <div class="right">
-        <p class="help">帮助中心</p>
-        <p class="login" @click="handleLoginClick" v-if="!userDataStore.userInfo">登录/注册</p>
+      <div class="hos-top__opt">
+        <p class="hos-top__help">帮助中心</p>
+        <p class="hos-top__login" @click="handleLoginClick" v-if="!userDataStore.userInfo">登录/注册</p>
         <!-- 如果用户已登录，显示用户信息和下拉菜单 -->
         <user-dropdown v-else :user-name="userDataStore.userInfo.name" />
       </div>
@@ -44,7 +44,7 @@ const handleLoginClick = () => {
 </script>
 
 <style lang="scss" scoped>
-.top {
+.hos-top {
   position: fixed;
   z-index: 999;
   width: 100%;
@@ -53,13 +53,13 @@ const handleLoginClick = () => {
   display: flex;
   justify-content: center;
 
-  .content {
+  .hos-top__content {
     width: 1200px;
     height: 100%;
     display: flex;
     justify-content: space-between;
 
-    .left {
+    .hos-top__logo {
       cursor: pointer;
       display: flex;
       justify-content: center;
@@ -77,14 +77,14 @@ const handleLoginClick = () => {
       }
     }
 
-    .right {
+    .hos-top__opt {
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 14px;
       color: #bbb;
 
-      .help {
+      .hos-top__help {
         cursor: pointer;
         margin-right: 10px;
 
@@ -93,7 +93,7 @@ const handleLoginClick = () => {
         }
       }
 
-      .login {
+      .hos-top__login {
         cursor: pointer;
 
         &:hover {

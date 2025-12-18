@@ -1,11 +1,11 @@
 <template>
-  <div class="level">
-    <h1>医院</h1>
-    <div class="content">
-        <div class="left">等级：</div>
-        <ul class="right">
-            <li :class="{'active': selectedLevel === ''}" @click="changeLevel('')">全部</li>
-            <li v-for="item in hospitalLevelList" :key="item.value" :class="{'active': selectedLevel === item.value}" @click="changeLevel(item.value)">{{ item.name }}</li>
+  <div class="home-level">
+    <h2>医院等级</h2>
+    <div class="home-level__content">
+        <div class="home-level__label">等级：</div>
+        <ul class="home-level__list">
+            <li :class="{'home-level__item--active': selectedLevel === ''}" @click="changeLevel('')">全部</li>
+            <li v-for="item in hospitalLevelList" :key="item.value" :class="{'home-level__item--active': selectedLevel === item.value}" @click="changeLevel(item.value)">{{ item.name }}</li>
         </ul>
     </div>
   </div>
@@ -45,24 +45,24 @@ const changeLevel = (level: string) => {
 </script>
 
 <style lang="scss" scoped>
-.level{
+.home-level{
     color: #7f7f7f;
-    h1{
+    h2{
         font-size: 20px;
         font-weight: 900;
         margin: 10px 0;
     }
 
-    .content{
+    .home-level__content{
         display: flex;
-        .left{
+        .home-level__label{
             margin-right: 10px;
         }
-        .right{
+        .home-level__list{
             display: flex;
             li{
                 margin-right: 10px;
-                &.active{
+                &.home-level__item--active{
                     color: #55a6fe;
                 }
                 &:hover{

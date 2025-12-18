@@ -1,7 +1,7 @@
 <template>
-  <div class="hospital">
+  <div class="hos-hospital">
     <!-- 左侧导航区域 -->
-    <div class="menu">
+    <div class="hos-hospital__menu">
       <div class="top">
         <el-icon>
           <HomeFilled />
@@ -42,7 +42,7 @@
       </el-menu>
     </div>
     <!-- 右侧内容展示区域：路由组件展示位置 -->
-    <div class="content">
+    <div class="hos-hospital__content">
       <router-view></router-view>
     </div>
   </div>
@@ -80,10 +80,10 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.hospital {
+.hos-hospital {
   display: flex;
 
-  .menu {
+  .hos-hospital__menu {
     flex: 2;
     display: flex;
     flex-direction: column;
@@ -91,7 +91,7 @@ onMounted(() => {
     color: #7f7f7f;
   }
 
-  .content {
+  .hos-hospital__content {
     flex: 8;
   }
 }

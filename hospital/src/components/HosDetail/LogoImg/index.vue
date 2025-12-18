@@ -1,6 +1,6 @@
 <template>
-    <div class="logo-img">
-        <img :src="logoData" alt="医院logo">
+    <div class="detail-logo">
+        <img :src="logoData" alt="医院logo" class="detail-logo__img">
     </div>
 </template>
 
@@ -15,10 +15,10 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.logo-img {
+.detail-logo {
     margin-top: 20px;
     width: 80px;
-    img {
+    .detail-logo__img {
         width:80px;
         height: 80px;
         border-radius: 50%;

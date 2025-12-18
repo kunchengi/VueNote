@@ -12,8 +12,8 @@
         <!-- 医院区域组件 -->
         <home-region @changeRegion="changeRegion" />
         <!-- 医院卡片列表 -->
-        <div class="card-container" v-if="hasHospitalArr.length > 0">
-          <home-card class="card-item" v-for="item in hasHospitalArr" :key="item.id" :hospitalInfo="item" />
+        <div class="hos-home__card-list" v-if="hasHospitalArr.length > 0">
+          <home-card class="hos-home__card-item" v-for="item in hasHospitalArr" :key="item.id" :hospitalInfo="item" />
         </div>
         <!-- 无数据提示 -->
         <el-empty v-else description="暂无数据" />
@@ -102,12 +102,12 @@ const changeRegion = (region: string) => {
 </script>
 
 <style lang="scss" scoped>
-.card-container {
+.hos-home__card-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 
-  .card-item {
+  .hos-home__card-item {
     width: 48%;
     margin: 10px 0;
     &:hover{

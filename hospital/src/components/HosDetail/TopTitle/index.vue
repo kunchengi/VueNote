@@ -1,9 +1,9 @@
 <template>
-    <div class="top-title">
-        <div class="title">{{ hosname }}</div>
-        <div class="hostype">
+    <div class="detail-title">
+        <div class="detail-title__name">{{ hosname }}</div>
+        <div class="detail-title__hostype">
             <i class="iconfont icon-dianzan"></i>
-            <span>{{ hostypeString }}</span>
+            <span class="detail-title__hostype-text">{{ hostypeString }}</span>
         </div>
     </div>
 </template>
@@ -23,17 +23,17 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.top-title {
+.detail-title {
     display: flex;
     align-items: center;
     margin: 20px 0;
 
-    .title {
+    .detail-title__name {
         font-size: 30px;
         font-weight: bold;
     }
 
-    .hostype {
+    .detail-title__hostype {
         margin-left: 10px;
 
         .iconfont {
@@ -41,7 +41,7 @@ const props = defineProps({
             color: #5D5D5D;
         }
 
-        span {
+        .detail-title__hostype-text {
             color: #7f7f7f;
             margin-left: 5px;
         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="close">
+    <div class="hospital-close">
         <el-empty description="暂无数据" />
     </div>
 </template>

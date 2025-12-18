@@ -1,10 +1,10 @@
 <template>
-  <div class="region">
-    <div class="content">
-        <div class="left">地区：</div>
-        <ul class="right">
-            <li :class="{'active': selectedRegion === ''}" @click="changeRegion('')">全部</li>
-            <li v-for="item in regionList" :key="item.value" :class="{'active': selectedRegion === item.value}" @click="changeRegion(item.value)">{{ item.name }}</li>
+  <div class="home-region">
+    <div class="home-region__content">
+        <div class="home-region__label">地区：</div>
+        <ul class="home-region__list">
+            <li :class="{'home-region__item--active': selectedRegion === ''}" @click="changeRegion('')">全部</li>
+            <li v-for="item in regionList" :key="item.value" :class="{'home-region__item--active': selectedRegion === item.value}" @click="changeRegion(item.value)">{{ item.name }}</li>
         </ul>
     </div>
   </div>
@@ -44,22 +44,22 @@ const changeRegion = (region: string) => {
 </script>
 
 <style lang="scss" scoped>
-.region{
+.home-region{
     color: #7f7f7f;
     margin-top: 10px;
-    .content{
+    .home-region__content{
         display: flex;
-        .left{
+        .home-region__label{
             margin-right: 10px;
             width: 53px;
         }
-        .right{
+        .home-region__list{
             display: flex;
             flex-wrap: wrap;
             li{
                 margin-right: 10px;
                 margin-bottom: 10px;
-                &.active{
+                &.home-region__item--active{
                     color: #55a6fe;
                 }
                 &:hover{

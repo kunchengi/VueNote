@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <div class="home-search">
     <el-autocomplete
       v-model="hosName"
       clearable
@@ -71,7 +71,7 @@ const handleSelect = (item: Record<string, any>) => {
 </script>
 
 <style lang="scss" scoped>
-.search {
+.home-search {
     width: 100%;
     height: 50px;
     display: flex;

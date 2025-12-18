@@ -1,13 +1,13 @@
 <template>
-    <div class="login">
+    <div class="hos-login">
         <el-dialog v-model="uiManageStore.showLogin" title="登录" width="400">
-            <div class="login-content">
-                <div class="phone-login" v-if="loginMode === LoginMode.PHONE">
+            <div class="hos-login__content">
+                <div class="hos-login__phone" v-if="loginMode === LoginMode.PHONE">
                     <el-form :model="phoneForm" :rules="phoneFromRules">
                         <el-form-item prop="phone">
                             <el-input v-model="phoneForm.phone" placeholder="请输入手机号" :prefix-icon="Iphone"></el-input>
                         </el-form-item>
-                        <el-form-item class="code-input" prop="code">
+                        <el-form-item class="hos-login__code" prop="code">
                             <el-input v-model="phoneForm.code" placeholder="请输入验证码" :prefix-icon="Lock">
                                 <template #append>
                                     <el-button :disabled="disabledVerifyCode || showCountdown" @click="handleGetCode">
@@ -18,16 +18,16 @@
                             </el-input>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="handleLogin" class="login-btn" :disabled="disabledLogin">登录/注册</el-button>
+                            <el-button type="primary" @click="handleLogin" class="hos-login__btn" :disabled="disabledLogin">登录/注册</el-button>
                         </el-form-item>
-                        <div class="change-login-icon" @click="changeLoginMode(LoginMode.WECHAT)">
+                        <div class="hos-login__change" @click="changeLoginMode(LoginMode.WECHAT)">
                             <i class="iconfont icon-weixin"></i>
                         </div>
 
                     </el-form>
                 </div>
-                <div class="wechat-login" v-else>
-                    <div class="change-login-icon" @click="changeLoginMode(LoginMode.PHONE)">
+                <div class="hos-login__wechat" v-else>
+                    <div class="hos-login__change" @click="changeLoginMode(LoginMode.PHONE)">
                         <i class="iconfont icon-shouji"></i>
                     </div>
                 </div>
@@ -165,19 +165,19 @@ const handleCountdownFinish = () => {
 </script>
 
 <style lang="scss" scoped>
-.login {
+.hos-login {
     :deep(.el-dialog__body) {
         border-top: 1px solid #eee;
     }
 
-    .login-content {
+    .hos-login__content {
         margin: 50px 0;
         padding: 20px;
         border: 1px solid #eee;
         border-radius: 5px;
 
-        .phone-login {
-            .code-input {
+        .hos-login__phone {
+            .hos-login__code {
 
                 :deep(.el-input-group__append) {
                     background-color: #fff;
@@ -190,11 +190,11 @@ const handleCountdownFinish = () => {
             }
         }
 
-        .login-btn {
+        .hos-login__btn {
             width: 100%;
         }
 
-        .change-login-icon {
+        .hos-login__change {
             display: flex;
             justify-content: center;
 

@@ -1,15 +1,13 @@
 <template>
-    <div class="notice">
+    <div class="tip-notice">
         <tip-header :title="title">
-            <template #leftIcon>
+            <template #titleIcon>
                 <i class="iconfont icon-tongzhi"></i>
             </template>
         </tip-header>
-        <div class="content">
-            <ul>
-                <li v-for="(item, index) in noticeList" :key="index">{{ item }}</li>
-            </ul>
-        </div>
+        <ul class="tip-notice__list">
+            <li v-for="(item, index) in noticeList" :key="index" class="tip-notice__item">{{ item }}</li>
+        </ul>
     </div>
 </template>
 
@@ -29,22 +27,20 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.notice {
+.tip-notice {
     color: #7f7f7f;
     margin-top: 20px;
 
-    .content {
-        ul {
-            display: flex;
-            flex-wrap: wrap;
+    .tip-notice__list {
+        display: flex;
+        flex-wrap: wrap;
 
-            li {
-                margin-top: 20px;
-                cursor: pointer;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
+        .tip-notice__item {
+            margin-top: 20px;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 

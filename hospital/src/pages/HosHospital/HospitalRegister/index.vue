@@ -1,36 +1,36 @@
 <template>
-    <div class="register">
+    <div class="hospital-register">
         <!-- 顶部标题 -->
         <top-title :hosname="hospitalDetailStore.hosname" :hostypeString="hospitalDetailStore.hostypeString" />
         <!-- 挂号信息区域 -->
-         <div class="register-info">
+         <div class="hospital-register__info">
             <logo-img :logoData="hospitalDetailStore.logoData" />
-            <div class="right">
-                <div class="rule-title">挂号规则</div>
-                <div class="rule">
+            <div class="hospital-register__rule">
+                <div class="hospital-register__title">挂号规则</div>
+                <div class="hospital-register__item">
                     <span>预约周期：{{ hospitalDetailStore.bookingRule?.cycle || '' }}天</span>
                     <span>放号时间：{{ hospitalDetailStore.bookingRule?.releaseTime || '' }}</span>
                     <span>停挂时间：{{ hospitalDetailStore.bookingRule?.stopTime || '' }}</span>
                 </div>
-                <div class="rule">
+                <div class="hospital-register__item">
                     <span>医院地址：{{ hospitalDetailStore.fullAddress }}</span>
                 </div>
-                <div class="rule">
+                <div class="hospital-register__item">
                     <span>交通指引：</span>
                     <p v-for="(item, index) in hospitalDetailStore.route" :key="index">{{ index + 1 }}. {{ item }}</p>
                 </div>
-                <div class="rule">
+                <div class="hospital-register__item">
                     <span>退号时间：就诊前一工作日{{ hospitalDetailStore.bookingRule?.quitTime || '' }}前取消</span>
                 </div>
-                <div class="rule">
+                <div class="hospital-register__item">
                     <span>预约规则：</span>
                     <p v-for="(item, index) in hospitalDetailStore.ruleList" :key="index">{{ index + 1 }}. {{ item }}</p>
                 </div>
             </div>
          </div>
          <!-- 科室选择区域 -->
-         <div class="department">
-            <div class="leftNav">
+         <div class="hospital-register__department">
+            <div class="hospital-register__nav">
                 <el-anchor
                     :container="containerRef"
                     direction="vertical"
@@ -39,17 +39,17 @@
                     @click="handleClick"
                     @change="handleChange"
                     :select-scroll-top="true"
-                    class="anchor"
+                    class="hospital-register__anchor"
                 >
-                    <el-anchor-link v-for="item in hospitalDetailStore.departmentList" :key="item.depcode" :href="`#${item.depname}`" :title="item.depname"  :class="{'active': item.depname === activeDepartment}"/>
+                    <el-anchor-link v-for="item in hospitalDetailStore.departmentList" :key="item.depcode" :href="`#${item.depname}`" :title="item.depname"  :class="{'hospital-register__anchor--active': item.depname === activeDepartment}"/>
                 </el-anchor>
             </div>
 
-            <div class="departmentList" ref="containerRef">
-                <div class="subDepartment" v-for="item in hospitalDetailStore.departmentList" :key="item.depcode" :id="item.depname">
-                    <div class="title">{{ item.depname }}</div>
-                    <div class="subDepartmentList">
-                        <div class="subDepartmentItem" v-for="subItem in item.children" :key="subItem.depcode" @click="onClickSubDepartment(subItem.depcode)">{{ subItem.depname }}</div>
+            <div class="hospital-register__department-list" ref="containerRef">
+                <div class="hospital-register__sub-department" v-for="item in hospitalDetailStore.departmentList" :key="item.depcode" :id="item.depname">
+                    <div class="hospital-register__sub-department-name">{{ item.depname }}</div>
+                    <div class="hospital-register__sub-department-list">
+                        <div class="hospital-register__sub-department-item" v-for="subItem in item.children" :key="subItem.depcode" @click="onClickSubDepartment(subItem.depcode)">{{ subItem.depname }}</div>
                     </div>
                 </div>
             </div>
@@ -113,17 +113,17 @@ const onClickSubDepartment = (depcode: string) => {
 </script>
 
 <style lang="scss" scoped>
-.register {
+.hospital-register {
     /* 挂号信息区域 */
-    .register-info {
+    .hospital-register__info {
         display: flex;
-        .right {
+        .hospital-register__rule {
             margin-left: 20px;
             margin-top: 20px;
-            .rule-title {
+            .hospital-register__title {
                 font-size: 20px;
             }
-            .rule {
+            .hospital-register__item {
                 margin-top: 10px;
                 color: #7f7f7f;
 
@@ -140,15 +140,15 @@ const onClickSubDepartment = (depcode: string) => {
         }
     }
     /* 科室选择区域 */
-    .department {
+    .hospital-register__department {
         display: flex;
         height: 500px;
         color: #7f7f7f;
         margin-top: 50px;
-        .leftNav {
+        .hospital-register__nav {
             width: 80px;
             background-color: #f8f8f8;
-            .anchor {
+            .hospital-register__anchor {
                 background-color: #f8f8f8;
                 :deep(.el-anchor__list){
                     padding-left: 0px;
@@ -161,33 +161,33 @@ const onClickSubDepartment = (depcode: string) => {
                     font-size: 14px;
                     font-weight: bold;
                 }
-                .active {
+                .hospital-register__anchor--active {
                     background-color: #fff;
                 }
             }
         }
-        .departmentList {
+        .hospital-register__department-list {
             flex: 1;
             overflow: auto;
             // 隐藏滚动条
             &::-webkit-scrollbar {
                 display: none;
             }
-            .subDepartment {
+            .hospital-register__sub-department {
                 display: flex;
                 flex-direction: column;
-                .title {
+                .hospital-register__sub-department-name {
                     font-weight: bold;
                     background-color: #f8f8f8;
                     padding: 10px 5px;
                 }
-                .subDepartmentList {
+                .hospital-register__sub-department-list {
                     margin-top: 10px;
                     margin-left: 20px;
                     display: flex;
                     flex-wrap: wrap;
                     // 每行显示3个
-                    .subDepartmentItem {
+                    .hospital-register__sub-department-item {
                         width: 33%;
                         padding: 10px 0;
                         cursor: pointer;

@@ -1,7 +1,7 @@
 <!-- 展示用户名称和下拉菜单 -->
 <template>
     <el-dropdown>
-        <div class="user-info">
+        <div class="user-dropdown__info">
             <span>{{ userName }}</span>
             <el-icon>
                 <arrow-down />
@@ -48,7 +48,7 @@ const options = [
 </script>
 
 <style lang="scss" scoped>
-.user-info {
+.user-dropdown__info {
     cursor: pointer;
     display: flex;
     justify-content: center;

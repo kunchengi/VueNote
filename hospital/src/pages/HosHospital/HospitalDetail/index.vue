@@ -1,17 +1,17 @@
 <template>
-    <div class="detail">
+    <div class="hospital-detail">
         <top-title :hosname="hospitalDetailStore.hosname" :hostypeString="hospitalDetailStore.hostypeString" />
-        <div class="detail-info">
+        <div class="hospital-detail__info">
             <logo-img :logoData="hospitalDetailStore.logoData" />
-            <div class="right">
-                <el-icon class="icon">
+            <div class="hospital-detail__position">
+                <el-icon class="hospital-detail__icon">
                     <Location />
                 </el-icon>
                 <div>
-                    <div class="address">
+                    <div class="hospital-detail__address">
                         <span>具体位置：{{ hospitalDetailStore.fullAddress }}</span>
                     </div>
-                    <div class="route">
+                    <div class="hospital-detail__route">
                         <span>交通指引：</span>
                         <p v-for="(item, index) in hospitalDetailStore.route" :key="index">{{ index + 1 }}. {{ item }}
                         </p>
@@ -20,9 +20,9 @@
 
             </div>
         </div>
-        <div class="intro">
-            <div class="title">医院介绍</div>
-            <p class="content">{{ hospitalDetailStore.intro }}</p>
+        <div class="hospital-detail__intro">
+            <div class="hospital-detail__intro-title">医院介绍</div>
+            <p class="hospital-detail__intro-text">{{ hospitalDetailStore.intro }}</p>
         </div>
     </div>
 </template>
@@ -39,22 +39,22 @@ const hospitalDetailStore = useHospitalDetailStore();
 </script>
 
 <style lang="scss" scoped>
-.detail {
+.hospital-detail {
 
-    .detail-info {
+    .hospital-detail__info {
         display: flex;
         
-        .icon {
+        .hospital-detail__icon {
             margin-top: 10px;
         }
         
-        .right {
+        .hospital-detail__position {
             display: flex;
             margin-left: 20px;
             margin-top: 20px;
 
-            .address,
-            .route {
+            .hospital-detail__address,
+            .hospital-detail__route {
                 margin-top: 10px;
                 color: #7f7f7f;
 
@@ -71,15 +71,15 @@ const hospitalDetailStore = useHospitalDetailStore();
         }
     }
 
-    .intro {
+    .hospital-detail__intro {
         margin-top: 20px;
 
-        .title {
+        .hospital-detail__intro-title {
             font-size: 18px;
             font-weight: bold;
         }
 
-        .content {
+        .hospital-detail__intro-text {
             margin-top: 10px;
             color: #7f7f7f;
             line-height: 24px;

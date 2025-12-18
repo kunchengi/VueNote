@@ -1,5 +1,5 @@
 <template>
-    <div class="tip">
+    <div class="home-tip">
         <!-- 常见科室的结构 -->
         <tip-department />
         <!-- 平台公共 -->
