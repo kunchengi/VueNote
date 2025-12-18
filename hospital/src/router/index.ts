@@ -5,31 +5,31 @@ export default createRouter({
   routes: [
     {
       path: '/home',
-      component: () => import('@/pages/home/index.vue')// 懒加载路由
+      component: () => import('@/pages/HosHome/index.vue')// 懒加载路由
     },
     {
       path: '/hospital',
-      component: () => import('@/pages/hospital/index.vue'),
+      component: () => import('@/pages/HosHospital/index.vue'),
       children: [
         {
           path: 'register',
-          component: () => import('@/pages/hospital/register/index.vue')
+          component: () => import('@/pages/HosHospital/HospitalRegister/index.vue')
         },
         {
           path: 'detail',
-          component: () => import('@/pages/hospital/detail/index.vue')
+          component: () => import('@/pages/HosHospital/HospitalDetail/index.vue')
         },
         {
           path: 'notice',
-          component: () => import('@/pages/hospital/notice/index.vue')
+          component: () => import('@/pages/HosHospital/HospitalNotice/index.vue')
         },
         {
           path: 'close',
-          component: () => import('@/pages/hospital/close/index.vue')
+          component: () => import('@/pages/HosHospital/HospitalClose/index.vue')
         },
         {
           path: 'search',
-          component: () => import('@/pages/hospital/search/index.vue')
+          component: () => import('@/pages/HosHospital/HospitalSearch/index.vue')
         },
       ]
     },

@@ -6,20 +6,20 @@ import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import App from '@/App.vue'
 import '@/style/reset.scss'
-import HospitalTop from '@/components/hospital_top/index.vue'
-import HospitalButtom from '@/components/hospital_buttom/index.vue'
+import HosTop from '@/components/HosTop/index.vue'
+import HosBottom from '@/components/HosBottom/index.vue'
 import router from '@/router'
 // 引入pinia
 import pinia from '@/store'
 // 引入登录组件
-import Login from '@/components/login/index.vue'
+import HosLogin from '@/components/HosLogin/index.vue'
 
 const app = createApp(App);
 // 全局注册组件
-app.component('HospitalTop', HospitalTop);
-app.component('HospitalButtom', HospitalButtom);
+app.component('HosTop', HosTop);
+app.component('HosBottom', HosBottom);
 // 全局注册登录组件
-app.component('Login', Login);
+app.component('HosLogin', HosLogin);
 // 挂载路由
 app.use(router)
 // 挂载element-plus

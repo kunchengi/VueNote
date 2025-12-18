@@ -2,7 +2,6 @@
 
 import { type Hospital } from "@/api/base/type";
 import { type DepartmentArr } from '@/api/hospital/type'
-import type { UserInfo } from '@/api/login/type'
 
 export interface HospitalDetailState {
   hospitalDetail: Hospital,

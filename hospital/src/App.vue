@@ -1,15 +1,15 @@
 <template>
   <div class="container">
     <!-- 引入顶部全局组件 -->
-    <HospitalTop />
+    <hos-top />
     <!-- 展示路由组件的区域 -->
      <div class="content">
         <router-view />
      </div>
      <!-- 引入登录全局组件 -->
-     <Login />
+     <hos-login />
      <!-- 引入底部全局组件 -->
-     <HospitalButtom />
+     <hos-bottom />
   </div>
 </template>
 
