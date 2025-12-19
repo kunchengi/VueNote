@@ -1,13 +1,16 @@
 import { defineStore } from 'pinia'
 import { type UserInfo } from '@/api/login/type'
 
-const userDataStore = defineStore('userData', {
+const useUserDataStore = defineStore('userData', {
   state: () => ({
     userInfo: null as UserInfo | null,
   }),
   actions: {
     setUserInfo(userInfo: UserInfo | null) {
       this.userInfo = userInfo;
+    },
+    clearUserInfo() {
+      this.userInfo = null;
     },
   },
   // 使用持久化插件，将 userInfo 字段持久化到 localStorage 中
@@ -20,4 +23,4 @@ const userDataStore = defineStore('userData', {
 )
 
 
-export default userDataStore;
+export default useUserDataStore;

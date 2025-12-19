@@ -9,8 +9,8 @@
         </div>
         <template #dropdown>
             <el-dropdown-menu>
-                <el-dropdown-item v-for="item in options" :key="item.value" :value="item.value">{{ item.label
-                    }}</el-dropdown-item>
+                <el-dropdown-item v-for="item in options" :key="item.value" :value="item.value" @click="handleClick(item.value)">
+                    {{ item.label }}</el-dropdown-item>
             </el-dropdown-menu>
         </template>
     </el-dropdown>
@@ -18,6 +18,11 @@
 
 <script setup lang="ts" name="UserDropdown">
 import { ArrowDown } from '@element-plus/icons-vue'
+import useUserDataStore from '@/store/modules/userData'
+import useUiManageStore from '@/store/modules/uiManage'
+
+const userDataStore = useUserDataStore();
+const uiManageStore = useUiManageStore();
 
 const props = defineProps({
     userName: {
@@ -45,6 +50,28 @@ const options = [
         value: 'logout',
     },
 ]
+
+// 点击下拉菜单选项
+const handleClick = (value: string) => {
+    switch (value) {
+        case 'realNameAuth':
+            // 实名认证
+            break;
+        case 'registrationOrder':
+            // 挂号订单
+            break;
+        case 'patientManagement':
+            // 就诊人管理
+            break;
+        case 'logout':
+            // 退出登录
+            userDataStore.clearUserInfo();
+            uiManageStore.showLogin = true;
+            break;
+        default:
+            break;
+    }
+}
 </script>
 
 <style lang="scss" scoped>
