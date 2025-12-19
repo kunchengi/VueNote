@@ -3102,6 +3102,38 @@
   app.use(pinia);
 ```
 
+## 条件渲染语法
+
+- v-if
+  - 适用于切换频率较低的场景
+  - 不展示的DOM元素直接被移除
+  - 如果未使用<KeepAlive>包裹v-if的元素，每次组件从隐藏到显示都会触发完整的组件生命周期
+  - v-if可以和:v-else-if、v-else一起使用，但要求结构不能被“打断”
+  ```html
+    <div v-if="isShow">条件渲染</div>
+    <div v-else-if="isShow2">条件渲染2</div>
+    <div v-else>条件渲染3</div>
+  ```
+  - 使用 <KeepAlive> 保留状态
+    - 如果使用<KeepAlive>包裹v-if的元素，当元素从隐藏到显示时，不会触发组件的重新渲染，而是从缓存中获取已渲染的元素
+    - 会保留隐藏时的状态，包括：数据、事件绑定、组件实例等
+    - 使用 <KeepAlive>后的生命周期
+      - 组件首次渲染时触发：setup、onBeforeMount、onMounted、onActivated
+      - 组件隐藏时触发：onDeactivated
+      - 组件再次显示时触发：onActivated
+  ```html
+    <KeepAlive>
+      <ChildComponent v-if="show" />
+    </KeepAlive>
+  ```
+
+- v-show
+  - 切换频率较高的场景
+  - 不展示的DOM元素，不会被移除，只会隐藏。即：display: none
+  ```html
+    <div v-show="isShow">条件渲染</div>
+  ```
+
 # vue3的其它非兼容性改变
 
 - 官方文档[非兼容性改变](https://v3-migration.vuejs.org/zh/breaking-changes/)

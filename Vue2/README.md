@@ -716,16 +716,30 @@
 - v-if
   - 适用于切换频率较低的场景
   - 不展示的DOM元素直接被移除
+  - 如果未使用keep-alive裹v-if的元素，每次组件从隐藏到显示都会触发完整的组件生命周期
   - v-if可以和:v-else-if、v-else一起使用，但要求结构不能被“打断”
   ```html
     <div v-if="isShow">条件渲染</div>
     <div v-else-if="isShow2">条件渲染2</div>
     <div v-else>条件渲染3</div>
   ```
+  - 使用 <keep-alive> 保留状态
+    - 如果使用keep-alive包裹v-if的元素，当元素从隐藏到显示时，不会触发组件的重新渲染，而是从缓存中获取已渲染的元素
+    - 会保留隐藏时的状态，包括：数据、事件绑定、组件实例等
+    - 使用 <keep-alive> 后的生命周期
+      - 组件首次渲染时触发：beforeCreate、created、beforeMount、mounted、activated
+      - 组件隐藏时触发：deactivated
+      - 组件再次显示时触发：activated
+  ```html
+    <keep-alive>
+      <ChildComponent v-if="show" />
+    </keep-alive>
+  ```
 
 - v-show
   - 切换频率较高的场景
   - 不展示的DOM元素，不会被移除，只会隐藏。即：display: none
+  - 隐藏和再次显示时，不会触发任何生命周期钩子（不会销毁和重新创建组件）
   ```html
     <div v-show="isShow">条件渲染</div>
   ```
