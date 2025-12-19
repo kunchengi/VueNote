@@ -7,14 +7,15 @@
         <router-view />
      </div>
      <!-- 引入登录全局组件 -->
-     <hos-login />
+     <hos-login v-if="uiManageStore.showLogin" />
      <!-- 引入底部全局组件 -->
      <hos-bottom />
   </div>
 </template>
 
 <script setup lang="ts">
-
+import useUiManageStore from "@/store/modules/uiManage";
+const uiManageStore = useUiManageStore();
 </script>
 
 <style scoped lang="scss">
