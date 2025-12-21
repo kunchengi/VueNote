@@ -65,6 +65,7 @@ hospital_server/
 - ✅ Redis→内存存储降级策略
 - ✅ 全局异常处理
 - ✅ Redis连接错误容错机制
+- ✅ 获取微信登录二维码信息接口
 
 ## 安装依赖
 
@@ -522,6 +523,68 @@ node index.js
 }
 ```
 
+### 获取微信登录二维码信息
+
+**接口地址**：`POST /api/user/wx_qr_link`
+
+**接口说明**：通过其它网站的接口获取微信登录二维码信息，并将响应体直接返回给客户端。
+
+- 其它网站获取微信登录二维码信息的接口：`POST https://api2.mubu.com/v3/api/platform/wx_qr_link`
+- curl 命令示例：
+  ```bash
+  curl 'https://api2.mubu.com/v3/api/platform/wx_qr_link' \
+    -H 'Accept: application/json, text/plain, */*' \
+    -H 'Accept-Language: zh-CN,zh;q=0.9' \
+    -H 'Connection: keep-alive' \
+    -H 'Content-Type: application/json' \
+    -H 'Jwt-Token: mubuapp的token' \
+    -H 'Origin: https://mubu.com' \
+    -H 'Referer: https://mubu.com/' \
+    -H 'Sec-Fetch-Dest: empty' \
+    -H 'Sec-Fetch-Mode: cors' \
+    -H 'Sec-Fetch-Site: same-site' \
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' \
+    -H 'data-unique-id: mubu的唯一id' \
+    -H 'deviceModel: Chrome' \
+    -H 'osVersion: 143.0.0.0' \
+    -H 'platform: web' \
+    -H 'sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"' \
+    -H 'sec-ch-ua-mobile: ?0' \
+    -H 'sec-ch-ua-platform: "Windows"' \
+    -H 'system: Windows' \
+    -H 'x-reg-entrance: https://mubu.com/home' \
+    -H 'x-request-id: mubu的request-id' \
+    -H 'x-session-id: mubu的session-id' \
+    --data-raw '{"reg_source":""}'
+  ```
+
+**参数说明**：
+- `reg_source`：注册来源（字符串）- 请求体参数，可为空字符串
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": {
+      "qrLink": "http://weixin.qq.com/q/02mHodxN-1fHD1uoC71F1z",
+      "state": "1371919979"
+  }
+  "message": "登录成功"
+}
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "获取微信登录二维码信息失败"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -553,6 +616,7 @@ node index.js
 - **Mongoose**：MongoDB ODM
 - **JWT**：用户认证和授权
 - **jsonwebtoken**：JWT token生成和验证
+- **axios**：HTTP客户端，用于调用外部API
 
 ## 开发说明
 
@@ -632,6 +696,12 @@ curl http://localhost:3000/api/sms/send/13800138000
 curl -X POST -H "Content-Type: application/json" -d '{"phone":"13800138000","code":"123456"}' http://localhost:3000/api/user/login
 ```
 
+### 获取微信登录二维码信息接口测试
+```bash
+# 测试获取微信登录二维码信息
+curl -X POST -H "Content-Type: application/json" -d '{"reg_source":""}' http://localhost:3000/api/user/wx_qr_link
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -681,6 +751,11 @@ curl -X POST -H "Content-Type: application/json" -d '{"phone":"13800138000","cod
 - 修复了Redis重连策略错误
 - 修复了Redis连接失败导致应用崩溃的问题
 - 完善了错误处理机制，确保系统在服务不可用时仍能正常运行
+- 新增获取微信登录二维码信息接口 `/api/user/wx_qr_link`
+- 添加了axios依赖，用于发送HTTP请求到外部API
+- 更新了用户控制器，添加了获取微信登录二维码信息的控制方法
+- 更新了启动日志，添加了微信登录二维码API的日志输出
+- 新增测试脚本 `test-qr_link.js` 用于测试微信登录二维码接口
 
 ## 许可证
 
