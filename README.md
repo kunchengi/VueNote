@@ -542,3 +542,149 @@ flowchart TB
     </div>
   </div>
 ```
+
+# 第三方软件扫码登录
+
+## 原理
+
+- 基于 OAuth 2.0 授权协议的身份验证与授权机制
+- 应用向第三方平台获取二维码参数
+- 用户扫码授权登录
+- 第三方平台回调预配置的地址，向应用推送授权码（code）
+- 应用通过授权码、应用id、应用密钥向第三方平台获取登录凭证和用户id
+- 应用通过用户id查询数据库，获取用户信息
+
+### 完整流程（以微信扫码登录为例）
+
+- 前端请求后端生成扫码登录的二维码参数
+- 后端调用微信接口，通过应用id（appid）获取二维码票据（ticket） 、唯一标识（uuid）、url，并返回给前端
+- 前端根据url渲染二维码，此时轮询后端接口，通过uuid查询登录状态
+- 用户扫码并授权登录
+- 微信服务器向后端预配置的回调地址推送授权码（code）
+- 后端收到授权码后，调用微信接口，使用授权码（code）+应用id（AppID）+应用密钥（AppSecret）获取用户的登录凭证（access_token）和用户id（如：openid）
+- 后端通过openid查询数据库，获取用户信息
+- 后端将登录凭证和用户信息返回给前端，前端存储并更新登录状态
+![获取access_token时序图](https://res.wx.qq.com/op_res/D0wkkHSbtC6VUSHX4WsjP5ssg5mdnEmXO8NGVGF34dxS9N1WCcq6wvquR4K_Hcut)
+
+### 前端任务
+
+#### 方式1：微信官方JS方案
+
+- 原理
+  - 微信提供了一个内嵌的JS库，用于在PC端网站嵌入微信扫码登录功能
+  - 前端通过调用微信JS库的方法，生成二维码并渲染在页面上
+  - 用户扫码并授权登录后，微信服务器会回调预配置的地址，向应用推送授权码（code）
+- 步骤
+  - 引入微信登录JS库
+  - 调用后端接口获取appid、redirect_uri、state等参数
+  - 实例化WxLogin对象，把后端返回的参数填入，自动渲染二维码内嵌页面，微信登录二维码内嵌页面会轮询查询登录状态
+  - 登录成功后，内嵌页面会重定向到state参数指定的地址，同时携带登录凭证和用户信息
+  - 在重定向的地址中，前端可以通过解析URL参数，获取登录凭证和用户信息，并存储到本地
+```js
+  try {
+      // 发送请求获取微信登录所需参数
+      const wxRedirectUri = encodeURIComponent(window.location.origin+"/wxlogin");
+      const res = await axios.get("/api/wechat/getLoginParam",{params:{wxRedirectUri:wxRedirectUri}});
+      if (res.code === 200) {
+          // 赋值微信登录所需参数
+          const wxLoginParam = res.data;
+
+          // 生成微信扫码登陆二维码
+          const wxLogin = new WxLogin({
+              self_redirect: true,// true：手机点击确认登录后可以在 iframe 内跳转到 redirect_uri
+              id: "login_container",// 微信登录二维码容器id
+              appid: wxLoginParam.appid,// 微信应用id，需要向服务器发送请求获取
+              scope: "snsapi_login",// 微信登录授权范围
+              redirect_uri: wxLoginParam.redirect_uri,// 填写授权回调域路径，用户扫码登录成功后，微信会向网站服务器推送code参数
+              state: wxLoginParam.state,// 服务器重定向的地址，携带用户信息
+              style: "black",// 二维码样式，可选值：black、white
+              href: ""// 自定义二维码样式链接
+          });
+      }
+  } catch (error: any) {
+      console.error(error.response?.data?.message || error.message);
+  }
+```
+
+#### 方式2：后端生成二维码URL + 前端轮询（推荐）
+
+- 优点
+  - 前端仅需渲染二维码和监听登录状态，其余逻辑均在后端处理
+  - 更加安全，可以防止CSRF攻击
+  - 该方式可跨平台（Web、移动端、桌面应用）使用
+- 步骤
+  - 渲染二维码
+  - 轮询查询登录状态
+  - 登录成功后，更新登录状态
+```js
+  // 1. 点击“微信登录”触发的函数
+  async function handleWechatLogin() {
+    try {
+      // 步骤1：请求后端生成二维码参数
+      const res = await axios.get('/api/wechat/getQRCode');
+      const { ticket, uuid, qrcodeUrl } = res.data;// qrcodeUrl 为微信提供的二维码图片链接，如：http://weixin.qq.com/q/02OX-5ww-1fHD1u0b61F1t
+
+      // 步骤2：渲染二维码
+      // 用qrcode.js生成（需先引入库）
+      QRCode.toDataURL(qrcodeUrl, function(error, url) {
+          if (error) {
+              console.error(error);
+          } else {
+              qrcodeImgRef.value.src = url;  // 将二维码图像显示在 img 元素中
+          }
+      });
+
+      // 步骤3：轮询后端，查询登录状态
+      const pollTimer = setInterval(async () => {
+        const statusRes = await axios.get(`/api/wechat/login/status?uuid=${uuid}`);
+        const { status, data } = statusRes.data;
+
+        switch (status) {
+          case 'pending': // 未扫码
+            break;
+          case 'scanned': // 已扫码，未授权
+            updateTip('请在微信端确认授权');
+            break;
+          case 'success': // 授权成功，已生成登录态
+            clearInterval(pollTimer);
+            // 存储应用登录凭证（如token）
+            localStorage.setItem('token', data.token);
+            // 跳转到首页/刷新页面
+            window.location.href = '/';
+            break;
+          case 'failed': // 授权失败/二维码过期
+            clearInterval(pollTimer);
+            updateTip('登录失败，请重新扫码');
+            // 重新生成二维码
+            handleWechatLogin();
+            break;
+        }
+      }, 1000); // 1秒轮询一次，可根据需求调整
+    } catch (error) {
+      console.error('获取二维码失败：', error);
+    }
+  }
+```
+
+### 关键注意事项
+
+- 应用密钥(AppSecret) 绝对不能暴露在前端
+  - 一旦泄露，攻击者可伪造登录请求，必须由后端保管
+- 轮询频率控制
+  - 建议 1 秒 / 次，避免高频请求导致后端压力
+- 二维码过期处理
+  - 微信二维码默认有效期 600 秒，过期后前端需提示并重新生成
+- 移动端适配
+  - 移动端扫码登录可直接调用微信 JS-SDK 的 wx.login 接口，流程更简化（无需轮询，直接获取 code）。
+
+## 微信扫码登录流程
+
+- 登录微信开放平台
+ - [微信开放平台](https://open.weixin.qq.com/)
+- 创建网站应用
+  - 管理中心 -> 网站应用 -> 创建网站应用 -> 填写应用信息 -> 提交审核
+  - 审核通过后，即可获取到应用的 AppID 和 AppSecret
+  - 配置授权回调域名
+    - 管理中心 -> 网站应用 -> 应用设置 -> 回调域名 -> 填写回调域名 -> 提交
+- 微信登录功能开发文档
+  - [微信登录功能开发文档](https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html)
