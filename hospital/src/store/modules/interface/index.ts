@@ -2,6 +2,7 @@
 
 import { type Hospital } from "@/api/base/type";
 import { type DepartmentArr } from '@/api/hospital/type'
+import { type UserInfo } from '@/api/login/type'
 
 export interface HospitalDetailState {
   hospitalDetail: Hospital,
@@ -19,4 +20,16 @@ export const ArticleType = {
 // 全局UI管理模块状态类型
 export interface UiManageState {
   showLogin: boolean
+}
+
+// 微信登录数据模块状态类型
+export interface WxLoginData {
+  state: string,
+  qrImgData: string | null,
+}
+
+// 用户数据模块状态类型
+export interface UserDataState {
+  userInfo: UserInfo | null,
+  wxLoginData: WxLoginData,
 }

@@ -27,6 +27,13 @@
                     </el-form>
                 </div>
                 <div class="hos-login__wechat" v-else>
+                    <div class="hos-login__title">
+                        <span>请使用微信扫描登录</span>
+                    </div>
+                    <div class="hos-login__qrcode">
+                        <img v-if="userDataStore.wxLoginData.qrImgData" :src="userDataStore.wxLoginData.qrImgData" alt="微信登录二维码">
+                        <el-icon v-else @click="getWxLoginQrcode" class="hos-login__refresh"><Refresh /></el-icon>
+                    </div>
                     <div class="hos-login__change" @click="changeLoginMode(LoginMode.PHONE)">
                         <i class="iconfont icon-shouji"></i>
                     </div>
@@ -38,14 +45,14 @@
 </template>
 
 <script setup lang="ts" name="HosLogin">
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, onUnmounted } from "vue";
 import { ElMessage } from 'element-plus'
 import type { FormRules } from 'element-plus'
-import { Iphone, Lock } from "@element-plus/icons-vue";
+import { Iphone, Lock, Refresh } from "@element-plus/icons-vue";
 import useUiManageStore from "@/store/modules/uiManage";
 import useUserDataStore from "@/store/modules/userData";
-import { reqSendSmsCode, reqUserLogin } from "@/api/login";
-import type { VerifyCodeResponseData, LoginRequestData, LoginResponseData } from "@/api/login/type";
+import { reqSendSmsCode, reqUserLogin, reqGetWxLoginQrcode } from "@/api/login";
+import type { VerifyCodeResponseData, LoginRequestData, LoginResponseData, WxLoginQrcodeResponseData } from "@/api/login/type";
 import HosCountdown from "@/components/HosCountdown/index.vue";
 
 const uiManageStore = useUiManageStore();
@@ -154,6 +161,24 @@ const handleGetCode = async () => {
 // 切换登录模式
 const changeLoginMode = (mode: LoginModeType) => {
     loginMode.value = mode;
+    if (mode === LoginMode.WECHAT) {
+        // 刷新微信登录二维码
+        getWxLoginQrcode();
+    }
+}
+
+// 获取微信登录二维码
+const getWxLoginQrcode = async () => {
+    try {
+        // 获取微信登录二维码信息
+        const res: WxLoginQrcodeResponseData = await reqGetWxLoginQrcode();
+        if (res.code === 200) {
+            // 存储微信登录二维码信息
+            userDataStore.setWxLoginQrcodeData(res.data);
+        }
+    } catch (error: any) {
+        ElMessage.error(error.response?.data?.message || error.message);
+    }
 }
 
 // 验证码倒计时结束
@@ -161,6 +186,11 @@ const handleCountdownFinish = () => {
     showCountdown.value = false;
 }
 
+// 组件卸载时，清除微信登录二维码信息
+onUnmounted(() => {
+    console.log("组件卸载时，清除微信登录二维码信息");
+    userDataStore.setWxLoginQrcodeData(null);
+})
 
 </script>
 
@@ -203,6 +233,44 @@ const handleCountdownFinish = () => {
                 font-size: 32px;
                 &:hover {
                     color: #28C445;
+                }
+            }
+        }
+
+        .hos-login__wechat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            .hos-login__title {
+                color: #000;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            
+            .hos-login__qrcode {
+                width: 200px;
+                height: 200px;
+                margin: 20px 0;
+                border: 1px solid #eee;
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid #eee;
+                    border-radius: 10px;
+                }
+
+                .hos-login__refresh {
+                    cursor: pointer;
+                    font-size: 32px;
+                    &:hover {
+                        color: #55a6fe;
+                    }
                 }
             }
         }

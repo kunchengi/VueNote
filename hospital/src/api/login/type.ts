@@ -23,3 +23,14 @@ export interface UserInfo {
 export interface LoginResponseData extends ResponseData {
   data: UserInfo
 }
+
+// 微信登录二维码信息数据类型
+export interface WxLoginQrcodeData {
+  qrLink: string,
+  state: string,
+}
+
+// 获取微信登录二维码信息接口返回的响应数据类型
+export interface WxLoginQrcodeResponseData extends ResponseData {
+  data: WxLoginQrcodeData
+}
