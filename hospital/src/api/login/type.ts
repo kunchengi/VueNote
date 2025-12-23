@@ -34,3 +34,15 @@ export interface WxLoginQrcodeData {
 export interface WxLoginQrcodeResponseData extends ResponseData {
   data: WxLoginQrcodeData
 }
+
+// 获取微信登录扫码结果接口请求参数类型
+export interface WxLoginRefreshRequestData {
+  state: string,
+  type: string,
+  callbackType: number,
+}
+
+// 获取微信登录扫码结果接口返回的响应数据类型
+export interface WxLoginRefreshResponseData extends ResponseData {
+  data: any
+}

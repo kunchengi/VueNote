@@ -51,8 +51,8 @@ import type { FormRules } from 'element-plus'
 import { Iphone, Lock, Refresh } from "@element-plus/icons-vue";
 import useUiManageStore from "@/store/modules/uiManage";
 import useUserDataStore from "@/store/modules/userData";
-import { reqSendSmsCode, reqUserLogin, reqGetWxLoginQrcode } from "@/api/login";
-import type { VerifyCodeResponseData, LoginRequestData, LoginResponseData, WxLoginQrcodeResponseData } from "@/api/login/type";
+import { reqSendSmsCode, reqUserLogin, reqGetWxLoginQrcode, reqGetWxLoginResult } from "@/api/login";
+import type { VerifyCodeResponseData, LoginRequestData, LoginResponseData, WxLoginQrcodeResponseData, WxLoginRefreshRequestData, WxLoginRefreshResponseData } from "@/api/login/type";
 import HosCountdown from "@/components/HosCountdown/index.vue";
 
 const uiManageStore = useUiManageStore();
@@ -167,6 +167,8 @@ const changeLoginMode = (mode: LoginModeType) => {
     }
 }
 
+let pollTimer: any | null = null;
+
 // 获取微信登录二维码
 const getWxLoginQrcode = async () => {
     try {
@@ -175,6 +177,30 @@ const getWxLoginQrcode = async () => {
         if (res.code === 200) {
             // 存储微信登录二维码信息
             userDataStore.setWxLoginQrcodeData(res.data);
+            // 轮询后端，查询登录状态
+            pollTimer = setInterval(async () => {
+                const reqData: WxLoginRefreshRequestData = {
+                    type: 'weixin',
+                    callbackType: 0,
+                    state: userDataStore.wxLoginData?.state || '',
+
+                }
+                const statusRes = await reqGetWxLoginResult(reqData);
+                console.log('statusRes', statusRes);
+                if(statusRes.code === 200 && statusRes.data?.token)
+                {
+                    clearInterval(pollTimer);
+                    ElMessage.success("登录成功");
+                    const userInfo = {
+                        name: statusRes.data?.name || '',
+                        token: statusRes.data?.token || '',
+                    }
+                    // 存储用户信息
+                    userDataStore.setUserInfo(userInfo);
+                    // 关闭登录弹窗
+                    uiManageStore.showLogin = false;
+                }
+            }, 5000); // 2秒轮询一次，可根据需求调整
         }
     } catch (error: any) {
         ElMessage.error(error.response?.data?.message || error.message);
@@ -188,8 +214,13 @@ const handleCountdownFinish = () => {
 
 // 组件卸载时，清除微信登录二维码信息
 onUnmounted(() => {
-    console.log("组件卸载时，清除微信登录二维码信息");
+    // 清除微信登录二维码信息
     userDataStore.setWxLoginQrcodeData(null);
+    // 清除轮询定时器
+    if(pollTimer) {
+        clearInterval(pollTimer);
+        pollTimer = null;
+    }
 })
 
 </script>
