@@ -71,6 +71,7 @@ app.get(`${config.baseApiPath}/hosp/article/:filename`, hospitalController.getAr
 // 用户相关路由
 app.post(`${config.baseApiPath}/user/login`, userController.login);
 app.post(`${config.baseApiPath}/user/wx_qr_link`, userController.wxQrLink);
+app.post(`${config.baseApiPath}/user/wx_refresh`, userController.wxRefresh);
 
 // 404 处理
 app.use((req, res) => {
@@ -106,6 +107,7 @@ app.listen(PORT, () => {
   console.log(`📚 发送短信验证码 API: http://localhost:${PORT}${config.baseApiPath}/sms/send/:phone`);
   console.log(`📚 用户登录 API: http://localhost:${PORT}${config.baseApiPath}/user/login`);
   console.log(`📚 获取微信登录二维码 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_qr_link`);
+  console.log(`📚 获取微信登录扫码结果 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_refresh`);
   
   console.log('\nPress Ctrl+C to stop the server\n');
 });

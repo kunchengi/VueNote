@@ -66,6 +66,7 @@ hospital_server/
 - ✅ 全局异常处理
 - ✅ Redis连接错误容错机制
 - ✅ 获取微信登录二维码信息接口
+- ✅ 获取微信登录扫码结果接口
 
 ## 安装依赖
 
@@ -90,6 +91,16 @@ node index.js
 ```
 
 ## API 接口文档
+
+### 微信登录流程
+
+#### 整体流程
+1. 客户端调用 `/api/user/wx_qr_link` 接口获取微信登录二维码信息
+2. 客户端展示二维码供用户扫描
+3. 客户端轮询调用 `/api/user/wx_refresh` 接口获取扫码结果
+4. 用户扫描二维码并确认登录
+5. 服务端处理扫码结果，完成用户登录或注册
+6. 服务端返回登录成功信息和token
 
 ### 获取医院列表（分页）
 
@@ -527,7 +538,21 @@ node index.js
 
 **接口地址**：`POST /api/user/wx_qr_link`
 
-**接口说明**：通过其它网站的接口获取微信登录二维码信息，并将响应体直接返回给客户端。
+**接口说明**：该接口用于获取微信登录二维码信息，客户端调用此接口后，将获得包含二维码链接和状态码的响应，用于后续的微信扫码登录流程。
+
+**功能详情**：
+- 调用外部第三方API获取微信登录二维码
+- 处理外部API响应，提取二维码链接和状态信息
+- 封装成统一格式返回给客户端
+- 支持自定义注册来源参数
+
+**应用场景**：
+- 客户端需要展示微信登录二维码时调用
+- 微信登录流程的第一步
+
+**注意事项**：
+- 返回的`state`参数需妥善保存，用于后续的扫码结果查询
+- 二维码有一定有效期，建议及时刷新
 
 - 其它网站获取微信登录二维码信息的接口：`POST https://api2.mubu.com/v3/api/platform/wx_qr_link`
 - curl 命令示例：
@@ -537,7 +562,7 @@ node index.js
     -H 'Accept-Language: zh-CN,zh;q=0.9' \
     -H 'Connection: keep-alive' \
     -H 'Content-Type: application/json' \
-    -H 'Jwt-Token: mubuapp的token' \
+    -H 'Jwt-Token;' \
     -H 'Origin: https://mubu.com' \
     -H 'Referer: https://mubu.com/' \
     -H 'Sec-Fetch-Dest: empty' \
@@ -552,7 +577,7 @@ node index.js
     -H 'sec-ch-ua-mobile: ?0' \
     -H 'sec-ch-ua-platform: "Windows"' \
     -H 'system: Windows' \
-    -H 'x-reg-entrance: https://mubu.com/home' \
+    -H 'x-reg-entrance: https://mubu.com/login?next=/list' \
     -H 'x-request-id: mubu的request-id' \
     -H 'x-session-id: mubu的session-id' \
     --data-raw '{"reg_source":""}'
@@ -570,8 +595,8 @@ node index.js
   "data": {
       "qrLink": "http://weixin.qq.com/q/02mHodxN-1fHD1uoC71F1z",
       "state": "1371919979"
-  }
-  "message": "登录成功"
+  },
+  "message": "获取微信登录二维码信息成功"
 }
 ```
 
@@ -582,6 +607,190 @@ node index.js
   "code": 400,
   "success": false,
   "message": "获取微信登录二维码信息失败"
+}
+```
+
+### 获取微信登录扫码结果
+
+**接口地址**：`POST /api/user/wx_refresh`
+
+**接口说明**：该接口用于查询微信登录二维码的扫码结果，客户端需轮询调用此接口，直到获取到扫码结果。如果用户扫码成功，系统会自动处理用户注册/登录逻辑，并返回完整的用户信息和token。
+
+**功能详情**：
+- 调用外部第三方API查询扫码结果
+- 支持三种状态返回：未扫码、扫码成功、扫码失败
+- 扫码成功后，自动判断用户是否已注册
+- 未注册用户自动执行注册逻辑，写入MongoDB数据库
+- 生成JWT token并返回给客户端
+- 封装统一格式的响应返回给客户端
+
+**应用场景**：
+- 客户端展示二维码后，轮询调用此接口获取扫码结果
+- 微信登录流程的第二步
+- 用于验证用户是否已扫描二维码并确认登录
+
+**注意事项**：
+- 建议客户端以1-3秒的间隔进行轮询
+- 需使用从`/api/user/wx_qr_link`接口获取的`state`参数
+- 接口返回的`token`需妥善保存，用于后续的身份认证
+- 未扫码状态下，返回码为200，data为null
+- 扫码成功后，会在返回数据中包含完整的用户信息
+
+- 其它网站获取微信登录二维码扫码结果的接口：`POST https://api2.mubu.com/v3/api/user/login/platform/refresh`
+- curl 命令示例：
+  ```bash
+  curl 'https://api2.mubu.com/v3/api/user/login/platform/refresh' \
+    -H 'Accept: application/json, text/plain, */*' \
+    -H 'Accept-Language: zh-CN,zh;q=0.9' \
+    -H 'Connection: keep-alive' \
+    -H 'Content-Type: application/json' \
+    -H 'Jwt-Token;' \
+    -H 'Origin: https://mubu.com' \
+    -H 'Referer: https://mubu.com/' \
+    -H 'Sec-Fetch-Dest: empty' \
+    -H 'Sec-Fetch-Mode: cors' \
+    -H 'Sec-Fetch-Site: same-site' \
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' \
+    -H 'data-unique-id: mubu的唯一id' \
+    -H 'deviceModel: Chrome' \
+    -H 'osVersion: 143.0.0.0' \
+    -H 'platform: web' \
+    -H 'sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"' \
+    -H 'sec-ch-ua-mobile: ?0' \
+    -H 'sec-ch-ua-platform: "Windows"' \
+    -H 'system: Windows' \
+    -H 'x-reg-entrance: https://mubu.com/login?next=/list' \
+    -H 'x-request-id: mubu的request-id' \
+    -H 'x-session-id: mubu的session-id' \
+    --data-raw '{"state":"359969758","type":"weixin","callbackType":0}'
+  ```
+
+- 其它网站接口返回结果示例
+  - 未扫码
+    ```json
+    {
+        "code": 2,
+        "msg": ""
+    }
+    ```
+  - 扫码成功
+    ```json
+    {
+        "code": 0,
+        "data": {
+            "googleId": "",
+            "gender": "0",
+            "year": "",
+            "city": "Shenzhen",
+            "remark": "",
+            "view": "grid",
+            "province": "Guangdong",
+            "googleName": "",
+            "id": 9199379,
+            "wxName": "莹°",
+            "email": "",
+            "vipEndDate": "20201009",
+            "clientId": "web-f4a6f6d2-f1ed-4b17-b689-220e8d9bd2fd",
+            "level": 0,
+            "encryptPassword": "125542115qwe",
+            "facebookId": "",
+            "newUserFlag": 2,
+            "photo": "photo/665b1123-a043-4aec-986e-129cc964c893.jpg",
+            "updateTime": 1766412763274,
+            "wxId": "oahEws4TuvQt-TUDdU4oCDh_JFio",
+            "passSecure": true,
+            "sort": "time",
+            "appleId": "",
+            "qqId": "",
+            "appleName": "",
+            "wxGzhOpenId": "oPoHr56adcfmVUhl1IRc-VzZh86g",
+            "agreeTermService": false,
+            "token": "xxx",
+            "phone": "17385241548",
+            "createTime": 1600877663376,
+            "name": "莹°",
+            "archiveStatus": 3,
+            "anonymUserFlag": 0,
+            "qqName": "",
+            "toutiaoId": "",
+            "facebookName": "",
+            "larkId": ""
+        }
+    }
+    ```
+
+**参数说明**：
+- `state`：扫码状态（字符串）- 请求体参数，必填，从/api/user/wx_qr_link接口返回的state参数
+- `type`：登录类型（字符串）- 请求体参数，必填，固定值为"weixin"
+- `callbackType`：回调类型（整数）- 请求体参数，必填，固定值为0
+
+**返回格式**：
+
+- 未扫码
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": null,
+  "msg": "请先扫描二维码"
+}
+```
+
+- 扫码成功
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": {
+    "googleId": "",
+    "gender": "0",
+    "year": "",
+    "city": "Shenzhen",
+    "remark": "",
+    "view": "grid",
+    "province": "Guangdong",
+    "googleName": "",
+    "id": 9199379,
+    "wxName": "莹°",
+    "email": "",
+    "vipEndDate": "20201009",
+    "clientId": "web-f4a6f6d2-f1ed-4b17-b689-220e8d9bd2fd",
+    "level": 0,
+    "encryptPassword": "252210ace",
+    "facebookId": "",
+    "newUserFlag": 2,
+    "photo": "photo/665b1123-a043-4aec-986e-129cc964c893.jpg",
+    "updateTime": 1766412763274,
+    "wxId": "oahEws4TuvQt-TUDdU4oCDh_JFio",
+    "passSecure": true,
+    "sort": "time",
+    "appleId": "",
+    "qqId": "",
+    "appleName": "",
+    "wxGzhOpenId": "oPoHr56adcfmVUhl1IRc-VzZh86g",
+    "agreeTermService": false,
+    "token": "xxx",
+    "phone": "17366750637",
+    "createTime": 1600877663376,
+    "name": "莹°",
+    "archiveStatus": 3,
+    "anonymUserFlag": 0,
+    "qqName": "",
+    "toutiaoId": "",
+    "facebookName": "",
+    "larkId": ""
+  },
+  "message": "扫码成功"
+}
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "登录失败"
 }
 ```
 
@@ -702,6 +911,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"phone":"13800138000","cod
 curl -X POST -H "Content-Type: application/json" -d '{"reg_source":""}' http://localhost:3000/api/user/wx_qr_link
 ```
 
+### 获取微信登录扫码结果接口测试
+```bash
+# 测试获取微信登录扫码结果（需替换state为实际获取的值）
+curl -X POST -H "Content-Type: application/json" -d '{"state":"1371919979","type":"weixin","callbackType":0}' http://localhost:3000/api/user/wx_refresh
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -752,10 +967,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"reg_source":""}' http://l
 - 修复了Redis连接失败导致应用崩溃的问题
 - 完善了错误处理机制，确保系统在服务不可用时仍能正常运行
 - 新增获取微信登录二维码信息接口 `/api/user/wx_qr_link`
+- 新增获取微信登录扫码结果接口 `/api/user/wx_refresh`
 - 添加了axios依赖，用于发送HTTP请求到外部API
-- 更新了用户控制器，添加了获取微信登录二维码信息的控制方法
-- 更新了启动日志，添加了微信登录二维码API的日志输出
+- 更新了用户控制器，添加了微信登录相关的控制方法
+- 更新了启动日志，添加了微信登录相关API的日志输出
 - 新增测试脚本 `test-qr_link.js` 用于测试微信登录二维码接口
+- 更新了README文档，添加了微信登录流程和接口详细说明
 
 ## 许可证
 

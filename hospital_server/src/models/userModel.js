@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  wxGzhOpenId: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
