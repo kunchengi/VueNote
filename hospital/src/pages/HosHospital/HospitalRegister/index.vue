@@ -58,12 +58,16 @@
 </template>
 
 <script setup lang="ts" name="HospitalRegister">
+import { useRouter, useRoute } from 'vue-router'
 // 引入仓库
 import useHospitalDetailStore from '@/store/modules/hospitalDetail'
-import useUiManageStore from '@/store/modules/uiManage'
 import TopTitle from '@/components/HosDetail/TopTitle/index.vue'
 import LogoImg from '@/components/HosDetail/LogoImg/index.vue'
 import { ref, watch } from 'vue'
+
+const router = useRouter()
+const route = useRoute()
+
 
 // 引入医院详情仓库
 const hospitalDetailStore = useHospitalDetailStore();
@@ -102,13 +106,17 @@ const handleChange = (href: string) => {
     activeDepartment.value = href.replace('#', '');
 }
 
-
-// 引入登录弹窗状态管理仓库
-const uiManageStore = useUiManageStore();
-
 // 点击子科室时调用
 const onClickSubDepartment = (depcode: string) => {
-    uiManageStore.showLogin = true;
+    // 进入预约挂号详情页
+    console.log(depcode);
+    router.push({
+        path: '/hospital/reservation',
+        query: {
+            hoscode: route.query.hoscode,
+            depcode
+        }
+    })
 }
 </script>
 

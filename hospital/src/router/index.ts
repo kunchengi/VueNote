@@ -31,6 +31,10 @@ export default createRouter({
           path: 'search',
           component: () => import('@/pages/HosHospital/HospitalSearch/index.vue')
         },
+        {
+          path: 'reservation',
+          component: () => import('@/pages/HosHospital/HospitalReservation/index.vue')
+        },
       ]
     },
     {
