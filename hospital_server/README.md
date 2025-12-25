@@ -21,6 +21,8 @@ hospital_server/
 │   │   ├── dictController.js      # 字典控制器
 │   │   ├── smsController.js       # 短信验证码控制器
 │   │   └── userController.js      # 用户登录控制器
+│   ├── middleware/
+│   │   └── authMiddleware.js      # JWT token验证中间件
 │   ├── models/
 │   │   ├── userModel.js           # 用户数据模型
 │   │   └── bookingScheduleModel.js # 预约挂号数据模型
@@ -840,6 +842,10 @@ node index.js
 - `hoscode`：医院编码（字符串）- 查询参数
 - `depcode`：科室编码（字符串）- 查询参数
 
+**注意**：
+
+- 需携带token，在请求头中添加token字段，值为登录接口返回的token
+
 **返回格式**：
 
 ```json
@@ -881,6 +887,16 @@ node index.js
 
 **错误响应**：
 
+- token缺失或无效
+```json
+{
+  "code": 401,
+  "success": false,
+  "message": "请登录"
+}
+```
+
+- 获取医院预约挂号列表失败
 ```json
 {
   "code": 400,
@@ -982,6 +998,15 @@ curl http://localhost:3000/api/hosp/article/testArticle.html
 
 # 测试获取不存在的HTML文件（应返回错误）
 curl http://localhost:3000/api/hosp/article/notExist.html
+```
+
+### 获取医院预约挂号列表接口测试
+```bash
+# 测试获取医院预约挂号列表（需要携带token）
+curl -H "token: YOUR_TOKEN_HERE" http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1&limit=10&hoscode=1000_10&depcode=100304
+
+# 测试无token访问（应返回401错误）
+curl http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1&limit=10&hoscode=1000_10&depcode=100304
 ```
 
 ### 科室信息接口测试

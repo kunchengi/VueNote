@@ -45,6 +45,9 @@ const hospitalController = require('./src/controllers/hospitalController');
 const smsController = require('./src/controllers/smsController');
 const userController = require('./src/controllers/userController');
 
+// 导入认证中间件
+const verifyToken = require('./src/middleware/authMiddleware');
+
 // 短信相关路由 - 放在医院通配符路由之前，避免冲突
 app.get(`${config.baseApiPath}/sms/send/:phone`, smsController.sendSms);
 
@@ -56,8 +59,8 @@ app.get(`${config.baseApiPath}/hosp/hospital/findByHosname/:hosname`, hospitalCo
 // 2. 根据医院编码获取科室信息
 app.get(`${config.baseApiPath}/hosp/hospital/department/:hoscode`, hospitalController.getDepartmentByHoscode);
 
-// 3. 获取医院预约挂号列表
-app.get(`${config.baseApiPath}/hosp/hospital/auth/getBookingScheduleRule`, hospitalController.getBookingScheduleRule);
+// 3. 获取医院预约挂号列表（需要登录）
+app.get(`${config.baseApiPath}/hosp/hospital/auth/getBookingScheduleRule`, verifyToken, hospitalController.getBookingScheduleRule);
 
 // 4. 根据医院编码获取医院详情
 app.get(`${config.baseApiPath}/hosp/hospital/:hoscode`, hospitalController.getHospitalByHoscode);
