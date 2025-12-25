@@ -22,7 +22,8 @@ hospital_server/
 │   │   ├── smsController.js       # 短信验证码控制器
 │   │   └── userController.js      # 用户登录控制器
 │   ├── models/
-│   │   └── userModel.js           # 用户数据模型
+│   │   ├── userModel.js           # 用户数据模型
+│   │   └── bookingScheduleModel.js # 预约挂号数据模型
 │   ├── routes/
 │   │   ├── dictRoutes.js          # 字典路由
 │   │   ├── hospitalRoutes.js      # 医院相关路由
@@ -40,7 +41,13 @@ hospital_server/
 ├── package.json             # 项目配置和依赖
 ├── pnpm-lock.yaml           # 依赖锁文件
 ├── .gitignore               # Git 忽略文件
-└── README.md                # 项目说明文档
+├── README.md                # 项目说明文档
+├── test-bookingScheduleRule.js  # 预约挂号列表接口测试
+├── test-express-simple.js   # Express简单测试
+├── test-express.js          # Express测试
+├── test-login.js            # 登录测试
+├── test-qr_link.js          # 微信登录二维码测试
+└── test-simple.js           # 简单测试
 ```
 
 ## 功能特性
@@ -67,6 +74,10 @@ hospital_server/
 - ✅ Redis连接错误容错机制
 - ✅ 获取微信登录二维码信息接口
 - ✅ 获取微信登录扫码结果接口
+- ✅ 获取医院预约挂号列表（分页）接口
+- ✅ MongoDB预约挂号数据存储
+- ✅ 自动生成预约挂号数据
+- ✅ 支持按医院和科室查询预约挂号列表
 
 ## 安装依赖
 
@@ -794,6 +805,90 @@ node index.js
 }
 ```
 
+### 获取医院的预约挂号列表（分页）
+
+**接口地址**：`GET /api/hosp/hospital/auth/getBookingScheduleRule`
+
+**接口说明**：
+
+- 根据医院编码和科室编码获取预约挂号列表（分页）
+- 获取基本数据baseMap
+  - workDateString：当前月份（格式：yyyy年MM月）
+  - releaseTime：挂号开始时间（格式：HH:mm），从hospital.json中查找对应医院，数据为：hospital.bookingRule.releaseTime
+  - stopTime：挂号结束时间（格式：HH:mm），从hospital.json中查找对应医院，数据为：hospital.bookingRule.stopTime
+  - bigname：大科室名称（字符串），从department.json中查找对应科室中的父级科室，数据为：department.depname
+  - depname：小科室名称（字符串），从department.json中查找对应科室，数据为：department.depname
+  - hosname：医院名称（字符串），从hospital.json中查找对应医院，数据为：hospital.hosname
+
+- 获取预约挂号列表
+  - 数据获取流程
+    - 从hospital.json中获取对应医院的预约挂号周期，数据为：hospital.bookingRule.cycle
+    - 获取从今天起到挂号周期cycle结束的预约挂号列表
+      - 从mongodb中获取对应医院、科室、日期的预约挂号数据
+      - 如果数据库中没有对应数据，则创建新数据并写入mongodb，初始availableNumber为10，reservedNumber为0，status为0（可预约），docCount为3
+  - 数据说明
+    - id：预约挂号数据ID（字符串），数据库自动生成
+    - workDate：预约日期（格式：yyyy-MM-dd）
+    - docCount：医生数量（整数）
+    - reservedNumber：已预约人数（整数）
+    - availableNumber：可预约人数（整数）
+    - status：预约状态（整数），-1表示停止预约，0表示可预约
+
+**参数说明**：
+- `page`：当前页码（正整数）- 查询参数
+- `limit`：每页数量（正整数）- 查询参数
+- `hoscode`：医院编码（字符串）- 查询参数
+- `depcode`：科室编码（字符串）- 查询参数
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": {
+    "total": 11,
+    "bookingScheduleList": [
+      {
+        "workDate": "2025-12-24",
+        "docCount": 0,
+        "reservedNumber": null,
+        "availableNumber": -1,
+        "status": -1,
+        "id": "657309222323200000000000"
+      },
+      {
+        "workDate": "2025-12-25",
+        "docCount": 3,
+        "reservedNumber": 107,
+        "availableNumber": 22,
+        "status": 0,
+        "id": "657309222323200000000001"
+      }
+    ],
+    "baseMap": {
+      "workDateString": "2025年12月",
+      "releaseTime": "08:00",
+      "stopTime": "17:00",
+      "bigname": "外科",
+      "depname": "泌尿外科",
+      "hosname": "航天中心医院"
+    }
+  },
+  "message": "获取医院预约挂号列表成功"
+}
+```
+
+**错误响应**：
+
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "获取医院预约挂号列表失败"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -813,6 +908,11 @@ node index.js
   - 集合名称：`users`
   - 包含用户的基本信息：手机号、用户名、创建时间等
   - 首次登录时自动注册，初始用户名为：用户+随机编号
+- 预约挂号数据存储在 MongoDB 数据库中
+  - 数据库名称：`hospital_system`
+  - 集合名称：`bookingschedules`
+  - 包含预约挂号的基本信息：医院编码、科室编码、预约日期、医生数量、已预约人数、可预约人数、预约状态等
+  - 首次查询时自动生成，初始可预约人数为10，已预约人数为0，状态为可预约（0），医生数量为3
 
 ## 技术栈
 
@@ -917,6 +1017,21 @@ curl -X POST -H "Content-Type: application/json" -d '{"reg_source":""}' http://l
 curl -X POST -H "Content-Type: application/json" -d '{"state":"1371919979","type":"weixin","callbackType":0}' http://localhost:3000/api/user/wx_refresh
 ```
 
+### 获取医院的预约挂号列表接口测试
+```bash
+# 测试获取医院的预约挂号列表
+curl "http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1&limit=10&hoscode=1000_10&depcode=100304"
+
+# 测试不同分页参数
+curl "http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=2&limit=5&hoscode=1000_10&depcode=100304"
+
+# 测试无效的hoscode
+curl "http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1&limit=10&hoscode=invalid&depcode=100304"
+
+# 测试无效的depcode
+curl "http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1&limit=10&hoscode=1000_10&depcode=invalid"
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -930,6 +1045,19 @@ curl -X POST -H "Content-Type: application/json" -d '{"state":"1371919979","type
 ## 更改日志
 
 ### v1.0.0 (最近更新)
+- 新增获取医院的预约挂号列表接口 `/api/hosp/hospital/auth/getBookingScheduleRule`
+- 新增 `bookingScheduleModel.js` 预约挂号数据模型
+- 实现根据医院编码和科室编码获取预约挂号列表的功能
+- 支持分页查询，可通过page和limit参数控制
+- 自动生成从今天开始到预约周期结束的预约挂号数据
+- 实现MongoDB存储预约挂号数据
+- 初始数据：可预约人数10，已预约人数0，状态为可预约（0），医生数量3
+- 新增测试脚本 `test-bookingScheduleRule.js` 用于测试预约挂号列表接口
+- 更新了项目结构，添加了预约挂号数据模型
+- 更新了功能特性，添加了预约挂号相关功能
+- 更新了数据说明，添加了预约挂号数据存储说明
+- 更新了测试示例，添加了预约挂号接口测试
+- 更新了README文档，添加了预约挂号接口详细说明
 - 新增通过文件名获取文件内容接口 `/api/hosp/article/:filename`
 - 新增 `data/article/` 目录用于存储HTML文件
 - 为医院列表接口添加了 `hostype` 和 `districtCode` 查询参数支持

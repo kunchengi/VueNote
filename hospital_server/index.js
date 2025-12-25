@@ -56,16 +56,19 @@ app.get(`${config.baseApiPath}/hosp/hospital/findByHosname/:hosname`, hospitalCo
 // 2. 根据医院编码获取科室信息
 app.get(`${config.baseApiPath}/hosp/hospital/department/:hoscode`, hospitalController.getDepartmentByHoscode);
 
-// 3. 根据医院编码获取医院详情
+// 3. 获取医院预约挂号列表
+app.get(`${config.baseApiPath}/hosp/hospital/auth/getBookingScheduleRule`, hospitalController.getBookingScheduleRule);
+
+// 4. 根据医院编码获取医院详情
 app.get(`${config.baseApiPath}/hosp/hospital/:hoscode`, hospitalController.getHospitalByHoscode);
 
-// 4. 旧版分页获取医院列表
+// 5. 旧版分页获取医院列表
 app.get(`${config.baseApiPath}/hosp/hospital/:page/:limit`, hospitalController.getHospitalList);
 
 // 字典相关路由
 app.use(`${config.baseApiPath}/cmn/dict`, dictRoutes);
 
-// 5. 通过文件名获取文件内容
+// 6. 通过文件名获取文件内容
 app.get(`${config.baseApiPath}/hosp/article/:filename`, hospitalController.getArticleByFilename);
 
 // 用户相关路由
@@ -108,6 +111,7 @@ app.listen(PORT, () => {
   console.log(`📚 用户登录 API: http://localhost:${PORT}${config.baseApiPath}/user/login`);
   console.log(`📚 获取微信登录二维码 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_qr_link`);
   console.log(`📚 获取微信登录扫码结果 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_refresh`);
-  
+  console.log(`📚 获取医院预约挂号列表 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/auth/getBookingScheduleRule`);
+
   console.log('\nPress Ctrl+C to stop the server\n');
 });

@@ -196,10 +196,57 @@ const getDepartmentByHoscode = async (req, res) => {
   }
 };
 
+// 获取医院预约挂号列表
+const getBookingScheduleRule = async (req, res) => {
+  try {
+    // 获取查询参数
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const hoscode = req.query.hoscode;
+    const depcode = req.query.depcode;
+    
+    // 验证参数
+    if (!hoscode || !depcode) {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '医院编码和科室编码不能为空'
+      });
+    }
+    
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '页码和每页数量必须为正整数'
+      });
+    }
+    
+    // 调用服务层获取数据
+    const result = await hospitalService.getBookingScheduleRule(page, limit, hoscode, depcode);
+    
+    res.json({
+      code: 200,
+      success: true,
+      data: result,
+      message: '获取医院预约挂号列表成功'
+    });
+  } catch (error) {
+    console.error('Error in getBookingScheduleRule:', error);
+    res.status(400).json({
+      code: 400,
+      success: false,
+      message: error.message, // 返回详细错误信息
+      error: error.stack
+    });
+  }
+};
+
 module.exports = {
   getHospitalList,
   findByHosname,
   getHospitalByHoscode,
   getArticleByFilename,
-  getDepartmentByHoscode
+  getDepartmentByHoscode,
+  getBookingScheduleRule
 };
