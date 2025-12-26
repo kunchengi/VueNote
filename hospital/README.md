@@ -180,3 +180,47 @@
 - 二次封装axios
 - 配置代理跨域
 - 展示医院卡片列表并处理分页逻辑
+
+## 时间处理库dayjs
+
+- 安装dayjs
+```bash
+  pnpm add dayjs
+```
+
+- 引入dayjs
+```typescript
+  import dayjs from 'dayjs'
+```
+
+- 引入中文语言包
+```typescript
+  import 'dayjs/locale/zh-cn'
+```
+
+- 设置语言为中文
+```typescript
+  dayjs.locale('zh-cn')
+```
+
+
+
+- 获取当前时间
+```typescript
+  const now = dayjs()
+```
+
+- 获取指定时间
+```typescript
+  const specifiedTime = dayjs('2025-12-2 12:00:00')
+```
+
+- 格式化时间
+```typescript
+  const formattedTime = specifiedTime.format('YYYY-MM-DD HH:mm:ss')
+```
+
+- 时间差计算
+```typescript
+  const diff = specifiedTime.diff(now, 'day')
+```

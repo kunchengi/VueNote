@@ -1,5 +1,6 @@
 // 对axios进行二次封装
 import axios from 'axios'
+import useUserDataStore from '@/store/modules/userData'
 import { ElMessage } from 'element-plus'
 
 // 创建axios实例
@@ -10,7 +11,11 @@ const request = axios.create({
 
 // 请求拦截器
 request.interceptors.request.use((config) => {
-  // 在发送请求之前做些什么
+  const userStore = useUserDataStore()
+  // 将token添加到请求头
+  if(userStore.userInfo?.token){
+    config.headers.token = userStore.userInfo.token
+  }
   return config;
 })
 
