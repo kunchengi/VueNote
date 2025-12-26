@@ -32,11 +32,6 @@ const BookingScheduleSchema = new mongoose.Schema({
     type: Number,
     default: 10
   },
-  // 预约状态，-1表示停止预约，0表示可预约
-  status: {
-    type: Number,
-    default: 0
-  },
   // 创建时间
   createdAt: {
     type: Date,
