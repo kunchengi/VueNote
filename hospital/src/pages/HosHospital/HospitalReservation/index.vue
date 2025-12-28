@@ -98,13 +98,15 @@ const getCardContent = (item: BookSchedulelData) => {
         }else {
             content = `余号：${item.availableNumber}`
         }
+    }else if(item.status === 1) {
+        content = '即将放号'
     }
     return content
 }
 
 // 预约挂号对应日期是否禁用
 const getDisabled = (item: BookSchedulelData) => {
-    return item.status === -1;
+    return item.status !== 0;
 }
 </script>
 
