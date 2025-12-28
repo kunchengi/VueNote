@@ -232,7 +232,6 @@ const getBookingScheduleRule = async (page, limit, hoscode, depcode) => {
     // 7. 计算status
     let status = 0;
     const currentDate = new Date();
-    const currentTime = currentDate.toTimeString().slice(0, 5); // 当前时间，格式：HH:MM
     const scheduleDate = new Date(workDate);
     
     // 计算日期差，只比较日期部分，忽略时间部分
@@ -240,22 +239,46 @@ const getBookingScheduleRule = async (page, limit, hoscode, depcode) => {
     const scheduleOnlyDate = new Date(scheduleDate.getFullYear(), scheduleDate.getMonth(), scheduleDate.getDate());
     const dateDiff = Math.floor((scheduleOnlyDate - currentOnlyDate) / (1000 * 60 * 60 * 24));
     
+    // 将时间字符串转换为分钟数，便于比较
+    const timeToMinutes = (timeStr) => {
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      return hours * 60 + minutes;
+    };
+    
+    const currentTimeMinutes = timeToMinutes(currentDate.toTimeString().slice(0, 5)); // 当前时间，转换为分钟数
+    const releaseTimeMinutes = timeToMinutes(releaseTime); // 挂号开始时间，转换为分钟数
+    const stopTimeMinutes = timeToMinutes(stopTime); // 挂号结束时间，转换为分钟数
+    
+    // 重新梳理status判断逻辑
+    // status=1的情况：在挂号周期之后，或者在预约挂号周期最后一天且在releaseTime之前
+    
     // 规则1：如果是当前日期且已超过挂号结束时间stopTime，则为-1表示停止预约
-    if (dateDiff === 0 && currentTime > stopTime) {
+    if (dateDiff === 0 && currentTimeMinutes > stopTimeMinutes) {
       status = -1;
     } 
-    // 规则2：如果在挂号周期内，则为0表示可预约
-    else if (dateDiff >= 0 && dateDiff <= cycle) {
-      // 检查是否是预约周期最后一天且在releaseTime之前
-      if (dateDiff === cycle && currentTime < releaseTime) {
-        status = 1; // 即将放号
+    // 规则2：如果是第cycle+1天（挂号周期之后的第一天）
+    else if (dateDiff === cycle) {
+      // 挂号周期之后的第一天，直接显示即将放号
+      status = 1; // 即将放号
+    }
+    // 规则3：如果在挂号周期内（0到cycle-1天）
+    else if (dateDiff >= 0 && dateDiff < cycle) {
+      // 检查是否是预约周期的最后一天（第cycle天）
+      // 注意：cycle是预约周期，所以第cycle-1天是预约周期的最后一天
+      if (dateDiff === cycle - 1) {
+        // 预约周期最后一天，且在releaseTime之前，表示即将放号
+        if (currentTimeMinutes < releaseTimeMinutes) {
+          status = 1; // 即将放号
+        } else {
+          status = 0; // 可预约
+        }
       } else {
         status = 0; // 可预约
       }
-    } 
-    // 规则3：如果在挂号周期之后，则为1表示即将放号
-    else if (dateDiff > cycle) {
-      status = 1;
+    }
+    // 规则4：其他情况（理论上不会出现）
+    else {
+      status = 1; // 即将放号
     }
     
     // 添加到结果列表
