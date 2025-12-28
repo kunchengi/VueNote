@@ -32,6 +32,10 @@
                 @current-change="loadScheduleList"
             />
         </div>
+        <div class="hospital-reservation__detail">
+            <SelectDoctor :is-morning="true" />
+            <SelectDoctor :is-morning="false" />
+        </div>
     </div>
 </template>
 
@@ -42,6 +46,7 @@ import { useRoute } from 'vue-router';
 import { reqBookScheduleList } from '@/api/hospital';
 import { type BookSchedulelListRequestData, type BookSchedulelListResponseData, type BookSchedulelData, type BookScheduleBaseData } from '@/api/hospital/type';
 import { onMounted, ref,reactive } from 'vue';
+import SelectDoctor from '@/components/HosReservation/SelectDoctor/index.vue';
 
 dayjs.locale('zh-cn')
 
