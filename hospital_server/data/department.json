@@ -191,11 +191,6 @@
                 "children": null
             },
             {
-                "depcode": "100302",
-                "depname": "手汗专科",
-                "children": null
-            },
-            {
                 "depcode": "100303",
                 "depname": "肝胆胰外科",
                 "children": null
@@ -227,7 +222,7 @@
             },
             {
                 "depcode": "100309",
-                "depname": "肠胃外科",
+                "depname": "胃肠外科",
                 "children": null
             },
             {
@@ -247,11 +242,6 @@
             },
             {
                 "depcode": "100313",
-                "depname": "甲状腺专科",
-                "children": null
-            },
-            {
-                "depcode": "100314",
                 "depname": "介入专科",
                 "children": null
             }
@@ -290,11 +280,6 @@
             {
                 "depcode": "100501",
                 "depname": "戒烟科",
-                "children": null
-            },
-            {
-                "depcode": "100502",
-                "depname": "岭南岑氏杂病流派",
                 "children": null
             },
             {
@@ -366,11 +351,6 @@
             {
                 "depcode": "100607",
                 "depname": "小儿推拿专科",
-                "children": null
-            },
-            {
-                "depcode": "100608",
-                "depname": "小儿斜颈专科",
                 "children": null
             }
         ]
