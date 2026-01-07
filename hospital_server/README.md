@@ -10,6 +10,7 @@ hospital_server/
 │   ├── article/            # 文章/通知等HTML文件存储
 │   ├── hospital.json       # 医院数据存储
 │   ├── dictData.json       # 字典数据存储
+│   ├── doctorData.json     # 医生数据存储
 │   └── department.json     # 科室数据存储
 ├── src/
 │   ├── config/
@@ -80,6 +81,8 @@ hospital_server/
 - ✅ MongoDB预约挂号数据存储
 - ✅ 自动生成预约挂号数据
 - ✅ 支持按医院和科室查询预约挂号列表
+- ✅ 获取科室对应日期的医生排班信息接口
+- ✅ 根据日期和科室筛选值班医生
 
 ## 安装依赖
 
@@ -910,6 +913,101 @@ node index.js
 }
 ```
 
+### 获取科室对应日期的医生排班信息
+
+**接口地址**：`GET /api/hosp/hospital/auth/findScheduleList`
+
+**接口说明**：
+
+- 根据医院编码、科室编码、日期获取医生排班信息
+
+- 数据获取流程
+  - 从doctorData.json中获取对应科室及日期值班的医生
+    - 可获取需要的字段：param.weekType、param.depname、param.hosname、level、docName、skill、workTime、amount
+  - 从hospital.json中通过传入的hoscode查找对应医院
+
+- 数据说明
+  - id：预约挂号数据ID（字符串），数据库自动生成
+  - createTime：创建时间（格式：yyyy-MM-dd HH:mm:ss），数据库自动生成
+  - updateTime：更新时间（格式：yyyy-MM-dd HH:mm:ss），数据库自动生成
+  - isDeleted：是否删除（整数），0表示未删除，1表示已删除，默认值为0
+  - param：排班参数（对象）
+    - weekType：周几排班（整数），0-6表示周日到周六
+    - depname：小科室名称（字符串）
+    - hosname：医院名称（字符串），从hospital.json中通过传入的hoscode查找对应医院，数据为：hospital.hosname
+  - depcode：科室编码（字符串）
+  - hoscode：医院编码（字符串）
+  - level：医生等级（字符串）
+  - docName：医生姓名（字符串）
+  - skill：医生技能（字符串）
+  - workDate：排班日期（字符串），即为传入的workDate
+  - workTime：工作时间（整数），0表示上午，1表示下午
+  - reservedNumber：已预约人数（整数），初始值为0
+  - availableNumber：可预约人数（整数），初始值为5
+  - amount：挂号费用（整数）
+
+**参数说明**：
+- `hoscode`：医院编码（字符串）- 查询参数
+- `depcode`：科室编码（字符串）- 查询参数
+- `workDate`：日期（字符串）- 查询参数
+
+**注意**：
+
+- 需携带token，在请求头中添加token字段，值为登录接口返回的token
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": [
+    {
+      "id": "657309222323200000000001",
+      "createTime": "2025-12-25 08:00:00",
+      "updateTime": "2025-12-25 08:00:00",
+      "isDeleted": 0,
+      "param": {
+        "weekType": 4,// 周几排班（0-6表示周日到周六）
+        "depname": "泌尿外科",
+        "hosname": "航天中心医院"
+      },
+      "depcode": "10000101",// 科室编码
+      "hoscode": "100001",// 医院编码
+      "level": "副主任医生",// 医生等级：副主任医生、主任医师、主治医生等
+      "docName": "张三",
+      "skill": "专治跌打损伤、骨质疏松等疑难杂症",
+      "workDate": "2025-12-25",
+      "workTime": 1,// 工作时间：0上午、1下午
+      "reservedNumber": 0,// 已预约人数
+      "availableNumber": 5,// 可预约人数
+      "amount": 20// 挂号费用
+    }
+  ],
+  "message": "获取医院预约挂号列表成功"
+}
+```
+
+**错误响应**：
+
+- token缺失或无效
+```json
+{
+  "code": 401,
+  "success": false,
+  "message": "请登录"
+}
+```
+
+- 获取排班信息失败
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "获取排班信息失败"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -924,6 +1022,10 @@ node index.js
 - 科室数据存储在 `data/department.json` 文件中
   - 包含科室的层级结构数据
   - 支持通过医院编码获取科室列表（目前忽略hoscode，返回所有科室）
+- 医生数据存储在 `data/doctorData.json` 文件中
+  - 包含医生的基本信息：科室编码、医生姓名、医生等级、医生技能、工作时间、挂号费用、排班星期等
+  - 支持根据科室编码和星期几筛选值班医生
+  - 医生数据是通用的，不与特定医院绑定
 - 用户数据存储在 MongoDB 数据库中
   - 数据库名称：`hospital_system`
   - 集合名称：`users`
@@ -1062,6 +1164,21 @@ curl "http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1
 curl "http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1&limit=10&hoscode=1000_10&depcode=invalid"
 ```
 
+### 获取科室对应日期的医生排班信息接口测试
+```bash
+# 测试获取医生排班信息（需要携带token）
+curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/hosp/hospital/auth/findScheduleList?hoscode=1000_10&depcode=100101&workDate=2025-12-24"
+
+# 测试不同日期的排班信息
+curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/hosp/hospital/auth/findScheduleList?hoscode=1000_10&depcode=100101&workDate=2025-12-25"
+
+# 测试参数缺失（缺少workDate）
+curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/hosp/hospital/auth/findScheduleList?hoscode=1000_10&depcode=100101"
+
+# 测试医院不存在
+curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/hosp/hospital/auth/findScheduleList?hoscode=999999&depcode=100101&workDate=2025-12-24"
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -1131,6 +1248,18 @@ curl "http://localhost:3000/api/hosp/hospital/auth/getBookingScheduleRule?page=1
 - 更新了启动日志，添加了微信登录相关API的日志输出
 - 新增测试脚本 `test-qr_link.js` 用于测试微信登录二维码接口
 - 更新了README文档，添加了微信登录流程和接口详细说明
+- 新增获取科室对应日期的医生排班信息接口 `/api/hosp/hospital/auth/findScheduleList`
+- 新增 `doctorData.json` 医生数据文件
+- 实现根据医院编码、科室编码、日期获取医生排班信息的功能
+- 支持根据日期计算星期几，筛选对应日期值班的医生
+- 从hospital.json中获取医院名称，从doctorData.json中获取医生信息
+- 医生数据是通用的，不与特定医院绑定
+- 新增测试脚本 `test-findScheduleList.js` 用于测试医生排班信息接口
+- 更新了功能特性，添加了医生排班相关功能
+- 更新了数据说明，添加了医生数据存储说明
+- 更新了测试示例，添加了医生排班接口测试
+- 更新了README文档，添加了医生排班接口详细说明
+- 优化了错误日志输出，只显示错误消息而非完整堆栈
 
 ## 许可证
 

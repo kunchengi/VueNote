@@ -242,11 +242,48 @@ const getBookingScheduleRule = async (req, res) => {
   }
 };
 
+// 获取科室对应日期的医生排班信息
+const findScheduleList = async (req, res) => {
+  try {
+    // 获取查询参数
+    const hoscode = req.query.hoscode;
+    const depcode = req.query.depcode;
+    const workDate = req.query.workDate;
+    
+    // 验证参数
+    if (!hoscode || !depcode || !workDate) {
+      return res.status(400).json({
+        code: 400,
+        success: false,
+        message: '医院编码、科室编码和日期不能为空'
+      });
+    }
+    
+    // 调用服务层获取数据
+    const result = await hospitalService.findScheduleList(hoscode, depcode, workDate);
+    
+    res.json({
+      code: 200,
+      success: true,
+      data: result,
+      message: '获取医院预约挂号列表成功'
+    });
+  } catch (error) {
+    console.error('Error in findScheduleList:', error.message);
+    res.status(400).json({
+      code: 400,
+      success: false,
+      message: '获取排班信息失败'
+    });
+  }
+};
+
 module.exports = {
   getHospitalList,
   findByHosname,
   getHospitalByHoscode,
   getArticleByFilename,
   getDepartmentByHoscode,
-  getBookingScheduleRule
+  getBookingScheduleRule,
+  findScheduleList
 };

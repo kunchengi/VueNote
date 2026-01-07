@@ -361,10 +361,78 @@ const getBookingScheduleRule = async (page, limit, hoscode, depcode) => {
   };
 };
 
+// 获取科室对应日期的医生排班信息
+const findScheduleList = async (hoscode, depcode, workDate) => {
+  console.log(`获取医生排班信息 - 传入参数:`);
+  console.log(`hoscode: ${hoscode}`);
+  console.log(`depcode: ${depcode}`);
+  console.log(`workDate: ${workDate}`);
+
+  // 1. 从hospital.json中查找医院
+  const hospitalData = readHospitalData();
+  const hospital = hospitalData.find(h => h.hoscode === hoscode);
+
+  if (!hospital) {
+    throw new Error('医院不存在');
+  }
+
+  // 2. 从doctorData.json中获取医生数据
+  const doctorData = readDoctorData();
+
+  // 3. 计算workDate对应的星期几（0-6，周日到周六）
+  const date = new Date(workDate);
+  const dayOfWeek = date.getDay();
+
+  // 4. 筛选出对应科室且在该日期值班的医生
+  const filteredDoctors = doctorData.filter(doctor => {
+    return doctor.depcode === depcode &&
+           doctor.param.weekType &&
+           doctor.param.weekType.includes(dayOfWeek) &&
+           doctor.isDeleted === 0;
+  });
+
+  console.log(`找到 ${filteredDoctors.length} 个符合条件的医生`);
+
+  // 5. 构建返回数据
+  const scheduleList = filteredDoctors.map(doctor => {
+    // 生成唯一ID
+    const id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+    
+    // 获取当前时间，格式化为 yyyy-MM-dd HH:mm:ss
+    const now = new Date();
+    const createTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+    
+    return {
+      id: id,
+      createTime: createTime,
+      updateTime: createTime,
+      isDeleted: 0,
+      param: {
+        weekType: dayOfWeek,
+        depname: doctor.param.depname,
+        hosname: hospital.hosname
+      },
+      depcode: depcode,
+      hoscode: hoscode,
+      level: doctor.level,
+      docName: doctor.docName,
+      skill: doctor.skill,
+      workDate: workDate,
+      workTime: doctor.workTime,
+      reservedNumber: 0,
+      availableNumber: 5,
+      amount: doctor.amount
+    };
+  });
+
+  return scheduleList;
+};
+
 module.exports = {
   getHospitalList,
   findByHosname,
   getHospitalByHoscode,
   getDepartmentByHoscode,
-  getBookingScheduleRule
+  getBookingScheduleRule,
+  findScheduleList
 };

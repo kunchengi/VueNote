@@ -62,7 +62,10 @@ app.get(`${config.baseApiPath}/hosp/hospital/department/:hoscode`, hospitalContr
 // 3. 获取医院预约挂号列表（需要登录）
 app.get(`${config.baseApiPath}/hosp/hospital/auth/getBookingScheduleRule`, verifyToken, hospitalController.getBookingScheduleRule);
 
-// 4. 根据医院编码获取医院详情
+// 4. 获取科室对应日期的医生排班信息（需要登录）
+app.get(`${config.baseApiPath}/hosp/hospital/auth/findScheduleList`, verifyToken, hospitalController.findScheduleList);
+
+// 5. 根据医院编码获取医院详情
 app.get(`${config.baseApiPath}/hosp/hospital/:hoscode`, hospitalController.getHospitalByHoscode);
 
 // 5. 旧版分页获取医院列表
@@ -115,6 +118,7 @@ app.listen(PORT, () => {
   console.log(`📚 获取微信登录二维码 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_qr_link`);
   console.log(`📚 获取微信登录扫码结果 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_refresh`);
   console.log(`📚 获取医院预约挂号列表 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/auth/getBookingScheduleRule`);
+  console.log(`📚 获取科室对应日期的医生排班信息 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/auth/findScheduleList`);
 
   console.log('\nPress Ctrl+C to stop the server\n');
 });
