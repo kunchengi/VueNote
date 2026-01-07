@@ -827,13 +827,15 @@ node index.js
     - 从hospital.json中获取对应医院的预约挂号周期，数据为：hospital.bookingRule.cycle
     - 获取从今天起到挂号周期cycle+1天的预约挂号列表
       - 从mongodb中获取对应医院、科室、日期的预约挂号数据
-      - 如果数据库中没有对应数据，则创建新数据并写入mongodb，初始availableNumber为10，reservedNumber为0，docCount为3
+      - 如果数据库中没有对应数据，则创建新数据并写入mongodb
+    - 获取对应日期医生值班信息
+      - 通过depcode从doctorData.json中获取对应科室的医生列表，param.weekType有医生对应星期几值班
   - 数据说明
     - id：预约挂号数据ID（字符串），数据库自动生成
     - workDate：预约日期（格式：yyyy-MM-dd）
-    - docCount：医生数量（整数）
-    - reservedNumber：已预约人数（整数）
-    - availableNumber：可预约人数（整数）
+    - docCount：医生数量（整数），当前日期值班的医生数量
+    - reservedNumber：已预约人数（整数），初始值为0
+    - availableNumber：可预约人数（整数），初始值为docCount*5
     - status：预约状态（整数）
       - 如果当前日期且已超过挂号结束时间stopTime，则为-1表示停止预约
       - 否则如果在挂号周期内，则为0表示可预约

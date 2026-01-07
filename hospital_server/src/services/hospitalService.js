@@ -46,6 +46,27 @@ const readDepartmentData = () => {
   }
 };
 
+// 读取医生数据
+const readDoctorData = () => {
+  const filePath = path.join(__dirname, '../../data/doctorData.json');
+  
+  // 检查文件是否存在
+  if (!fs.existsSync(filePath)) {
+    console.error(`医生数据文件不存在: ${filePath}`);
+    return [];
+  }
+  
+  try {
+    const data = fs.readFileSync(filePath, 'utf8');
+    const parsedData = JSON.parse(data);
+    console.log(`成功读取医生数据，数量: ${parsedData.length}`);
+    return parsedData;
+  } catch (error) {
+    console.error(`读取医生数据失败: ${error.message}`);
+    return [];
+  }
+};
+
 // 分页获取医院列表
 const getHospitalList = (page, limit, filters = {}) => {
   const hospitalData = readHospitalData();
@@ -198,6 +219,26 @@ const getBookingScheduleRule = async (page, limit, hoscode, depcode) => {
     bookingDates.push(date.toISOString().split('T')[0]); // 格式：yyyy-MM-dd
   }
   
+  // 3.5 读取医生数据，用于计算每个日期的值班医生数量
+  const doctorData = readDoctorData();
+  
+  // 根据日期获取星期几（0-6，周日到周六）
+  const getDayOfWeek = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.getDay();
+  };
+  
+  // 根据日期和科室代码计算值班医生数量
+  const getDocCountForDate = (workDate, depcode) => {
+    const dayOfWeek = getDayOfWeek(workDate);
+    const doctorsOnDuty = doctorData.filter(doctor => 
+      doctor.depcode === depcode && 
+      doctor.param.weekType && 
+      doctor.param.weekType.includes(dayOfWeek)
+    );
+    return doctorsOnDuty.length;
+  };
+  
   // 4. 从数据库中获取对应日期的预约数据
   const existingSchedules = await BookingSchedule.find({
     hoscode,
@@ -217,14 +258,16 @@ const getBookingScheduleRule = async (page, limit, hoscode, depcode) => {
     let schedule = scheduleMap.get(workDate);
     
     if (!schedule) {
-      // 创建新数据，不包含status字段
+      const docCount = getDocCountForDate(workDate, depcode);
+      const availableNumber = docCount * 5;
+      
       schedule = new BookingSchedule({
         hoscode,
         depcode,
         workDate,
-        docCount: 3,
+        docCount: docCount,
         reservedNumber: 0,
-        availableNumber: 10
+        availableNumber: availableNumber
       });
       await schedule.save();
     }
@@ -282,12 +325,14 @@ const getBookingScheduleRule = async (page, limit, hoscode, depcode) => {
     }
     
     // 添加到结果列表
+    const docCount = getDocCountForDate(workDate, depcode);
+    const availableNumber = docCount * 5;
     bookingScheduleList.push({
       id: schedule._id.toString(),
       workDate: schedule.workDate,
-      docCount: schedule.docCount,
+      docCount: docCount,
       reservedNumber: schedule.reservedNumber,
-      availableNumber: schedule.availableNumber,
+      availableNumber: availableNumber,
       status: status // 使用计算得到的status，而不是数据库中的值
     });
   }
