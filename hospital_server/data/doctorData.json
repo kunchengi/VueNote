@@ -2,7 +2,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心血管专科"
         },
         "depcode": "100101",
@@ -15,7 +15,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心血管专科"
         },
         "depcode": "100101",
@@ -28,7 +28,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心血管专科"
         },
         "depcode": "100101",
@@ -36,7 +36,7 @@
         "docName": "田相亭",
         "skill": "熟练掌握心血管常见疾病的诊治，擅长高血压、冠心病、心力衰竭、心律失常的诊治。",
         "workTime": 1,
-        "amount": 13
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -75,12 +75,12 @@
         "docName": "薛竟宜",
         "skill": "擅长冠心病、心力衰竭、心律失常、高血压和心肌病等心血管疾病的诊断和治疗",
         "workTime": 0,
-        "amount": 300
+        "amount": 35
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "冠心病专科"
         },
         "depcode": "100102",
@@ -88,12 +88,12 @@
         "docName": "徐江林",
         "skill": "中西医结合诊治冠心病、高血压、心力衰竭等心血管疾病:尤其善用中医防治心血管疾病及感冒、失眠等内科疾病。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "冠心病专科"
         },
         "depcode": "100102",
@@ -101,12 +101,12 @@
         "docName": "陈亚辉",
         "skill": "中西医结合治疗心血管疾病，尤擅于冠心病、心肌梗死、高血压、心力衰竭等中西医结合诊疗，以及冠心病介入、起搏器等微创介入治疗。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "冠心病专科"
         },
         "depcode": "100102",
@@ -158,7 +158,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "高血压专科"
         },
         "depcode": "100103",
@@ -171,7 +171,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "高血压专科"
         },
         "depcode": "100103",
@@ -179,12 +179,12 @@
         "docName": "肖艳",
         "skill": "各种心血管疾病如高血压，冠心病、心衰、心律失常、胸痛、眩晕、头痛、高脂血等的中西医结合治疗",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "高血压专科"
         },
         "depcode": "100103",
@@ -192,7 +192,7 @@
         "docName": "丘伟中",
         "skill": "对糖尿病及其并发症、过敏性疾病、消化功能紊乱、睡眠障碍、虚弱证的中医治疗",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -231,12 +231,12 @@
         "docName": "杨辉剑",
         "skill": "心血管内科门诊深耕心血管病临床诊疗二十多年，参与并主导门诊、住院患者复杂的心血管疾病的诊疗，包括冠心病、高血压、心力衰竭、心律失常等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心衰专科"
         },
         "depcode": "100104",
@@ -244,12 +244,12 @@
         "docName": "姚耿圳",
         "skill": "急性心肌梗死等心内科常见病的手术治疗:内科杂病的中西医结合诊治，如冠心病、心力衰竭、心律失常等。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心衰专科"
         },
         "depcode": "100104",
@@ -257,12 +257,12 @@
         "docName": "姚耿圳",
         "skill": "急性心肌梗死等心内科常见病的手术治疗:内科杂病的中西医结合诊治，如冠心病、心力衰竭、心律失常等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心衰专科"
         },
         "depcode": "100104",
@@ -283,7 +283,7 @@
         "docName": "吕渭辉",
         "skill": "心血管疾病的中西医结合诊治与介入治疗。全面掌握包括复杂冠脉病变、心脏瓣膜病、先天性心脏病、左心耳封堵及外周血管疾病在内的介入技术。诊疗范围覆盖心衰、高血压、冠心病、心律失常肺动脉高压及主动脉与外周血管疾病，并对特发性心肌病、冠状动脉扩张病有深入研究和诊治经验，",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -314,7 +314,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心律失常专科"
         },
         "depcode": "100105",
@@ -327,7 +327,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心律失常专科"
         },
         "depcode": "100105",
@@ -340,7 +340,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心律失常专科"
         },
         "depcode": "100105",
@@ -374,7 +374,7 @@
         "docName": "陈文生",
         "skill": "心内科各种常见病和疑难杂症的诊断和治疗。尤其是心脏介入治疗:心律失常:射频消融，启动消融。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -387,12 +387,12 @@
         "docName": "卓胜青",
         "skill": "擅长于高血压、冠心病、心肌病、心力衰竭、心律失常、血脂异常等疾病的诊治.",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胸痛专科"
         },
         "depcode": "100106",
@@ -405,7 +405,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胸痛专科"
         },
         "depcode": "100106",
@@ -418,7 +418,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胸痛专科"
         },
         "depcode": "100106",
@@ -465,12 +465,12 @@
         "docName": "孙秀亭",
         "skill": "冠心病，高血压，心衰等常见心脏病老年病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 13
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心胸专科"
         },
         "depcode": "100107",
@@ -483,7 +483,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心胸专科"
         },
         "depcode": "100107",
@@ -491,7 +491,7 @@
         "docName": "王菲",
         "skill": "心血管疾病的诊治，尤其是冠心病、高血压、心力衰竭、心律失常等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -517,12 +517,12 @@
         "docName": "王戈",
         "skill": "终末期心脏病、各类先天性心脏病、心脏瓣膜病、主动脉疾病、冠心病及外周血管疾病的诊治",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "炎症性肠病科"
         },
         "depcode": "100201",
@@ -535,7 +535,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "炎症性肠病科"
         },
         "depcode": "100201",
@@ -548,7 +548,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "炎症性肠病科"
         },
         "depcode": "100201",
@@ -569,7 +569,7 @@
         "docName": "刘丰",
         "skill": "内科杂症，尤擅于治疗慢性肠病，慢性胃病等消化系统疾病",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -582,7 +582,7 @@
         "docName": "欧阳博文",
         "skill": "颊针、阳掌综合疗法联合中药治疗消化系统疾病如胆绞痛、胆结石、功能性腹痛、慢性腹泻、慢性胃炎等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -595,12 +595,12 @@
         "docName": "张庆芳",
         "skill": "擅长慢性胃炎、胃及十二指肠溃疡、功能性消化不良、糖尿病胃轻瘫、胃食管反流等消化心身疾病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "脾胃病科"
         },
         "depcode": "100202",
@@ -608,12 +608,12 @@
         "docName": "陈纯辉",
         "skill": "消化系统疾病的中西医诊治，如慢性胃炎、消化性溃疡、胃食管反流病、功能性胃肠病、慢性胃疾病等。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "脾胃病科"
         },
         "depcode": "100202",
@@ -652,7 +652,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "结肠炎科"
         },
         "depcode": "100203",
@@ -665,7 +665,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "结肠炎科"
         },
         "depcode": "100203",
@@ -673,7 +673,7 @@
         "docName": "胡丽娟",
         "skill": "擅长消化内科疾病的中西医诊治，如慢性胃炎、消化性溃疡、功能性消化不良、炎症性肠病等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -686,7 +686,7 @@
         "docName": "赵喜颖",
         "skill": "溃疡性结肠炎、克罗恩病:消化系统疾病的中西医结合诊治如消化性溃疡、功能性胃肠病等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -704,7 +704,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胆胰专科"
         },
         "depcode": "100204",
@@ -712,12 +712,12 @@
         "docName": "李建华",
         "skill": "慢性胃炎、胃食管反流病、功能性胃肠病、胆胰疾病、消化道出血的中西医诊治及消化道疾病等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胆胰专科"
         },
         "depcode": "100204",
@@ -730,7 +730,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胆胰专科"
         },
         "depcode": "100204",
@@ -751,7 +751,7 @@
         "docName": "张国雄",
         "skill": "师从俞云教授。呼吸系统疾病如慢性咳嗽、咳嗽变异性哮喘慢阻肺等;消化系统疾病如食管反流、胃食管反流等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -764,7 +764,7 @@
         "docName": "吴皓萌",
         "skill": "肠易激综合征、慢性胃炎伴胃癌前病变(萎缩，肠化，异型增生)、胃食管反流病(食管炎)",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -777,12 +777,12 @@
         "docName": "石宁",
         "skill": "主攻肝脏良恶性肿瘤、胆囊结石、肝胆管结石、胆道肿瘤、胰腺肿瘤、门静脉高负荷疾病",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "脑病专科"
         },
         "depcode": "100205",
@@ -790,12 +790,12 @@
         "docName": "蔡军",
         "skill": "各种颅脑外伤的诊治",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "脑病专科"
         },
         "depcode": "100205",
@@ -803,7 +803,7 @@
         "docName": "冯梅",
         "skill": "中西医结合治疗神经内科疾病如:中风、记忆力下降、痴呆、头晕、头痛、失眠、肢体麻木等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -834,7 +834,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "神经内科"
         },
         "depcode": "100206",
@@ -847,7 +847,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "神经内科"
         },
         "depcode": "100206",
@@ -860,7 +860,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "神经内科"
         },
         "depcode": "100206",
@@ -894,7 +894,7 @@
         "docName": "李红娟",
         "skill": "脑血管病、痴呆、头晕、失眠、胃肠功能素乱，体质调理及常见老年病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -907,12 +907,12 @@
         "docName": "黄越冬",
         "skill": "对神经内科多发病，常见病，疑难病，有丰富的临床经验。擅长于脑血管病、记忆障碍、痴呆、头晕、头痛、失眠等疾病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肌无力专科"
         },
         "depcode": "100207",
@@ -920,12 +920,12 @@
         "docName": "许浩游",
         "skill": "中西医结合诊治神经内科疾病，尤擅神经脱鞘病(多发性硬化、视神经脊髓炎、自免脑炎)",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肌无力专科"
         },
         "depcode": "100207",
@@ -933,7 +933,7 @@
         "docName": "王鑫",
         "skill": "中西医结合诊治神经内科疾病，尤擅神经脱鞘病(多发性硬化、视神经脊髓炎、自免脑炎)",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -964,7 +964,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "呼吸内科"
         },
         "depcode": "100208",
@@ -977,7 +977,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "呼吸内科"
         },
         "depcode": "100208",
@@ -990,7 +990,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "呼吸内科"
         },
         "depcode": "100208",
@@ -1011,7 +1011,7 @@
         "docName": "林旋龄",
         "skill": "圆运动六经辨证理论联合脐针等特色疗法治疗顽固性咳嗽、哮喘、支气管扩张、肺炎、咽炎等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1024,7 +1024,7 @@
         "docName": "王伟荣",
         "skill": "中西医结合治疗呼吸系统疾病，如支气管炎、肺炎、咳嗽、慢阻肺等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1037,12 +1037,12 @@
         "docName": "劳妙婵",
         "skill": "熟练掌握各种呼吸科常见疾病，如肺炎、慢性阻塞性肺病、哮喘、支气管扩张等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "脑血管病科"
         },
         "depcode": "100209",
@@ -1050,12 +1050,12 @@
         "docName": "倪小佳",
         "skill": "第七批全国老中医药专家学术经验继承人，师从广东省名中医黄培新教授、蔡业峰教授，擅长治疗脑血管病、脑震荡、脑梗塞等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "脑血管病科"
         },
         "depcode": "100209",
@@ -1076,7 +1076,7 @@
         "docName": "文龙龙",
         "skill": "中西医结合诊治脑病及其他内科疾病，如中风(脑梗死、脑出血、短暂性脑缺血等)、眩晕、头痛等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1089,12 +1089,12 @@
         "docName": "石尧",
         "skill": "脑血管病的中西医结合诊治，神经外科手术及神经介入治疗，主要从事中西结合治疗脑梗死、脑出血、短暂性脑缺血等疾病",
         "workTime": 1,
-        "amount": 35
+        "amount": 13
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "头痛科"
         },
         "depcode": "100210",
@@ -1107,7 +1107,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "头痛科"
         },
         "depcode": "100210",
@@ -1115,12 +1115,12 @@
         "docName": "张佛明",
         "skill": "中西医结合诊治中风，如脑梗死、脑出血、蛛网膜下腔出血、脑动脉狭窄、脑动脉瘤等;脑血相关疾病的诊治",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "头痛科"
         },
         "depcode": "100210",
@@ -1154,7 +1154,7 @@
         "docName": "张嘉辉",
         "skill": "擅长头痛、眩晕、失眠等疼痛性疾病",
         "workTime": 1,
-        "amount": 35
+        "amount": 13
     },
     {
         "isDeleted": 0,
@@ -1172,7 +1172,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "记忆障碍专科"
         },
         "depcode": "100211",
@@ -1185,7 +1185,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "记忆障碍专科"
         },
         "depcode": "100211",
@@ -1198,7 +1198,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "记忆障碍专科"
         },
         "depcode": "100211",
@@ -1245,12 +1245,12 @@
         "docName": "赵洁皓",
         "skill": "擅长于记忆障碍，帕金森病等神经系统变性病，脑血管病，神经系统免疫性、敏感度等疾病的诊治",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "眩晕专科"
         },
         "depcode": "100212",
@@ -1258,12 +1258,12 @@
         "docName": "李松键",
         "skill": "诊治眩晕、耳鸣、耳聋、耳痛、咳嗽、过敏性鼻炎、鼻窦炎、嗅觉下降等常见耳鼻喉科疾病",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "眩晕专科"
         },
         "depcode": "100212",
@@ -1276,7 +1276,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "眩晕专科"
         },
         "depcode": "100212",
@@ -1284,7 +1284,7 @@
         "docName": "廖一夫",
         "skill": "对头痛、头晕、脑供血不足、脑血管病(脑梗死、脑出血、短暂性脑缺血发作)",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1310,12 +1310,12 @@
         "docName": "马晓晨",
         "skill": "诊治眩晕、耳鸣、耳聋、耳痛、咳嗽、过敏性鼻炎、鼻窦炎、嗅觉下降等常见耳鼻喉科疾病",
         "workTime": 1,
-        "amount": 35
+        "amount": 13
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "癫痫专科"
         },
         "depcode": "100213",
@@ -1328,7 +1328,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "癫痫专科"
         },
         "depcode": "100213",
@@ -1341,7 +1341,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "癫痫专科"
         },
         "depcode": "100213",
@@ -1349,7 +1349,7 @@
         "docName": "谢海涛",
         "skill": "作顽固性癫痫定位诊断及外科治疗、功能区病变、顽固性疼痛、帕金森病及肌张力障碍性疾病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1375,12 +1375,12 @@
         "docName": "伍犹梁",
         "skill": "各种顽固性癫痫的定位诊断及外科治疗，帕金森病手术(DBS手术)、三叉神经痛、神经调控.",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心理睡眠专科"
         },
         "depcode": "100214",
@@ -1393,7 +1393,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心理睡眠专科"
         },
         "depcode": "100214",
@@ -1406,7 +1406,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心理睡眠专科"
         },
         "depcode": "100214",
@@ -1458,7 +1458,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "内分泌专科"
         },
         "depcode": "100215",
@@ -1471,7 +1471,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "内分泌专科"
         },
         "depcode": "100215",
@@ -1479,12 +1479,12 @@
         "docName": "智喜梅",
         "skill": "熟练掌握内分泌常见病和多发病，擅长骨质疏松、糖尿病、甲状腺疾病等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "内分泌专科"
         },
         "depcode": "100215",
@@ -1492,7 +1492,7 @@
         "docName": "罗露露",
         "skill": "内分泌代谢病，如糖尿病及各种并发症(周围神经、肾、心脑血管)、甲亢、甲减、甲状腺疾病等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1531,12 +1531,12 @@
         "docName": "孙璐",
         "skill": "糖尿病及其并发症、肥胖、甲状腺疾病、痛风及高尿酸血症等内分泌代谢性疾病的中西医诊治。",
         "workTime": 1,
-        "amount": 13
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "糖尿病专科"
         },
         "depcode": "100216",
@@ -1549,7 +1549,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "糖尿病专科"
         },
         "depcode": "100216",
@@ -1562,7 +1562,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "糖尿病专科"
         },
         "depcode": "100216",
@@ -1570,7 +1570,7 @@
         "docName": "张园",
         "skill": "中西医结合治疗内分泌及代谢性疾病，尤其糖尿病及其并发症、甲状腺相关疾病，以及内科相关疾病。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1596,7 +1596,7 @@
         "docName": "陈亮",
         "skill": "诊治内分泌代谢系统疾病，如糖尿病、甲状腺、甲状旁腺疾病、垂体疾病、骨质疏松等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1614,7 +1614,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "咳嗽专科"
         },
         "depcode": "100217",
@@ -1627,7 +1627,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "咳嗽专科"
         },
         "depcode": "100217",
@@ -1640,7 +1640,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "咳嗽专科"
         },
         "depcode": "100217",
@@ -1648,7 +1648,7 @@
         "docName": "叶家荣",
         "skill": "急慢性咳嗽、慢性阻塞性肺病、支气管扩张、急慢性呼吸衰竭、间质性肺疾病等呼吸系统疾病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1687,12 +1687,12 @@
         "docName": "王维亮",
         "skill": "中西医结合治疗呼吸科常见疾病、多发疾病如慢性阻塞性肺疾病、肺炎、肺部结节、支气管哮鸣等。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "甲状腺专科"
         },
         "depcode": "100218",
@@ -1705,7 +1705,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "甲状腺专科"
         },
         "depcode": "100218",
@@ -1718,7 +1718,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "甲状腺专科"
         },
         "depcode": "100218",
@@ -1726,7 +1726,7 @@
         "docName": "刘明",
         "skill": "甲状腺疾病如甲状腺炎、结节性甲状腺肿、甲状腺癌等，周围血管疾病如下肢动脉硬化闭塞症",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1739,7 +1739,7 @@
         "docName": "蔡北源",
         "skill": "中西医结合治疗甲状腺、胃肠、肝胆、结直肠、肛门部、疝等疾病治疗，手术后快速康复调理。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1770,7 +1770,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "甲亢专科"
         },
         "depcode": "100219",
@@ -1783,7 +1783,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "甲亢专科"
         },
         "depcode": "100219",
@@ -1804,7 +1804,7 @@
         "docName": "傅强",
         "skill": "血管外科疾病、甲状腺相关内分泌疾病的中西医结合诊治，甲状腺肿瘤的外科手术治疗，甲状旁腺疾病的诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1817,12 +1817,12 @@
         "docName": "黄皓月",
         "skill": "运用中医、中西医结合方法治疗肥胖症、糖尿病及其并发症、甲状腺疾病、肾上腺疾病、垂体",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "代谢病专科"
         },
         "depcode": "100220",
@@ -1835,7 +1835,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "代谢病专科"
         },
         "depcode": "100220",
@@ -1843,7 +1843,7 @@
         "docName": "叶子怡",
         "skill": "综合调治各种体质，亚健康状态:慢性疲劳、失眠健忘，体虚畏寒，月经失调，易感冒",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1856,7 +1856,7 @@
         "docName": "谢雯雯",
         "skill": "中西医诊治糖尿病及其并发症，高脂血症、高尿酸血症及痛风、非酒精性脂肪肝、肥胖症等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1869,7 +1869,7 @@
         "docName": "杨彩凤",
         "skill": "内分泌代谢性疾病的中西医诊治，包括糖尿病及其并发症、甲状腺疾病、肥胖等;熟练掌握甲、乙、丙、丁4个维度的内分泌疾病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1887,7 +1887,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肾病专科"
         },
         "depcode": "100221",
@@ -1900,7 +1900,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肾病专科"
         },
         "depcode": "100221",
@@ -1908,12 +1908,12 @@
         "docName": "秦新东",
         "skill": "肾脏疾病的中西医诊治，中药与针灸治疗、疾病管理、饮食、运动调理，尤其擅长反复尿路感",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肾病专科"
         },
         "depcode": "100221",
@@ -1934,7 +1934,7 @@
         "docName": "张蕾",
         "skill": "师从国医大师张大宁教授，全国名中医杨霓芝教授、广东省名中医刘旭生教授。擅长慢性肾脏疾病的诊治，尤其是慢性肾病。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1947,7 +1947,7 @@
         "docName": "杨敏",
         "skill": "中西医结合治疗慢性肾脏病，如急、慢性肾衰竭、慢性肾炎、肾病综合征、lgA肾病、痛风",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -1965,7 +1965,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肝炎专科"
         },
         "depcode": "100222",
@@ -1978,7 +1978,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肝炎专科"
         },
         "depcode": "100222",
@@ -1999,7 +1999,7 @@
         "docName": "刘紫",
         "skill": "擅长治疗肝功能异常、脂肪肝、肝硬化、病毒性肝炎、自身免疫性肝炎、酒精性肝炎、药物",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2012,12 +2012,12 @@
         "docName": "林凡",
         "skill": "擅长治疗肝功能异常、脂肪肝、肝硬化、病毒性肝炎、自身免疫性肝炎、酒精性肝炎、药物",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "风湿专科"
         },
         "depcode": "100223",
@@ -2025,12 +2025,12 @@
         "docName": "雷云霞",
         "skill": "熟练掌握各种常见风湿免疫疾病，擅长结缔组织病(包括系统性红斑狼疮、混合肌病等)的诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "风湿专科"
         },
         "depcode": "100223",
@@ -2043,7 +2043,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "风湿专科"
         },
         "depcode": "100223",
@@ -2095,7 +2095,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "类风湿专科"
         },
         "depcode": "100224",
@@ -2108,7 +2108,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "类风湿专科"
         },
         "depcode": "100224",
@@ -2116,12 +2116,12 @@
         "docName": "张光峰",
         "skill": "着重于风湿相关间质性肺病研究，尤其擅长肌炎/皮肌炎并间质性肺病、硬皮炎等疾病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "类风湿专科"
         },
         "depcode": "100224",
@@ -2173,7 +2173,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "哮喘专科"
         },
         "depcode": "100225",
@@ -2181,12 +2181,12 @@
         "docName": "原铁",
         "skill": "中西医结合诊治内科常见病与多发病，尤其是呼吸系统与消化系统疾病，如感冒、支气管哮喘",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "哮喘专科"
         },
         "depcode": "100225",
@@ -2199,7 +2199,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "哮喘专科"
         },
         "depcode": "100225",
@@ -2246,12 +2246,12 @@
         "docName": "赵毅涛",
         "skill": "跟师全国名中医顾植山老师和齐玉茹老师，擅长中西医结合治疗儿科呼吸道疾病(哮喘、支气管炎等)。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "血液科"
         },
         "depcode": "100226",
@@ -2264,7 +2264,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "血液科"
         },
         "depcode": "100226",
@@ -2277,7 +2277,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "血液科"
         },
         "depcode": "100226",
@@ -2329,7 +2329,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "消化科"
         },
         "depcode": "100227",
@@ -2342,7 +2342,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "消化科"
         },
         "depcode": "100227",
@@ -2350,12 +2350,12 @@
         "docName": "邓卫平",
         "skill": "熟练掌握消化内科常见疾病诊治，对脂肪肝，肝硬化，消化道肿瘤的防治有较丰富的经验。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "消化科"
         },
         "depcode": "100227",
@@ -2363,7 +2363,7 @@
         "docName": "姚远涛",
         "skill": "擅长消化系统各种疾病的诊治以及消化内镜的检查与治疗。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2376,7 +2376,7 @@
         "docName": "布小玲",
         "skill": "擅长慢性胃炎、胃及十二指肠溃疡、功能性消化不良、糖尿病胃轻瘫、胃食管反流病。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2389,7 +2389,7 @@
         "docName": "聂胜利",
         "skill": "擅长治疗各种胃炎、消化性溃疡、肝胆胰肿瘤等疾病以及消化内镜的检查与治疗",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2402,12 +2402,12 @@
         "docName": "王蓓蓓",
         "skill": "擅长消化系统疾病的诊治，尤其是对消化性溃疡、炎症性肠病及肝胆疾病的诊治.",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "器官移植专科"
         },
         "depcode": "100301",
@@ -2420,7 +2420,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "器官移植专科"
         },
         "depcode": "100301",
@@ -2428,7 +2428,7 @@
         "docName": "孟凡航",
         "skill": "肾移植手术，术后各种并发症的处理。从事肾移植工作15年，已有1000余例肾移植临床经验",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2446,7 +2446,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肝胆胰外科"
         },
         "depcode": "100303",
@@ -2459,7 +2459,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肝胆胰外科"
         },
         "depcode": "100303",
@@ -2472,7 +2472,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肝胆胰外科"
         },
         "depcode": "100303",
@@ -2506,7 +2506,7 @@
         "docName": "王松",
         "skill": "普外科、肝胆外科及泌尿科疾病的中西医结合诊疗，尤其在肝胆结石、甲状腺疾病、胃肠道疾病的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2524,7 +2524,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "泌尿外科"
         },
         "depcode": "100304",
@@ -2532,12 +2532,12 @@
         "docName": "潘俊",
         "skill": "对泌尿外科各类疾病，特别是复杂肿瘤和结石的诊治经验丰富。擅长泌尿系肿瘤、泌尿系结石的诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "泌尿外科"
         },
         "depcode": "100304",
@@ -2550,7 +2550,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "泌尿外科"
         },
         "depcode": "100304",
@@ -2571,7 +2571,7 @@
         "docName": "邹乾明",
         "skill": "中西医结合治疗泌尿外科、男科疾病，特别是泌尿系肿瘤、肾上腺疾病、泌尿系结石及炎症、结石等疾病的诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2602,7 +2602,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "男科"
         },
         "depcode": "100305",
@@ -2610,12 +2610,12 @@
         "docName": "代睿欣",
         "skill": "长期钻研中医古籍，紧跟现代医学发展，善于用中西医结合的方法诊疗泌尿男科疾病，特别是在男性不育、性功能障碍、前列腺疾病、泌尿道疾病的诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "男科"
         },
         "depcode": "100305",
@@ -2628,7 +2628,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "男科"
         },
         "depcode": "100305",
@@ -2680,7 +2680,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "男性不育专科"
         },
         "depcode": "100306",
@@ -2688,7 +2688,7 @@
         "docName": "桂泽红",
         "skill": "中医药对前列腺疾病、不育、早泄、尿路结石以及术后围手术期的治疗。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2706,7 +2706,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "前列腺专科"
         },
         "depcode": "100307",
@@ -2714,12 +2714,12 @@
         "docName": "王昭辉",
         "skill": "前列腺癌的早期诊断，机器人辅助前列腺癌根治术，晚期前列腺癌的中西医综合治疗;前列腺疾病的管理。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "前列腺专科"
         },
         "depcode": "100307",
@@ -2727,12 +2727,12 @@
         "docName": "朱首伦",
         "skill": "善于中西医结合诊治前列腺疾病、泌尿系结石、泌尿系感染、泌尿生殖肿瘤、男性不育、性功能障碍等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "前列腺专科"
         },
         "depcode": "100307",
@@ -2740,7 +2740,7 @@
         "docName": "吕立国",
         "skill": "慢性前列腺炎、勃起功能障碍、早泄、男性不育症、前列腺增生、前列腺癌、膀胱癌等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2779,12 +2779,12 @@
         "docName": "王志超",
         "skill": "泌尿外科疾病的中西医结合诊疗，尤其擅长泌尿系结石、前列腺增生、泌尿系肿瘤等方面的诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "尿石症专科"
         },
         "depcode": "100308",
@@ -2797,7 +2797,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "尿石症专科"
         },
         "depcode": "100308",
@@ -2810,7 +2810,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "尿石症专科"
         },
         "depcode": "100308",
@@ -2849,7 +2849,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胃肠外科"
         },
         "depcode": "100309",
@@ -2862,7 +2862,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肠胃外科"
         },
         "depcode": "100309",
@@ -2870,12 +2870,12 @@
         "docName": "刁竞芳",
         "skill": "结肠癌、直肠癌、胃癌、贲门癌、胃肠道间质瘤、腹膜后肿瘤等恶性肿瘤的微创手术及开放手术。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肠胃外科"
         },
         "depcode": "100309",
@@ -2927,7 +2927,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心胸外科"
         },
         "depcode": "100310",
@@ -2940,7 +2940,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心胸外科"
         },
         "depcode": "100310",
@@ -2953,7 +2953,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "心胸外科"
         },
         "depcode": "100310",
@@ -2961,7 +2961,7 @@
         "docName": "王戈",
         "skill": "终末期心脏病、各类先天性心脏病、心脏瓣膜病、主动脉疾病、冠心病及外周血管疾病的综合诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -2979,7 +2979,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肺结节专科"
         },
         "depcode": "100311",
@@ -2992,7 +2992,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肺结节专科"
         },
         "depcode": "100311",
@@ -3000,12 +3000,12 @@
         "docName": "郑远",
         "skill": "胸部外科疑难复杂微创手术、机器人手术如肺结节、肺癌、纵隔、气管、食道、胸壁良恶性肿瘤等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肺结节专科"
         },
         "depcode": "100311",
@@ -3026,7 +3026,7 @@
         "docName": "陈晓伟",
         "skill": "胸部肿瘤疾病如肺癌、食管癌、纵隔肿瘤;其它胸科疾病，如胸外伤、胸壁畸形、重症肌无力等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3039,7 +3039,7 @@
         "docName": "王侃",
         "skill": "肺结节、手汗症、气胸、肺癌、脓胸、胸外伤、气管肿瘤、支气管扩张、食管癌、食道良性肿瘤",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3052,12 +3052,12 @@
         "docName": "李俊哲",
         "skill": "肺结节、肺癌、胸外伤、气胸、食管良恶性肿瘤、纵隔肿瘤、重症肌无力、严重手汗症等胸部常见疾病",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "神经外科"
         },
         "depcode": "100312",
@@ -3065,12 +3065,12 @@
         "docName": "李聪",
         "skill": "脑胶质瘤、脑转移瘤的中西医结合治疗;三叉神经痛、面肌痉挛的微创治疗;以及垂体瘤、脑肿瘤等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "神经外科"
         },
         "depcode": "100312",
@@ -3083,7 +3083,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "神经外科"
         },
         "depcode": "100312",
@@ -3117,7 +3117,7 @@
         "docName": "谭齐家",
         "skill": "颅脑损伤、脑肿瘤(脑膜瘤.胶质瘤，垂体瘤，听神经瘤，脑转移瘤等)，脊髓肿瘤(神经鞘瘤，脊髓肿瘤等)",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3135,7 +3135,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "介入专科"
         },
         "depcode": "100313",
@@ -3161,7 +3161,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肿瘤内科"
         },
         "depcode": "100401",
@@ -3169,12 +3169,12 @@
         "docName": "周珂",
         "skill": "各种良恶性肿瘤及肿瘤并发症的中西医结合诊疗。如:肺癌、胃癌、肝癌、直肠癌、乳腺癌、结直肠癌等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肿瘤内科"
         },
         "depcode": "100401",
@@ -3182,12 +3182,12 @@
         "docName": "白建平",
         "skill": "中西医结合诊治肺癌、肠癌、肝癌、胃癌、鼻咽癌、乳腺癌、卵巢癌等肿瘤。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肿瘤内科"
         },
         "depcode": "100401",
@@ -3195,7 +3195,7 @@
         "docName": "刘丽荣",
         "skill": "肿瘤内科的中西医诊治，尤其肺癌、直肠癌、乳腺癌、卵巢癌的中西医治疗，对肿瘤的中医药治疗有重要作用。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3208,7 +3208,7 @@
         "docName": "陈春永",
         "skill": "常见肿瘤，如肠癌，乳癌，肝癌，肺癌，鼻咽癌等的中西医结合的综合治疗。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3234,12 +3234,12 @@
         "docName": "罗海英",
         "skill": "各种常见良恶性肿瘤的中西医综合治疗、术后及放化疗后的调治，如:肺癌、肝癌、胃肠癌、卵巢癌等。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肿瘤专科"
         },
         "depcode": "100402",
@@ -3247,12 +3247,12 @@
         "docName": "廖桂雅",
         "skill": "各种恶性肿瘤的中、西医综合治疗及内科疑难杂症的中西医结合诊治。主攻肺癌、肝癌、直肠癌、乳腺癌、卵巢癌等。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肿瘤专科"
         },
         "depcode": "100402",
@@ -3265,7 +3265,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "肿瘤专科"
         },
         "depcode": "100402",
@@ -3317,7 +3317,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "结直肠肿瘤专科"
         },
         "depcode": "100403",
@@ -3325,12 +3325,12 @@
         "docName": "刁竞芳",
         "skill": "结肠癌、直肠癌、胃癌、贲门癌、胃肠道间质瘤、腹膜后肿瘤等恶性肿瘤的微创手术及开放手术。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "结直肠肿瘤专科"
         },
         "depcode": "100403",
@@ -3351,12 +3351,12 @@
         "docName": "王浩",
         "skill": "腹腔镜结肠癌、直肠癌、直肠脱垂的微创手术治疗;腹腔镜低位直肠癌保肛手术治疗;炎症性肠病的诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胃肠肿瘤专科"
         },
         "depcode": "100404",
@@ -3369,7 +3369,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胃肠肿瘤专科"
         },
         "depcode": "100404",
@@ -3382,7 +3382,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "胃肠肿瘤专科"
         },
         "depcode": "100404",
@@ -3408,7 +3408,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "戒烟科"
         },
         "depcode": "100501",
@@ -3416,7 +3416,7 @@
         "docName": "钟世杰",
         "skill": "虚人感冒、变异型咳嗽、顽固性咳嗽等呼吸内科疾病。慢性结肠炎、胃十二指肠溃疡、胃食管反流等疾病的综合诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3434,7 +3434,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南甄氏杂病流派"
         },
         "depcode": "100503",
@@ -3442,12 +3442,12 @@
         "docName": "蔡书宾",
         "skill": "运用甄氏杂病流派学术思想治疗外感高热、慢性咳嗽、老年肺炎、慢性阻塞性肺病、哮喘、支肺疾病等。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南甄氏杂病流派"
         },
         "depcode": "100503",
@@ -3460,7 +3460,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南甄氏杂病流派"
         },
         "depcode": "100503",
@@ -3468,7 +3468,7 @@
         "docName": "金连顺",
         "skill": "中医辩治咳嗽、哮喘、支气管扩张症等呼吸系统常见疾病;小儿咳嗽、扁桃体肥大、小儿发烧等疾病的综合诊治。",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3481,7 +3481,7 @@
         "docName": "刘擎",
         "skill": "中医、中西医结合治疗高血脂、高血压、冠心病、心脏康复等心血管疾病的预防及康复等，以及中、老年人的综合诊治。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3512,7 +3512,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南扶阳流派"
         },
         "depcode": "100504",
@@ -3525,7 +3525,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南扶阳流派"
         },
         "depcode": "100504",
@@ -3538,7 +3538,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南扶阳流派"
         },
         "depcode": "100504",
@@ -3559,7 +3559,7 @@
         "docName": "张晓轩",
         "skill": "师从杨志敏、吴万垠、许家栋等名家，擅长各类疑难杂病(失眠、久咳、过敏性疾病、胃肠功能异常等)",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3590,7 +3590,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南补土流派"
         },
         "depcode": "100505",
@@ -3603,7 +3603,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南补土流派"
         },
         "depcode": "100505",
@@ -3616,7 +3616,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南补土流派"
         },
         "depcode": "100505",
@@ -3637,7 +3637,7 @@
         "docName": "刘奇",
         "skill": "临证以经方为主治疗各科病证。妇科:月经不调，不孕，痛经;内科:甲亢，甲减，糖尿病",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3668,7 +3668,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南林夏泉流派"
         },
         "depcode": "100506",
@@ -3681,7 +3681,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南林夏泉流派"
         },
         "depcode": "100506",
@@ -3707,7 +3707,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南邓氏内科流派"
         },
         "depcode": "100507",
@@ -3715,12 +3715,12 @@
         "docName": "尹鑫",
         "skill": "冠心病、高血压、高脂血症、慢性支气管炎的中医调养，善用中医辩证治疗胸闷、心慌等症状",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南邓氏内科流派"
         },
         "depcode": "100507",
@@ -3733,7 +3733,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南邓氏内科流派"
         },
         "depcode": "100507",
@@ -3767,12 +3767,12 @@
         "docName": "尹鑫",
         "skill": "冠心病、高血压、高脂血症、慢性支气管炎的中医调养，善用中医辩证治疗胸闷、心慌气短等",
         "workTime": 1,
-        "amount": 13
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "岭南梁氏脾胃病科流派"
         },
         "depcode": "100508",
@@ -3798,7 +3798,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "体重管理科"
         },
         "depcode": "100601",
@@ -3811,7 +3811,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "体重管理科"
         },
         "depcode": "100601",
@@ -3837,7 +3837,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "小儿血液专科"
         },
         "depcode": "100602",
@@ -3863,7 +3863,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "生长发育与性早熟科"
         },
         "depcode": "100603",
@@ -3871,12 +3871,12 @@
         "docName": "罗玉君",
         "skill": "矮小症、生长发育迟缓、性早熟、消化不良、厌食症、便秘、过敏性疾病、小儿反复呼吸道感",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "生长发育与性早熟科"
         },
         "depcode": "100603",
@@ -3884,12 +3884,12 @@
         "docName": "刘卓勋",
         "skill": "中西医结合治疗儿童感冒、咳嗽、哮喘、支气管炎、肺炎、消化不良、腹痛、腹泻、便秘等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "生长发育与性早熟科"
         },
         "depcode": "100603",
@@ -3897,7 +3897,7 @@
         "docName": "李彦昕",
         "skill": "中西医治疗儿童矮小症、性早熟、过敏儿、儿童神经发育评估、营养评估、生长发育评估等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -3910,7 +3910,7 @@
         "docName": "杨京华",
         "skill": "中西医结合诊治儿童慢性咳嗽、哮喘、肺炎、闭塞性细支气管炎、厌食、便秘、腹痛等",
         "workTime": 0,
-        "amount": 13
+        "amount": 35
     },
     {
         "isDeleted": 0,
@@ -3928,7 +3928,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "儿童神经及精神行为发育专科"
         },
         "depcode": "100604",
@@ -3941,7 +3941,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "儿童神经及精神行为发育专科"
         },
         "depcode": "100604",
@@ -3954,7 +3954,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "儿童神经及精神行为发育专科"
         },
         "depcode": "100604",
@@ -4006,7 +4006,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "儿童肾病专科"
         },
         "depcode": "100605",
@@ -4014,12 +4014,12 @@
         "docName": "陈乃清",
         "skill": "师从国医大师丁樱教授、福建省名中医郑健教授，中西医结合治疗小儿肾病、鼻炎、腺样体肥等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "儿童肾病专科"
         },
         "depcode": "100605",
@@ -4032,7 +4032,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "儿童肾病专科"
         },
         "depcode": "100605",
@@ -4040,7 +4040,7 @@
         "docName": "许楷斯",
         "skill": "师从广东省名中医罗笑容教授、广东省名中医许尤佳教授。擅长中西医结合诊治小儿肾病、鼻炎、腺样体肥等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -4058,7 +4058,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "小儿心血管专科"
         },
         "depcode": "100606",
@@ -4084,7 +4084,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "小儿推拿专科"
         },
         "depcode": "100607",
@@ -4097,7 +4097,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "小儿推拿专科"
         },
         "depcode": "100607",
@@ -4110,7 +4110,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "小儿推拿专科"
         },
         "depcode": "100607",
@@ -4136,7 +4136,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "生殖妇科"
         },
         "depcode": "100701",
@@ -4157,12 +4157,12 @@
         "docName": "卢兴宏",
         "skill": "辅助生殖技术包括试管婴儿技术、人工授精技术，各种原因所致女性不孕包括输卵管堵塞、输卵管炎、输卵管炎等",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "生殖男科"
         },
         "depcode": "100702",
@@ -4170,7 +4170,7 @@
         "docName": "袁启龙",
         "skill": "男性不育症(少、弱、畸精子症和精液液化异常)、 性功能障碍、前列腺炎、精索静脉曲张",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
@@ -4188,7 +4188,7 @@
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "不孕症专科"
         },
         "depcode": "100703",
@@ -4196,12 +4196,12 @@
         "docName": "刘娟",
         "skill": "不孕不育、试管婴儿技术、人工授精技术。中西医结合诊治妇科生育相关疾病，如月经病，卵科疾病等",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "不孕症专科"
         },
         "depcode": "100703",
@@ -4222,12 +4222,12 @@
         "docName": "倪运萍",
         "skill": "不孕症、辅助生殖技术(试管婴儿技术、人工授精技术)、子宫内膜异位症、多囊卵巢综合征",
         "workTime": 1,
-        "amount": 35
+        "amount": 26
     },
     {
         "isDeleted": 0,
         "param": {
-            "weekType": [1,3,5,7],
+            "weekType": [0,1,3,5],
             "depname": "流产专科"
         },
         "depcode": "100704",
@@ -4248,6 +4248,6 @@
         "docName": "黄健",
         "skill": "擅长运用中西医治疗妇科常见疾病，如多囊卵巢综合征、复发性流产、不孕症、月经失调等。",
         "workTime": 0,
-        "amount": 35
+        "amount": 26
     }
 ]
