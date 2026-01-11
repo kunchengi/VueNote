@@ -58,3 +58,38 @@ export interface BookSchedulelListResponseData extends ResponseData {
     baseMap: BookScheduleBaseData
   }
 }
+
+// 获取科室对应日期排班信息接口参数类型
+export interface FindScheduleListRequestData {
+  hoscode: string
+  depcode: string
+  workDate: string
+}
+
+// 排班信息数据类型
+export interface ScheduleData {
+  id: string
+  createTime: string
+  updateTime: string
+  isDeleted: number
+  param: {
+    weekType: number
+    depname: string
+    hosname: string
+  }
+  depcode: string
+  hoscode: string
+  level: number
+  docName: string
+  skill: string
+  workDate: string
+  workTime: number
+  reservedNumber: number
+  availableNumber: number
+  amount: number
+}
+
+// 排班信息列表接口返回的响应数据类型
+export interface FindScheduleListResponseData extends ResponseData {
+  data: ScheduleData[]
+}

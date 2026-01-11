@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { type HospitalDetailResponseData, type DepartmentResponseData, type BookSchedulelListRequestData, type BookSchedulelListResponseData } from '@/api/hospital/type';
+import { type HospitalDetailResponseData, type DepartmentResponseData, type BookSchedulelListRequestData, type BookSchedulelListResponseData, type FindScheduleListRequestData, type FindScheduleListResponseData } from '@/api/hospital/type';
 
 // 请求地址的枚举
 const HospitalApi = {
@@ -10,6 +10,8 @@ const HospitalApi = {
   GET_DEPARTMENT_BY_HOSCODE: '/hosp/hospital/department',
   // 获取医院预约挂号列表
   GET_BOOK_SCHEDULE_LIST: '/hosp/hospital/auth/getBookingScheduleRule',
+  // 获取科室对应日期排班信息
+  FIND_SCHEDULE_LIST: '/hosp/hospital/auth/findScheduleList',
 }
 // 根据医院编码获取医院详情
 export const reqHospitalDetail = (hoscode: string) => {
@@ -26,6 +28,12 @@ export const reqDepartmentByHoscode = (hoscode: string) => {
 // 获取医院预约挂号列表
 export const reqBookScheduleList = (params: BookSchedulelListRequestData) => {
   return request.get<any, BookSchedulelListResponseData>(`${HospitalApi.GET_BOOK_SCHEDULE_LIST}`, {
+    params: params
+  })
+}
+// 获取科室对应日期排班信息
+export const reqFindScheduleList = (params: FindScheduleListRequestData) => {
+  return request.get<any, FindScheduleListResponseData>(`${HospitalApi.FIND_SCHEDULE_LIST}`, {
     params: params
   })
 }

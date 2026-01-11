@@ -1,40 +1,24 @@
 <template>
   <div class="select-doctor">
     <div class="select-doctor__title">
-        <i :class="['iconfont', props.isMorning ? 'icon-shangwu' : 'icon-xiawu']"></i>
-        <span>{{ props.isMorning ? '上午' : '下午' }}号源</span>
+        <i :class="['iconfont', isMorning ? 'icon-shangwu' : 'icon-xiawu']"></i>
+        <span>{{ isMorning ? '上午' : '下午' }}号源</span>
     </div>
     <div class="select-doctor__list">
-        <div class="select-doctor__item">
+        <div class="select-doctor__item" v-for="schedule in scheduleList" :key="schedule.id">
             <div class="select-doctor__info">
                 <div class="select-doctor__name">
-                    <span>主任医师</span>
+                    <span>{{ schedule.level }}</span>
                     <span>|</span>
-                    <span>张三</span>
+                    <span>{{ schedule.docName }}</span>   
                 </div>
                 <div class="select-doctor__intro">
-                    <span>专治跌打损伤、骨质疏松等疑难杂症</span>
+                    <span>{{ schedule.skill }}</span>
                 </div>
             </div>
             <div class="select-doctor__select">
-                <span>￥20</span>
-                <el-button type="primary">剩余6</el-button>
-            </div>
-        </div>
-        <div class="select-doctor__item">
-            <div class="select-doctor__info">
-                <div class="select-doctor__name">
-                    <span>主任医师</span>
-                    <span>|</span>
-                    <span>张三</span>
-                </div>
-                <div class="select-doctor__intro">
-                    <span>专治跌打损伤、骨质疏松等疑难杂症</span>
-                </div>
-            </div>
-            <div class="select-doctor__select">
-                <span>￥20</span>
-                <el-button type="primary">剩余6</el-button>
+                <span>￥{{ schedule.amount }}</span>
+                <el-button type="primary">剩余{{ schedule.availableNumber }}</el-button>
             </div>
         </div>
     </div>
@@ -42,9 +26,11 @@
 </template>
 
 <script setup lang="ts" name="SelectDoctor">
+import { type ScheduleData } from '@/api/hospital/type';
 
 type PropsType = {
-    isMorning: boolean
+    isMorning: boolean,// 是否上午
+    scheduleList: ScheduleData[]// 排班列表
 }
 
 const props = defineProps<PropsType>()
@@ -72,6 +58,7 @@ const props = defineProps<PropsType>()
             margin-bottom: 20px;
             border-bottom: 1px solid #e5e5e5;
             .select-doctor__info {
+                width: 80%;
                 .select-doctor__name {
                     font-size: 18px;
                     color: #55a6fe;
