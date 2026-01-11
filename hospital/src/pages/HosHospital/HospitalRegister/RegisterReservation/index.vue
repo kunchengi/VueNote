@@ -41,7 +41,7 @@
     </div>
 </template>
 
-<script setup lang="ts" name="HospitalReservation">
+<script setup lang="ts" name="RegisterReservation">
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import { useRoute } from 'vue-router';

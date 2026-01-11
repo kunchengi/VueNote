@@ -13,7 +13,17 @@ export default createRouter({
       children: [
         {
           path: 'register',
-          component: () => import('@/pages/HosHospital/HospitalRegister/index.vue')
+          component: () => import('@/pages/HosHospital/HospitalRegister/index.vue'),
+          children: [
+            {
+              path: 'info',
+              component: () => import('@/pages/HosHospital/HospitalRegister/RegisterInfo/index.vue')
+            },
+            {
+              path: 'reservation',
+              component: () => import('@/pages/HosHospital/HospitalRegister/RegisterReservation/index.vue')
+            }
+          ]
         },
         {
           path: 'detail',
@@ -30,11 +40,7 @@ export default createRouter({
         {
           path: 'search',
           component: () => import('@/pages/HosHospital/HospitalSearch/index.vue')
-        },
-        {
-          path: 'reservation',
-          component: () => import('@/pages/HosHospital/HospitalReservation/index.vue')
-        },
+        }
       ]
     },
     {

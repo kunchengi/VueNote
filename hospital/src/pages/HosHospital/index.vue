@@ -8,36 +8,12 @@
         </el-icon>
         <span>/ 医院信息</span>
       </div>
-      <el-menu :default-active="$route.path" class="el-menu-vertical-demo" >
-        <el-menu-item index="/hospital/register" @click="changeActive($event)">
+      <el-menu :default-active="menuList?.[0]?.index || ''" class="el-menu-vertical-demo" >
+        <el-menu-item v-for="item in menuList" :key="item.index" :index="item.index" @click="changeActive($event)">
           <el-icon>
-            <CreditCard />
+            <component :is="item.icon" />
           </el-icon>
-          <span>预约挂号</span>
-        </el-menu-item>
-        <el-menu-item index="/hospital/detail" @click="changeActive($event)">
-          <el-icon>
-            <Document />
-          </el-icon>
-          <span>医院详情</span>
-        </el-menu-item>
-        <el-menu-item index="/hospital/notice" @click="changeActive($event)">
-          <el-icon>
-            <Bell />
-          </el-icon>
-          <span>预约通知</span>
-        </el-menu-item>
-        <el-menu-item index="/hospital/close" @click="changeActive($event)">
-          <el-icon>
-            <Warning />
-          </el-icon>
-          <span>停诊信息</span>
-        </el-menu-item>
-        <el-menu-item index="/hospital/search" @click="changeActive($event)">
-          <el-icon>
-            <Search />
-          </el-icon>
-          <span>查询/取消</span>
+          <span>{{ item.name }}</span>
         </el-menu-item>
       </el-menu>
     </div>
@@ -49,7 +25,7 @@
 </template>
 
 <script setup lang="ts" name="HosHospital">
-import { onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import useHospitalDetailStore from '@/store/modules/hospitalDetail'
 
 import { CreditCard, Document, Bell, Warning, Search, HomeFilled } from '@element-plus/icons-vue'
@@ -58,7 +34,37 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const $route = useRoute()
 
+// 医院详情仓库
 const detailStore = useHospitalDetailStore()
+
+// 菜单列表
+const menuList = reactive([
+  {
+    index: '/hospital/register/info',
+    name: '预约挂号',
+    icon: CreditCard
+  },
+  {
+    index: '/hospital/detail',
+    name: '医院详情',
+    icon: Document
+  },
+  {
+    index: '/hospital/notice',
+    name: '预约通知',
+    icon: Bell
+  },
+  {
+    index: '/hospital/close',
+    name: '停诊信息',
+    icon: Warning
+  },
+  {
+    index: '/hospital/search',
+    name: '查询/取消',
+    icon: Search
+  }
+])
 
 const changeActive = ($event: any) => {
   router.push({
