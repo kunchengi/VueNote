@@ -3057,6 +3057,95 @@
 
 ![异步组件加载完成后](./imgs/异步组件加载完成后.png)
 
+# Component动态渲染组件
+
+- 一个用于渲染动态组件或元素的“元组件”。
+
+- Props
+```ts
+  interface DynamicComponentProps {
+    is: string | Component
+  }
+```
+
+- 要渲染的实际组件由 is prop 决定。
+  - 当 is 是字符串，它既可以是 HTML 标签名也可以是组件的注册名。
+  - 或者，is 也可以直接绑定到组件的定义。
+
+- 按注册名渲染组件 (选项式 API)：
+```html
+  <template>
+    <component :is="view" />
+  </template>
+  <script>
+  import Foo from './Foo.vue'
+  import Bar from './Bar.vue'
+
+  export default {
+    components: { Foo, Bar },
+    data() {
+      return {
+        view: 'Foo'
+      }
+    }
+  }
+  </script>
+```
+
+- 按定义渲染组件 (组合式 API)：
+```html
+  <template>
+    <component :is="Math.random() > 0.5 ? Foo : Bar" />
+  </template>
+  <script setup>
+  import Foo from './Foo.vue'
+  import Bar from './Bar.vue'
+  </script>
+```
+
+- 渲染 HTML 元素：
+```html
+  <component :is="href ? 'a' : 'span'"></component>
+```
+
+- 内置组件都可以传递给 is，但是如果想通过名称传递则必须先对其进行注册。举例来说：
+
+```html
+  <template>
+    <component :is="isGroup ? 'TransitionGroup' : 'Transition'">
+      ...
+    </component>
+  </template>
+  <script>
+  import { Transition, TransitionGroup } from 'vue'
+
+  export default {
+    components: {
+      Transition,
+      TransitionGroup
+    }
+  }
+  </script>
+```
+
+- 如果将组件本身传递给 is 而不是其名称，则不需要注册，例如在 `<script setup>` 中。
+
+- 如果在 `<component>` 标签上使用 v-model，模板编译器会将其扩展为 modelValue prop 和 update:modelValue 事件监听器，就像对任何其他组件一样。但是，这与原生 HTML 元素不兼容，例如 `<input>` 或 `<select>`。因此，在动态创建的原生元素上使用 v-model 将不起作用
+- 在实践中，这种极端情况并不常见，因为原生表单字段通常包裹在实际应用的组件中。如果确实需要直接使用原生元素，那么你可以手动将 v-model 拆分为 attribute 和事件。
+```html
+  <script setup>
+  import { ref } from 'vue'
+
+  const tag = ref('input')
+  const username = ref('')
+  </script>
+
+  <template>
+    <!-- 由于 'input' 是原生 HTML 元素，因此这个 v-model 不起作用 -->
+    <component :is="tag" v-model="username" />
+  </template>
+```
+
 # 全局API转移到应用实例
 
 - vue3中的全局API，如Vue.config、Vue.component、Vue.directive等，都转移到了应用实例上
@@ -3133,6 +3222,7 @@
   ```html
     <div v-show="isShow">条件渲染</div>
   ```
+
 
 # vue3的其它非兼容性改变
 
