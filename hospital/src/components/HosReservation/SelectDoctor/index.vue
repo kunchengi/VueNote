@@ -18,7 +18,7 @@
             </div>
             <div class="select-doctor__select">
                 <span>￥{{ schedule.amount }}</span>
-                <el-button type="primary">剩余{{ schedule.availableNumber }}</el-button>
+                <el-button type="primary" @click="selectDoctor(schedule)">剩余{{ schedule.availableNumber }}</el-button>
             </div>
         </div>
     </div>
@@ -26,7 +26,11 @@
 </template>
 
 <script setup lang="ts" name="SelectDoctor">
+import { useRouter, useRoute } from 'vue-router';
 import { type ScheduleData } from '@/api/hospital/type';
+
+const router = useRouter();
+const route = useRoute();
 
 type PropsType = {
     isMorning: boolean,// 是否上午
@@ -34,6 +38,18 @@ type PropsType = {
 }
 
 const props = defineProps<PropsType>()
+
+// 选择医生
+const selectDoctor = (schedule: ScheduleData) => {
+    router.push({
+        path: '/hospital/register/confirm',
+        query: {
+            hoscode: route.query.hoscode,
+            depcode: route.query.depcode,
+            scheduleId: schedule.id
+        }
+    })
+}
 </script>
 
 <style lang="scss" scoped>

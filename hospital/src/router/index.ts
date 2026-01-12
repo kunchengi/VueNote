@@ -22,6 +22,10 @@ export default createRouter({
             {
               path: 'reservation',
               component: () => import('@/pages/HosHospital/HospitalRegister/RegisterReservation/index.vue')
+            },
+            {
+              path: 'confirm',
+              component: () => import('@/pages/HosHospital/HospitalRegister/RegisterConfirm/index.vue')
             }
           ]
         },
