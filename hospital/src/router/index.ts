@@ -48,6 +48,30 @@ export default createRouter({
       ]
     },
     {
+      path: '/user',
+      component: () => import('@/pages/HosUser/index.vue'),
+      children: [
+        {
+          path: 'realNameAuth',
+          component: () => import('@/pages/HosUser/RealNameAuth/index.vue')
+        },
+        {
+          path: 'registrationOrder',
+          component: () => import('@/pages/HosUser/RegistrationOrder/index.vue')
+        },
+        {
+          path: 'patientManage',
+          component: () => import('@/pages/HosUser/PatientManage/index.vue'),
+          children: [
+            {
+              path: 'mgr',
+              component: () => import('@/pages/HosUser/PatientManage/PatientMgr/index.vue')
+            }
+          ]
+        }
+      ]
+    },
+    {
       path: '/',
       redirect: '/home'
     }

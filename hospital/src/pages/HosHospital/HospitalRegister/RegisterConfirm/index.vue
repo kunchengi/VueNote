@@ -2,7 +2,7 @@
   <div class="register-confirm">
     <h2 class="confirm-title">确认挂号信息</h2>
     <!-- 就诊人选择 -->
-    <confirm-patient />
+    <confirm-patient :isManager="false" />
     <!-- 挂号信息 -->
     <reservation-info />
     <div class="confirm-btn-container">

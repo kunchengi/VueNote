@@ -20,6 +20,9 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 import useUserDataStore from '@/store/modules/userData'
 import useUiManageStore from '@/store/modules/uiManage'
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
 
 const userDataStore = useUserDataStore();
 const uiManageStore = useUiManageStore();
@@ -43,7 +46,7 @@ const options = [
     },
     {
         label: '就诊人管理',
-        value: 'patientManagement',
+        value: 'patientManage',
     },
     {
         label: '退出登录',
@@ -53,15 +56,19 @@ const options = [
 
 // 点击下拉菜单选项
 const handleClick = (value: string) => {
+    let path = '';
     switch (value) {
         case 'realNameAuth':
             // 实名认证
+            path = '/user/realNameAuth';
             break;
         case 'registrationOrder':
             // 挂号订单
+            path = '/user/registrationOrder';
             break;
-        case 'patientManagement':
+        case 'patientManage':
             // 就诊人管理
+            path = '/user/patientManage/mgr';
             break;
         case 'logout':
             // 退出登录
@@ -70,6 +77,11 @@ const handleClick = (value: string) => {
             break;
         default:
             break;
+    }
+    if (path) {
+        router.push({
+            path: path
+        })
     }
 }
 </script>

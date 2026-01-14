@@ -7,7 +7,7 @@
             </div>
         </template>
         <div class="patient-list">
-            <patient-card v-for="index in 4" :key="index" />
+            <patient-card v-for="index in 4" :key="index" :isManager="props.isManager" />
         </div>
 
     </el-card>
@@ -15,6 +15,12 @@
 
 <script setup lang="ts" name="ConfirmPatient">
 import PatientCard from '../PatientCard/index.vue'
+
+type Props = {
+    isManager: boolean,
+}
+
+const props = defineProps<Props>()
 
 </script>
 

@@ -3,11 +3,15 @@
         <template #header>
             <div class="patient-header">
                 <span>张三</span>
-                <el-button class="patient-edit" circle>
-                    <el-icon size="16">
-                        <Edit />
-                    </el-icon>
-                </el-button>
+                <div>
+                    <el-button class="patient-edit" circle>
+                        <el-icon size="16"><Edit /></el-icon>
+                    </el-button>
+                    <el-button class="patient-delete" circle v-if="props.isManager">
+                        <el-icon size="16"><Delete /></el-icon>
+                    </el-button>
+                </div>
+
             </div>
         </template>
         <div class="patient-info">
@@ -44,7 +48,13 @@
 </template>
 
 <script setup lang="ts" name="PatientCard">
-import { Edit } from '@element-plus/icons-vue'
+import { Edit, Delete } from '@element-plus/icons-vue'
+
+type Props = {
+    isManager: boolean,
+}
+
+const props = defineProps<Props>()
 
 </script>
 
@@ -61,14 +71,13 @@ import { Edit } from '@element-plus/icons-vue'
         align-items: center;
 
         .patient-edit {
-            width: 30px;
-            height: 30px;
             color: #fff;
             background-color: #55a6fe;
-            padding: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+
+        .patient-delete {
+            color: #fff;
+            background-color: #ff4d4f;
         }
     }
 

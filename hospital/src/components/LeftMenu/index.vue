@@ -7,7 +7,7 @@
             </el-icon>
             <span>/ {{ titleData.name }}</span>
         </div>
-        <el-menu :default-active="menuList?.[0]?.index || ''" class="el-menu-vertical-demo">
+        <el-menu :default-active="selectedPath || menuList?.[0]?.index || ''" class="el-menu-vertical-demo">
             <el-menu-item v-for="item in menuList" :key="item.index" :index="item.index"
                 @click="onChangeActive($event)">
                 <el-icon>
@@ -19,7 +19,7 @@
     </div>
 </template>
 
-<script setup lang="ts" name="HosHospital">
+<script setup lang="ts" name="LeftMenu">
 
 type Props = {
     menuList: {
@@ -31,6 +31,7 @@ type Props = {
         icon: any;
         name: string;
     }
+    selectedPath?: string;
 }
 
 const props = defineProps<Props>()
