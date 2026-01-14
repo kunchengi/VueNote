@@ -2,20 +2,7 @@
   <div class="hos-hospital">
     <!-- 左侧导航区域 -->
     <div class="hos-hospital__menu">
-      <div class="top">
-        <el-icon>
-          <HomeFilled />
-        </el-icon>
-        <span>/ 医院信息</span>
-      </div>
-      <el-menu :default-active="menuList?.[0]?.index || ''" class="el-menu-vertical-demo" >
-        <el-menu-item v-for="item in menuList" :key="item.index" :index="item.index" @click="changeActive($event)">
-          <el-icon>
-            <component :is="item.icon" />
-          </el-icon>
-          <span>{{ item.name }}</span>
-        </el-menu-item>
-      </el-menu>
+      <LeftMenu :menuList="menuList" :titleData="titleData" @changeActive="changeActive" />
     </div>
     <!-- 右侧内容展示区域：路由组件展示位置 -->
     <div class="hos-hospital__content">
@@ -27,6 +14,7 @@
 <script setup lang="ts" name="HosHospital">
 import { onMounted, reactive } from 'vue'
 import useHospitalDetailStore from '@/store/modules/hospitalDetail'
+import LeftMenu from '@/components/LeftMenu/index.vue'
 
 import { CreditCard, Document, Bell, Warning, Search, HomeFilled } from '@element-plus/icons-vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -36,6 +24,12 @@ const $route = useRoute()
 
 // 医院详情仓库
 const detailStore = useHospitalDetailStore()
+
+// 标题数据
+const titleData = reactive({
+  icon: HomeFilled,
+  name: '医院信息'
+})
 
 // 菜单列表
 const menuList = reactive([
@@ -66,9 +60,10 @@ const menuList = reactive([
   }
 ])
 
-const changeActive = ($event: any) => {
+// 切换菜单
+const changeActive = (path: string) => {
   router.push({
-    path: $event.index,
+    path: path,
     query: {
       hoscode: $route.query.hoscode
     }
@@ -91,10 +86,6 @@ onMounted(() => {
 
   .hos-hospital__menu {
     flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #7f7f7f;
   }
 
   .hos-hospital__content {
