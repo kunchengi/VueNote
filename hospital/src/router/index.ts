@@ -66,6 +66,10 @@ export default createRouter({
             {
               path: 'mgr',
               component: () => import('@/pages/HosUser/PatientManage/PatientMgr/index.vue')
+            },
+            {
+              path: 'edit',
+              component: () => import('@/pages/HosUser/PatientManage/EditPatient/index.vue')
             }
           ]
         }

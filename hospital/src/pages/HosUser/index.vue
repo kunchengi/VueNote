@@ -2,7 +2,7 @@
   <div class="hos-user">
     <!-- 左侧导航区域 -->
     <div class="hos-user__menu">
-      <LeftMenu :menuList="menuList" :titleData="titleData" :selectedPath="route.path" @changeActive="changeActive" />
+      <LeftMenu :menuList="menuList" :titleData="titleData" :selectedPath="selectedPath" @changeActive="changeActive" />
     </div>
     <!-- 右侧内容展示区域：路由组件展示位置 -->
     <div class="hos-user__content">
@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts" name="HosUser">
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import LeftMenu from '@/components/LeftMenu/index.vue'
 
 import { Memo, Postcard, User } from '@element-plus/icons-vue'
@@ -20,6 +20,13 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute();
+
+const selectedPath = computed(() => {
+  let path = route.path
+  // 如果是添加就诊人页面，左侧菜单也要选中就诊人管理
+  path = path.replace('edit', 'mgr')
+  return path
+})
 
 // 标题数据
 const titleData = reactive({

@@ -2,13 +2,20 @@
     <el-card :class="['patient-card', { 'patient-card--selected': true }]" shadow="hover">
         <template #header>
             <div class="patient-header">
-                <span>张三</span>
+                <div class="patient-header__left">
+                    <span class="patient-name">张三</span>
+                    <el-tag type="primary">医保</el-tag>
+                </div>
                 <div>
                     <el-button class="patient-edit" circle>
-                        <el-icon size="16"><Edit /></el-icon>
+                        <el-icon size="16">
+                            <Edit />
+                        </el-icon>
                     </el-button>
                     <el-button class="patient-delete" circle v-if="props.isManager">
-                        <el-icon size="16"><Delete /></el-icon>
+                        <el-icon size="16">
+                            <Delete />
+                        </el-icon>
                     </el-button>
                 </div>
 
@@ -65,10 +72,21 @@ const props = defineProps<Props>()
     cursor: pointer;
 
     .patient-header {
-        font-size: 18px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .patient-header__left {
+            display: flex;
+            align-items: center;
+
+            .patient-name {
+                margin-right: 5px;
+                font-size: 18px;
+            }
+        }
+
+
 
         .patient-edit {
             color: #fff;

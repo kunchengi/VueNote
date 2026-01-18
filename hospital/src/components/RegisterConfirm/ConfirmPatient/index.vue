@@ -2,8 +2,8 @@
     <el-card class="patient-container">
         <template #header>
             <div class="patient-header">
-                <span>请点击选择就诊人</span>
-                <el-button type="primary">添加就诊人</el-button>
+                <span>{{ props.isManager ? '就诊人管理' : '请点击选择就诊人' }}</span>
+                <el-button type="primary" @click="handleAddPatient">添加就诊人</el-button>
             </div>
         </template>
         <div class="patient-list">
@@ -15,12 +15,21 @@
 
 <script setup lang="ts" name="ConfirmPatient">
 import PatientCard from '../PatientCard/index.vue'
+import { useRouter } from 'vue-router'
 
 type Props = {
     isManager: boolean,
 }
 
 const props = defineProps<Props>()
+
+const router = useRouter()
+
+const handleAddPatient = () => {
+    router.push({
+        path: '/user/patientManage/edit'
+    })
+}
 
 </script>
 
