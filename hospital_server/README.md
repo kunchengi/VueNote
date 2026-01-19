@@ -21,21 +21,25 @@ hospital_server/
 │   │   ├── hospitalController.js  # 医院控制器
 │   │   ├── dictController.js      # 字典控制器
 │   │   ├── smsController.js       # 短信验证码控制器
-│   │   └── userController.js      # 用户登录控制器
+│   │   ├── userController.js      # 用户登录控制器
+│   │   └── patientController.js   # 就诊人信息控制器
 │   ├── middleware/
 │   │   └── authMiddleware.js      # JWT token验证中间件
 │   ├── models/
 │   │   ├── userModel.js           # 用户数据模型
-│   │   └── bookingScheduleModel.js # 预约挂号数据模型
+│   │   ├── bookingScheduleModel.js # 预约挂号数据模型
+│   │   └── patientModel.js        # 就诊人信息数据模型
 │   ├── routes/
 │   │   ├── dictRoutes.js          # 字典路由
 │   │   ├── hospitalRoutes.js      # 医院相关路由
 │   │   ├── smsRoutes.js           # 短信验证码路由
-│   │   └── userRoutes.js          # 用户登录路由
+│   │   ├── userRoutes.js          # 用户登录路由
+│   │   └── patientRoutes.js       # 就诊人信息路由
 │   ├── services/
 │   │   ├── hospitalService.js     # 医院服务
 │   │   ├── dictService.js         # 字典服务
-│   │   └── userService.js         # 用户服务
+│   │   ├── userService.js         # 用户服务
+│   │   └── patientService.js      # 就诊人信息服务
 │   └── utils/
 │       ├── responseUtils.js       # 响应工具函数
 │       ├── verificationCodeStore.js  # 验证码存储和验证工具
@@ -49,6 +53,7 @@ hospital_server/
 ├── test-express-simple.js   # Express简单测试
 ├── test-express.js          # Express测试
 ├── test-login.js            # 登录测试
+├── test-patient.js          # 就诊人信息接口测试
 ├── test-qr_link.js          # 微信登录二维码测试
 └── test-simple.js           # 简单测试
 ```
@@ -83,6 +88,12 @@ hospital_server/
 - ✅ 支持按医院和科室查询预约挂号列表
 - ✅ 获取科室对应日期的医生排班信息接口
 - ✅ 根据日期和科室筛选值班医生
+- ✅ 就诊人信息管理功能
+- ✅ 保存（添加）就诊人信息接口
+- ✅ 删除就诊人信息接口
+- ✅ 更新就诊人信息接口
+- ✅ 获取单个就诊人信息接口
+- ✅ 获取账号下的所有就诊人信息接口
 
 ## 安装依赖
 
@@ -1008,6 +1019,303 @@ node index.js
 }
 ```
 
+### 保存（添加）就诊人信息
+
+**接口地址**：`POST /api/user/patient/auth/save`
+
+**接口说明**：
+
+- 根据token保存（添加）就诊人信息到数据库
+
+- 数据说明
+  - id：就诊人数据ID（字符串），数据库自动生成
+  - createTime：创建时间（格式：yyyy-MM-dd HH:mm:ss），数据库自动生成
+  - updateTime：更新时间（格式：yyyy-MM-dd HH:mm:ss），数据库自动生成
+  - isDeleted：是否删除（整数），0表示未删除，1表示已删除，默认值为0
+  - userId：用户ID（字符串），从token中获取
+  - name：就诊人姓名（字符串）
+  - certificateType：就诊人证件类型（整数），0表示身份证，1表示护照等
+  - certificateNumber：就诊人证件号码（字符串）
+  - sex：就诊人性别（整数），0表示女，1表示男
+  - birthDay：就诊人出生日期（字符串）
+  - phone：就诊人联系电话（字符串）
+  - isMarry：就诊人婚姻状态（整数），0表示未婚，1表示已婚
+  - isInsurance：就诊人是否有医保（整数），0表示无医保，1表示有医保
+  - address：就诊人联系地址（字符串）
+
+**参数说明**：
+- `patientInfo`：就诊人信息（对象）- 请求体参数
+  - `name`：就诊人姓名（字符串）- 请求体参数
+  - `certificateType`：就诊人证件类型（整数），0表示身份证，1表示护照等- 请求体参数
+  - `certificateNumber`：就诊人证件号码（字符串）- 请求体参数
+  - `sex`：就诊人性别（整数），0表示女，1表示男- 请求体参数
+  - `birthDay`：就诊人出生日期（字符串）- 请求体参数
+  - `phone`：就诊人联系电话（字符串）- 请求体参数
+  - `isMarry`：就诊人婚姻状态（整数），0表示未婚，1表示已婚- 请求体参数
+  - `isInsurance`：就诊人是否有医保（整数），0表示无医保，1表示有医保- 请求体参数
+  - `address`：就诊人联系地址（字符串）- 请求体参数
+
+**注意**：
+
+- 需携带token，在请求头中添加token字段，值为登录接口返回的token
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": null,
+  "message": "添加就诊人信息成功"
+}
+```
+
+**错误响应**：
+
+- token缺失或无效
+```json
+{
+  "code": 401,
+  "success": false,
+  "message": "请登录"
+}
+```
+
+- 保存（添加）就诊人信息失败
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "添加就诊人失败"
+}
+```
+
+### 删除就诊人信息
+
+**接口地址**：`DELETE /api/user/patient/auth/{id}`
+
+**接口说明**：
+
+- 根据id删除就诊人信息
+
+**参数说明**：
+- `id`：就诊人ID（字符串）- 查询参数
+
+**注意**：
+
+- 需携带token，在请求头中添加token字段，值为登录接口返回的token
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": null,
+  "message": "删除就诊人信息成功"
+}
+```
+
+**错误响应**：
+
+- token缺失或无效
+```json
+{
+  "code": 401,
+  "success": false,
+  "message": "请登录"
+}
+```
+
+- 删除就诊人信息失败
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "删除就诊人失败"
+}
+```
+
+### 更新就诊人信息
+
+**接口地址**：`PUT /api/user/patient/auth/update`
+
+**接口说明**：
+
+- 根据id更新就诊人信息到数据库
+
+**参数说明**：
+- `patientInfo`：就诊人信息（对象）- 请求体参数
+  - `id`：就诊人ID（字符串）- 请求体参数
+  - `name`：就诊人姓名（字符串）- 请求体参数
+  - `certificateType`：就诊人证件类型（整数），0表示身份证，1表示护照等- 请求体参数
+  - `certificateNumber`：就诊人证件号码（字符串）- 请求体参数
+  - `sex`：就诊人性别（整数），0表示女，1表示男- 请求体参数
+  - `birthDay`：就诊人出生日期（字符串）- 请求体参数
+  - `phone`：就诊人联系电话（字符串）- 请求体参数
+  - `isMarry`：就诊人婚姻状态（整数），0表示未婚，1表示已婚- 请求体参数
+  - `isInsurance`：就诊人是否有医保（布尔值）- 请求体参数
+  - `address`：就诊人联系地址（字符串）- 请求体参数
+
+**注意**：
+
+- 需携带token，在请求头中添加token字段，值为登录接口返回的token
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": null,
+  "message": "更新就诊人信息成功"
+}
+```
+
+**错误响应**：
+
+- token缺失或无效
+```json
+{
+  "code": 401,
+  "success": false,
+  "message": "请登录"
+}
+```
+
+- 更新就诊人信息失败
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "更新就诊人失败"
+}
+```
+
+### 获取就诊人信息
+
+**接口地址**：`GET /api/user/patient/auth/{id}`
+
+**接口说明**：
+
+- 根据id获取就诊人信息
+
+**参数说明**：
+- `id`：就诊人ID（字符串）- 查询参数
+
+**注意**：
+
+- 需携带token，在请求头中添加token字段，值为登录接口返回的token
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": {
+    "id": "652345678901234567890123",
+    "createTime": "2025-12-25T10:00:00Z",
+    "updateTime": "2025-12-25T10:00:00Z",
+    "isDeleted": false,
+    "userId": "652345678901234567890123",
+    "name": "张三",
+    "certificateType": 0,
+    "certificateNumber": "44030419900101001X",
+    "sex": 1,
+    "birthDay": "1990-01-01",
+    "phone": "13800000000",
+    "isMarry": 0,
+    "isInsurance": 1,
+    "address": "北京市海淀区"
+
+  },
+  "message": "获取就诊人信息成功"
+}
+```
+
+**错误响应**：
+
+- token缺失或无效
+```json
+{
+  "code": 401,
+  "success": false,
+  "message": "请登录"
+}
+```
+
+- 获取就诊人信息失败
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "获取就诊人信息失败"
+}
+```
+
+### 获取账号下的所有就诊人信息
+
+**接口地址**：`GET /api/user/patient/auth/findAll`
+
+**接口说明**：
+
+- 根据token获取账号下的所有就诊人信息
+
+**参数说明**：
+
+**注意**：
+
+- 需携带token，在请求头中添加token字段，值为登录接口返回的token
+
+**返回格式**：
+
+```json
+{
+  "code": 200,
+  "success": true,
+  "data": [
+    {
+      "id": "652345678901234567890123",
+      "createTime": "2025-12-25T10:00:00Z",
+      "updateTime": "2025-12-25T10:00:00Z",
+      "isDeleted": false,
+      "userId": "652345678901234567890123",
+      "name": "张三",
+      "certificateType": 0,
+      "certificateNumber": "44030419900101001X",
+      "sex": 1,
+      "birthDay": "1990-01-01",
+      "phone": "13800000000",
+      "isMarry": 0,
+      "isInsurance": 1,
+      "address": "北京市海淀区"
+    }
+  ],
+  "message": "获取就诊人列表成功"
+}
+```
+
+**错误响应**：
+
+- token缺失或无效
+```json
+{
+  "code": 401,
+  "success": false,
+  "message": "请登录"
+}
+```
+
+- 获取就诊人列表失败
+```json
+{
+  "code": 400,
+  "success": false,
+  "message": "获取就诊人列表失败"
+}
+```
+
 ## 数据说明
 
 - 医院数据存储在 `data/hospital.json` 文件中
@@ -1179,6 +1487,29 @@ curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/hosp/hospital/auth/f
 curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/hosp/hospital/auth/findScheduleList?hoscode=999999&depcode=100101&workDate=2025-12-24"
 ```
 
+### 就诊人信息接口测试
+```bash
+# 测试保存就诊人信息
+curl -X POST -H "Content-Type: application/json" -H "token: YOUR_TOKEN_HERE" -d '{"name":"张三","certificateType":0,"certificateNumber":"44030419900101001X","sex":1,"birthDay":"1990-01-01","phone":"13800138000","isMarry":0,"isInsurance":1,"address":"北京市海淀区"}' "http://localhost:3000/api/user/patient/auth/save"
+
+# 测试获取所有就诊人信息
+curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/user/patient/auth/findAll"
+
+# 测试获取单个就诊人信息（需要先获取就诊人ID）
+curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/user/patient/auth/PATIENT_ID"
+
+# 测试更新就诊人信息
+curl -X PUT -H "Content-Type: application/json" -H "token: YOUR_TOKEN_HERE" -d '{"id":"PATIENT_ID","name":"李四","certificateType":0,"certificateNumber":"44030419900101001X","sex":1,"birthDay":"1990-01-01","phone":"13800138000","isMarry":1,"isInsurance":0,"address":"北京市朝阳区"}' "http://localhost:3000/api/user/patient/auth/update"
+
+# 测试删除就诊人信息
+curl -X DELETE -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/user/patient/auth/PATIENT_ID"
+```
+
+### 运行就诊人信息接口测试脚本
+```bash
+node test-patient.js
+```
+
 ## 后续扩展建议
 
 1. 添加 CORS 支持，允许跨域请求
@@ -1214,6 +1545,16 @@ curl -H "token: YOUR_TOKEN_HERE" "http://localhost:3000/api/hosp/hospital/auth/f
 - 支持获取医院等级列表和北京各区列表
 - 更新了项目结构，添加了字典相关的控制器、路由和服务
 - 完善了数据存储，添加了 `dictData.json` 字典数据文件
+- 新增就诊人信息管理功能，包括保存、删除、更新、获取单个和获取所有就诊人信息接口
+- 新增 `patientModel.js` 就诊人信息数据模型
+- 新增 `patientService.js` 就诊人信息服务
+- 新增 `patientController.js` 就诊人信息控制器
+- 新增 `patientRoutes.js` 就诊人信息路由
+- 新增测试脚本 `test-patient.js` 用于测试就诊人信息接口
+- 更新了项目结构，添加了就诊人信息相关的模型、服务、控制器和路由
+- 更新了功能特性，添加了就诊人信息相关功能
+- 更新了测试示例，添加了就诊人信息接口测试
+- 更新了README文档，添加了就诊人信息接口详细说明
 - 删除了 `/health` 健康检查接口，简化 API 接口结构
 - 更新了项目结构，使用模块化设计（src目录）
 - 优化了启动日志输出

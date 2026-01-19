@@ -41,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 导入路由和控制器
 const dictRoutes = require('./src/routes/dictRoutes');
+const patientRoutes = require('./src/routes/patientRoutes');
 const hospitalController = require('./src/controllers/hospitalController');
 const smsController = require('./src/controllers/smsController');
 const userController = require('./src/controllers/userController');
@@ -82,6 +83,9 @@ app.post(`${config.baseApiPath}/user/login`, userController.login);
 app.post(`${config.baseApiPath}/user/wx_qr_link`, userController.wxQrLink);
 app.post(`${config.baseApiPath}/user/wx_refresh`, userController.wxRefresh);
 
+// 就诊人相关路由
+app.use(`${config.baseApiPath}/user/patient/auth`, patientRoutes);
+
 // 404 处理
 app.use((req, res) => {
   res.status(404).json({
@@ -117,6 +121,11 @@ app.listen(PORT, () => {
   console.log(`📚 用户登录 API: http://localhost:${PORT}${config.baseApiPath}/user/login`);
   console.log(`📚 获取微信登录二维码 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_qr_link`);
   console.log(`📚 获取微信登录扫码结果 API: http://localhost:${PORT}${config.baseApiPath}/user/wx_refresh`);
+  console.log(`📚 保存就诊人信息 API: http://localhost:${PORT}${config.baseApiPath}/user/patient/auth/save`);
+  console.log(`📚 删除就诊人信息 API: http://localhost:${PORT}${config.baseApiPath}/user/patient/auth/:id`);
+  console.log(`📚 更新就诊人信息 API: http://localhost:${PORT}${config.baseApiPath}/user/patient/auth/update`);
+  console.log(`📚 获取就诊人信息 API: http://localhost:${PORT}${config.baseApiPath}/user/patient/auth/:id`);
+  console.log(`📚 获取所有就诊人信息 API: http://localhost:${PORT}${config.baseApiPath}/user/patient/auth/findAll`);
   console.log(`📚 获取医院预约挂号列表 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/auth/getBookingScheduleRule`);
   console.log(`📚 获取科室对应日期的医生排班信息 API: http://localhost:${PORT}${config.baseApiPath}/hosp/hospital/auth/findScheduleList`);
 
