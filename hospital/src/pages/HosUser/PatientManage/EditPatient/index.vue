@@ -7,7 +7,8 @@
                 </el-form-item>
                 <el-form-item label="证件类型" prop="certificateType">
                     <el-select v-model="patientInfo.certificateType">
-                        <el-option v-for="(type, key) in CERTIFICATE_TYPES" :key="key" :label="type" :value="key" />
+                        <el-option label="身份证" :value="0" />
+                        <el-option label="护照" :value="1" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="证件号码" prop="certificateNumber">
@@ -15,25 +16,27 @@
                 </el-form-item>
                 <el-form-item label="患者性别" prop="sex">
                     <el-radio-group v-model="patientInfo.sex">
-                        <el-radio v-for="(sex, key) in SEXES" :key="key" :label="sex"></el-radio>
+                        <el-radio label="男" :value="0"></el-radio>
+                        <el-radio label="女" :value="1"></el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="出生日期" prop="birthDay">
-                    <el-date-picker v-model="patientInfo.birthDay" type="date" value-format="yyyy-MM-dd"
+                    <el-date-picker v-model="patientInfo.birthDay" type="date" value-format="YYYY-MM-DD"
                         placeholder="选择出生日期" />
                 </el-form-item>
                 <el-form-item label="联系电话" prop="phone">
                     <el-input v-model="patientInfo.phone" placeholder="请输入联系电话" />
                 </el-form-item>
-                <el-form-item label="婚姻状况" prop="maritalStatus">
-                    <el-radio-group v-model="patientInfo.maritalStatus">
-                        <el-radio v-for="(status, key) in MARITAL_STATUSES" :key="key" :label="status"></el-radio>
+                <el-form-item label="婚姻状况" prop="isMarry">
+                    <el-radio-group v-model="patientInfo.isMarry">
+                        <el-radio label="未婚" :value="0"></el-radio>
+                        <el-radio label="已婚" :value="1"></el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="自费/医保" prop="isMedicalInsurance">
-                    <el-radio-group v-model="patientInfo.isMedicalInsurance">
-                        <el-radio label="自费" :value="false"></el-radio>
-                        <el-radio label="医保" :value="true"></el-radio>
+                <el-form-item label="自费/医保" prop="isInsurance">
+                    <el-radio-group v-model="patientInfo.isInsurance">
+                        <el-radio label="自费" :value="0"></el-radio>
+                        <el-radio label="医保" :value="1"></el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="联系地址" prop="address">
@@ -52,63 +55,40 @@
 
 <script setup lang="ts" name="EditPatient">
 import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
+import type { PatientInfo } from '@/api/user/type';
+import { addOrUpdatePatient } from '@/api/user'
+import { useRouter } from 'vue-router'
 
-// 证件类型
-const CERTIFICATE_TYPES = {
-    ID_CARD: '身份证',
-    PASSPORT: '护照',
-}
-
-const SEXES = {
-    MALE: '男',
-    FEMALE: '女',
-}
-
-// 婚姻状态
-const MARITAL_STATUSES = {
-    SINGLE: '未婚',
-    MARRIED: '已婚',
-}
+// 路由实例
+const router = useRouter();
 
 // 表单实例
 const ruleFormRef = ref<FormInstance>()
 
-// 患者信息接口
-interface PatientInfo {
-    name: string
-    certificateType: string
-    certificateNumber: string
-    sex: string
-    birthDay: string
-    phone: string
-    maritalStatus: string
-    isMedicalInsurance: boolean
-    address: string
-}
-
 // 患者信息
 const patientInfo = reactive<PatientInfo>({
     name: '',
-    certificateType: CERTIFICATE_TYPES.ID_CARD,
+    certificateType: 0,
     certificateNumber: '',
-    sex: SEXES.MALE,
+    sex: 0,
     birthDay: '',
     phone: '',
-    maritalStatus: MARITAL_STATUSES.SINGLE,
-    isMedicalInsurance: false,
+    isMarry: 0,
+    isInsurance: 0,
     address: '',
 })
 
 // 校验证件号码是否合法
 const validateCertificateNumber = (rule: any, value: string, callback: any) => {
-    if (patientInfo.certificateType === CERTIFICATE_TYPES.ID_CARD) {
+    if (patientInfo.certificateType === 0) {
         if (!isLegalIdCard(value)) {
             callback(new Error("请输入正确的身份证号码"));
         } else {
             callback();
         }
-    } else if (patientInfo.certificateType === CERTIFICATE_TYPES.PASSPORT) {
+    } else if (patientInfo.certificateType === 1) {
         if (!isLegalPassport(value)) {
             callback(new Error("请输入正确的护照号码"));
         } else {
@@ -150,8 +130,8 @@ const rules = reactive<FormRules<PatientInfo>>({
     sex: [{ required: true, message: '请选择患者性别', trigger: 'change' }],
     birthDay: [{ required: true, message: '请选择出生日期', trigger: 'change' }],
     phone: [{ required: true, validator: checkPhone, trigger: 'blur' }],
-    maritalStatus: [{ required: true, message: '请选择婚姻状况', trigger: 'change' }],
-    isMedicalInsurance: [{ required: true, message: '请选择自费/医保', trigger: 'change' }],
+    isMarry: [{ required: true, message: '请选择婚姻状况', trigger: 'change' }],
+    isInsurance: [{ required: true, message: '请选择自费/医保', trigger: 'change' }],
     address: [{ required: true, message: '请输入联系地址', trigger: 'blur' }],
 })
 
@@ -160,11 +140,24 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
         if (valid) {
-            console.log('验证通过', patientInfo)
+            submitPatient(patientInfo)
         } else {
-            console.log('验证失败', patientInfo)
+            ElMessage.error('请填写完整信息')
         }
     })
+}
+
+// 添加或更新患者信息
+const submitPatient = async (patientInfo: PatientInfo) => {
+    try {
+        await addOrUpdatePatient(patientInfo)
+        ElMessage.success(patientInfo.id ? '更新成功' : '添加成功')
+        // 重置表单
+        resetForm(ruleFormRef.value)
+        router.back()
+    } catch (error: any) {
+        ElMessage.error(error.response?.data?.message || error.message);
+    }
 }
 
 // 重置表单
