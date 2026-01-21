@@ -1,10 +1,10 @@
 <template>
-    <el-card :class="['patient-card', { 'patient-card--selected': true }]" shadow="hover">
+    <el-card :class="['patient-card', { 'patient-card--selected': isSelected }]" shadow="hover">
         <template #header>
             <div class="patient-header">
                 <div class="patient-header__left">
-                    <span class="patient-name">张三</span>
-                    <el-tag type="primary">医保</el-tag>
+                    <span :class="['patient-name', { 'patient-name--selected': isSelected }]" class="patient-name">{{ patientInfo.name }}</span>
+                    <el-tag type="primary">{{ patientInfo.isInsurance ? '医保' : '自费' }}</el-tag>
                 </div>
                 <div>
                     <el-button class="patient-edit" circle>
@@ -12,7 +12,7 @@
                             <Edit />
                         </el-icon>
                     </el-button>
-                    <el-button class="patient-delete" circle v-if="props.isManager">
+                    <el-button class="patient-delete" circle v-if="isManager">
                         <el-icon size="16">
                             <Delete />
                         </el-icon>
@@ -24,31 +24,31 @@
         <div class="patient-info">
             <div class="patient-item">
                 <span>证件类型：</span>
-                <p class="patient-value">身份证</p>
+                <p class="patient-value">{{ patientInfo.certificateType === 0 ? '身份证' : '护照' }}</p>
             </div>
             <div class="patient-item">
                 <span>证件号码：</span>
-                <p class="patient-value">44030419900101001X</p>
+                <p class="patient-value">{{ patientInfo.certificateNumber }}</p>
             </div>
             <div class="patient-item">
                 <span>患者性别：</span>
-                <p class="patient-value">男</p>
+                <p class="patient-value">{{ patientInfo.sex === 1 ? '男' : '女' }}</p>
             </div>
             <div class="patient-item">
                 <span>出生日期：</span>
-                <p class="patient-value">1990-01-01</p>
+                <p class="patient-value">{{ patientInfo.birthDay }}</p>
             </div>
             <div class="patient-item">
                 <span>手机号码：</span>
-                <p class="patient-value">13800000000</p>
+                <p class="patient-value">{{ patientInfo.phone }}</p>
             </div>
             <div class="patient-item">
                 <span>婚姻状况：</span>
-                <p class="patient-value">未婚</p>
+                <p class="patient-value">{{ patientInfo.isMarry === 1 ? '已婚' : '未婚' }}</p>
             </div>
             <div class="patient-item">
                 <span>当前住址：</span>
-                <p class="patient-value">440304北京市海淀区</p>
+                <p class="patient-value">{{ patientInfo.address }}</p>
             </div>
         </div>
     </el-card>
@@ -56,9 +56,12 @@
 
 <script setup lang="ts" name="PatientCard">
 import { Edit, Delete } from '@element-plus/icons-vue'
+import type { PatientInfo } from '@/api/user/type'
 
 type Props = {
-    isManager: boolean,
+    isManager: boolean,// 是否是就诊人管理页面
+    patientInfo: PatientInfo,// 就诊人信息
+    isSelected: boolean,// 是否选中
 }
 
 const props = defineProps<Props>()
@@ -83,6 +86,10 @@ const props = defineProps<Props>()
             .patient-name {
                 margin-right: 5px;
                 font-size: 18px;
+            }
+
+            .patient-name--selected {
+                color: #55a6fe;
             }
         }
 

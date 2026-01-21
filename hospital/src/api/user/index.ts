@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import type { PatientInfo } from './type';
+import type { PatientInfo, PatientInfoListResponseData } from './type';
 
 // 请求地址的枚举
 const UserApi = {
@@ -7,6 +7,8 @@ const UserApi = {
     ADD_PATIENT: '/user/patient/auth/save',
     // 更新就诊人信息
     UPDATE_PATIENT: '/user/patient/auth/update',
+    // 查询就诊人信息列表
+    GET_PATIENT_LIST: '/user/patient/auth/findAll',
 }
 
 // 添加或修改就诊人信息
@@ -17,4 +19,9 @@ export const addOrUpdatePatient = (patientInfo: PatientInfo) => {
     } else {
         return request.post<any, any>(UserApi.ADD_PATIENT, patientInfo);
     }
+}
+
+// 查询就诊人信息列表
+export const getPatientList = () => {
+    return request.get<any, PatientInfoListResponseData>(UserApi.GET_PATIENT_LIST);
 }
