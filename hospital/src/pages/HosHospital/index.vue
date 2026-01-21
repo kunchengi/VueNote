@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts" name="HosHospital">
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, markRaw } from 'vue'
 import useHospitalDetailStore from '@/store/modules/hospitalDetail'
 import LeftMenu from '@/components/LeftMenu/index.vue'
 
@@ -27,7 +27,7 @@ const detailStore = useHospitalDetailStore()
 
 // 标题数据
 const titleData = reactive({
-  icon: HomeFilled,
+  icon: markRaw(HomeFilled),
   name: '医院信息'
 })
 
@@ -36,27 +36,27 @@ const menuList = reactive([
   {
     index: '/hospital/register/info',
     name: '预约挂号',
-    icon: CreditCard
+    icon: markRaw(CreditCard)
   },
   {
     index: '/hospital/detail',
     name: '医院详情',
-    icon: Document
+    icon: markRaw(Document)
   },
   {
     index: '/hospital/notice',
     name: '预约通知',
-    icon: Bell
+    icon: markRaw(Bell)
   },
   {
     index: '/hospital/close',
     name: '停诊信息',
-    icon: Warning
+    icon: markRaw(Warning)
   },
   {
     index: '/hospital/search',
     name: '查询/取消',
-    icon: Search
+    icon: markRaw(Search)
   }
 ])
 

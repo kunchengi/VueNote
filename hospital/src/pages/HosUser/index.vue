@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts" name="HosUser">
-import { reactive, computed } from 'vue'
+import { reactive, computed, markRaw } from 'vue'
 import LeftMenu from '@/components/LeftMenu/index.vue'
 
 import { Memo, Postcard, User } from '@element-plus/icons-vue'
@@ -30,7 +30,7 @@ const selectedPath = computed(() => {
 
 // 标题数据
 const titleData = reactive({
-  icon: User,
+  icon: markRaw(User),
   name: '用户中心'
 })
 
@@ -39,17 +39,17 @@ const menuList = reactive([
   {
     index: '/user/realNameAuth',
     name: '实名认证',
-    icon: Postcard
+    icon: markRaw(Postcard)
   },
   {
     index: '/user/registrationOrder',
     name: '挂号订单',
-    icon: Memo
+    icon: markRaw(Memo)
   },
   {
     index: '/user/patientManage/mgr',
     name: '就诊人管理',
-    icon: User
+    icon: markRaw(User)
   }
 ])
 
